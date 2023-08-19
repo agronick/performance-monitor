@@ -10,675 +10,83 @@
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintLeft_toLeftOf="parent"
     app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
     tools:showIn="@layout/fragment_dashboard">
 
-
-    <TextView
-        android:id="@+id/icon_ClockRight"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginBottom="75dp"
-        android:alpha="1.0"
-        android:background="@drawable/ic_oil"
-        android:backgroundTint="@color/car_primary"
-        android:elevation="5dp"
-        android:gravity="center"
-        android:textColor="@android:color/white"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@id/constraintClockRight"
-        app:layout_constraintEnd_toEndOf="@id/constraintClockRight"
-        app:layout_constraintStart_toStartOf="@id/constraintClockRight" />
-
-    <TextView
-        android:id="@+id/icon_ClockCenter"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginBottom="75dp"
-        android:alpha="1.0"
-        android:background="@drawable/ic_oil"
-        android:backgroundTint="@color/car_primary"
-        android:backgroundTintMode="multiply"
-        android:elevation="5dp"
-        android:gravity="center"
-        android:textColor="@android:color/white"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/constraintClockCenter"
-        app:layout_constraintEnd_toEndOf="@+id/constraintClockCenter"
-        app:layout_constraintLeft_toLeftOf="@+id/constraintClockCenter"
-        app:layout_constraintRight_toRightOf="@+id/constraintClockCenter"
-        app:layout_constraintStart_toStartOf="@+id/constraintClockCenter" />
-
-    <TextView
-        android:id="@+id/icon_ClockLeft"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginBottom="75dp"
-        android:alpha="1.0"
-        android:background="@drawable/ic_oil"
-        android:backgroundTint="@color/car_primary"
-        android:elevation="5dp"
-        android:gravity="center"
-        android:textColor="@android:color/white"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/constraintClockLeft"
-        app:layout_constraintEnd_toEndOf="@+id/constraintClockLeft"
-        app:layout_constraintStart_toStartOf="@+id/constraintClockLeft" />
-    <!--    app:layout_constraintTop_toTopOf="@+id/constraintClockLeft"
-    !-->
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintClockRight"
+    <fragment
+        android:id="@+id/gaugeLeft"
         android:layout_width="275dp"
         android:layout_height="310dp"
-
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/textTitleLabel3"
-            android:layout_width="275dp"
-            android:layout_height="32dp"
-            android:ellipsize="marquee"
-            android:gravity="center"
-            android:singleLine="true"
-            android:text=""
-            android:textAppearance="@style/CarBody2"
-            android:textColor="@android:color/white"
-            android:textSize="20sp"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
-
-        <com.github.anastr.speedviewlib.SpeedView
-            android:id="@+id/dial_Right"
-            style="@style/AppTheme.Car.Speedometer"
-            android:layout_width="275dp"
-            android:layout_height="275dp"
-            android:background="?attr/themedDialBackground"
-            android:padding="25dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textTitleLabel3"
-            app:sv_speedTextSize="36dp"
-            app:sv_textColor="@android:color/transparent"
-            app:sv_unitSpeedInterval="5dp"
-            app:sv_unitTextSize="20sp" />
-
-        <com.github.anastr.speedviewlib.SpeedView
-            android:id="@+id/dial_MaxRight"
-            style="@style/AppTheme.Car.Speedometer"
-            android:layout_width="275dp"
-            android:layout_height="310dp"
-            android:padding="10dp"
-            app:layout_constraintBottom_toBottomOf="@+id/dial_Right"
-            app:layout_constraintEnd_toEndOf="@+id/dial_Right"
-            app:layout_constraintStart_toStartOf="@+id/dial_Right"
-            app:layout_constraintTop_toTopOf="@+id/dial_Right"
-            app:sv_indicator="QuarterLineIndicator"
-            app:sv_indicatorColor="@color/red"
-            app:sv_markColor="@android:color/transparent"
-            app:sv_speedTextColor="@android:color/transparent"
-            app:sv_speedTextPadding="50dp"
-            app:sv_speedTextSize="15dp"
-            app:sv_textColor="@android:color/transparent"
-            app:sv_unitSpeedInterval="0dp"
-            app:sv_unitTextColor="@android:color/white"
-            app:sv_unitTextSize="0dp"
-            app:sv_unitUnderSpeedText="false"
-            app:sv_withIndicatorLight="false" />
-
-
-        <com.github.anastr.speedviewlib.RaySpeedometer
-            android:id="@+id/rayRight"
-            android:layout_width="275dp"
-            android:layout_height="275dp"
-            android:padding="40dp"
-            app:layout_constraintBottom_toBottomOf="@+id/dial_Right"
-            app:layout_constraintRight_toRightOf="@+id/dial_Right"
-            app:layout_constraintStart_toStartOf="@+id/dial_Right"
-            app:layout_constraintTop_toTopOf="@+id/dial_Right"
-            app:sv_backgroundCircleColor="@android:color/transparent"
-            app:sv_degreeBetweenMark="1"
-            app:sv_highSpeedColor="@color/highspeed"
-            app:sv_indicatorColor="@android:color/transparent"
-            app:sv_indicatorLightColor="@android:color/transparent"
-            app:sv_lowSpeedColor="?attr/themedNeedleColor"
-            app:sv_markColor="@android:color/transparent"
-            app:sv_markWidth="5dp"
-            app:sv_mediumSpeedColor="?attr/themedNeedleColor"
-            app:sv_rayColor="@android:color/transparent"
-            app:sv_speedBackgroundColor="@android:color/transparent"
-            app:sv_speedTextColor="@android:color/transparent"
-            app:sv_speedometerWidth="20dp"
-            app:sv_textColor="@android:color/transparent"
-            app:sv_unitTextColor="@android:color/transparent"
-            app:sv_withEffects="false"
-            app:sv_withTremble="false" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintClockCenter"
-        android:layout_width="275dp"
-        android:layout_height="310dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-
-        <TextView
-            android:id="@+id/textTitleLabel2"
-            android:layout_width="275dp"
-            android:layout_height="32dp"
-            android:ellipsize="marquee"
-            android:gravity="center"
-            android:singleLine="true"
-            android:text=""
-            android:textAppearance="@style/CarBody2"
-            android:textColor="@android:color/white"
-            android:textSize="20sp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
-
-        <com.github.anastr.speedviewlib.SpeedView
-            android:id="@+id/dial_Center"
-            style="@style/AppTheme.Car.Speedometer"
-            android:layout_width="275dp"
-            android:layout_height="275dp"
-            android:background="?attr/themedDialBackground"
-            android:padding="25dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textTitleLabel2"
-            app:sv_maxSpeed="2"
-            app:sv_speedTextSize="36dp"
-            app:sv_textColor="@android:color/transparent"
-            app:sv_unit=""
-            app:sv_unitSpeedInterval="5dp"
-            app:sv_unitTextSize="20sp"
-            app:sv_withTremble="false" />
-
-        <com.github.anastr.speedviewlib.RaySpeedometer
-            android:id="@+id/rayCenter"
-            android:layout_width="275dp"
-            android:layout_height="275dp"
-            android:padding="40dp"
-            app:layout_constraintBottom_toBottomOf="@+id/dial_Center"
-            app:layout_constraintLeft_toLeftOf="@+id/dial_Center"
-            app:layout_constraintRight_toRightOf="@+id/dial_Center"
-            app:layout_constraintTop_toTopOf="@+id/dial_Center"
-            app:layout_constraintVertical_weight="0.0"
-            app:sv_backgroundCircleColor="@android:color/transparent"
-            app:sv_degreeBetweenMark="1"
-            app:sv_highSpeedColor="@color/highspeed"
-            app:sv_indicatorColor="@android:color/transparent"
-            app:sv_indicatorLightColor="@android:color/transparent"
-            app:sv_lowSpeedColor="?attr/themedNeedleColor"
-            app:sv_markColor="@android:color/transparent"
-            app:sv_markWidth="5dp"
-            app:sv_mediumSpeedColor="?attr/themedNeedleColor"
-            app:sv_rayColor="@android:color/transparent"
-            app:sv_speedBackgroundColor="@android:color/transparent"
-            app:sv_speedTextColor="@android:color/transparent"
-            app:sv_speedometerWidth="20dp"
-            app:sv_textColor="@android:color/transparent"
-            app:sv_unitTextColor="@android:color/transparent"
-            app:sv_withEffects="false"
-            app:sv_withTremble="false" />
-
-
-        <com.github.anastr.speedviewlib.SpeedView
-            android:id="@+id/dial_MaxCenter"
-            style="@style/AppTheme.Car.Speedometer"
-            android:layout_width="275dp"
-            android:layout_height="275dp"
-            android:padding="10dp"
-            app:layout_constraintLeft_toLeftOf="@+id/dial_Center"
-            app:layout_constraintRight_toRightOf="@+id/dial_Center"
-            app:layout_constraintTop_toTopOf="@+id/dial_Center"
-            app:sv_indicator="QuarterLineIndicator"
-            app:sv_indicatorColor="@color/red"
-            app:sv_markColor="@android:color/transparent"
-            app:sv_speedTextColor="@android:color/transparent"
-            app:sv_speedTextPadding="50dp"
-            app:sv_speedTextSize="15dp"
-            app:sv_textColor="@android:color/transparent"
-            app:sv_unitSpeedInterval="0dp"
-            app:sv_unitTextColor="@android:color/white"
-            app:sv_unitTextSize="0dp"
-            app:sv_unitUnderSpeedText="false"
-            app:sv_withIndicatorLight="false" />
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintClockLeft"
-        android:layout_width="275dp"
-        android:layout_height="310dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/constraintClockCenter"
+        android:name="com.mqbcoding.stats.TorqueGauge"
+        android:layout="@layout/fragment_gauge"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="parent">
-
-
-        <TextView
-            android:id="@+id/textTitleLabel1"
-            android:layout_width="275dp"
-            android:layout_height="32dp"
-            android:ellipsize="marquee"
-            android:gravity="center"
-            android:singleLine="true"
-            android:text=""
-            android:textAppearance="@style/CarBody2"
-            android:textColor="@android:color/white"
-            android:textSize="20sp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
-
-        <com.github.anastr.speedviewlib.SpeedView
-            android:id="@+id/dial_Left"
-            style="@style/AppTheme.Car.Speedometer"
-            android:layout_width="275dp"
-            android:layout_height="275dp"
-            android:background="?attr/themedDialBackground"
-            android:elevation="0dp"
-            android:padding="25dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textTitleLabel1"
-            app:sv_speedTextSize="36dp"
-            app:sv_textColor="@android:color/transparent"
-            app:sv_unit=""
-            app:sv_unitSpeedInterval="5dp"
-            app:sv_unitTextSize="20sp" />
-
-        <com.github.anastr.speedviewlib.RaySpeedometer
-            android:id="@+id/rayLeft"
-            android:layout_width="275dp"
-            android:layout_height="275dp"
-            android:padding="40dp"
-            app:layout_constraintBottom_toBottomOf="@+id/dial_Left"
-            app:layout_constraintRight_toRightOf="@+id/dial_Left"
-            app:layout_constraintStart_toStartOf="@+id/dial_Left"
-            app:layout_constraintTop_toTopOf="@+id/dial_Left"
-            app:sv_backgroundCircleColor="@android:color/transparent"
-            app:sv_degreeBetweenMark="1"
-            app:sv_highSpeedColor="@color/highspeed"
-            app:sv_indicatorColor="@android:color/transparent"
-            app:sv_indicatorLightColor="@android:color/transparent"
-            app:sv_lowSpeedColor="?attr/themedNeedleColor"
-            app:sv_markColor="@android:color/transparent"
-            app:sv_markWidth="5dp"
-            app:sv_mediumSpeedColor="?attr/themedNeedleColor"
-            app:sv_rayColor="@android:color/transparent"
-            app:sv_speedBackgroundColor="@android:color/transparent"
-            app:sv_speedTextColor="@android:color/transparent"
-            app:sv_speedometerWidth="20dp"
-            app:sv_textColor="@android:color/transparent"
-            app:sv_unitTextColor="@android:color/transparent"
-            app:sv_withEffects="false"
-            app:sv_withTremble="false"
-            />
-
-        <com.github.anastr.speedviewlib.SpeedView
-            android:id="@+id/dial_MaxLeft"
-            style="@style/AppTheme.Car.Speedometer"
-            android:layout_width="275dp"
-            android:layout_height="275dp"
-            android:elevation="0dp"
-            android:padding="10dp"
-            app:layout_constraintBottom_toBottomOf="@+id/dial_Left"
-            app:layout_constraintRight_toRightOf="@+id/dial_Left"
-            app:layout_constraintStart_toStartOf="@+id/dial_Left"
-            app:layout_constraintTop_toTopOf="@+id/dial_Left"
-            app:layout_constraintVertical_bias="0.0"
-            app:sv_indicator="QuarterLineIndicator"
-            app:sv_indicatorColor="@color/red"
-            app:sv_markColor="@android:color/transparent"
-            app:sv_speedTextColor="@android:color/transparent"
-            app:sv_speedTextPadding="10dp"
-            app:sv_speedTextSize="15dp"
-            app:sv_unitSpeedInterval="0dp"
-            app:sv_unitTextColor="@android:color/transparent"
-            app:sv_unitTextSize="0dp"
-            app:sv_unitUnderSpeedText="false"
-            app:sv_withIndicatorLight="false" />
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <ImageView
-        android:id="@+id/wheel_angle_image"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:src="@drawable/ic_steering"
-        android:tint="@color/car_primary"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@+id/constraintClockCenter"
-        app:layout_constraintLeft_toLeftOf="@+id/constraintClockCenter"
-        app:layout_constraintRight_toRightOf="@+id/constraintClockCenter"
-        app:layout_constraintTop_toTopOf="@+id/constraintClockRight"
-        tools:ignore="ContentDescription"
-        tools:visibility="gone" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintGraphCenter"
-        android:layout_width="275dp"
-        android:layout_height="275dp"
-        android:layout_marginTop="35dp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@+id/constraintClockCenter"
-        app:layout_constraintEnd_toEndOf="@+id/constraintClockCenter"
-        app:layout_constraintRight_toRightOf="@+id/constraintClockCenter"
-        app:layout_constraintTop_toTopOf="@+id/constraintClockCenter">
-
-        <TextView
-            android:id="@+id/graphValueCenter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="32dp"
-            android:textAlignment="viewEnd"
-            android:textAppearance="@style/CarBody2"
-            android:textColor="@android:color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/center_layout"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_margin="16dp"
-            app:cardBackgroundColor="@android:color/transparent"
-            app:cardCornerRadius="300dp"
-            app:cardElevation="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-
-            <com.jjoe64.graphview.GraphView
-                android:id="@+id/chart_Center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:elevation="0dp" />
-        </androidx.cardview.widget.CardView>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintGraphRight"
-        android:layout_width="275dp"
-        android:layout_height="275dp"
-        android:layout_marginTop="35dp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@+id/constraintClockRight"
-        app:layout_constraintEnd_toEndOf="@+id/constraintClockRight"
-        app:layout_constraintRight_toRightOf="@+id/constraintClockRight"
-        app:layout_constraintTop_toTopOf="@+id/constraintClockRight">
-
-        <TextView
-            android:id="@+id/graphValueRight"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="32dp"
-            android:textAlignment="viewEnd"
-            android:textAppearance="@style/CarBody2"
-            android:textColor="@android:color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/right_layout"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_margin="16dp"
-            app:cardBackgroundColor="@android:color/transparent"
-            app:cardCornerRadius="300dp"
-            app:cardElevation="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-
-            <com.jjoe64.graphview.GraphView
-                android:id="@+id/chart_Right"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:elevation="0dp" />
-
-        </androidx.cardview.widget.CardView>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintGraphLeft"
-        android:layout_width="275dp"
-        android:layout_height="275dp"
-        android:layout_marginTop="35dp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@+id/constraintClockLeft"
-        app:layout_constraintRight_toRightOf="@+id/constraintClockLeft"
-        app:layout_constraintStart_toStartOf="@+id/constraintClockLeft"
-        app:layout_constraintTop_toTopOf="@+id/constraintClockLeft">
-
-        <TextView
-            android:id="@+id/graphValueLeft"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="32dp"
-            android:textAlignment="viewEnd"
-            android:textAppearance="@style/CarBody2"
-            android:textColor="@android:color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/left_layout"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_margin="16dp"
-            app:cardBackgroundColor="@android:color/transparent"
-            app:cardCornerRadius="1000dp"
-            app:cardElevation="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <com.jjoe64.graphview.GraphView
-                android:id="@+id/chart_Left"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:elevation="0dp" />
-        </androidx.cardview.widget.CardView>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <TextView
-        android:id="@+id/icon_Element1"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:alpha="1.0"
-        android:background="@drawable/ic_none"
-        android:backgroundTint="@color/car_primary"
-        android:gravity="center"
-        android:textColor="@android:color/white"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="@+id/value_Element1"
-        app:layout_constraintStart_toStartOf="@+id/value_Element1"
-        app:layout_constraintTop_toBottomOf="@+id/value_Element1" />
-
-
-    <TextView
-        android:id="@+id/icon_Element2"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:alpha="1.0"
-        android:background="@drawable/ic_none"
-        android:backgroundTint="@color/car_primary"
-        android:gravity="center"
-        android:textColor="@android:color/white"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="@+id/value_Element2"
-        app:layout_constraintStart_toStartOf="@+id/value_Element2"
-        app:layout_constraintTop_toBottomOf="@+id/value_Element2" />
-
-    <TextView
-        android:id="@+id/icon_Element3"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:alpha="1.0"
-        android:background="@drawable/ic_none"
-        android:backgroundTint="@color/car_primary"
-        android:gravity="center"
-        android:textColor="@android:color/white"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/value_Element3"
-        app:layout_constraintEnd_toEndOf="@+id/value_Element3"
-        app:layout_constraintStart_toStartOf="@+id/value_Element3" />
-
-    <TextView
-        android:id="@+id/icon_Element4"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:alpha="1.0"
-        android:background="@drawable/ic_none"
-        android:backgroundTint="@color/car_primary"
-        android:gravity="center"
-        android:textColor="@android:color/white"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/value_Element4"
-        app:layout_constraintEnd_toEndOf="@+id/value_Element4"
-        app:layout_constraintStart_toStartOf="@+id/value_Element4" />
-
-    <TextView
-        android:id="@+id/value_Element1"
-        android:layout_width="100dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:gravity="center"
-        android:textAppearance="@style/CarBody2"
-        android:textColor="@android:color/white"
-        android:layout_marginTop="35dp"
-        app:layout_constraintEnd_toEndOf="@+id/constraintClockCenter"
-        app:layout_constraintStart_toStartOf="@+id/constraintClockLeft"
-        app:layout_constraintTop_toTopOf="@+id/constraintClockLeft"
-        tools:ignore="HardcodedText" />
-
-    <TextView
-        android:id="@+id/value_Element2"
-        android:layout_width="100dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:gravity="center"
-        android:textAppearance="@style/CarBody2"
-        android:textColor="@android:color/white"
-        app:layout_constraintEnd_toEndOf="@+id/constraintClockRight"
-        app:layout_constraintStart_toStartOf="@+id/constraintClockCenter"
-        app:layout_constraintTop_toTopOf="@+id/value_Element1"
-        tools:ignore="HardcodedText" />
-
-    <TextView
-        android:id="@+id/value_Element3"
-        android:layout_width="100dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:ellipsize="end"
-        android:gravity="center"
-        android:maxLines="1"
-        android:textAppearance="@style/CarBody2"
-        android:textColor="@android:color/white"
-        app:layout_constraintBottom_toBottomOf="@+id/constraintClockLeft"
-        app:layout_constraintEnd_toEndOf="@+id/constraintClockCenter"
-        app:layout_constraintStart_toStartOf="@+id/constraintClockLeft"
-        tools:ignore="HardcodedText" />
-
-    <TextView
-        android:id="@+id/value_Element4"
-        android:layout_width="100dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:gravity="center"
-        android:textAppearance="@style/CarBody2"
-        android:textColor="@android:color/white"
-        app:layout_constraintBottom_toBottomOf="@+id/constraintClockRight"
-        app:layout_constraintEnd_toEndOf="@+id/constraintClockRight"
-        app:layout_constraintStart_toStartOf="@+id/constraintClockCenter"
-        tools:ignore="HardcodedText" />
-
-    <TextView
-        android:id="@+id/textMaxLeft"
-        android:layout_width="100dp"
-        android:layout_height="30dp"
-        android:layout_marginBottom="17dp"
-        android:drawableLeft="@drawable/ic_max_text"
-        android:elevation="1dp"
-        android:gravity="bottom"
-        android:text=""
-        android:textAlignment="center"
-        android:textSize="24sp"
-        android:textColor="@android:color/white"
-        app:layout_constraintBottom_toBottomOf="@+id/constraintClockLeft"
-        app:layout_constraintEnd_toEndOf="@+id/constraintClockLeft"
-        app:layout_constraintStart_toStartOf="@+id/constraintClockLeft" />
-
-
-    <TextView
-        android:id="@+id/textMaxCenter"
-        android:layout_width="100dp"
-        android:layout_height="30dp"
-        android:layout_marginBottom="17dp"
-        android:drawableLeft="@drawable/ic_max_text"
-        android:elevation="1dp"
-        android:gravity="bottom"
-        android:text=""
-        android:textAlignment="center"
-        android:textSize="24sp"
-        android:textColor="@android:color/white"
-        app:layout_constraintBottom_toBottomOf="@+id/constraintClockCenter"
-        app:layout_constraintEnd_toEndOf="@+id/constraintClockCenter"
-        app:layout_constraintStart_toStartOf="@+id/constraintClockCenter"
-
+        app:layout_constraintBottom_toBottomOf="parent"
         />
 
 
-    <TextView
-        android:id="@+id/textMaxRight"
-        android:layout_width="100dp"
-        android:layout_height="30dp"
-        android:layout_marginBottom="17dp"
-        android:drawableLeft="@drawable/ic_max_text"
-        android:elevation="1dp"
-        android:gravity="bottom"
-        android:text=""
-        android:textAlignment="center"
-        android:textSize="24sp"
-        android:textColor="@android:color/white"
-        app:layout_constraintBottom_toBottomOf="@+id/constraintClockRight"
-        app:layout_constraintEnd_toEndOf="@+id/constraintClockRight"
-        app:layout_constraintStart_toStartOf="@+id/constraintClockRight" />
+    <fragment
+        android:id="@+id/gaugeCenter"
+        android:layout_width="275dp"
+        android:layout_height="310dp"
+        android:name="com.mqbcoding.stats.TorqueGauge"
+        android:layout="@layout/fragment_gauge"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/gaugeLeft"
+        app:layout_constraintEnd_toStartOf="@+id/gaugeRight"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <fragment
+        android:id="@+id/gaugeRight"
+        android:layout_width="275dp"
+        android:layout_height="310dp"
+        android:name="com.mqbcoding.stats.TorqueGauge"
+        android:layout="@layout/fragment_gauge"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <fragment
+        android:id="@+id/display1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:name="com.mqbcoding.stats.TorqueDisplay"
+        android:layout="@layout/fragment_display"
+        app:layout_constraintTop_toTopOf="@+id/gaugeCenter"
+        app:layout_constraintStart_toStartOf="@+id/gaugeCenter"
+        />
+
+    <fragment
+        android:id="@+id/display2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:name="com.mqbcoding.stats.TorqueDisplay"
+        android:layout="@layout/fragment_display"
+        app:layout_constraintTop_toTopOf="@+id/gaugeCenter"
+        app:layout_constraintEnd_toEndOf="@+id/gaugeCenter"
+        />
+
+    <fragment
+        android:id="@+id/display3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:name="com.mqbcoding.stats.TorqueDisplay"
+        android:layout="@layout/fragment_display"
+        app:layout_constraintBottom_toBottomOf="@+id/gaugeCenter"
+        app:layout_constraintStart_toStartOf="@+id/gaugeCenter"
+        />
+
+    <fragment
+        android:id="@+id/display4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:name="com.mqbcoding.stats.TorqueDisplay"
+        android:layout="@layout/fragment_display"
+        app:layout_constraintEnd_toEndOf="@+id/gaugeCenter"
+        app:layout_constraintBottom_toBottomOf="@+id/gaugeCenter"
+        />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
