@@ -2,11 +2,10 @@ package com.mqbcoding.stats
 
 import android.widget.TextView
 
-abstract class TorqueData {
+class TorqueData(query: String) {
     var lastData: Double? = null
     var pidInfo: String? = null
     var pid: String? = null
-
 
     companion object {
         var powerUnits: Boolean? = null
@@ -26,6 +25,7 @@ abstract class TorqueData {
         const val FORMAT_TEMPERATUREF = "%.1f°F"
         const val FORMAT_VOLT0 = "-,-V"
     }
+
     var query: String = "none"
         set(value) {
         lastData = null

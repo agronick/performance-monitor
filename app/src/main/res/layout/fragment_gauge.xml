@@ -76,6 +76,30 @@
         app:sv_unitSpeedInterval="5dp"
         app:sv_unitTextSize="20sp" />
 
+        <com.github.anastr.speedviewlib.SpeedView
+            android:id="@+id/dial_Max"
+            style="@style/AppTheme.Car.Speedometer"
+            android:layout_width="275dp"
+            android:layout_height="275dp"
+            android:elevation="0dp"
+            android:padding="10dp"
+            app:layout_constraintBottom_toBottomOf="@+id/dial"
+            app:layout_constraintRight_toRightOf="@+id/dial"
+            app:layout_constraintStart_toStartOf="@+id/dial"
+            app:layout_constraintTop_toTopOf="@+id/dial"
+            app:layout_constraintVertical_bias="0.0"
+            app:sv_indicator="QuarterLineIndicator"
+            app:sv_indicatorColor="@color/red"
+            app:sv_markColor="@android:color/transparent"
+            app:sv_speedTextColor="@android:color/transparent"
+            app:sv_speedTextPadding="10dp"
+            app:sv_speedTextSize="15dp"
+            app:sv_unitSpeedInterval="0dp"
+            app:sv_unitTextColor="@android:color/transparent"
+            app:sv_unitTextSize="0dp"
+            app:sv_unitUnderSpeedText="false"
+            app:sv_withIndicatorLight="false" />
+
     <com.github.anastr.speedviewlib.RaySpeedometer
         android:id="@+id/ray"
         android:layout_width="275dp"

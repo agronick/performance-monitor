@@ -16,15 +16,15 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
 import com.google.android.apps.auto.sdk.StatusBarController
 import org.prowl.torque.remote.ITorqueService
 
-class DashboardFragment: FontFragmentBase() {
+class DashboardFragment: CarFragment(),  SharedPreferences.OnSharedPreferenceChangeListener {
     private val TAG = "DashboardFragment"
     private var rootView: View? = null
     private var torqueService: ITorqueService? = null
     private var dashboardId = 0
+    private val torqueRefresher = TorqueRefresher()
 
     private var mBtnNext: ImageButton? = null
     private var mBtnPrev: ImageButton? = null
@@ -32,8 +32,8 @@ class DashboardFragment: FontFragmentBase() {
     private var mTitleElementLeft: TextView? = null
     private var mTitleElementRight: TextView? = null
 
-    private var guages = arrayOfNulls<Fragment>(3)
-    private var displays = arrayOfNulls<Fragment>(4)
+    private var guages = arrayOfNulls<TorqueGauge>(3)
+    private var displays = arrayOfNulls<TorqueDisplay>(4)
 
     private val pressureUnits: Boolean? = null
     private val temperatureUnits: Boolean? = null
@@ -50,14 +50,12 @@ class DashboardFragment: FontFragmentBase() {
     private var Dashboard4_On: Boolean? = null
     private var Dashboard5_On: Boolean? = null
     private var updateSpeed = 2000
+    private var selectedFont: String? = null
     private var selectedTheme: String? = null
     private var selectedBackground: String? = null
-    private var selectedFont: String? = null
     private var selectedPressureUnits = false
+    private var DISPLAY_OFFSET = 3
 
-
-    private val preferenceChangeListener =
-        SharedPreferences.OnSharedPreferenceChangeListener { sharedPreferences, key -> onPreferencesChangeHandler() }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -72,15 +70,19 @@ class DashboardFragment: FontFragmentBase() {
         mTitleElementRight = view.findViewById(R.id.textTitleElementRight)
         mTitleElement = view.findViewById(R.id.textTitleElement)
 
-        val fragmentManager = activity!!.supportFragmentManager
-        guages[0] =  fragmentManager.findFragmentById(R.id.gaugeLeft)
-        guages[1] = fragmentManager.findFragmentById(R.id.gaugeCenter)
-        guages[2] = fragmentManager.findFragmentById(R.id.gaugeRight)
-        displays[1] = fragmentManager.findFragmentById(R.id.display1)
-        displays[2] = fragmentManager.findFragmentById(R.id.display2)
-        displays[3] = fragmentManager.findFragmentById(R.id.display3)
-        displays[4] = fragmentManager.findFragmentById(R.id.display4)
+        guages[0] = fragmentManager.findFragmentById(R.id.gaugeLeft) as TorqueGauge?
+        guages[1] = fragmentManager.findFragmentById(R.id.gaugeCenter) as TorqueGauge?
+        guages[2] = fragmentManager.findFragmentById(R.id.gaugeRight) as TorqueGauge?
+        displays[0] = fragmentManager.findFragmentById(R.id.display1) as TorqueDisplay?
+        displays[1] = fragmentManager.findFragmentById(R.id.display2) as TorqueDisplay?
+        displays[2] = fragmentManager.findFragmentById(R.id.display3) as TorqueDisplay?
+        displays[3] = fragmentManager.findFragmentById(R.id.display4) as TorqueDisplay?
+        onSharedPreferenceChanged(getSharedPreferences(), "")
         return rootView
+    }
+
+    fun getSharedPreferences(): SharedPreferences {
+        return requireActivity().getSharedPreferences("shared_preferences", Context.MODE_PRIVATE)
     }
 
     override fun setupStatusBar(sc: StatusBarController) {
@@ -89,6 +91,7 @@ class DashboardFragment: FontFragmentBase() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         startTorque()
+        getSharedPreferences().registerOnSharedPreferenceChangeListener(this)
         super.onCreate(savedInstanceState)
     }
 
@@ -100,7 +103,7 @@ class DashboardFragment: FontFragmentBase() {
     private fun startTorque() {
         val intent = Intent()
         intent.setClassName("org.prowl.torque", "org.prowl.torque.remote.TorqueService")
-        val torqueBind = context!!.bindService(intent, torqueConnection, Activity.BIND_AUTO_CREATE)
+        val torqueBind = requireContext().bindService(intent, torqueConnection, Activity.BIND_AUTO_CREATE)
         Log.d(
             TAG,
             if (torqueBind) "Connected to torque service!" else "Unable to connect to Torque plugin service"
@@ -108,7 +111,7 @@ class DashboardFragment: FontFragmentBase() {
     }
 
     private fun stopTorque() {
-        context!!.sendBroadcast(Intent("org.prowl.torque.REQUEST_TORQUE_QUIT"))
+        requireContext().sendBroadcast(Intent("org.prowl.torque.REQUEST_TORQUE_QUIT"))
         Log.d(TAG, "Torque stop")
     }
 
@@ -133,12 +136,7 @@ class DashboardFragment: FontFragmentBase() {
         }
     }
 
-    override fun onPreferencesChangeHandler() {
-        super.onPreferencesChangeHandler()
-        val sharedPreferences = activity.getSharedPreferences(
-            "shared_preferences",
-            Context.MODE_PRIVATE,
-        )
+    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {
         ambientOn = sharedPreferences.getBoolean(
             "ambientActive",
             false
@@ -157,6 +155,27 @@ class DashboardFragment: FontFragmentBase() {
             2000
         }
 
+        val readedFont = sharedPreferences.getString("selectedFont", "segments")
+        if (readedFont != selectedFont && readedFont != null) {
+            val assetsMgr = context!!.assets
+            var typeface = Typeface.createFromAsset(assetsMgr, "digital.ttf")
+            when (selectedFont) {
+                "segments" -> typeface = Typeface.createFromAsset(assetsMgr, "digital.ttf")
+                "seat" -> typeface =
+                    Typeface.createFromAsset(assetsMgr, "SEAT_MetaStyle_MonoDigit_Regular.ttf")
+
+                "audi" -> typeface = Typeface.createFromAsset(assetsMgr, "AudiTypeDisplayHigh.ttf")
+                "vw" -> typeface = Typeface.createFromAsset(assetsMgr, "VWTextCarUI-Regular.ttf")
+                "vw2" -> typeface = Typeface.createFromAsset(assetsMgr, "VWThesis_MIB_Regular.ttf")
+                "frutiger" -> typeface = Typeface.createFromAsset(assetsMgr, "Frutiger.otf")
+                "vw3" -> typeface = Typeface.createFromAsset(assetsMgr, "VW_Digit_Reg.otf")
+                "skoda" -> typeface = Typeface.createFromAsset(assetsMgr, "Skoda.ttf")
+                "larabie" -> typeface = Typeface.createFromAsset(assetsMgr, "Larabie.ttf")
+                "ford" -> typeface = Typeface.createFromAsset(assetsMgr, "UnitedSans.otf")
+            }
+            setupTypeface(typeface)
+        }
+
         // Load this only on first run, then leave it alone
         if (stagingDone == null) {
             stagingDone = !sharedPreferences.getBoolean("stagingActive", true)
@@ -169,72 +188,31 @@ class DashboardFragment: FontFragmentBase() {
 
 
         //determine what data the user wants to have on the 4 data views
-        for (idx in 1..4) {
-            val readedElement1Query = sharedPreferences.getString("selectedView${idx}_$dashboardId", "none")
-            if (readedElement1Query != mElement1Query) {
-                mElement1Query = readedElement1Query
-                setupElement(mElement1Query, mValueElement1, mIconElement1)
+        for (idx in 0..3) {
+            val readedElementQuery = sharedPreferences.getString("selectedView${idx}_$dashboardId", "none") ?: "none"
+            if (torqueRefresher.hasChanged(idx, readedElementQuery)) {
+                torqueRefresher.populateQuery(
+                    idx,
+                    readedElementQuery,
+                )
+                torqueRefresher.populateQuery(idx + DISPLAY_OFFSET, readedElementQuery)
+                setupElement(idx, readedElementQuery)
             }
         }
         //determine what data the user wants to have on the 3 clocks, but set defaults first
         //setup clocks, including the max/min clocks and highvis rays and icons:
         //usage: setupClocks(query value, what clock, what icon, which ray, which min clock, which max clock)
         //could probably be done MUCH more efficient but that's for the future ;)
-        val readedClockLQuery =
-            sharedPreferences.getString("selectedClockLeft$dashboardId", "exlap-batteryVoltage")
-        if (readedClockLQuery != mClockLQuery) {
-            mClockLQuery = readedClockLQuery
-            setupClocks(mClockLQuery, mClockLeft, mIconClockL, mRayLeft, mClockMaxLeft)
-            turnTickEnabled(ticksOn!!) // Due to bug in SpeedView, we need to re-enable ticks
+        val positions = arrayOf("Left", "Center", "Right")
+        for (pos in 0..2) {
+            sharedPreferences.getString("selectedClock${positions[pos]}$dashboardId", "exlap-batteryVoltage")
+                ?.let {
+                    torqueRefresher.populateQuery(pos, it)
+                    setupClocks(pos, it)
+                }
         }
-        val readedClockCQuery =
-            sharedPreferences.getString("selectedClockCenter$dashboardId", "exlap-oilTemperature")
-        if (readedClockCQuery != mClockCQuery) {
-            mClockCQuery = readedClockCQuery
-            setupClocks(mClockCQuery, mClockCenter, mIconClockC, mRayCenter, mClockMaxCenter)
-            turnTickEnabled(ticksOn!!) // Due to bug in SpeedView, we need to re-enable ticks
-        }
-        val readedClockRQuery =
-            sharedPreferences.getString("selectedClockRight$dashboardId", "exlap-engineSpeed")
-        if (readedClockRQuery != mClockRQuery) {
-            mClockRQuery = readedClockRQuery
-            setupClocks(mClockRQuery, mClockRight, mIconClockR, mRayRight, mClockMaxRight)
-            turnTickEnabled(ticksOn!!) // Due to bug in SpeedView, we need to re-enable ticks
-        }
-        //debug logging of each of the chosen elements
-        Log.d(TAG, "element 1 selected:$mElement1Query")
-        Log.d(TAG, "element 2 selected:$mElement2Query")
-        Log.d(TAG, "element 3 selected:$mElement3Query")
-        Log.d(TAG, "element 4 selected:$mElement4Query")
-        Log.d(TAG, "clock l selected:$mClockLQuery")
-        Log.d(TAG, "clock c selected:$mClockCQuery")
-        Log.d(TAG, "clock r selected:$mClockRQuery")
 
-        //determine what data the user wants to have on the 4 data views
-        mLabelClockL = getLabelClock(mClockLQuery)
-        mLabelClockC = getLabelClock(mClockCQuery)
-        mLabelClockR = getLabelClock(mClockRQuery)
-        val readedPressureUnits =
-            sharedPreferences.getBoolean("selectPressureUnit", true) //true = bar, false = psi
-        if (readedPressureUnits != selectedPressureUnits) {
-            selectedPressureUnits = readedPressureUnits
-            pressureFactor = if (selectedPressureUnits) 1f else 14.503774f
-            pressureUnit = if (selectedPressureUnits) "bar" else "psi"
-            pressureMin = if (selectedPressureUnits) -3 else -30
-            pressureMax = if (selectedPressureUnits) 3 else 30
-        }
-        val readedTempUnit = sharedPreferences.getBoolean(
-            "selectTemperatureUnit",
-            true
-        ) //true = celcius, false = fahrenheit
-        celsiusTempUnit = readedTempUnit
-        temperatureUnit = getString(if (celsiusTempUnit) R.string.unit_c else R.string.unit_f)
-        val readedPowerUnits =
-            sharedPreferences.getBoolean("selectPowerUnit", true) //true = kw, false = ps
-        if (TorqueData.powerUnits == null || readedPowerUnits != TorqueData.powerUnits) {
-            TorqueData.powerUnits = readedPowerUnits
-            powerFactor = if (TorqueData.powerUnits!!) 1f else 1.35962f
-        }
+
         //
 
         //show texts and backgrounds for max/min, according to the setting
@@ -257,19 +235,44 @@ class DashboardFragment: FontFragmentBase() {
     }
 
     private fun setupBackground(newBackground: String?) {
-        val resId = resources.getIdentifier(newBackground, "drawable", context!!.packageName)
+        val resId = resources.getIdentifier(newBackground, "drawable", requireContext().packageName)
         if (resId != 0) {
-            val wallpaperImage = ContextCompat.getDrawable(context!!, resId)
+            val wallpaperImage = ContextCompat.getDrawable(requireContext(), resId)
             rootView!!.background = wallpaperImage
         }
         selectedBackground = newBackground
     }
 
-    override fun setupTypeface(typeface: Typeface) {
+    fun setupTypeface(typeface: Typeface) {
+        for (gauge in guages) {
+            gauge?.setupTypeface(typeface)
+        }
+        for (display in displays) {
+            display?.setupTypeface(typeface)
+        }
         mTitleElement!!.typeface = typeface
         mTitleElementRight!!.typeface = typeface
         mTitleElementLeft!!.typeface = typeface
         Log.d(TAG, "font: $typeface")
-        this.selectedFont = selectedFont
+    }
+
+    fun setupElement(idx: Int, query: String) {
+        displays[idx + DISPLAY_OFFSET]!!.setupElement(query)
+    }
+
+    fun setupClocks(idx: Int, query: String) {
+        guages[idx]!!.setupClock(query, 1f, 100f)
+    }
+
+    fun turnMinMaxTextViewsEnabled(enabled: Boolean) {
+        for (gauge in guages) {
+            gauge?.turnMinMaxTextViewsEnabled(enabled)
+        }
+    }
+
+    fun turnMinMaxMarksEnabled(enabled: Boolean) {
+        for (gauge in guages) {
+            gauge?.turnMinMaxMarksEnabled(enabled)
+        }
     }
 }

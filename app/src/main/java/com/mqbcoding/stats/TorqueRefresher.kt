@@ -12,12 +12,10 @@ class TorqueRefresher {
         }
     }
 
-    fun populateQuery(pos: Int, dataItem: TorqueData?) {
-        if (dataItem == null) {
-            data.remove(pos)
-        } else {
-            data[pos] = dataItem
-        }
+    fun populateQuery(pos: Int, query: String="none"): Boolean {
+        val changed = hasChanged(pos, query)
+        data[pos] = TorqueData(query)
+        return changed
     }
 
     fun refreshQueries(service: ITorqueService) {
@@ -54,5 +52,10 @@ class TorqueRefresher {
         for (pkg in data.values) {
 
         }
+    }
+
+    fun hasChanged(idx: Int, readedElementQuery: String?): Boolean {
+        if (!data.containsKey(idx)) return true;
+        return data[idx]?.query != readedElementQuery
     }
 }
