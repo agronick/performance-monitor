@@ -32,7 +32,11 @@ class TorqueGauge : Fragment(){
 
     private var ticksOn: Boolean? = null
     private var raysOn: Boolean? = null
+    private var maxMarksOn: Boolean? = null
+    private var maxOn: Boolean? = null
     private var selectedTheme: String? = null
+    private var torqueMin = 0
+    private var torqueMax = 100
 
     private var pressureUnit = "bar"
     private var pressureMin = 0
@@ -66,23 +70,25 @@ class TorqueGauge : Fragment(){
 
     fun turnMinMaxMarksEnabled(enabled: Boolean) {
         //show clock marks for max/min, according to the setting
-        mTextMax!!.visibility =
+        maxMarksOn = enabled
+        mMax!!.visibility =
             if (enabled) View.VISIBLE else View.INVISIBLE
     }
 
     fun turnMinMaxTextViewsEnabled(enabled: Boolean) {
+        maxOn = enabled
         mTextMax!!.visibility =
             if (enabled) View.VISIBLE else View.INVISIBLE
     }
 
-    private fun turnRaysEnabled(enabled: Boolean) {
+    fun turnRaysEnabled(enabled: Boolean) {
+        raysOn = enabled
         mRayClock!!.visibility = if (enabled) View.VISIBLE else View.INVISIBLE
         if (enabled) {
             //also hide the needle on the clocks
             mRayClock!!.setIndicator(Indicator.Indicators.NoIndicator)
-        } else {
-            setupIndicators()
         }
+        setupIndicators()
     }
 
     private fun setupIndicators() {
@@ -128,30 +134,32 @@ class TorqueGauge : Fragment(){
         }
     }
 
-    private fun turnTickEnabled(enabled: Boolean) {
-        val tickNum = 9
-        mRayClock!!.tickNumber = if (enabled) tickNum else 0
+    fun turnTickEnabled(enabled: Boolean) {
+        ticksOn = enabled
+        val tickNum = if (enabled) 9 else 0
+        mClock!!.tickNumber = tickNum
+        mRayClock!!.tickNumber = tickNum
+        mClock!!.textColor = Color.WHITE
         mRayClock!!.textColor = Color.WHITE
     }
 
 
     fun setupClock(
         queryClock: String?,
-        minValue: Float,
-        maxValue: Float,
+        minValue: Int,
+        maxValue: Int,
     ) {
+        torqueMin = minValue
+        torqueMax = maxValue
         val clock = mClock
         val icon = mIcon
         val ray = mRayClock
         val max = mMax
 
         //todo: get all the min/max unit stuff for exlap items from schema.json
-        var queryClock = queryClock
         val queryTrim: String
         val queryLong = queryClock
         var torqueUnit: String? = ""
-        var torqueMin = 0
-        var torqueMax = 100
         val typedArray2 =
             requireContext().theme.obtainStyledAttributes(intArrayOf(R.attr.themedStopWatchBackground))
         val swBackgroundResource = typedArray2.getResourceId(0, 0)
@@ -954,6 +962,8 @@ class TorqueGauge : Fragment(){
         //min.setMinMaxSpeed(minimum, maximum);
         ray!!.setMinMaxSpeed(minimum, maximum)
         max!!.setMinMaxSpeed(minimum, maximum)
+        mClock!!.setSpeedAt(50f)
+        mRayClock!!.setSpeedAt(50f)
     }
 
     private fun setupClock(

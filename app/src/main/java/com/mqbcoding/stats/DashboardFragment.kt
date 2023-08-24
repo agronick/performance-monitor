@@ -23,7 +23,7 @@ class DashboardFragment: CarFragment(),  SharedPreferences.OnSharedPreferenceCha
     private val TAG = "DashboardFragment"
     private var rootView: View? = null
     private var torqueService: ITorqueService? = null
-    private var dashboardId = 0
+    private var dashboardId = 1
     private val torqueRefresher = TorqueRefresher()
 
     private var mBtnNext: ImageButton? = null
@@ -70,19 +70,22 @@ class DashboardFragment: CarFragment(),  SharedPreferences.OnSharedPreferenceCha
         mTitleElementRight = view.findViewById(R.id.textTitleElementRight)
         mTitleElement = view.findViewById(R.id.textTitleElement)
 
-        guages[0] = fragmentManager.findFragmentById(R.id.gaugeLeft) as TorqueGauge?
-        guages[1] = fragmentManager.findFragmentById(R.id.gaugeCenter) as TorqueGauge?
-        guages[2] = fragmentManager.findFragmentById(R.id.gaugeRight) as TorqueGauge?
-        displays[0] = fragmentManager.findFragmentById(R.id.display1) as TorqueDisplay?
-        displays[1] = fragmentManager.findFragmentById(R.id.display2) as TorqueDisplay?
-        displays[2] = fragmentManager.findFragmentById(R.id.display3) as TorqueDisplay?
-        displays[3] = fragmentManager.findFragmentById(R.id.display4) as TorqueDisplay?
+        guages[0] = childFragmentManager.findFragmentById(R.id.gaugeLeft) as TorqueGauge?
+        guages[1] = childFragmentManager.findFragmentById(R.id.gaugeCenter) as TorqueGauge?
+        guages[2] = childFragmentManager.findFragmentById(R.id.gaugeRight) as TorqueGauge?
+        displays[0] = childFragmentManager.findFragmentById(R.id.display1) as TorqueDisplay?
+        displays[1] = childFragmentManager.findFragmentById(R.id.display2) as TorqueDisplay?
+        displays[2] = childFragmentManager.findFragmentById(R.id.display3) as TorqueDisplay?
+        displays[3] = childFragmentManager.findFragmentById(R.id.display4) as TorqueDisplay?
         onSharedPreferenceChanged(getSharedPreferences(), "")
         return rootView
     }
 
     fun getSharedPreferences(): SharedPreferences {
-        return requireActivity().getSharedPreferences("shared_preferences", Context.MODE_PRIVATE)
+        return requireContext().getSharedPreferences(
+            "${requireContext().getPackageName()}_preferences",
+            Context.MODE_PRIVATE
+        )
     }
 
     override fun setupStatusBar(sc: StatusBarController) {
@@ -90,14 +93,18 @@ class DashboardFragment: CarFragment(),  SharedPreferences.OnSharedPreferenceCha
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        startTorque()
-        getSharedPreferences().registerOnSharedPreferenceChangeListener(this)
         super.onCreate(savedInstanceState)
+        startTorque()
     }
 
     override fun onDestroy() {
         super.onDestroy()
         stopTorque()
+    }
+
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        getSharedPreferences().registerOnSharedPreferenceChangeListener(this)
     }
 
     private fun startTorque() {
@@ -111,6 +118,7 @@ class DashboardFragment: CarFragment(),  SharedPreferences.OnSharedPreferenceCha
     }
 
     private fun stopTorque() {
+        requireContext().unbindService(torqueConnection)
         requireContext().sendBroadcast(Intent("org.prowl.torque.REQUEST_TORQUE_QUIT"))
         Log.d(TAG, "Torque stop")
     }
@@ -156,7 +164,9 @@ class DashboardFragment: CarFragment(),  SharedPreferences.OnSharedPreferenceCha
         }
 
         val readedFont = sharedPreferences.getString("selectedFont", "segments")
+
         if (readedFont != selectedFont && readedFont != null) {
+            selectedFont = readedFont
             val assetsMgr = context!!.assets
             var typeface = Typeface.createFromAsset(assetsMgr, "digital.ttf")
             when (selectedFont) {
@@ -191,10 +201,6 @@ class DashboardFragment: CarFragment(),  SharedPreferences.OnSharedPreferenceCha
         for (idx in 0..3) {
             val readedElementQuery = sharedPreferences.getString("selectedView${idx}_$dashboardId", "none") ?: "none"
             if (torqueRefresher.hasChanged(idx, readedElementQuery)) {
-                torqueRefresher.populateQuery(
-                    idx,
-                    readedElementQuery,
-                )
                 torqueRefresher.populateQuery(idx + DISPLAY_OFFSET, readedElementQuery)
                 setupElement(idx, readedElementQuery)
             }
@@ -232,6 +238,25 @@ class DashboardFragment: CarFragment(),  SharedPreferences.OnSharedPreferenceCha
             maxMarksOn = readedMaxMarksOn
             turnMinMaxMarksEnabled(maxMarksOn!!)
         }
+
+        val readedRaysOn = sharedPreferences.getBoolean(
+            "highVisActive",
+            false
+        ) //true = show high vis rays, false = don't show them.
+        val readedTheme = sharedPreferences.getString("selectedTheme", "")
+        if (raysOn == null || readedRaysOn != raysOn || readedTheme != selectedTheme) {
+            raysOn = readedRaysOn
+            selectedTheme = readedTheme
+            turnRaysEnabled(raysOn!!)
+        }
+        val readedTicksOn = sharedPreferences.getBoolean(
+            "ticksActive",
+            false
+        ) // if true, it will display the value of each of the ticks
+        if (ticksOn == null || readedTicksOn != ticksOn) {
+            ticksOn = readedTicksOn
+            turnTickEnabled(ticksOn!!)
+        }
     }
 
     private fun setupBackground(newBackground: String?) {
@@ -257,22 +282,38 @@ class DashboardFragment: CarFragment(),  SharedPreferences.OnSharedPreferenceCha
     }
 
     fun setupElement(idx: Int, query: String) {
-        displays[idx + DISPLAY_OFFSET]!!.setupElement(query)
+        displays[idx]!!.setupElement(query)
     }
 
     fun setupClocks(idx: Int, query: String) {
-        guages[idx]!!.setupClock(query, 1f, 100f)
+        guages[idx]!!.setupClock(query, 1, 100)
     }
 
     fun turnMinMaxTextViewsEnabled(enabled: Boolean) {
+        Log.i(TAG, "Min max text view enabled: $enabled")
         for (gauge in guages) {
             gauge?.turnMinMaxTextViewsEnabled(enabled)
         }
     }
 
     fun turnMinMaxMarksEnabled(enabled: Boolean) {
+        Log.i(TAG, "Min max marks enabled: $enabled")
         for (gauge in guages) {
             gauge?.turnMinMaxMarksEnabled(enabled)
+        }
+    }
+
+    fun turnRaysEnabled(enabled: Boolean) {
+        Log.i(TAG, "Rays enabled: $enabled")
+        for (gauge in guages) {
+            gauge?.turnRaysEnabled(enabled)
+        }
+    }
+
+    fun turnTickEnabled(enabled: Boolean) {
+        Log.i(TAG, "Tick enabled: $enabled")
+        for (gauge in guages) {
+            gauge?.turnTickEnabled(enabled)
         }
     }
 }

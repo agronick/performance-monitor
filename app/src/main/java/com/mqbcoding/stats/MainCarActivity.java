@@ -121,8 +121,15 @@ public class MainCarActivity extends CarActivity {
             setLocalTheme(selectedTheme);
             FragmentManager manager = getSupportFragmentManager();
             Fragment currentFragment = mCurrentFragmentTag == null ? null : manager.findFragmentByTag(mCurrentFragmentTag);
-            if (currentFragment != null)
+            if (currentFragment != null) {
                 manager.beginTransaction().detach(currentFragment).attach(currentFragment).commit();
+                if (currentFragment.equals(FRAGMENT_CAR)) {
+                    ((DashboardFragment) currentFragment).onSharedPreferenceChanged(
+                        ((DashboardFragment) currentFragment).getSharedPreferences(),
+                        ""
+                    );
+                }
+            }
 
             this.c().getDecorView().setSystemUiVisibility(
                     SYSTEM_UI_FLAG_FULLSCREEN |
@@ -176,8 +183,6 @@ public class MainCarActivity extends CarActivity {
         menuController.showMenuButton();
         StatusBarController statusBarController = getCarUiController().getStatusBarController();
         carfragment.setupStatusBar(statusBarController);
-        getSupportFragmentManager().registerFragmentLifecycleCallbacks(mFragmentLifecycleCallbacks,
-                false);
 
     }
 
