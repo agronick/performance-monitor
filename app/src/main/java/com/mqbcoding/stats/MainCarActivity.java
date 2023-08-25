@@ -21,6 +21,8 @@ import static android.view.View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
 import static android.view.View.SYSTEM_UI_FLAG_IMMERSIVE;
 import static android.view.View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
 
+import java.util.Objects;
+
 public class MainCarActivity extends CarActivity {
     private static final String TAG = "MainCarActivity";
 
@@ -122,13 +124,13 @@ public class MainCarActivity extends CarActivity {
             FragmentManager manager = getSupportFragmentManager();
             Fragment currentFragment = mCurrentFragmentTag == null ? null : manager.findFragmentByTag(mCurrentFragmentTag);
             if (currentFragment != null) {
-                manager.beginTransaction().detach(currentFragment).attach(currentFragment).commit();
-                if (currentFragment.equals(FRAGMENT_CAR)) {
-                    ((DashboardFragment) currentFragment).onSharedPreferenceChanged(
-                        ((DashboardFragment) currentFragment).getSharedPreferences(),
-                        ""
-                    );
+                var trans = manager.beginTransaction().detach(currentFragment);
+                if (Objects.equals(mCurrentFragmentTag, MENU_DASHBOARD)) {
+                    trans.remove(currentFragment).add(R.id.fragment_container, new DashboardFragment(), FRAGMENT_CAR);
+                } else {
+                    trans.detach(currentFragment).attach(currentFragment);
                 }
+                trans.commit();
             }
 
             this.c().getDecorView().setSystemUiVisibility(
@@ -322,7 +324,7 @@ public class MainCarActivity extends CarActivity {
         if (currentFragment != null) {
             transaction.detach(currentFragment);
         }
-        if (newFragment!=null) {
+        if (newFragment != null) {
             transaction.attach(newFragment);
             transaction.commit();
             mCurrentFragmentTag = tag;

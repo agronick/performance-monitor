@@ -17,7 +17,7 @@ public class CreditsFragment extends CarFragment {
     }
 
     @Override
-    protected void setupStatusBar(StatusBarController sc) {
+    public void setupStatusBar(StatusBarController sc) {
 
     }
 

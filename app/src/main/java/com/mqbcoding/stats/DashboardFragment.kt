@@ -17,14 +17,13 @@ import android.widget.ImageButton
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.google.android.apps.auto.sdk.StatusBarController
-import org.prowl.torque.remote.ITorqueService
 
-class DashboardFragment: CarFragment(),  SharedPreferences.OnSharedPreferenceChangeListener {
+class DashboardFragment: CarFragment(), SharedPreferences.OnSharedPreferenceChangeListener {
     private val TAG = "DashboardFragment"
     private var rootView: View? = null
-    private var torqueService: ITorqueService? = null
     private var dashboardId = 1
     private val torqueRefresher = TorqueRefresher()
+    private val torqueService = TorqueService()
 
     private var mBtnNext: ImageButton? = null
     private var mBtnPrev: ImageButton? = null
@@ -55,6 +54,11 @@ class DashboardFragment: CarFragment(),  SharedPreferences.OnSharedPreferenceCha
     private var selectedBackground: String? = null
     private var selectedPressureUnits = false
     private var DISPLAY_OFFSET = 3
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        torqueService.startTorque(requireContext())
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -92,57 +96,17 @@ class DashboardFragment: CarFragment(),  SharedPreferences.OnSharedPreferenceCha
         sc.hideTitle()
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        startTorque()
-    }
-
     override fun onDestroy() {
         super.onDestroy()
-        stopTorque()
+        torqueService.onDestroy(requireContext())
+        torqueService.requestQuit(requireContext())
     }
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         super.onAttach(context)
         getSharedPreferences().registerOnSharedPreferenceChangeListener(this)
     }
 
-    private fun startTorque() {
-        val intent = Intent()
-        intent.setClassName("org.prowl.torque", "org.prowl.torque.remote.TorqueService")
-        val torqueBind = requireContext().bindService(intent, torqueConnection, Activity.BIND_AUTO_CREATE)
-        Log.d(
-            TAG,
-            if (torqueBind) "Connected to torque service!" else "Unable to connect to Torque plugin service"
-        )
-    }
-
-    private fun stopTorque() {
-        requireContext().unbindService(torqueConnection)
-        requireContext().sendBroadcast(Intent("org.prowl.torque.REQUEST_TORQUE_QUIT"))
-        Log.d(TAG, "Torque stop")
-    }
-
-    private val torqueConnection: ServiceConnection = object : ServiceConnection {
-        /**
-         * What to do when we get connected to Torque.
-         *
-         * @param arg0
-         * @param service
-         */
-        override fun onServiceConnected(arg0: ComponentName, service: IBinder) {
-            torqueService = ITorqueService.Stub.asInterface(service)
-        }
-
-        /**
-         * What to do when we get disconnected from Torque.
-         *
-         * @param name
-         */
-        override fun onServiceDisconnected(name: ComponentName) {
-            torqueService = null
-        }
-    }
 
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {
         ambientOn = sharedPreferences.getBoolean(

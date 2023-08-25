@@ -8,7 +8,7 @@
         android:layout="@layout/prefcat">
 
 
-        <com.austingreco.imagelistpreference.ImageListPreference
+        <ListPreference
             android:entries="@array/Themes"
             android:entryValues="@array/Themes"
             android:key="selectedTheme"
@@ -17,7 +17,7 @@
             app:ilp_backgroundTint="@android:color/transparent"
             app:ilp_entryImages="@array/ThemesThumbs"
             app:ilp_tint="#00FFFFFF" />
-        <com.austingreco.imagelistpreference.ImageListPreference
+        <ListPreference
             android:entries="@array/fontEntries"
             android:entryValues="@array/fontValues"
             android:key="selectedFont"
@@ -26,7 +26,7 @@
             app:ilp_backgroundTint="@color/white"
             app:ilp_entryImages="@array/FontThumbs"
             app:ilp_tint="#00FFFFFF" />
-        <com.austingreco.imagelistpreference.ImageListPreference
+        <ListPreference
             android:entries="@array/backgroundstrings"
             android:entryValues="@array/backgrounds"
             android:key="selectedBackground"
@@ -106,7 +106,8 @@
             android:icon="@drawable/ic_settings_title"
             android:inputType="text" />
 
-        <com.austingreco.imagelistpreference.ImageListPreference
+        <ListPreference
+            android:id="@+id/prefClock_0_0"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:entries="@array/ClockDataElementsEntries"
@@ -114,12 +115,10 @@
             android:icon="@drawable/ic_settings_clockl"
             android:key="selectedClockLeft1"
             android:summary="%s"
-            android:title="@string/pref_leftclock"
-            app:ilp_backgroundTint="@android:color/transparent"
-            app:ilp_entryImages="@array/ClockDataElementsIcons"
-            app:ilp_tint="#00FFFFFF" />
+            android:title="@string/pref_leftclock" />
 
-        <com.austingreco.imagelistpreference.ImageListPreference
+        <ListPreference
+            android:id="@+id/prefClock_0_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:entries="@array/ClockDataElementsEntries"
@@ -127,13 +126,11 @@
             android:icon="@drawable/ic_settings_clockc"
             android:key="selectedClockCenter1"
             android:summary="%s"
-            android:title="@string/pref_centerclock"
-            app:ilp_backgroundTint="@android:color/transparent"
-            app:ilp_entryImages="@array/ClockDataElementsIcons"
-            app:ilp_tint="#00FFFFFF" />
+            android:title="@string/pref_centerclock" />
 
 
-        <com.austingreco.imagelistpreference.ImageListPreference
+        <ListPreference
+            android:id="@+id/prefClock_0_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:entries="@array/ClockDataElementsEntries"
@@ -141,12 +138,10 @@
             android:icon="@drawable/ic_settings_clockr"
             android:key="selectedClockRight1"
             android:summary="%s"
-            android:title="@string/pref_rightclock"
-            app:ilp_backgroundTint="@android:color/transparent"
-            app:ilp_entryImages="@array/ClockDataElementsIcons"
-            app:ilp_tint="#00FFFFFF" />
+            android:title="@string/pref_rightclock" />
 
-        <com.austingreco.imagelistpreference.ImageListPreference
+        <ListPreference
+            android:id="@+id/prefDisplay_0_0"
             android:defaultValue="1"
             android:entries="@array/TextDataElementsEntries"
             android:entryValues="@array/TextDataElementsValues"
@@ -157,7 +152,8 @@
             app:ilp_backgroundTint="@android:color/transparent"
             app:ilp_entryImages="@array/TextDataElementsIcons"
             app:ilp_tint="#00FFFFFF" />
-        <com.austingreco.imagelistpreference.ImageListPreference
+        <ListPreference
+            android:id="@+id/prefDisplay_0_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:defaultValue="1"
@@ -170,7 +166,8 @@
             app:ilp_backgroundTint="@android:color/transparent"
             app:ilp_entryImages="@array/TextDataElementsIcons"
             app:ilp_tint="#00FFFFFF" />
-        <com.austingreco.imagelistpreference.ImageListPreference
+        <ListPreference
+            android:id="@+id/prefDisplay_0_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:defaultValue="1"
@@ -183,7 +180,8 @@
             app:ilp_backgroundTint="@android:color/transparent"
             app:ilp_entryImages="@array/TextDataElementsIcons"
             app:ilp_tint="#00FFFFFF" />
-        <com.austingreco.imagelistpreference.ImageListPreference
+        <ListPreference
+            android:id="@+id/prefDisplay_0_3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:defaultValue="1"
@@ -216,7 +214,7 @@
             android:dependency="d2_active"
             android:inputType="text" />
 
-        <com.austingreco.imagelistpreference.ImageListPreference
+        <ListPreference
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:entries="@array/ClockDataElementsEntries"
@@ -225,12 +223,9 @@
             android:key="selectedClockLeft2"
             android:summary="%s"
             android:title="@string/pref_leftclock"
-            android:dependency="d2_active"
-            app:ilp_backgroundTint="@android:color/transparent"
-            app:ilp_entryImages="@array/ClockDataElementsIcons"
-            app:ilp_tint="#00FFFFFF" />
+            android:dependency="d2_active" />
 
-        <com.austingreco.imagelistpreference.ImageListPreference
+        <ListPreference
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:entries="@array/ClockDataElementsEntries"
@@ -239,13 +234,10 @@
             android:key="selectedClockCenter2"
             android:summary="%s"
             android:title="@string/pref_centerclock"
-            android:dependency="d2_active"
-            app:ilp_backgroundTint="@android:color/transparent"
-            app:ilp_entryImages="@array/ClockDataElementsIcons"
-            app:ilp_tint="#00FFFFFF" />
+            android:dependency="d2_active" />
 
 
-        <com.austingreco.imagelistpreference.ImageListPreference
+        <ListPreference
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:entries="@array/ClockDataElementsEntries"
@@ -254,11 +246,8 @@
             android:key="selectedClockRight2"
             android:summary="%s"
             android:title="@string/pref_rightclock"
-            android:dependency="d2_active"
-            app:ilp_backgroundTint="@android:color/transparent"
-            app:ilp_entryImages="@array/ClockDataElementsIcons"
-            app:ilp_tint="#00FFFFFF" />
-        <com.austingreco.imagelistpreference.ImageListPreference
+            android:dependency="d2_active" />
+        <ListPreference
             android:defaultValue="1"
             android:entries="@array/TextDataElementsEntries"
             android:entryValues="@array/TextDataElementsValues"
@@ -270,7 +259,7 @@
             app:ilp_backgroundTint="@android:color/transparent"
             app:ilp_entryImages="@array/TextDataElementsIcons"
             app:ilp_tint="#00FFFFFF" />
-        <com.austingreco.imagelistpreference.ImageListPreference
+        <ListPreference
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:defaultValue="1"
@@ -284,7 +273,7 @@
             app:ilp_backgroundTint="@android:color/transparent"
             app:ilp_entryImages="@array/TextDataElementsIcons"
             app:ilp_tint="#00FFFFFF" />
-        <com.austingreco.imagelistpreference.ImageListPreference
+        <ListPreference
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:defaultValue="1"
@@ -298,7 +287,7 @@
             app:ilp_backgroundTint="@android:color/transparent"
             app:ilp_entryImages="@array/TextDataElementsIcons"
             app:ilp_tint="#00FFFFFF" />
-        <com.austingreco.imagelistpreference.ImageListPreference
+        <ListPreference
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:defaultValue="1"
@@ -332,7 +321,7 @@
             android:dependency="d3_active"
             android:inputType="text" />
 
-        <com.austingreco.imagelistpreference.ImageListPreference
+        <ListPreference
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:entries="@array/ClockDataElementsEntries"
@@ -341,12 +330,9 @@
             android:key="selectedClockLeft3"
             android:summary="%s"
             android:dependency="d3_active"
-            android:title="@string/pref_leftclock"
-            app:ilp_backgroundTint="@android:color/transparent"
-            app:ilp_entryImages="@array/ClockDataElementsIcons"
-            app:ilp_tint="#00FFFFFF" />
+            android:title="@string/pref_leftclock" />
 
-        <com.austingreco.imagelistpreference.ImageListPreference
+        <ListPreference
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:entries="@array/ClockDataElementsEntries"
@@ -355,13 +341,10 @@
             android:key="selectedClockCenter3"
             android:summary="%s"
             android:title="@string/pref_centerclock"
-            android:dependency="d3_active"
-            app:ilp_backgroundTint="@android:color/transparent"
-            app:ilp_entryImages="@array/ClockDataElementsIcons"
-            app:ilp_tint="#00FFFFFF" />
+            android:dependency="d3_active" />
 
 
-        <com.austingreco.imagelistpreference.ImageListPreference
+        <ListPreference
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:entries="@array/ClockDataElementsEntries"
@@ -370,13 +353,10 @@
             android:key="selectedClockRight3"
             android:summary="%s"
             android:title="@string/pref_rightclock"
-            android:dependency="d3_active"
-            app:ilp_backgroundTint="@android:color/transparent"
-            app:ilp_entryImages="@array/ClockDataElementsIcons"
-            app:ilp_tint="#00FFFFFF" />
+            android:dependency="d3_active" />
 
 
-        <com.austingreco.imagelistpreference.ImageListPreference
+        <ListPreference
             android:defaultValue="1"
             android:entries="@array/TextDataElementsEntries"
             android:entryValues="@array/TextDataElementsValues"
@@ -388,7 +368,7 @@
             app:ilp_backgroundTint="@android:color/transparent"
             app:ilp_entryImages="@array/TextDataElementsIcons"
             app:ilp_tint="#00FFFFFF" />
-        <com.austingreco.imagelistpreference.ImageListPreference
+        <ListPreference
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:defaultValue="1"
@@ -402,7 +382,7 @@
             app:ilp_backgroundTint="@android:color/transparent"
             app:ilp_entryImages="@array/TextDataElementsIcons"
             app:ilp_tint="#00FFFFFF" />
-        <com.austingreco.imagelistpreference.ImageListPreference
+        <ListPreference
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:defaultValue="1"
@@ -416,7 +396,7 @@
             app:ilp_backgroundTint="@android:color/transparent"
             app:ilp_entryImages="@array/TextDataElementsIcons"
             app:ilp_tint="#00FFFFFF" />
-        <com.austingreco.imagelistpreference.ImageListPreference
+        <ListPreference
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:defaultValue="1"
@@ -540,13 +520,6 @@
             android:key="oilTempMonitoringActive"
             android:summary="@string/pref_oil_temp_monitoring_summary"
             android:title="@string/pref_oil_temp_monitoring_title" />
-        <com.mqbcoding.stats.TemperaturePreference
-            android:defaultValue="70"
-            android:dependency="oilTempMonitoringActive"
-            android:dialogTitle="@string/pref_oil_temp_threshold_title"
-            android:inputType="number"
-            android:key="oilTempThreshold"
-            android:title="@string/pref_oil_temp_threshold_title" />
         <CheckBoxPreference
             android:defaultValue="false"
             android:key="wheelStateMonitoringActive"
