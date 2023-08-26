@@ -55,7 +55,8 @@
         android:name="com.mqbcoding.stats.TorqueDisplay"
         android:layout="@layout/fragment_display"
         app:layout_constraintTop_toTopOf="@+id/gaugeCenter"
-        app:layout_constraintStart_toStartOf="@+id/gaugeCenter"
+        app:layout_constraintStart_toStartOf="@+id/gaugeLeft"
+        app:layout_constraintEnd_toEndOf="@+id/gaugeCenter"
         />
 
     <fragment
@@ -65,7 +66,8 @@
         android:name="com.mqbcoding.stats.TorqueDisplay"
         android:layout="@layout/fragment_display"
         app:layout_constraintTop_toTopOf="@+id/gaugeCenter"
-        app:layout_constraintEnd_toEndOf="@+id/gaugeCenter"
+        app:layout_constraintStart_toStartOf="@+id/gaugeCenter"
+        app:layout_constraintEnd_toEndOf="@+id/gaugeRight"
         />
 
     <fragment
@@ -75,7 +77,8 @@
         android:name="com.mqbcoding.stats.TorqueDisplay"
         android:layout="@layout/fragment_display"
         app:layout_constraintBottom_toBottomOf="@+id/gaugeCenter"
-        app:layout_constraintStart_toStartOf="@+id/gaugeCenter"
+        app:layout_constraintStart_toStartOf="@+id/gaugeLeft"
+        app:layout_constraintEnd_toEndOf="@+id/gaugeCenter"
         />
 
     <fragment
@@ -84,7 +87,8 @@
         android:layout_height="wrap_content"
         android:name="com.mqbcoding.stats.TorqueDisplay"
         android:layout="@layout/fragment_display"
-        app:layout_constraintEnd_toEndOf="@+id/gaugeCenter"
+        app:layout_constraintStart_toStartOf="@+id/gaugeCenter"
+        app:layout_constraintEnd_toEndOf="@+id/gaugeRight"
         app:layout_constraintBottom_toBottomOf="@+id/gaugeCenter"
         />
 

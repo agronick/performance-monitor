@@ -15,7 +15,7 @@ class TorqueData() {
     var unit = ""
     var scale = 0f
 
-    var notifyUpdate: WeakReference<(Double) -> Unit>? = null
+    var notifyUpdate: ((Double) -> Unit)? = null
     companion object {
         const val PREFIX = "torque_"
     }
@@ -26,14 +26,11 @@ class TorqueData() {
             query = value
         }
     }
-    fun setNotifyUpdate(func: (Double) -> Unit) {
-        notifyUpdate = WeakReference(func)
-    }
 
     fun setLastData(value: Double) {
-        lastData = value
-        if (notifyUpdate != null) {
-            notifyUpdate!!.get()?.let { it(value) }
+        if (notifyUpdate != null && lastData != value) {
+            lastData = value
+            notifyUpdate?.invoke(value)
         }
     }
 

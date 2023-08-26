@@ -1,6 +1,5 @@
 package com.mqbcoding.stats
 
-import android.content.Context
 import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
@@ -147,13 +146,8 @@ class TorqueGauge : Fragment(){
     fun setupClock(data: TorqueData) {
         torqueMin = data.minValue
         torqueMax = data.maxValue
-        data.setNotifyUpdate {
-            onUpdate(it)
-        }
-        val clock = mClock
-        val icon = mIcon
-        val ray = mRayClock
-        val max = mMax
+
+        data.notifyUpdate = this::onUpdate
 
         val typedArray2 =
             requireContext().theme.obtainStyledAttributes(intArrayOf(R.attr.themedStopWatchBackground))
@@ -163,10 +157,10 @@ class TorqueGauge : Fragment(){
 
         if (data.query == "none") {
             setupClock(
-                icon,
+                mIcon,
                 "ic_none",
                 "",
-                clock,
+                mClock,
                 false,
                 "",
                 0,
@@ -176,35 +170,35 @@ class TorqueGauge : Fragment(){
             )
         } else {
             setupClock(
-                icon,
+                mIcon,
                 "ic_none",
                 data.shortName,
-                clock,
+                mClock,
                 false,
                 data.unit,
                 data.minValue,
                 data.maxValue,
-                if (data.scale % 1f == 0f) "integer" else "float",
+                "float",
                 "integer"
             )
         }
 
         // make the icon appear in the color of unitTextColor
-        val iconBackground = icon!!.background
+        val iconBackground = mIcon!!.background
         if (iconBackground != null) {
-            val iconTint = clock!!.unitTextColor
+            val iconTint = mClock!!.unitTextColor
             iconBackground.setColorFilter(iconTint, PorterDuff.Mode.SRC_ATOP)
-            icon.background = iconBackground
-            icon.setTextColor(iconTint)
+            mIcon!!.background = iconBackground
+            mIcon!!.setTextColor(iconTint)
         }
 
         // bring mins and max's in line with the clock
-        val minimum = clock!!.getMinSpeed()
-        val maximum = clock.getMaxSpeed()
+        val minimum = mClock!!.getMinSpeed()
+        val maximum = mClock!!.getMaxSpeed()
 
         //min.setMinMaxSpeed(minimum, maximum);
-        ray!!.setMinMaxSpeed(minimum, maximum)
-        max!!.setMinMaxSpeed(minimum, maximum)
+        mRayClock!!.setMinMaxSpeed(minimum, maximum)
+        mMax!!.setMinMaxSpeed(minimum, maximum)
     }
 
     private fun setupClock(

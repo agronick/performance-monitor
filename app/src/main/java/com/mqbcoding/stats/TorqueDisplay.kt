@@ -1,6 +1,8 @@
 package com.mqbcoding.stats
 
+import android.annotation.SuppressLint
 import android.graphics.Typeface
+import android.icu.text.NumberFormat
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,11 +12,19 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 
-class TorqueDisplay: Fragment() {
+class TorqueDisplay() : Fragment() {
     val TAG = "TorqueDisplay"
     private var rootView: View? = null
     private var valueElement: TextView? = null
     private var iconElement: TextView? = null
+    private var unit = ""
+    private var numberFormatter = NumberFormat.getInstance()
+
+    init {
+        numberFormatter.maximumFractionDigits = 2
+        numberFormatter.minimumFractionDigits = 0
+        numberFormatter.isGroupingUsed = true
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,12 +41,12 @@ class TorqueDisplay: Fragment() {
     fun setupElement(data: TorqueData) {
         val label = iconElement
         val value = valueElement
+        unit = data.unit
 
         if(label == null || value == null) return
 
-        data.setNotifyUpdate {
-            onUpdate(it)
-        }
+        data.notifyUpdate = this::onUpdate
+
         var icon = ""
         label.setBackgroundResource(0)
         value.visibility = View.VISIBLE
@@ -64,7 +74,15 @@ class TorqueDisplay: Fragment() {
         iconElement?.typeface = typeface
     }
 
+    @SuppressLint("SetTextI18n")
     fun onUpdate(value: Double) {
-        valueElement?.text = value.toString()
+        valueElement?.text = "${numberFormatter.format(value)}${unit}"
+    }
+
+    fun bottomDisplay() {
+        val params = iconElement!!.layoutParams as ConstraintLayout.LayoutParams
+        params.bottomToTop = params.topToBottom
+        params.topToBottom = ConstraintLayout.LayoutParams.UNSET
+        iconElement!!.requestLayout()
     }
 }

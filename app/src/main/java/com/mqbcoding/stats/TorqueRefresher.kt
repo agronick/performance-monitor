@@ -16,6 +16,7 @@ class TorqueRefresher {
     }
 
     fun populateQuery(pos: Int, query: String) {
+        data[pos]?.notifyUpdate = null
         data[pos] = TorqueData(query)
         Log.d(TAG, "Setting query: $query for pos $pos")
     }
