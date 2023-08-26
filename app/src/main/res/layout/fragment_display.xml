@@ -32,8 +32,8 @@
         android:gravity="center"
         android:textColor="@android:color/white"
         android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="@+id/value_Element"
-        app:layout_constraintStart_toStartOf="@+id/value_Element"
-        app:layout_constraintTop_toBottomOf="@+id/value_Element" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/valueElement" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

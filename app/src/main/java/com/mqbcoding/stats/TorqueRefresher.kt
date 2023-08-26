@@ -1,9 +1,12 @@
 package com.mqbcoding.stats
-import org.prowl.torque.remote.ITorqueService
+import android.util.Log
+import java.lang.RuntimeException
 import java.math.BigInteger
 
 class TorqueRefresher {
+    val TAG = "TorqueRefresher"
     val data = HashMap<Int, TorqueData>()
+    var hasLoadedData = false
 
     companion object {
         fun isTorqueQuery(query: String?): Boolean {
@@ -12,50 +15,69 @@ class TorqueRefresher {
         }
     }
 
-    fun populateQuery(pos: Int, query: String="none"): Boolean {
-        val changed = hasChanged(pos, query)
+    fun populateQuery(pos: Int, query: String) {
         data[pos] = TorqueData(query)
-        return changed
+        Log.d(TAG, "Setting query: $query for pos $pos")
     }
 
-    fun refreshQueries(service: ITorqueService) {
-        val fetchQueries = arrayListOf<String>()
-        val indexInfo = arrayListOf<Int>()
-        val fetchData = arrayListOf<String>()
-        val indexData = arrayListOf<Int>()
-        for (i in data.keys) {
-            if (data[i] != null) {
-                if (data[i]?.pidInfo == null) {
-                    data[i]!!.pid?.let { fetchQueries.add(it) }
-                    indexInfo.add(i)
+    fun refreshQueries(service: TorqueService, runOnUiThread: (action: Runnable) -> Unit) {
+        val needRefresh = data.filter { it.value.pid != null }
+        if (needRefresh.isNotEmpty()) {
+            val refreshKeys = needRefresh.map { it.key }
+            val asPids = needRefresh.map { it.value.pid }
+            service.addConnectCallback {
+                val pidData = it.getPIDValuesAsDouble(convertPids(asPids))
+                runOnUiThread(Runnable {
+                    refreshKeys.forEachIndexed { idx, i ->
+                        val elm = data[i]!!
+                        val info = pidData[idx]
+                        elm.setLastData(info)
+                    }
+                })
+            }
+        }
+    }
+
+    fun refreshInformation(service: TorqueService, notifyDone: (pos: Int, data: TorqueData)-> Unit) {
+        hasLoadedData = false
+        val needRefresh = data.filter { it.value.pid != null }
+        if (needRefresh.isNotEmpty()) {
+            val refreshKeys = needRefresh.map { it.key }
+            val asPids = needRefresh.map { it.value.pid }
+            //  "<longName>,<shortName>,<unit>,<maxValue>,<minValue>,<scale>",
+            service.addConnectCallback {
+                val pidInfo = it.getPIDInformation(convertPids(asPids)).map { it.split(",") }
+                if (pidInfo.size != needRefresh.size) {
+                    Log.e(TAG, "Mismatched request response size ${needRefresh.size}:${pidInfo.size}")
+                    return@addConnectCallback
                 }
-                data[i]!!.pid?.let { fetchData.add(it) }
-                indexData.add(i)
+                refreshKeys.forEachIndexed { idx, i ->
+                    val elm = data[i]!!
+                    val info = pidInfo[idx]
+                    elm.longName = info[0]
+                    elm.shortName = info[1]
+                    elm.unit = info[2]
+                    elm.maxValue = info[3].toInt()
+                    elm.minValue = info[4].toInt()
+                    elm.scale = info[5].toFloat()
+                    notifyDone(i,  elm)
+                }
+                hasLoadedData = true
             }
-        }
-        if (fetchQueries.isNotEmpty()) {
-            val pidInfo =
-                service.getPIDInformation(fetchQueries.toArray(arrayOfNulls(fetchQueries.size)))
-            for (i in indexInfo) {
-                data[i]?.pidInfo = pidInfo[i]
-            }
-        }
-        if (fetchData.isNotEmpty()) {
-            val pidData = service.getPIDValuesAsDouble(fetchData.toArray(arrayOfNulls(fetchQueries.size)))
-            for (i in indexData) {
-                data[i]?.lastData = pidData[i]
-            }
-        }
-    }
-
-    fun getByQuery(query: String) {
-        for (pkg in data.values) {
-
         }
     }
 
     fun hasChanged(idx: Int, readedElementQuery: String?): Boolean {
         if (!data.containsKey(idx)) return true;
         return data[idx]?.query != readedElementQuery
+    }
+
+    fun convertPids(items: List<String?>): Array<String> {
+        return items.map {
+            if (it == null) {
+                throw RuntimeException("cannot convert null pid")
+            }
+            return@map it
+        }.toTypedArray()
     }
 }

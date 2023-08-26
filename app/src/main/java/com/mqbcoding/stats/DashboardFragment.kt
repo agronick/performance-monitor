@@ -1,14 +1,11 @@
 package com.mqbcoding.stats
 
-import android.app.Activity
-import android.content.ComponentName
 import android.content.Context
-import android.content.Intent
-import android.content.ServiceConnection
 import android.content.SharedPreferences
 import android.graphics.Typeface
 import android.os.Bundle
-import android.os.IBinder
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -17,13 +14,17 @@ import android.widget.ImageButton
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.google.android.apps.auto.sdk.StatusBarController
+import java.util.Timer
+import java.util.TimerTask
+import kotlin.collections.ArrayList
 
-class DashboardFragment: CarFragment(), SharedPreferences.OnSharedPreferenceChangeListener {
+class DashboardFragment : CarFragment(), SharedPreferences.OnSharedPreferenceChangeListener {
     private val TAG = "DashboardFragment"
     private var rootView: View? = null
     private var dashboardId = 1
     private val torqueRefresher = TorqueRefresher()
     private val torqueService = TorqueService()
+    private var updateTimer: Timer? = null
 
     private var mBtnNext: ImageButton? = null
     private var mBtnPrev: ImageButton? = null
@@ -54,6 +55,8 @@ class DashboardFragment: CarFragment(), SharedPreferences.OnSharedPreferenceChan
     private var selectedBackground: String? = null
     private var selectedPressureUnits = false
     private var DISPLAY_OFFSET = 3
+
+    private var doRefresh = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -96,6 +99,16 @@ class DashboardFragment: CarFragment(), SharedPreferences.OnSharedPreferenceChan
         sc.hideTitle()
     }
 
+    override fun onResume() {
+        super.onResume()
+        createAndStartUpdateTimer()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        updateTimer!!.cancel()
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         torqueService.onDestroy(requireContext())
@@ -131,7 +144,7 @@ class DashboardFragment: CarFragment(), SharedPreferences.OnSharedPreferenceChan
 
         if (readedFont != selectedFont && readedFont != null) {
             selectedFont = readedFont
-            val assetsMgr = context!!.assets
+            val assetsMgr = requireContext().assets
             var typeface = Typeface.createFromAsset(assetsMgr, "digital.ttf")
             when (selectedFont) {
                 "segments" -> typeface = Typeface.createFromAsset(assetsMgr, "digital.ttf")
@@ -162,11 +175,14 @@ class DashboardFragment: CarFragment(), SharedPreferences.OnSharedPreferenceChan
 
 
         //determine what data the user wants to have on the 4 data views
+        val notifyDisplays = ArrayList<Int>()
+        val notifyGauge = ArrayList<Int>()
         for (idx in 0..3) {
-            val readedElementQuery = sharedPreferences.getString("selectedView${idx}_$dashboardId", "none") ?: "none"
-            if (torqueRefresher.hasChanged(idx, readedElementQuery)) {
+            val readedElementQuery =
+                sharedPreferences.getString("selectedView${idx + 1}_$dashboardId", "none") ?: "none"
+            if (torqueRefresher.hasChanged(idx + DISPLAY_OFFSET, readedElementQuery)) {
                 torqueRefresher.populateQuery(idx + DISPLAY_OFFSET, readedElementQuery)
-                setupElement(idx, readedElementQuery)
+                notifyDisplays.add(idx)
             }
         }
         //determine what data the user wants to have on the 3 clocks, but set defaults first
@@ -175,15 +191,22 @@ class DashboardFragment: CarFragment(), SharedPreferences.OnSharedPreferenceChan
         //could probably be done MUCH more efficient but that's for the future ;)
         val positions = arrayOf("Left", "Center", "Right")
         for (pos in 0..2) {
-            sharedPreferences.getString("selectedClock${positions[pos]}$dashboardId", "exlap-batteryVoltage")
+            sharedPreferences.getString("selectedClock${positions[pos]}$dashboardId", "none")
                 ?.let {
-                    torqueRefresher.populateQuery(pos, it)
-                    setupClocks(pos, it)
+                    if (torqueRefresher.hasChanged(pos, it)) {
+                        torqueRefresher.populateQuery(pos, it)
+                        notifyGauge.add(pos)
+                    }
                 }
         }
 
-
-        //
+        torqueRefresher.refreshInformation(torqueService) { pos: Int, data: TorqueData ->
+            if (pos >= DISPLAY_OFFSET) {
+                displays[pos - DISPLAY_OFFSET]!!.setupElement(data)
+            } else {
+                guages[pos]!!.setupClock(data)
+            }
+        }
 
         //show texts and backgrounds for max/min, according to the setting
         val readedMaxOn = sharedPreferences.getBoolean(
@@ -207,10 +230,8 @@ class DashboardFragment: CarFragment(), SharedPreferences.OnSharedPreferenceChan
             "highVisActive",
             false
         ) //true = show high vis rays, false = don't show them.
-        val readedTheme = sharedPreferences.getString("selectedTheme", "")
-        if (raysOn == null || readedRaysOn != raysOn || readedTheme != selectedTheme) {
+        if (raysOn == null || readedRaysOn != raysOn) {
             raysOn = readedRaysOn
-            selectedTheme = readedTheme
             turnRaysEnabled(raysOn!!)
         }
         val readedTicksOn = sharedPreferences.getBoolean(
@@ -221,6 +242,18 @@ class DashboardFragment: CarFragment(), SharedPreferences.OnSharedPreferenceChan
             ticksOn = readedTicksOn
             turnTickEnabled(ticksOn!!)
         }
+    }
+
+    private fun createAndStartUpdateTimer() {
+        updateTimer = Timer()
+        val handler = Handler(Looper.getMainLooper())
+        updateTimer!!.schedule(object : TimerTask() {
+            override fun run() {
+                if (isVisible && !isRemoving && torqueService.isAvailable() && torqueRefresher.hasLoadedData) {
+                    torqueRefresher.refreshQueries(torqueService, handler::post)
+                }
+            }
+        }, 0, 250) //Update display 0,25 second
     }
 
     private fun setupBackground(newBackground: String?) {
@@ -243,14 +276,6 @@ class DashboardFragment: CarFragment(), SharedPreferences.OnSharedPreferenceChan
         mTitleElementRight!!.typeface = typeface
         mTitleElementLeft!!.typeface = typeface
         Log.d(TAG, "font: $typeface")
-    }
-
-    fun setupElement(idx: Int, query: String) {
-        displays[idx]!!.setupElement(query)
-    }
-
-    fun setupClocks(idx: Int, query: String) {
-        guages[idx]!!.setupClock(query, 1, 100)
     }
 
     fun turnMinMaxTextViewsEnabled(enabled: Boolean) {

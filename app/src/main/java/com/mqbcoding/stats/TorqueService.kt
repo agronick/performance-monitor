@@ -9,10 +9,23 @@ import android.os.IBinder
 import android.util.Log
 import org.prowl.torque.remote.ITorqueService
 
-class TorqueService(onConnect: ((ITorqueService) -> Unit)? = null) {
+class TorqueService() {
     val TAG = "TorqueService"
-    private var torqueService: ITorqueService? = null
+    var torqueService: ITorqueService? = null
+    val onConnect = ArrayList<(ITorqueService) -> Unit>()
 
+    fun isAvailable(): Boolean {
+        return torqueService != null
+    }
+
+    fun addConnectCallback(func: (ITorqueService) -> Unit): TorqueService {
+        if (torqueService == null) {
+            onConnect.add(func)
+        } else {
+            func(torqueService!!)
+        }
+        return this
+    }
 
     private val torqueConnection: ServiceConnection = object : ServiceConnection {
         /**
@@ -23,8 +36,8 @@ class TorqueService(onConnect: ((ITorqueService) -> Unit)? = null) {
          */
         override fun onServiceConnected(arg0: ComponentName, service: IBinder) {
             val service = ITorqueService.Stub.asInterface(service)
-            if (onConnect != null) {
-                onConnect(service)
+            for (funt in onConnect) {
+                funt(service)
             }
             torqueService = service
         }
