@@ -25,9 +25,9 @@ import java.util.Collections
 
 class SettingsFragment : PreferenceFragmentCompat() {
     private var torqueService = TorqueService().addConnectCallback{
-        val pids = it.listAllPIDsIncludingDetectedPIDs()
+        val pids = it.listAllPIDs()
         val details = it.getPIDInformation(pids).map { it -> it.substringBefore(",") }.toTypedArray()
-        val valuesQuery = pids.map { it -> "torque_${it}" }.toTypedArray()
+        val valuesQuery = pids.map { "torque_${it}" }.toTypedArray()
         for (pos in arrayOf(
             "Left",
             "Center",

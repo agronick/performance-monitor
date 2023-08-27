@@ -252,7 +252,9 @@ class DashboardFragment : CarFragment(), SharedPreferences.OnSharedPreferenceCha
         updateTimer!!.schedule(object : TimerTask() {
             override fun run() {
                 if (isVisible && !isRemoving && torqueService.isAvailable() && torqueRefresher.hasLoadedData) {
-                    torqueRefresher.refreshQueries(torqueService, handler::post)
+                    torqueRefresher.refreshQueries(torqueService) {
+                        handler.postDelayed(it, 1)
+                    }
                 }
             }
         }, 0, 250) //Update display 0,25 second

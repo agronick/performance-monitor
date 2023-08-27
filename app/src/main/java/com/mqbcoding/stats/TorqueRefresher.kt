@@ -24,15 +24,11 @@ class TorqueRefresher {
     fun refreshQueries(service: TorqueService, runOnUiThread: (action: Runnable) -> Unit) {
         val needRefresh = data.filter { it.value.pid != null }
         if (needRefresh.isNotEmpty()) {
-            val refreshKeys = needRefresh.map { it.key }
-            val asPids = needRefresh.map { it.value.pid }
-            service.addConnectCallback {
-                val pidData = it.getPIDValuesAsDouble(convertPids(asPids))
+            service.addConnectCallback { ts ->
                 runOnUiThread(Runnable {
-                    refreshKeys.forEachIndexed { idx, i ->
-                        val elm = data[i]!!
-                        val info = pidData[idx]
-                        elm.setLastData(info)
+                    needRefresh.forEach {
+                        val pidData = ts.getValueForPid(it.value.pidInt!!, true)
+                        it.value.setLastData(pidData.toDouble())
                     }
                 })
             }

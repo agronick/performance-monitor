@@ -1,11 +1,11 @@
 package com.mqbcoding.stats
 
-import android.widget.TextView
-import java.lang.ref.WeakReference
+import java.math.BigInteger
 
 class TorqueData() {
     var lastData: Double? = null
     var pid: String? = null
+    var pidInt: Long? = null
     var query = "none"
 
     var longName = ""
@@ -23,6 +23,8 @@ class TorqueData() {
     constructor(value: String): this() {
         if (value.startsWith(PREFIX)) {
             pid = value.substring(PREFIX.length)
+            val splitParts = value.split("_")
+            pidInt = BigInteger(splitParts[splitParts.size - 1].split(",")[0], 16).toLong()
             query = value
         }
     }

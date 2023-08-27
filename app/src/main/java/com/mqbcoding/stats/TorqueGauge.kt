@@ -178,7 +178,7 @@ class TorqueGauge : Fragment(){
                 data.unit,
                 data.minValue,
                 data.maxValue,
-                "float",
+                if (data.maxValue > 100) "integer" else "float",
                 "integer"
             )
         }
@@ -199,6 +199,7 @@ class TorqueGauge : Fragment(){
         //min.setMinMaxSpeed(minimum, maximum);
         mRayClock!!.setMinMaxSpeed(minimum, maximum)
         mMax!!.setMinMaxSpeed(minimum, maximum)
+        turnTickEnabled(ticksOn == true)
     }
 
     private fun setupClock(
@@ -263,7 +264,7 @@ class TorqueGauge : Fragment(){
     fun onUpdate(value: Double) {
         if (!isVisible || isRemoving) return
         val fVal = value.toFloat()
-        mClock?.setSpeedAt(fVal)
-        mRayClock?.setSpeedAt(fVal)
+        mClock?.speedTo(fVal, 250)
+        mRayClock?.speedTo(fVal, 250)
     }
 }
