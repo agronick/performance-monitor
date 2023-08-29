@@ -74,6 +74,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-identity:16.0.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.preference:preference-ktx:1.2.1'
+    implementation 'com.github.arnabJ:Android-ImageListPreference:1.0.1'
 
     testImplementation 'junit:junit:4.13.2'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"

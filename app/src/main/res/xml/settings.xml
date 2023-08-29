@@ -106,16 +106,13 @@
             android:icon="@drawable/ic_settings_title"
             android:inputType="text" />
 
-        <ListPreference
-            android:id="@+id/prefClock_0_0"
+        <Preference
+            app:fragment="com.mqbcoding.stats.SettingsPIDFragment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:entries="@array/ClockDataElementsEntries"
-            android:entryValues="@array/ClockDataElementsValues"
             android:icon="@drawable/ic_settings_clockl"
             android:key="selectedClockLeft1"
-            android:summary="%s"
-            android:title="@string/pref_leftclock" />
+            android:title="@string/pref_leftclock"/>
 
         <ListPreference
             android:id="@+id/prefClock_0_1"

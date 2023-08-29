@@ -340,4 +340,9 @@
     <string name="dash4_elementCenter5">Avg consumption:</string>
     <string name="locationSource_googlemaps">Google Maps</string>
     <string name="locationSource_geocoding">Geocoding</string>
+    <string name="pid">PID</string>
+    <string name="pidLabel">Label</string>
+    <string name="pidShowLabel">Show Label</string>
+    <string name="icon">Icon</string>
+    <string name="torque_waiting">Waiting for Torque to become available</string>
 </resources>
