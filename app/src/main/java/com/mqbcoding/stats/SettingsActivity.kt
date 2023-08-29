@@ -2,28 +2,23 @@ package com.mqbcoding.stats
 
 import android.Manifest
 import android.accounts.AccountManager
-import android.content.ComponentName
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.preference.PreferenceManager
-import android.provider.Settings
-import android.text.TextUtils
-import android.util.ArrayMap
+import androidx.preference.PreferenceManager
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.austingreco.imagelistpreference.ImageListPreference
+import androidx.fragment.app.FragmentTransaction
+import androidx.preference.Preference
+import androidx.preference.PreferenceFragmentCompat
 import com.github.martoreto.aauto.vex.CarStatsClient
 import com.google.android.gms.common.GoogleApiAvailability
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential
-import org.prowl.torque.remote.ITorqueService
 
-class SettingsActivity : AppCompatActivity() {
+class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
     private var mCredential: GoogleAccountCredential? = null
     private var mCurrentAuthorizationIntent: Intent? = null
 
@@ -210,6 +205,26 @@ class SettingsActivity : AppCompatActivity() {
             )
             return false
         }
+        return true
+    }
+
+    override fun onPreferenceStartFragment(caller: PreferenceFragmentCompat, pref: Preference): Boolean {
+        // Instantiate the new Fragment
+        val args = Bundle()
+        args.putCharSequence("title", pref.title)
+        args.putString("prefix", pref.key)
+        val fragment = supportFragmentManager.fragmentFactory.instantiate(
+            classLoader,
+            pref.fragment!!
+        )
+        fragment.arguments = args
+        fragment.setTargetFragment(caller, 0)
+        // Replace the existing Fragment with the new Fragment
+        supportFragmentManager.beginTransaction()
+            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+            .replace(R.id.settings_fragment, fragment)
+            .addToBackStack(null)
+            .commit()
         return true
     }
 

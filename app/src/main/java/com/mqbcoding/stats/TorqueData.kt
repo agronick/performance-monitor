@@ -30,8 +30,8 @@ class TorqueData() {
     }
 
     fun setLastData(value: Double) {
-        if (notifyUpdate != null && lastData != value) {
-            lastData = value
+        lastData = value
+        if (notifyUpdate != null) {
             notifyUpdate?.invoke(value)
         }
     }

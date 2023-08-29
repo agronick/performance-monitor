@@ -24,25 +24,6 @@ import java.io.IOException
 import java.util.Collections
 
 class SettingsFragment : PreferenceFragmentCompat() {
-    private var torqueService = TorqueService().addConnectCallback{
-        val pids = it.listAllPIDs()
-        val details = it.getPIDInformation(pids).map { it -> it.substringBefore(",") }.toTypedArray()
-        val valuesQuery = pids.map { "torque_${it}" }.toTypedArray()
-        for (pos in arrayOf(
-            "Left",
-            "Center",
-            "Right",
-        )) {
-            val prefs = findPreference<androidx.preference.ListPreference>("selectedClock${pos}1")
-            prefs!!.entryValues = valuesQuery
-            prefs.entries = details
-        }
-        for (pos in 1 .. 4) {
-            val prefs = findPreference<androidx.preference.ListPreference>("selectedView${pos}_1")
-            prefs!!.entryValues = valuesQuery
-            prefs.entries = details
-        }
-    }
 
     @Throws(IOException::class)
     private fun findLogs(): List<File> {
@@ -57,19 +38,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
         return files
     }
 
-
-    override fun onResume() {
-        super.onResume()
-    }
-
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         addPreferencesFromResource(R.xml.settings)
-        torqueService.startTorque(requireContext())
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        torqueService.onDestroy(requireContext())
     }
 
     companion object {

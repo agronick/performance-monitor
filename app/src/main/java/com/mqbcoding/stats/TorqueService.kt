@@ -62,7 +62,7 @@ class TorqueService() {
         context.sendBroadcast(Intent("org.prowl.torque.REQUEST_TORQUE_QUIT"))
         Log.d(TAG, "Torque stop")
     }
-    fun startTorque(context: Context) {
+    fun startTorque(context: Context): Boolean {
         val intent = Intent()
         intent.setClassName("org.prowl.torque", "org.prowl.torque.remote.TorqueService")
         val torqueBind = context.bindService(intent, torqueConnection, Activity.BIND_AUTO_CREATE)
@@ -70,6 +70,7 @@ class TorqueService() {
             TAG,
             if (torqueBind) "Connected to torque service!" else "Unable to connect to Torque plugin service"
         )
+        return torqueBind
     }
 
 }

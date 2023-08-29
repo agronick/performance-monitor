@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="@string/pref_appearance"
+        android:key="pidCategory"
+        android:enabled="false"
+        android:summary="@string/torque_waiting">
+    <ListPreference
+        android:key="pidList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:summary="%s"
+        android:title="@string/pid"
+        app:dialogTitle="@string/pid" />
+    <CheckBoxPreference
+        android:key="showLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:defaultValue="false"
+        android:title="@string/pidShowLabel" />
+    <EditTextPreference
+        android:key="label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:defaultValue="Default value"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="@string/pidLabel" />
+    <com.mqbcoding.stats.ImageListPreference
+        android:key="custom_list_preference"
+        android:title="@string/icon"
+        android:summary="%s"
+        app:entryImages="@array/icons"
+        android:entries="@array/iconDesc"
+        android:entryValues="@array/icons" />
+    </PreferenceCategory>
+</PreferenceScreen>
