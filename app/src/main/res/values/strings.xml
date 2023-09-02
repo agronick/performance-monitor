@@ -280,7 +280,6 @@
     <string name="bg_aa">Android Auto</string>
 
 
-
     <string name="item_details_name">Name:</string>
     <string name="item_details_minimum">Minimum value:</string>
     <string name="item_details_maximum">Maximum value:</string>
@@ -345,4 +344,5 @@
     <string name="pidShowLabel">Show Label</string>
     <string name="icon">Icon</string>
     <string name="torque_waiting">Waiting for Torque to become available</string>
+    <string name="title_activity_settings">Settings</string>
 </resources>

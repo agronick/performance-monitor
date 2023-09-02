@@ -18,7 +18,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:defaultValue="false"
-        android:title="@string/pidShowLabel" />
+        android:title="@string/pidShowLabel"
+        android:dependency="pidList"
+        android:enabled="false" />
     <EditTextPreference
         android:key="label"
         android:layout_width="wrap_content"
@@ -26,13 +28,18 @@
         android:defaultValue="Default value"
         android:selectAllOnFocus="true"
         android:singleLine="true"
-        android:title="@string/pidLabel" />
+        android:summary="%s"
+        android:title="@string/pidLabel"
+        android:enabled="false"
+        android:dependency="showLabel" />
     <com.mqbcoding.stats.ImageListPreference
-        android:key="custom_list_preference"
+        android:key="image"
         android:title="@string/icon"
         android:summary="%s"
         app:entryImages="@array/icons"
         android:entries="@array/iconDesc"
-        android:entryValues="@array/icons" />
+        android:entryValues="@array/icons"
+        android:dependency="pidList"
+        android:enabled="false" />
     </PreferenceCategory>
 </PreferenceScreen>

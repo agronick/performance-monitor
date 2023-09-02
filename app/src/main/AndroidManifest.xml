@@ -21,46 +21,57 @@
         android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         tools:ignore="GoogleAppIndexingWarning">
 
         <activity
             android:name=".SettingsActivity"
-            android:launchMode="singleTop"
-            android:label="@string/activity_settings_title"
             android:exported="true"
-            >
+            android:label="@string/activity_settings_title"
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
         <service
             android:name=".CarService"
+            android:exported="true"
             android:label="@string/app_car_service_name"
-            tools:ignore="ExportedService"
-            android:exported="true">
+            tools:ignore="ExportedService">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="com.google.android.gms.car.category.CATEGORY_PROJECTION" />
                 <category android:name="com.google.android.gms.car.category.CATEGORY_PROJECTION_OEM" />
             </intent-filter>
             <intent-filter>
                 <action android:name="org.prowl.torque.remote.TorqueService" />
+
                 <category android:name="com.google.android.gms.car.category.DEFAULT" />
             </intent-filter>
         </service>
         <service
-            android:name=".GeocodeLocationService" android:exported="false" android:enabled="true"/>
-        <service android:name=".CarStatsService" android:enabled="true"/>
+            android:name=".GeocodeLocationService"
+            android:enabled="true"
+            android:exported="false" />
+        <service
+            android:name=".CarStatsService"
+            android:enabled="true" />
         <service
             android:name=".LogUploadService"
-            android:permission="android.permission.BIND_JOB_SERVICE"
-            android:exported="true" />
+            android:exported="true"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+        <service
+            android:name=".TorqueServiceWrapper"
+            android:exported="false"
+            android:label="TorqueService"
+            tools:ignore="ExportedService" />
 
         <receiver
             android:name=".CarModeBroadcastReceiver"
@@ -72,7 +83,6 @@
                 <action android:name="android.app.action.ENTER_CAR_MODE" />
             </intent-filter>
         </receiver>
-
         <receiver
             android:name=".CarModeActiveMonitoringReceiver"
             android:enabled="@bool/is_oreo"
@@ -87,4 +97,5 @@
             android:name="com.google.android.gms.car.application"
             android:resource="@xml/automotive_app_desc" />
     </application>
+
 </manifest>

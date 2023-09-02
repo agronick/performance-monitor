@@ -19,6 +19,8 @@ class TorqueServiceWrapper: Service() {
     var wasStartSuccessful = false
     var torqueService: ITorqueService? = null
     val onConnect = ArrayList<(ITorqueService) -> Unit>()
+    var pids: Array<String>? = null
+    var pidInfo: List<List<String>>? = null
 
     override fun onCreate() {
         super.onCreate()
@@ -39,13 +41,19 @@ class TorqueServiceWrapper: Service() {
 
     }
 
-    fun loadPidInformation() {
+    fun loadPidInformation(force: Boolean = false, onComplete: ((Array<String>, List<List<String>>) -> Unit)? = null) {
+        if (pids != null && pidInfo != null && !force) {
+            onComplete?.invoke(pids!!, pidInfo!!)
+            return
+        }
         addConnectCallback {
             val bg = ListPids(it) {
-                pids, detailsQ
+                pids, details ->
+                this.pids = pids
+                this.pidInfo = details
+                onComplete?.invoke(pids, details)
             }
             Thread(bg).start()
-
         }
     }
     /**
@@ -109,5 +117,26 @@ class TorqueServiceWrapper: Service() {
             if (torqueBind) "Connected to torque service!" else "Unable to connect to Torque plugin service"
         )
         return torqueBind
+    }
+
+    companion object {
+        fun getConnection(forceLoad: Boolean? = false): ServiceConnection {
+            return object : ServiceConnection {
+                var mBound = false
+                lateinit var service: TorqueServiceWrapper
+                override fun onServiceConnected(className: ComponentName, service: IBinder) {
+                    if (forceLoad != null) {
+                        this.service =
+                            (service as TorqueServiceWrapper.LocalBinder).getService() as TorqueServiceWrapper
+                        this.service.loadPidInformation(forceLoad)
+                    }
+                    mBound = true
+                }
+
+                override fun onServiceDisconnected(arg0: ComponentName) {
+                    mBound = false
+                }
+            }
+        }
     }
 }

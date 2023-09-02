@@ -111,8 +111,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:icon="@drawable/ic_settings_clockl"
-            android:key="selectedClockLeft1"
-            android:title="@string/pref_leftclock"/>
+            android:title="@string/pref_leftclock"
+            android:key="clock_0_0" />
 
         <ListPreference
             android:id="@+id/prefClock_0_1"
