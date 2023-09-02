@@ -721,7 +721,6 @@
         <item>@drawable/ic_eco</item>
         <item>@drawable/ic_edit</item>
         <item>@drawable/ic_exhaust</item>
-        <item>@drawable/ic_exlap</item>
         <item>@drawable/ic_fuel</item>
         <item>@drawable/ic_fuelpressure</item>
         <item>@drawable/ic_fuelprimary</item>
@@ -729,12 +728,9 @@
         <item>@drawable/ic_gearbox</item>
         <item>@drawable/ic_heading</item>
         <item>@drawable/ic_lateral</item>
-        <item>@drawable/ic_launcher</item>
         <item>@drawable/ic_longitudinal</item>
         <item>@drawable/ic_manifold</item>
-        <item>@drawable/ic_max_text</item>
         <item>@drawable/ic_measurement</item>
-        <item>@drawable/ic_min</item>
         <item>@drawable/ic_motherboard</item>
         <item>@drawable/ic_obd2</item>
         <item>@drawable/ic_odometer</item>
@@ -746,7 +742,6 @@
         <item>@drawable/ic_phone</item>
         <item>@drawable/ic_powermeter</item>
         <item>@drawable/ic_radio</item>
-        <item>@drawable/ic_reset</item>
         <item>@drawable/ic_spanner</item>
         <item>@drawable/ic_start</item>
         <item>@drawable/ic_throttle</item>
@@ -777,7 +772,6 @@
         <item>Eco</item>
         <item>Edit</item>
         <item>Exhaust</item>
-        <item>Exlap</item>
         <item>Fuel</item>
         <item>Fuelpressure</item>
         <item>Fuelprimary</item>
@@ -785,24 +779,20 @@
         <item>Gearbox</item>
         <item>Heading</item>
         <item>Lateral</item>
-        <item>Launcher</item>
         <item>Longitudinal</item>
         <item>Manifold</item>
-        <item>Max_Text</item>
         <item>Measurement</item>
-        <item>Min</item>
         <item>Motherboard</item>
         <item>Obd2</item>
         <item>Odometer</item>
         <item>Oil</item>
-        <item>Outsidetemperature</item>
+        <item>Outside Temp</item>
         <item>Pause</item>
         <item>Pedalposition</item>
-        <item>Phonebattery</item>
+        <item>Phone Battery</item>
         <item>Phone</item>
         <item>Powermeter</item>
         <item>Radio</item>
-        <item>Reset</item>
         <item>Spanner</item>
         <item>Start</item>
         <item>Throttle</item>

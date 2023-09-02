@@ -8,8 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.CheckBox
 import android.widget.ImageView
+import android.widget.ListView
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.preference.ListPreference
@@ -22,7 +22,7 @@ class ImageListPreference(
     class CustomListAdapter(
         context: Context,
         private val layoutResource: Int,
-        private val items: List<CustomListItem>
+        private val items: List<CustomListItem>,
     ) : ArrayAdapter<CustomListItem>(context, layoutResource, items) {
 
         override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
@@ -30,12 +30,11 @@ class ImageListPreference(
             val item = items[position]
             val icon = view.findViewById<ImageView>(R.id.icon)
             val title = view.findViewById<TextView>(R.id.title)
-            val checkbox = view.findViewById<CheckBox>(R.id.checkbox)
             icon.setImageResource(item.iconRes)
             title.text = item.title
-            checkbox.isChecked = item.checked
             return view
         }
+
     }
 
     private var iconResArray: IntArray? = null
@@ -72,15 +71,17 @@ class ImageListPreference(
             )
         }
 
+        val lv = ListView(context)
         val adapter = CustomListAdapter(context, R.layout.icon_list_row, items)
 
         AlertDialog.Builder(context)
             .setTitle(dialogTitle)
+            .setView(lv)
             .setAdapter(adapter) { dialog, which ->
                 setValueIndex(which)
                 dialog.dismiss()
             }
-            .setNegativeButton(android.R.string.cancel) { dialog, _ ->
+            .setNegativeButton(android.R.string.cancel) { dialog, which ->
                 dialog.dismiss()
             }
             .create()

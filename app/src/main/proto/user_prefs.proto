@@ -1,0 +1,20 @@
+syntax = "proto3";
+option java_package = "com.mqbcoding.datastore";
+option java_multiple_files = true;
+
+message Display {
+  string pid = 1;
+  bool showLabel = 2;
+  string label = 3;
+  string icon = 4;
+}
+
+message Screen {
+  string title = 5;
+  repeated Display gauges = 6;
+  repeated Display displays = 7;
+}
+
+message UserPreference {
+  repeated Screen screens = 8;
+}

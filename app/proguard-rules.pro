@@ -39,3 +39,7 @@
     public static *** d(...);
     public static *** v(...);
 }
+
+-keepclassmembers class * extends androidx.datastore.preferences.protobuf.GeneratedMessageLite {
+    <fields>;
+}

@@ -2,9 +2,13 @@ package com.mqbcoding.stats
 
 import android.Manifest
 import android.accounts.AccountManager
+import android.content.ComponentName
+import android.content.Context
 import android.content.Intent
+import android.content.ServiceConnection
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.os.IBinder
 import androidx.preference.PreferenceManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -22,7 +26,7 @@ class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPrefere
     private var mCredential: GoogleAccountCredential? = null
     private var mCurrentAuthorizationIntent: Intent? = null
 
-
+    private val connection = TorqueServiceWrapper.getConnection(true)
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +36,10 @@ class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPrefere
         val app = application as App
         mCredential = app.googleCredential
         handleIntent()
+
+        Intent(this, TorqueServiceWrapper::class.java).also { intent ->
+            bindService(intent, connection, Context.BIND_AUTO_CREATE)
+        }
     }
 
     override fun onNewIntent(intent: Intent) {
@@ -44,7 +52,7 @@ class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPrefere
         val intent = intent
         if (intent.hasExtra(EXTRA_AUTHORIZATION_INTENT) && mCurrentAuthorizationIntent == null) {
             mCurrentAuthorizationIntent = intent.getParcelableExtra(EXTRA_AUTHORIZATION_INTENT)
-            startActivityForResult(mCurrentAuthorizationIntent, REQUEST_AUTHORIZATION)
+            mCurrentAuthorizationIntent?.let { startActivityForResult(it, REQUEST_AUTHORIZATION) }
         }
     }
 
@@ -67,12 +75,17 @@ class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPrefere
         checkLocationPermissions()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        unbindService(connection)
+    }
+
     fun showGooglePlayServicesAvailabilityErrorDialog(connectionStatusCode: Int) {
         runOnUiThread {
             val dialog = GoogleApiAvailability.getInstance().getErrorDialog(
                 this@SettingsActivity, connectionStatusCode, REQUEST_GOOGLE_PLAY_SERVICES
             )
-            dialog.show()
+            dialog?.show()
         }
     }
 
