@@ -1,45 +1,25 @@
 package com.mqbcoding.stats
 
-import android.app.AlertDialog
-import android.app.job.JobInfo
-import android.app.job.JobScheduler
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
-import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import android.os.Bundle
 import android.os.IBinder
 import android.preference.ListPreference
-import android.preference.Preference
 import android.preference.Preference.OnPreferenceChangeListener
-import android.preference.Preference.OnPreferenceClickListener
-import android.preference.PreferenceManager
-import android.preference.SwitchPreference
-import android.util.ArrayMap
 import android.util.Log
-import android.widget.ArrayAdapter
-import android.widget.Toast
-import androidx.datastore.core.DataStore
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.PreferenceFragmentCompat
-import com.austingreco.imagelistpreference.ImageListPreference
-import com.github.martoreto.aauto.vex.CarStatsClient
-import com.mqbcoding.datastore.UserPreference
-import dagger.hilt.android.AndroidEntryPoint
+import com.mqbcoding.prefs.dataStore
 import kotlinx.coroutines.launch
 import java.io.File
 import java.io.IOException
 import java.util.Collections
-import javax.inject.Inject
 
-@AndroidEntryPoint
 class SettingsFragment : PreferenceFragmentCompat() {
 
-    private val connection = TorqueServiceWrapper.getConnection(true)
 
-    @Inject
-    lateinit var dataStore: DataStore<UserPreference>
     @Throws(IOException::class)
     private fun findLogs(): List<File> {
         val logDir = CarStatsLogger.getLogsDir()
@@ -62,7 +42,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                     val valuesQuery = pids.map { "torque_${it}" }.toTypedArray()
 
                     lifecycleScope.launch {
-                        dataStore.data.collect { userPreference ->
+                        requireContext().dataStore.data.collect { userPreference ->
                             userPreference.screensList.forEachIndexed {
                                 i, screen ->
                                 screen.gaugesList.forEachIndexed {
@@ -109,7 +89,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         addPreferencesFromResource(R.xml.settings)
         lifecycleScope.launch {
-            dataStore.data.collect { userPreference ->
+            requireContext().dataStore.data.collect { userPreference ->
                 for (screen in userPreference.screensList) {
                     for (gauge in screen.gaugesList)  {
                         gauge.pid

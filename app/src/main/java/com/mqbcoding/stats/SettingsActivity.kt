@@ -23,7 +23,6 @@ import com.google.android.gms.common.GoogleApiAvailability
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential
 import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
 class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
     private var mCredential: GoogleAccountCredential? = null
     private var mCurrentAuthorizationIntent: Intent? = null

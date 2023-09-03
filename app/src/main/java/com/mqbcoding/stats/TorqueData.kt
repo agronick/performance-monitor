@@ -1,39 +1,40 @@
 package com.mqbcoding.stats
 
+import com.mqbcoding.datastore.Display
 import java.math.BigInteger
 
-class TorqueData() {
+class TorqueData(val display: Display) {
+
     var lastData: Double? = null
     var pid: String? = null
     var pidInt: Long? = null
-    var query = "none"
-
-    var longName = ""
-    var shortName = ""
-    var minValue = 0
-    var maxValue = 1
-    var unit = ""
-    var scale = 0f
 
     var notifyUpdate: ((Double) -> Unit)? = null
     companion object {
         const val PREFIX = "torque_"
+        val drawableRegex = Regex("res/drawable/(?<name>.+)\\.[a-z]+")
     }
 
-    constructor(value: String): this() {
+    init {
+        val value = display.pid
         if (value.startsWith(PREFIX)) {
             pid = value.substring(PREFIX.length)
             val splitParts = value.split("_")
             pidInt = BigInteger(splitParts[splitParts.size - 1].split(",")[0], 16).toLong()
-            query = value
         }
     }
 
     fun setLastData(value: Double) {
         lastData = value
-        if (notifyUpdate != null) {
-            notifyUpdate?.invoke(value)
+        notifyUpdate?.invoke(value)
+    }
+
+    fun getDrawableName(): String? {
+        val match = drawableRegex.matchEntire(display.icon)
+        if (match != null) {
+            return match.groups["name"]!!.value
         }
+        return null
     }
 
 }

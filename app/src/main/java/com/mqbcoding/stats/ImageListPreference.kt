@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.ListView
 import android.widget.TextView
+import androidx.annotation.ArrayRes
 import androidx.appcompat.app.AlertDialog
 import androidx.preference.ListPreference
 
@@ -55,7 +56,7 @@ class ImageListPreference(
 
     override fun onClick() {
         val entries = entries ?: return
-        val entryValues = entryValues ?: return
+        val entryValues = entryValues
         val iconResArray = iconResArray ?: return
 
         if (entries.size != entryValues.size || entries.size != iconResArray.size) {

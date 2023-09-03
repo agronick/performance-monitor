@@ -13,10 +13,13 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
 import com.google.android.apps.auto.sdk.StatusBarController
+import com.mqbcoding.prefs.dataStore
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 import java.util.Timer
 import java.util.TimerTask
-import kotlin.collections.ArrayList
 
 class DashboardFragment : CarFragment(), SharedPreferences.OnSharedPreferenceChangeListener {
     private val TAG = "DashboardFragment"
@@ -45,10 +48,6 @@ class DashboardFragment : CarFragment(), SharedPreferences.OnSharedPreferenceCha
     private var ambientOn: Boolean? = null
     private var accurateOn: Boolean? = null
     private var proximityOn: Boolean? = null
-    private var Dashboard2_On: Boolean? = null
-    private var Dashboard3_On: Boolean? = null
-    private var Dashboard4_On: Boolean? = null
-    private var Dashboard5_On: Boolean? = null
     private var updateSpeed = 2000
     private var selectedFont: String? = null
     private var selectedTheme: String? = null
@@ -61,6 +60,32 @@ class DashboardFragment : CarFragment(), SharedPreferences.OnSharedPreferenceCha
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         torqueService.startTorque(requireContext())
+        lifecycleScope.launch {
+            requireContext().dataStore.data.map {
+                it.screensList[it.currentScreen]
+            }.collect {
+                screens ->
+                screens.gaugesList.forEachIndexed { index, display ->
+                    if (torqueRefresher.hasChanged(index, display)) {
+                        torqueRefresher.populateQuery(index, display)
+                    }
+                }
+                screens.displaysList.forEachIndexed { index, display ->
+                    if (torqueRefresher.hasChanged(index + DISPLAY_OFFSET, display)) {
+                        torqueRefresher.populateQuery(index + DISPLAY_OFFSET, display)
+                    }
+                }
+
+
+                torqueRefresher.refreshInformation(torqueService) { pos: Int, data: TorqueData ->
+                    if (pos >= DISPLAY_OFFSET) {
+                        displays[pos - DISPLAY_OFFSET]!!.setupElement(data)
+                    } else {
+                        guages[pos]!!.setupClock(data)
+                    }
+                }
+            }
+        }
     }
 
     override fun onCreateView(
@@ -77,13 +102,13 @@ class DashboardFragment : CarFragment(), SharedPreferences.OnSharedPreferenceCha
         mTitleElementRight = view.findViewById(R.id.textTitleElementRight)
         mTitleElement = view.findViewById(R.id.textTitleElement)
 
-        guages[0] = childFragmentManager.findFragmentById(R.id.gaugeLeft) as TorqueGauge?
-        guages[1] = childFragmentManager.findFragmentById(R.id.gaugeCenter) as TorqueGauge?
-        guages[2] = childFragmentManager.findFragmentById(R.id.gaugeRight) as TorqueGauge?
-        displays[0] = childFragmentManager.findFragmentById(R.id.display1) as TorqueDisplay?
-        displays[1] = childFragmentManager.findFragmentById(R.id.display2) as TorqueDisplay?
-        displays[2] = childFragmentManager.findFragmentById(R.id.display3) as TorqueDisplay?
-        displays[3] = childFragmentManager.findFragmentById(R.id.display4) as TorqueDisplay?
+        guages[0] = childFragmentManager.findFragmentById(R.id.gaugeLeft)!! as TorqueGauge
+        guages[1] = childFragmentManager.findFragmentById(R.id.gaugeCenter)!! as TorqueGauge
+        guages[2] = childFragmentManager.findFragmentById(R.id.gaugeRight)!! as TorqueGauge
+        displays[0] = childFragmentManager.findFragmentById(R.id.display1)!! as TorqueDisplay
+        displays[1] = childFragmentManager.findFragmentById(R.id.display2)!! as TorqueDisplay
+        displays[2] = childFragmentManager.findFragmentById(R.id.display3)!! as TorqueDisplay
+        displays[3] = childFragmentManager.findFragmentById(R.id.display4)!! as TorqueDisplay
         displays[2]!!.bottomDisplay()
         displays[3]!!.bottomDisplay()
         onSharedPreferenceChanged(getSharedPreferences(), "")
@@ -173,41 +198,6 @@ class DashboardFragment : CarFragment(), SharedPreferences.OnSharedPreferenceCha
             sharedPreferences.getString("selectedBackground", "background_incar_black")
         if (readedBackground != selectedBackground) {
             setupBackground(readedBackground)
-        }
-
-
-        //determine what data the user wants to have on the 4 data views
-        val notifyDisplays = ArrayList<Int>()
-        val notifyGauge = ArrayList<Int>()
-        for (idx in 0..3) {
-            val readedElementQuery =
-                sharedPreferences.getString("selectedView${idx + 1}_$dashboardId", "none") ?: "none"
-            if (torqueRefresher.hasChanged(idx + DISPLAY_OFFSET, readedElementQuery)) {
-                torqueRefresher.populateQuery(idx + DISPLAY_OFFSET, readedElementQuery)
-                notifyDisplays.add(idx)
-            }
-        }
-        //determine what data the user wants to have on the 3 clocks, but set defaults first
-        //setup clocks, including the max/min clocks and highvis rays and icons:
-        //usage: setupClocks(query value, what clock, what icon, which ray, which min clock, which max clock)
-        //could probably be done MUCH more efficient but that's for the future ;)
-        val positions = arrayOf("Left", "Center", "Right")
-        for (pos in 0..2) {
-            sharedPreferences.getString("selectedClock${positions[pos]}$dashboardId", "none")
-                ?.let {
-                    if (torqueRefresher.hasChanged(pos, it)) {
-                        torqueRefresher.populateQuery(pos, it)
-                        notifyGauge.add(pos)
-                    }
-                }
-        }
-
-        torqueRefresher.refreshInformation(torqueService) { pos: Int, data: TorqueData ->
-            if (pos >= DISPLAY_OFFSET) {
-                displays[pos - DISPLAY_OFFSET]!!.setupElement(data)
-            } else {
-                guages[pos]!!.setupClock(data)
-            }
         }
 
         //show texts and backgrounds for max/min, according to the setting

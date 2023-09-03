@@ -7,29 +7,21 @@ import android.content.ServiceConnection
 import android.os.Bundle
 import android.os.IBinder
 import android.util.Log
-import androidx.datastore.core.DataStore
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.preference.CheckBoxPreference
 import androidx.preference.EditTextPreference
 import androidx.preference.ListPreference
-import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
 import androidx.preference.PreferenceFragmentCompat
 import com.mqbcoding.datastore.Display
 import com.mqbcoding.datastore.Screen
-import com.mqbcoding.datastore.UserPreference
-import dagger.hilt.android.AndroidEntryPoint
+import com.mqbcoding.prefs.dataStore
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@AndroidEntryPoint
 class SettingsPIDFragment:  PreferenceFragmentCompat() {
     val TAG = "SettingsPIDFragment"
     var prefCat: PreferenceCategory? = null
@@ -46,10 +38,8 @@ class SettingsPIDFragment:  PreferenceFragmentCompat() {
     lateinit var imagePref: ImageListPreference
     lateinit var minValuePref: EditTextPreference
     lateinit var maxValuePref: EditTextPreference
+    lateinit var unitPref: EditTextPreference
     var torqueService: TorqueServiceWrapper? = null
-
-    @Inject
-    lateinit var dataStore: DataStore<UserPreference>
 
     var torqueConnection = object : ServiceConnection {
         override fun onServiceConnected(className: ComponentName, service: IBinder) {
@@ -95,8 +85,9 @@ class SettingsPIDFragment:  PreferenceFragmentCompat() {
         imagePref = findPreference("image")!!
         minValuePref = findPreference("minValue")!!
         maxValuePref = findPreference("maxValue")!!
+        unitPref = findPreference("unit")!!
         lifecycleScope.launch {
-            val data = dataStore.data.first()
+            val data = requireContext().dataStore.data.first()
             val screen = data.getScreens(screen)
             val display = if (isClock) screen.getGauges(index) else screen.getDisplays(index)
             pidPref.value = display.pid
@@ -105,11 +96,17 @@ class SettingsPIDFragment:  PreferenceFragmentCompat() {
             imagePref.value = display.icon
             minValuePref.text = display.minValue.toString()
             maxValuePref.text = display.maxValue.toString()
+            unitPref.text = display.unit
+            if (pidPref.value.startsWith("torque")) {
+                enableItems(true)
+            }
         }
 
+        imagePref.summaryProvider = ListPreference.SimpleSummaryProvider.getInstance()
         labelPref.summaryProvider = EditTextPreference.SimpleSummaryProvider.getInstance()
         minValuePref.summaryProvider = EditTextPreference.SimpleSummaryProvider.getInstance()
         maxValuePref.summaryProvider = EditTextPreference.SimpleSummaryProvider.getInstance()
+        unitPref.summaryProvider = EditTextPreference.SimpleSummaryProvider.getInstance()
 
         pidPref.setOnPreferenceChangeListener { preference, newValue ->
             val entryVal = pidPref.entryValues.indexOf(newValue)
@@ -117,10 +114,8 @@ class SettingsPIDFragment:  PreferenceFragmentCompat() {
                 labelPref.text = it.get(1)
                 minValuePref.text = it.get(4)
                 maxValuePref.text = it.get(3)
-                showLabelPref.isEnabled = true
-                imagePref.isEnabled = true
-                minValuePref.isEnabled = true
-                maxValuePref.isEnabled = true
+                unitPref.text = it.get(2)
+                enableItems(true)
             }
             return@setOnPreferenceChangeListener true
         }
@@ -134,7 +129,14 @@ class SettingsPIDFragment:  PreferenceFragmentCompat() {
         }
     }
 
-    @OptIn(DelicateCoroutinesApi::class)
+    fun enableItems(enabled: Boolean) {
+        showLabelPref.isEnabled = enabled
+        imagePref.isEnabled = enabled
+        minValuePref.isEnabled = enabled
+        maxValuePref.isEnabled = enabled
+        unitPref.isEnabled = enabled
+    }
+
     override fun onPause() {
         super.onPause()
         if (pidPref.value != null) {
@@ -142,6 +144,7 @@ class SettingsPIDFragment:  PreferenceFragmentCompat() {
         }
     }
 
+    @OptIn(DelicateCoroutinesApi::class)
     fun saveState() {
         var display = Display.newBuilder().setPid(
             pidPref.value
@@ -153,12 +156,14 @@ class SettingsPIDFragment:  PreferenceFragmentCompat() {
             minValuePref.text!!.toInt()
         ).setMaxValue(
             maxValuePref.text!!.toInt()
+        ).setUnit(
+            unitPref.text
         )
         if (imagePref.value != null) {
             display = display.setIcon(imagePref.value)
         }
         GlobalScope.launch(Dispatchers.IO) {
-            dataStore.updateData {
+            requireContext().dataStore.updateData {
                     currentSettings ->
                 return@updateData currentSettings.toBuilder().let { set1 ->
                     var screenObj: Screen.Builder = try {

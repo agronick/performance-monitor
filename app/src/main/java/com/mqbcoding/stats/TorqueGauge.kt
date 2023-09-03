@@ -17,6 +17,7 @@ import com.github.anastr.speedviewlib.Speedometer
 import com.github.anastr.speedviewlib.components.Indicators.ImageIndicator
 import com.github.anastr.speedviewlib.components.Indicators.Indicator
 
+
 class TorqueGauge : Fragment(){
 
     private var TAG = "TorqueGauge"
@@ -41,7 +42,6 @@ class TorqueGauge : Fragment(){
     private var pressureMin = 0
     private var pressureMax = 0
     private var temperatureUnit = "f"
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -144,8 +144,8 @@ class TorqueGauge : Fragment(){
 
 
     fun setupClock(data: TorqueData) {
-        torqueMin = data.minValue
-        torqueMax = data.maxValue
+        torqueMin = data.display.minValue
+        torqueMax = data.display.maxValue
 
         data.notifyUpdate = this::onUpdate
 
@@ -155,7 +155,7 @@ class TorqueGauge : Fragment(){
         typedArray2.recycle()
         // get min/max values and unit from torque
 
-        if (data.query == "none") {
+        if (data.pid == null) {
             setupClock(
                 mIcon,
                 "ic_none",
@@ -171,14 +171,14 @@ class TorqueGauge : Fragment(){
         } else {
             setupClock(
                 mIcon,
-                "ic_none",
-                data.shortName,
+                data.getDrawableName() ?: "ic_none",
+                if (data.display.showLabel) data.display.label else "",
                 mClock,
                 false,
-                data.unit,
-                data.minValue,
-                data.maxValue,
-                if (data.maxValue > 100) "integer" else "float",
+                data.display.unit,
+                data.display.minValue,
+                data.display.maxValue,
+                if (data.display.minValue > 100) "integer" else "float",
                 "integer"
             )
         }
@@ -216,9 +216,13 @@ class TorqueGauge : Fragment(){
     ) {
         Log.d(TAG, "icon: $icon iconDrawableName: $iconDrawableName")
         val context = requireContext()
-        val resId = resources.getIdentifier(iconDrawableName, "drawable", context.packageName)
+        val resId = resources.getIdentifier(
+            if (iconDrawableName == "") "ic_none" else iconDrawableName,
+            "drawable",
+            context.packageName,
+        )
         val iconDrawable = context.getDrawable(resId)
-        val resIdEmpty = resources.getIdentifier("ic_none", "drawable", context.packageName)
+        val resIdEmpty = R.drawable.ic_none
         val typedArray =
             context.theme.obtainStyledAttributes(intArrayOf(R.attr.themedEmptyDialBackground))
         val emptyBackgroundResource = typedArray.getResourceId(0, 0)
