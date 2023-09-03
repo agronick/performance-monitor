@@ -99,6 +99,7 @@ dependencies {
     implementation  "com.google.protobuf:protobuf-javalite:3.18.0"
     implementation 'com.google.dagger:hilt-android:2.48'
     kapt 'com.google.dagger:hilt-compiler:2.48'
+
 }
 
 protobuf {

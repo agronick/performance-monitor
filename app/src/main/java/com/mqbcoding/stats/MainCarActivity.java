@@ -1,5 +1,6 @@
 package com.mqbcoding.stats;
 
+import android.app.Activity;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -23,7 +24,11 @@ import static android.view.View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
 
 import java.util.Objects;
 
-public class MainCarActivity extends CarActivity {
+import dagger.hilt.EntryPoint;
+import dagger.hilt.InstallIn;
+import dagger.hilt.android.AndroidEntryPoint;
+
+public class MainCarActivity extends CarActivity{
     private static final String TAG = "MainCarActivity";
 
     //menu stuff//

@@ -9,6 +9,7 @@ message Display {
   string icon = 4;
   int32 minValue = 9;
   int32 maxValue = 10;
+  string unit = 12;
 }
 
 message Screen {
@@ -18,5 +19,6 @@ message Screen {
 }
 
 message UserPreference {
+  int32 currentScreen = 11;
   repeated Screen screens = 8;
 }

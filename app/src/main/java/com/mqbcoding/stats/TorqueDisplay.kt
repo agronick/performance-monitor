@@ -20,6 +20,7 @@ class TorqueDisplay : Fragment() {
     private var unit = ""
     private var numberFormatter = NumberFormat.getInstance()
 
+
     init {
         numberFormatter.maximumFractionDigits = 2
         numberFormatter.minimumFractionDigits = 0
@@ -41,7 +42,7 @@ class TorqueDisplay : Fragment() {
     fun setupElement(data: TorqueData) {
         val label = iconElement
         val value = valueElement
-        unit = data.unit
+        unit = data.display.unit
 
         if(label == null || value == null) return
 
@@ -51,13 +52,13 @@ class TorqueDisplay : Fragment() {
         label.setBackgroundResource(0)
         value.visibility = View.VISIBLE
 
-        if (data.query == "none") {
+        if (data.pid == null) {
             label.text = ""
             value.text = ""
             value.visibility = View.INVISIBLE
             icon = "empty"
         } else {
-            label.text = data.shortName
+            label.text = data.display.label
             value.text = "-"
         }
 

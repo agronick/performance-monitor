@@ -707,7 +707,7 @@
         <item>background_incar_aa</item>
     </array>
 
-    <array name="icons">
+    <integer-array name="icons">
         <item>@drawable/ic_none</item>
         <item>@drawable/ic_altitude</item>
         <item>@drawable/ic_barometer</item>
@@ -756,7 +756,7 @@
         <item>@drawable/ic_wheel</item>
         <item>@drawable/ic_world</item>
         <item>@drawable/ic_yaw</item>
-    </array>
+    </integer-array>
 
     <array name="iconDesc">
         <item>None</item>

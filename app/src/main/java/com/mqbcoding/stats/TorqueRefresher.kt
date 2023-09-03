@@ -1,5 +1,7 @@
 package com.mqbcoding.stats
 import android.util.Log
+import com.mqbcoding.datastore.Display
+import com.mqbcoding.datastore.Screen
 import java.lang.RuntimeException
 import java.math.BigInteger
 
@@ -15,10 +17,12 @@ class TorqueRefresher {
         }
     }
 
-    fun populateQuery(pos: Int, query: String) {
+    fun populateQuery(pos: Int, query: Display): TorqueData {
         data[pos]?.notifyUpdate = null
-        data[pos] = TorqueData(query)
+        val td = TorqueData(query)
+        data[pos] = td
         Log.d(TAG, "Setting query: $query for pos $pos")
+        return td
     }
 
     fun refreshQueries(service: TorqueService, runOnUiThread: (action: Runnable) -> Unit) {
@@ -40,23 +44,10 @@ class TorqueRefresher {
         val needRefresh = data.filter { it.value.pid != null }
         if (needRefresh.isNotEmpty()) {
             val refreshKeys = needRefresh.map { it.key }
-            val asPids = needRefresh.map { it.value.pid }
             //  "<longName>,<shortName>,<unit>,<maxValue>,<minValue>,<scale>",
             service.addConnectCallback {
-                val pidInfo = it.getPIDInformation(convertPids(asPids)).map { it.split(",") }
-                if (pidInfo.size != needRefresh.size) {
-                    Log.e(TAG, "Mismatched request response size ${needRefresh.size}:${pidInfo.size}")
-                    return@addConnectCallback
-                }
                 refreshKeys.forEachIndexed { idx, i ->
                     val elm = data[i]!!
-                    val info = pidInfo[idx]
-                    elm.longName = info[0]
-                    elm.shortName = info[1]
-                    elm.unit = info[2]
-                    elm.maxValue = info[3].toInt()
-                    elm.minValue = info[4].toInt()
-                    elm.scale = info[5].toFloat()
                     notifyDone(i,  elm)
                 }
                 hasLoadedData = true
@@ -64,17 +55,9 @@ class TorqueRefresher {
         }
     }
 
-    fun hasChanged(idx: Int, readedElementQuery: String?): Boolean {
+    fun hasChanged(idx: Int, otherScreen: Display?): Boolean {
         if (!data.containsKey(idx)) return true
-        return data[idx]?.query != readedElementQuery
+        return data[idx]?.display?.equals(otherScreen) != true
     }
 
-    fun convertPids(items: List<String?>): Array<String> {
-        return items.map {
-            if (it == null) {
-                throw RuntimeException("cannot convert null pid")
-            }
-            return@map it
-        }.toTypedArray()
-    }
 }
