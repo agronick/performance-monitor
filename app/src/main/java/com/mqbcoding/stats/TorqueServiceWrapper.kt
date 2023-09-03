@@ -127,7 +127,7 @@ class TorqueServiceWrapper: Service() {
                 override fun onServiceConnected(className: ComponentName, service: IBinder) {
                     if (forceLoad != null) {
                         this.service =
-                            (service as TorqueServiceWrapper.LocalBinder).getService() as TorqueServiceWrapper
+                            (service as TorqueServiceWrapper.LocalBinder).getService()
                         this.service.loadPidInformation(forceLoad)
                     }
                     mBound = true

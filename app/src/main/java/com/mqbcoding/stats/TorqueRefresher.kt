@@ -65,7 +65,7 @@ class TorqueRefresher {
     }
 
     fun hasChanged(idx: Int, readedElementQuery: String?): Boolean {
-        if (!data.containsKey(idx)) return true;
+        if (!data.containsKey(idx)) return true
         return data[idx]?.query != readedElementQuery
     }
 

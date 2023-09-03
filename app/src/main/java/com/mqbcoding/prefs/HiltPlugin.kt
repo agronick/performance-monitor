@@ -6,6 +6,8 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.core.Serializer
 import androidx.datastore.dataStore
 import androidx.datastore.preferences.protobuf.InvalidProtocolBufferException
+import com.mqbcoding.datastore.Display
+import com.mqbcoding.datastore.Screen
 import com.mqbcoding.datastore.UserPreference
 import dagger.Module
 import dagger.Provides
@@ -31,7 +33,18 @@ class AppModule {
      */
     @Suppress("BlockingMethodInNonBlockingContext")
     object UserPreferenceSerializer : Serializer<UserPreference> {
-        override val defaultValue: UserPreference = UserPreference.getDefaultInstance()
+        val defaultGauge = Display.newBuilder()
+
+        override val defaultValue: UserPreference = UserPreference.newBuilder().addScreens(
+            Screen.newBuilder()
+                .addGauges(defaultGauge)
+                .addGauges(defaultGauge)
+                .addGauges(defaultGauge)
+                .addDisplays(defaultGauge)
+                .addDisplays(defaultGauge)
+                .addDisplays(defaultGauge)
+                .addDisplays(defaultGauge)
+        ).build()
 
         override suspend fun readFrom(input: InputStream): UserPreference {
             try {

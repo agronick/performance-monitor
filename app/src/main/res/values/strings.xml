@@ -345,4 +345,6 @@
     <string name="icon">Icon</string>
     <string name="torque_waiting">Waiting for Torque to become available</string>
     <string name="title_activity_settings">Settings</string>
+    <string name="min_value">Minimum Value</string>
+    <string name="max_value">Maximum Value</string>
 </resources>

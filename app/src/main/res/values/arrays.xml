@@ -763,19 +763,19 @@
         <item>Altitude</item>
         <item>Barometer</item>
         <item>Battery</item>
-        <item>Brakepedalposition</item>
+        <item>Brake</item>
         <item>Cact</item>
         <item>Catalyst</item>
-        <item>Check_White_24Dp</item>
+        <item>Check</item>
         <item>Distance</item>
         <item>Ecoavg</item>
         <item>Eco</item>
         <item>Edit</item>
         <item>Exhaust</item>
         <item>Fuel</item>
-        <item>Fuelpressure</item>
-        <item>Fuelprimary</item>
-        <item>Fuelsecondary</item>
+        <item>Fuel Pressure</item>
+        <item>Fuel Primary</item>
+        <item>Fuel Secondary</item>
         <item>Gearbox</item>
         <item>Heading</item>
         <item>Lateral</item>
@@ -783,15 +783,15 @@
         <item>Manifold</item>
         <item>Measurement</item>
         <item>Motherboard</item>
-        <item>Obd2</item>
+        <item>OBD2</item>
         <item>Odometer</item>
         <item>Oil</item>
         <item>Outside Temp</item>
         <item>Pause</item>
-        <item>Pedalposition</item>
+        <item>Pedal</item>
         <item>Phone Battery</item>
         <item>Phone</item>
-        <item>Powermeter</item>
+        <item>Power</item>
         <item>Radio</item>
         <item>Spanner</item>
         <item>Start</item>
@@ -803,7 +803,7 @@
         <item>Voltage</item>
         <item>Volume</item>
         <item>Water</item>
-        <item>Wheelangle</item>
+        <item>Wheel Angle</item>
         <item>Wheel</item>
         <item>World</item>
         <item>Yaw</item>

@@ -54,9 +54,9 @@ public class CarStatsLogger implements CarStatsClient.Listener {
     private GZIPOutputStream mLogStream;
     private Writer mLogWriter;
     private File mLogFile;
-    private Collection<Listener> mListeners = new ArrayList<>();
-    private Handler mHandler;
-    private Gson mGson = new Gson();
+    private final Collection<Listener> mListeners = new ArrayList<>();
+    private final Handler mHandler;
+    private final Gson mGson = new Gson();
     private boolean schemaNeedsUpdate = true;
 
     public CarStatsLogger(Context context, CarStatsClient statsClient, Handler handler, String prefix) {

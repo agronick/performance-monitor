@@ -84,8 +84,8 @@ public class MainCarActivity extends CarActivity {
             updateStatusBarTitle();
         }
     };
-    private Handler mHandler = new Handler();
-    private SharedPreferences.OnSharedPreferenceChangeListener preferenceChangeListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
+    private final Handler mHandler = new Handler();
+    private final SharedPreferences.OnSharedPreferenceChangeListener preferenceChangeListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
         @Override
         public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
             preferenceChangeHandler();

@@ -5,7 +5,7 @@ package org.prowl.torque.remote;
 public interface ITorqueService extends android.os.IInterface
 {
   /** Default implementation for ITorqueService. */
-  public static class Default implements ITorqueService
+  class Default implements ITorqueService
   {
     /** Get the API version. The version will increment each time the API is revised. */
     @Override public int getVersion() throws android.os.RemoteException
@@ -546,7 +546,7 @@ public interface ITorqueService extends android.os.IInterface
     }
   }
   /** Local-side IPC implementation stub class. */
-  public static abstract class Stub extends android.os.Binder implements ITorqueService
+  abstract class Stub extends android.os.Binder implements ITorqueService
   {
     /** Construct the stub at attach it to the interface. */
     public Stub()
@@ -578,13 +578,9 @@ public interface ITorqueService extends android.os.IInterface
       if (code >= android.os.IBinder.FIRST_CALL_TRANSACTION && code <= android.os.IBinder.LAST_CALL_TRANSACTION) {
         data.enforceInterface(descriptor);
       }
-      switch (code)
-      {
-        case INTERFACE_TRANSACTION:
-        {
-          reply.writeString(descriptor);
-          return true;
-        }
+      if (code == INTERFACE_TRANSACTION) {
+        reply.writeString(descriptor);
+        return true;
       }
       switch (code)
       {
@@ -1215,7 +1211,7 @@ public interface ITorqueService extends android.os.IInterface
     }
     private static class Proxy implements ITorqueService
     {
-      private android.os.IBinder mRemote;
+      private final android.os.IBinder mRemote;
       Proxy(android.os.IBinder remote)
       {
         mRemote = remote;
@@ -2641,7 +2637,7 @@ public interface ITorqueService extends android.os.IInterface
         return _result;
       }
     }
-    static final int TRANSACTION_getVersion = (android.os.IBinder.FIRST_CALL_TRANSACTION + 0);
+    static final int TRANSACTION_getVersion = (android.os.IBinder.FIRST_CALL_TRANSACTION);
     static final int TRANSACTION_getValueForPid = (android.os.IBinder.FIRST_CALL_TRANSACTION + 1);
     static final int TRANSACTION_getDescriptionForPid = (android.os.IBinder.FIRST_CALL_TRANSACTION + 2);
     static final int TRANSACTION_getShortNameForPid = (android.os.IBinder.FIRST_CALL_TRANSACTION + 3);
@@ -2702,9 +2698,9 @@ public interface ITorqueService extends android.os.IInterface
     static final int TRANSACTION_areHeadersEnabled = (android.os.IBinder.FIRST_CALL_TRANSACTION + 58);
     static final int TRANSACTION_captureFrames = (android.os.IBinder.FIRST_CALL_TRANSACTION + 59);
   }
-  public static final String DESCRIPTOR = "org.prowl.torque.remote.ITorqueService";
+  String DESCRIPTOR = "org.prowl.torque.remote.ITorqueService";
   /** Get the API version. The version will increment each time the API is revised. */
-  public int getVersion() throws android.os.RemoteException;
+  int getVersion() throws android.os.RemoteException;
   /**
    * Get the most recent value stored for the given PID.  This will return immediately whether or not data exists.
    * @param triggersDataRefresh Cause the data to be re-requested from the ECU
@@ -2712,42 +2708,42 @@ public interface ITorqueService extends android.os.IInterface
    * @deprecated  See getPIDInformation(...), listAllPIDs(), getPIDValues(...) and listActivePIDs() which replaces this call and can handle sensors with the same 'PID'
    */
   @Deprecated
-  public float getValueForPid(long pid, boolean triggersDataRefresh) throws android.os.RemoteException;
+  float getValueForPid(long pid, boolean triggersDataRefresh) throws android.os.RemoteException;
   /**
    * Get a textual, long description regarding the PID, already translated (when translation is implemented)
    * @note If the PID returns multiple values(has multiple displays setup for the same PID), then this call will return the data for the first matching PID
    * @deprecated  See getPIDInformation(...), listAllPIDs(), getPIDValues(...) and listActivePIDs() which replaces this call and can handle sensors with the same 'PID'
    */
   @Deprecated
-  public String getDescriptionForPid(long pid) throws android.os.RemoteException;
+  String getDescriptionForPid(long pid) throws android.os.RemoteException;
   /**
    * Get the shortname of the PID
    * @note If the PID returns multiple values, then this call will return the data for the first matching PID
    * @deprecated  See getPIDInformation(...), listAllPIDs(), getPIDValues(...) and listActivePIDs() which replaces this call and can handle sensors with the same 'PID'
    */
   @Deprecated
-  public String getShortNameForPid(long pid) throws android.os.RemoteException;
+  String getShortNameForPid(long pid) throws android.os.RemoteException;
   /**
    * Get the Si unit in string form for the PID, if no Si unit is available, a textual-description is returned instead.
    * @note If the PID returns multiple values(has multiple displays setup for the same PID), then this call will return the data for the first matching PID
    * @deprecated  See getPIDInformation(...), listAllPIDs(), getPIDValues(...) and listActivePIDs() which replaces this call and can handle sensors with the same 'PID'
    */
   @Deprecated
-  public String getUnitForPid(long pid) throws android.os.RemoteException;
+  String getUnitForPid(long pid) throws android.os.RemoteException;
   /**
    * Get the minimum value expected for this PID
    * @note If the PID returns multiple values(has multiple displays setup for the same PID), then this call will return the data for the first matching PID
    * @deprecated  See getPIDInformation(...), listAllPIDs(), getPIDValues(...) and listActivePIDs() which replaces this call and can handle sensors with the same 'PID'
    */
   @Deprecated
-  public float getMinValueForPid(long pid) throws android.os.RemoteException;
+  float getMinValueForPid(long pid) throws android.os.RemoteException;
   /**
    * Get the maximum value expected for this PId
    * @note If the PID returns multiple values(has multiple displays setup for the same PID), then this call will return the data for the first matching PID
    * @deprecated  See getPIDInformation(...), listAllPIDs(), getPIDValues(...) and listActivePIDs() which replaces this call and can handle sensors with the same 'PID'
    */
   @Deprecated
-  public float getMaxValueForPid(long pid) throws android.os.RemoteException;
+  float getMaxValueForPid(long pid) throws android.os.RemoteException;
   /**
    * Returns a list of currently 'active' PIDs. This list will change often. Try not to call this method too frequently.
    * 
@@ -2756,7 +2752,7 @@ public interface ITorqueService extends android.os.IInterface
    * @deprecated  See getPIDInformation(...), listAllPIDs(), getPIDValues(...) and listActivePIDs() which replaces this call and can handle sensors with the same 'PID'
    */
   @Deprecated
-  public long[] getListOfActivePids() throws android.os.RemoteException;
+  long[] getListOfActivePids() throws android.os.RemoteException;
   /**
    * Returns a list of PIDs that have been reported by the ECU as supported.
    * 
@@ -2765,7 +2761,7 @@ public interface ITorqueService extends android.os.IInterface
    * @deprecated  See getPIDInformation(...), listAllPIDs(), getPIDValues(...) and listActivePIDs() which replaces this call and can handle sensors with the same 'PID'
    */
   @Deprecated
-  public long[] getListOfECUSupportedPids() throws android.os.RemoteException;
+  long[] getListOfECUSupportedPids() throws android.os.RemoteException;
   /**
    * Returns a list of all the known available sensors, active or inactive.
    * 
@@ -2776,9 +2772,9 @@ public interface ITorqueService extends android.os.IInterface
    * @deprecated  See getPIDInformation(...), getPIDValues(...)  and listAllPIDs() which replaces this call and can handle sensors with the same 'PID'
    */
   @Deprecated
-  public long[] getListOfAllPids() throws android.os.RemoteException;
+  long[] getListOfAllPids() throws android.os.RemoteException;
   /** True if the user has granted full permissions to the plugin (to send anything that it wants) */
-  public boolean hasFullPermissions() throws android.os.RemoteException;
+  boolean hasFullPermissions() throws android.os.RemoteException;
   /**
    * Send a specific request over the OBD bus and return the response as a string
    * 
@@ -2787,23 +2783,23 @@ public interface ITorqueService extends android.os.IInterface
    * Modes 01,02,03,07,09,0a,21,22 and 23 are permitted. Permission needs to be granted in the
    * app settings for any other modes.
    */
-  public String[] sendCommandGetResponse(String header, String command) throws android.os.RemoteException;
+  String[] sendCommandGetResponse(String header, String command) throws android.os.RemoteException;
   /** Given this unit, get the users preferred units */
-  public String getPreferredUnit(String unit) throws android.os.RemoteException;
+  String getPreferredUnit(String unit) throws android.os.RemoteException;
   /**
    * Add / Update a PID from your plugin to the main app, Your PID is keyed by name.
    * 
    * @deprecated - (see below)superceded by setPIDInformation(String name, String shortName, String unit, float max, float min, float value, String stringValue);
    */
   @Deprecated
-  public boolean setPIDData(String name, String shortName, String unit, float max, float min, float value) throws android.os.RemoteException;
+  boolean setPIDData(String name, String shortName, String unit, float max, float min, float value) throws android.os.RemoteException;
   /**
    * Get connection state to ECU
    * @return true if connected to the ECU, false if the app has not yet started retrieving data from the ECU
    */
-  public boolean isConnectedToECU() throws android.os.RemoteException;
+  boolean isConnectedToECU() throws android.os.RemoteException;
   /** Turn on or off test mode. This is for debugging only and simulates readings to some of the sensors. */
-  public boolean setDebugTestMode(boolean activateTestMode) throws android.os.RemoteException;
+  boolean setDebugTestMode(boolean activateTestMode) throws android.os.RemoteException;
   /**
    * Returns a string array containing the vehicle profile information:
    * 
@@ -2816,7 +2812,7 @@ public interface ITorqueService extends android.os.IInterface
    *     [6] Volumetric efficiency (%)
    *     [7] Accumulated distance travelled
    */
-  public String[] getVehicleProfileInformation() throws android.os.RemoteException;
+  String[] getVehicleProfileInformation() throws android.os.RemoteException;
   /**
    * Store some information into the vehicle profile.
    * 
@@ -2825,25 +2821,25 @@ public interface ITorqueService extends android.os.IInterface
    * @param saveToFile Set this to true (on your last 'set') to commit the information to disk.
    * @return 0 if successful.
    */
-  public int storeInProfile(String key, String value, boolean saveToFileNow) throws android.os.RemoteException;
+  int storeInProfile(String key, String value, boolean saveToFileNow) throws android.os.RemoteException;
   /**
    * Retrieve some information from the vehicle profile.
    * 
    * @param Prefix the 'key' with your apps classpath (to avoid conflicts).
    */
-  public String retrieveProfileData(String key) throws android.os.RemoteException;
+  String retrieveProfileData(String key) throws android.os.RemoteException;
   /**
    * Retrieve the number of errors that Torque has seen happen at the adapter
    * 
    * Generally speaking, if this is above 0, then you have problems at the adapter side.
    */
-  public int getDataErrorCount() throws android.os.RemoteException;
+  int getDataErrorCount() throws android.os.RemoteException;
   /**
    * Get max PID read speed in PIDs read per second
    * 
    * This is reset each connection to the adpater.
    */
-  public double getPIDReadSpeed() throws android.os.RemoteException;
+  double getPIDReadSpeed() throws android.os.RemoteException;
   /**
    * Gets the configured communications speed
    * 
@@ -2853,61 +2849,61 @@ public interface ITorqueService extends android.os.IInterface
    * 
    * Fast mode provides a significant speed increase on some vehicles for the read speed of sensor information
    */
-  public int getConfiguredSpeed() throws android.os.RemoteException;
+  int getConfiguredSpeed() throws android.os.RemoteException;
   /** returns true if the user is currently logging data to the file */
-  public boolean isFileLoggingEnabled() throws android.os.RemoteException;
+  boolean isFileLoggingEnabled() throws android.os.RemoteException;
   /** returns true if the user is currently logging data to web */
-  public boolean isWebLoggingEnabled() throws android.os.RemoteException;
+  boolean isWebLoggingEnabled() throws android.os.RemoteException;
   /** returns the number of items that are configured to be logged to file. The more items configured to log (and with logging enabled), the slower the refresh rate of individual PIDs. */
-  public int getNumberOfLoggedItems() throws android.os.RemoteException;
+  int getNumberOfLoggedItems() throws android.os.RemoteException;
   /**
    * Get the time that the PID was last updated.
    * 
    * @note If the PID returns multiple values(has multiple displays setup for the same PID), then this call will return the data for the first matching PID
    */
-  public long getUpdateTimeForPID(long pid) throws android.os.RemoteException;
+  long getUpdateTimeForPID(long pid) throws android.os.RemoteException;
   /**
    * Returns the scale of the requested PID
    * @note If the PID returns multiple values(has multiple displays setup for the same PID), then this call will return the data for the first matching PID
    */
-  public float getScaleForPid(long pid) throws android.os.RemoteException;
+  float getScaleForPid(long pid) throws android.os.RemoteException;
   /** Translate a string that *might* be in translation file in the main Torque app. Do not call this method repeatedly for the same text! */
-  public String translate(String originalText) throws android.os.RemoteException;
+  String translate(String originalText) throws android.os.RemoteException;
   /**
    * Method to send PID data in raw form.
    *  Name, ShortName, ModeAndPID, Equation, Min, Max, Units, Header
    * @deprecated - see sendPIDDataV2 (which allows diagnostic headers to be set, or left as null)
    */
   @Deprecated
-  public boolean sendPIDData(String pluginName, String[] name, String[] shortName, String[] modeAndPID, String[] equation, float[] minValue, float[] maxValue, String[] units, String[] header) throws android.os.RemoteException;
+  boolean sendPIDData(String pluginName, String[] name, String[] shortName, String[] modeAndPID, String[] equation, float[] minValue, float[] maxValue, String[] units, String[] header) throws android.os.RemoteException;
   /**
    * Add / Update a PID from your plugin to the main app, Your PID is keyed by name.  This can be used to set a value on a PID in Torque.
    * 
    * @param value       The value to be shown in the display
    * @param stringValue A string value to be shown in the display - overrides 'value' when not null - note(try not to use numeric values here as they won't be unit converted for you).  Set to null to revert to using the 'float value'
    */
-  public boolean setPIDInformation(String name, String shortName, String unit, float max, float min, float value, String stringValue) throws android.os.RemoteException;
+  boolean setPIDInformation(String name, String shortName, String unit, float max, float min, float value, String stringValue) throws android.os.RemoteException;
   /**
    * Get a list of all PIDs in torque, active or inactive.
    * 
    * The returned string is the ID of the PID to request over the aidl script.  To be helpful the first part of this string is the actual PID 'id'.
    * @note (don't call this too often as it is computationally expensive!)
    */
-  public String[] listAllPIDs() throws android.os.RemoteException;
+  String[] listAllPIDs() throws android.os.RemoteException;
   /**
    * List all only the active PIDs
    * 
    * The returned string is the ID of the PID to request over the aidl script.  To be helpful the first part of this string is the actual PID 'id'.
    * @note (don't call this too often as it is computationally expensive!)
    */
-  public String[] listActivePIDs() throws android.os.RemoteException;
+  String[] listActivePIDs() throws android.os.RemoteException;
   /**
    * List all only the active PIDs
    * 
    * The returned string is the ID of the PID to request over the aidl script.  To be helpful the first part of this string is the actual PID 'id'.
    * @note (don't call this too often as it is computationally expensive!)
    */
-  public String[] listECUSupportedPIDs() throws android.os.RemoteException;
+  String[] listECUSupportedPIDs() throws android.os.RemoteException;
   /**
    * Return the current value only for the PID (or PIDs if you pass more than one)
    * 
@@ -2917,7 +2913,7 @@ public interface ITorqueService extends android.os.IInterface
    * @deprecated please use getPIDValuesAsDouble(...) instead
    */
   @Deprecated
-  public float[] getPIDValues(String[] pidsToRetrieve) throws android.os.RemoteException;
+  float[] getPIDValues(String[] pidsToRetrieve) throws android.os.RemoteException;
   /**
    * Return all the PID information in a single transaction. This is the new preferred method to get data from PIDs
    * 
@@ -2938,27 +2934,27 @@ public interface ITorqueService extends android.os.IInterface
    *      "Accelerator Pedal Position E,Accel(E),%,100,0,1"
    *   }
    */
-  public String[] getPIDInformation(String[] pidIDs) throws android.os.RemoteException;
+  String[] getPIDInformation(String[] pidIDs) throws android.os.RemoteException;
   /**
    * Get the time that the PID was last updated.
    * 
    * @returns time when the PID value was retrieved via OBD/etc in milliseconds
    */
-  public long[] getPIDUpdateTime(String[] pidIDs) throws android.os.RemoteException;
+  long[] getPIDUpdateTime(String[] pidIDs) throws android.os.RemoteException;
   /**
    * Retrieves a list of PID values
    * 
    * @deprecated See getPIDInformation(...), listAllPIDs(), getPIDValues(...) and listActivePIDs() which replaces this call and can handle sensors with the same 'PID'
    */
   @Deprecated
-  public float[] getValueForPids(long[] pids) throws android.os.RemoteException;
+  float[] getValueForPids(long[] pids) throws android.os.RemoteException;
   /**
    * Method to send PID data in raw form - this is for when pid plugin vendors want to protect their hard work when they have decyphed or licensed PIDs
    * Name, ShortName, ModeAndPID, Equation, Min, Max, Units, Header
    * @deprecated - see sendPIDDataPrivateV2 (which allows diagnostic headers to be set, or left as null)
    */
   @Deprecated
-  public boolean sendPIDDataPrivate(String pluginName, String[] name, String[] shortName, String[] modeAndPID, String[] equation, float[] minValue, float[] maxValue, String[] units, String[] header) throws android.os.RemoteException;
+  boolean sendPIDDataPrivate(String pluginName, String[] name, String[] shortName, String[] modeAndPID, String[] equation, float[] minValue, float[] maxValue, String[] units, String[] header) throws android.os.RemoteException;
   /**
    * Cause Torque to stop communicating with the adpter so external plugins can take full control
    * 
@@ -2975,25 +2971,25 @@ public interface ITorqueService extends android.os.IInterface
    *  -5 = No permissions to access in this manner (enable the ticky-box in the plugin settings for 'full access')
    *  -6 = Lock failed due to timeout trying to get a lock (10 second limit hit)
    */
-  public int requestExclusiveLock(String pluginName) throws android.os.RemoteException;
+  int requestExclusiveLock(String pluginName) throws android.os.RemoteException;
   /**
    * Release the exclusive lock the plugin has with the adapter.
    * 
    * @param torqueMustReInitializeTheAdapter set this to TRUE if torque must reinit comms with the vehicle ECU to continue communicating - if it is set to FALSE, then torque will simply continue trying to talk to the ECU. Take special care to ensure the adpater is in the proper state to do this
    */
-  public boolean releaseExclusiveLock(String pluginName, boolean torqueMustReInitializeTheAdapter) throws android.os.RemoteException;
+  boolean releaseExclusiveLock(String pluginName, boolean torqueMustReInitializeTheAdapter) throws android.os.RemoteException;
   /**
    * Method to send PID data in raw form.
    * This updated method allows diagnostic headers to be set if required (for special commands) or left as null.
    *  Name, ShortName, ModeAndPID, Equation, Min, Max, Units, Header,Start diagnostic command, Stop diagnostic command
    */
-  public boolean sendPIDDataV2(String pluginName, String[] name, String[] shortName, String[] modeAndPID, String[] equation, float[] minValue, float[] maxValue, String[] units, String[] header, String[] startDiagnostic, String[] stopDiagnostic) throws android.os.RemoteException;
+  boolean sendPIDDataV2(String pluginName, String[] name, String[] shortName, String[] modeAndPID, String[] equation, float[] minValue, float[] maxValue, String[] units, String[] header, String[] startDiagnostic, String[] stopDiagnostic) throws android.os.RemoteException;
   /**
    * Method to send PID data in raw form - this is for when pid plugin vendors want to protect their hard work when they have decyphed or licensed PIDs
    * This updated method allows diagnostic headers to be set if required (for special commands) or left as null.
    * Name, ShortName, ModeAndPID, Equation, Min, Max, Units, Header, Start diagnostic command, Stop diagnostic command
    */
-  public boolean sendPIDDataPrivateV2(String pluginName, String[] name, String[] shortName, String[] modeAndPID, String[] equation, float[] minValue, float[] maxValue, String[] units, String[] header, String[] startDiagnostic, String[] stopDiagnostic) throws android.os.RemoteException;
+  boolean sendPIDDataPrivateV2(String pluginName, String[] name, String[] shortName, String[] modeAndPID, String[] equation, float[] minValue, float[] maxValue, String[] units, String[] header, String[] startDiagnostic, String[] stopDiagnostic) throws android.os.RemoteException;
   /**
    * This retrieves the last PID that torque read from the adapter in RAW form (as the adapter sent it) 'NOT READY' may be returned
    * if the adapter has not yet retrieved that PID. The OBDCommand should be as sent to the adpater (no spaces - eg: '010D')
@@ -3001,36 +2997,36 @@ public interface ITorqueService extends android.os.IInterface
    * Despite the name, this cannot be used to send commands directly to the adapter, use the sendCommandGetResponse(...) method if
    * you require direct access, with the exclusive lock command if you will be sending several commands or changing the adapter mode
    */
-  public String[] getPIDRawResponse(String OBDCommand) throws android.os.RemoteException;
+  String[] getPIDRawResponse(String OBDCommand) throws android.os.RemoteException;
   /** Get the protocol being used (or 0 if not currently connected) - the protocol number is as per the ELM327 documentation */
-  public int getProtocolNumber() throws android.os.RemoteException;
+  int getProtocolNumber() throws android.os.RemoteException;
   /** Get the protocol name being used (or AUTO if not currently connected) */
-  public String getProtocolName() throws android.os.RemoteException;
+  String getProtocolName() throws android.os.RemoteException;
   /** Used by the dash tracker plugin, NON PUBLIC DO NOT USE SUBJECT TO CHANGE. */
-  public boolean setCurrentDashboard(String dashboardName, int hashKey) throws android.os.RemoteException;
+  boolean setCurrentDashboard(String dashboardName, int hashKey) throws android.os.RemoteException;
   /**
    * Same as listAllPIDs except it returns detected sensors as well (these are generally not available as PIDs, but are sensors discovered in the course of talking to
    * the vehicle ECU (usually from other ECUs replying)
    */
-  public String[] listAllPIDsIncludingDetectedPIDs() throws android.os.RemoteException;
+  String[] listAllPIDsIncludingDetectedPIDs() throws android.os.RemoteException;
   /** Retrieve a setting from the app. NON PUBLIC DO NOT USE SUBJECT TO CHANGE. */
-  public String getSettingString(String setting, String def) throws android.os.RemoteException;
+  String getSettingString(String setting, String def) throws android.os.RemoteException;
   /** Retrieve a setting from the app. NON PUBLIC DO NOT USE SUBJECT TO CHANGE. */
-  public boolean getSettingBoolean(String setting, boolean def) throws android.os.RemoteException;
+  boolean getSettingBoolean(String setting, boolean def) throws android.os.RemoteException;
   /** Retrieve a setting from the app. NON PUBLIC DO NOT USE SUBJECT TO CHANGE. */
-  public long getSettingLong(String setting, long def) throws android.os.RemoteException;
+  long getSettingLong(String setting, long def) throws android.os.RemoteException;
   /** Retrieve a setting from the app. NON PUBLIC DO NOT USE SUBJECT TO CHANGE. */
-  public int getSettingInt(String setting, int def) throws android.os.RemoteException;
+  int getSettingInt(String setting, int def) throws android.os.RemoteException;
   /** Get the theme type (day/night)  NON PUBLIC DO NOT USE SUBJECT TO CHANGE. */
-  public String getThemeType() throws android.os.RemoteException;
+  String getThemeType() throws android.os.RemoteException;
   /** Calibrate the accelerometer for the current device angle */
-  public boolean calibrateAccelerometer() throws android.os.RemoteException;
+  boolean calibrateAccelerometer() throws android.os.RemoteException;
   /**
    * Get the current theme files as a URIs so we can get at it using content providers.
    * 
    * @param callingPackageName is the name of your package - eg 'my.someapp.stuff' so that uri permissions can be correctly granted
    */
-  public String[] getCurrentThemeUri(String callingPackageName) throws android.os.RemoteException;
+  String[] getCurrentThemeUri(String callingPackageName) throws android.os.RemoteException;
   /**
    * Sends a list of themes (one per call) to Torque (which will remember them until it is quit or
    * restarted or sends out another THEME_QUERY broadcast)
@@ -3041,16 +3037,16 @@ public interface ITorqueService extends android.os.IInterface
    * 
    * returns true if successful, false if not.
    */
-  public boolean putThemeData(String packageName, String themeName, String description, String author, String thumbnailUri, String[] themeFileUris) throws android.os.RemoteException;
+  boolean putThemeData(String packageName, String themeName, String description, String author, String thumbnailUri, String[] themeFileUris) throws android.os.RemoteException;
   /**
    * Return the current value only for the PID (or PIDs if you pass more than one)
    * 
    * Use this method to frequently get the value of PID(s).  Be aware that the more PIDs you request, the slower the update speed (as the OBD2 adapter will require to update more PIDs and this is the choke-point)
    * This method is asynchronous updates via the adapter
    */
-  public double[] getPIDValuesAsDouble(String[] pidsToRetrieve) throws android.os.RemoteException;
+  double[] getPIDValuesAsDouble(String[] pidsToRetrieve) throws android.os.RemoteException;
   /** Gets the current header in use (or null if no specific header has been set and the adapter default is being used) */
-  public String getCurrentHeader() throws android.os.RemoteException;
+  String getCurrentHeader() throws android.os.RemoteException;
   /**
    * Utility method to ease the recombination of multiple CAN/etc frames from multiple ECUs
    * 
@@ -3058,9 +3054,9 @@ public interface ITorqueService extends android.os.IInterface
    * several ECU responses into one coherent response (or more if more than one ECU responded).
    * Also handles out-of-order responses.
    */
-  public String[] recombineResponses(String[] rawResponsesFromECU) throws android.os.RemoteException;
+  String[] recombineResponses(String[] rawResponsesFromECU) throws android.os.RemoteException;
   /** Returns true if Torque is using headers enabled (ATH1) with this connection */
-  public boolean areHeadersEnabled() throws android.os.RemoteException;
+  boolean areHeadersEnabled() throws android.os.RemoteException;
   /**
    * Captures frames directly using the AT MA command - useful for CANBUS systems
    * 
@@ -3069,5 +3065,5 @@ public interface ITorqueService extends android.os.IInterface
    * 
    * returns an empty string if nothing was captured or the adapter was not in the correct state (still connecting to ECU, etc)
    */
-  public String[] captureFrames(int time) throws android.os.RemoteException;
+  String[] captureFrames(int time) throws android.os.RemoteException;
 }

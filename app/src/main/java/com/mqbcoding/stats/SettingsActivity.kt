@@ -21,12 +21,13 @@ import androidx.preference.PreferenceFragmentCompat
 import com.github.martoreto.aauto.vex.CarStatsClient
 import com.google.android.gms.common.GoogleApiAvailability
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
     private var mCredential: GoogleAccountCredential? = null
     private var mCurrentAuthorizationIntent: Intent? = null
 
-    private val connection = TorqueServiceWrapper.getConnection(true)
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,10 +37,6 @@ class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPrefere
         val app = application as App
         mCredential = app.googleCredential
         handleIntent()
-
-        Intent(this, TorqueServiceWrapper::class.java).also { intent ->
-            bindService(intent, connection, Context.BIND_AUTO_CREATE)
-        }
     }
 
     override fun onNewIntent(intent: Intent) {
@@ -73,11 +70,6 @@ class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPrefere
             haveGooglePlayServices()
         }
         checkLocationPermissions()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        unbindService(connection)
     }
 
     fun showGooglePlayServicesAvailabilityErrorDialog(connectionStatusCode: Int) {

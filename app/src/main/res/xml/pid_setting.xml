@@ -13,6 +13,10 @@
         android:summary="%s"
         android:title="@string/pid"
         app:dialogTitle="@string/pid" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:key="pidOptions"
+        android:dependency="pidList" >
     <CheckBoxPreference
         android:key="showLabel"
         android:layout_width="wrap_content"
@@ -20,7 +24,7 @@
         android:defaultValue="false"
         android:title="@string/pidShowLabel"
         android:dependency="pidList"
-        android:enabled="false" />
+        android:enabled="false"/>
     <EditTextPreference
         android:key="label"
         android:layout_width="wrap_content"
@@ -30,7 +34,6 @@
         android:singleLine="true"
         android:summary="%s"
         android:title="@string/pidLabel"
-        android:enabled="false"
         android:dependency="showLabel" />
     <com.mqbcoding.stats.ImageListPreference
         android:key="image"
@@ -40,6 +43,21 @@
         android:entries="@array/iconDesc"
         android:entryValues="@array/icons"
         android:dependency="pidList"
-        android:enabled="false" />
+        android:enabled="false"
+        />
+    <EditTextPreference
+        android:key="minValue"
+        android:inputType="numberSigned"
+        android:title="@string/min_value"
+        android:dependency="pidList"
+        android:enabled="false"
+        />
+    <EditTextPreference
+        android:key="maxValue"
+        android:inputType="numberSigned"
+        android:title="@string/max_value"
+        android:dependency="pidList"
+        android:enabled="false"
+        />
     </PreferenceCategory>
 </PreferenceScreen>

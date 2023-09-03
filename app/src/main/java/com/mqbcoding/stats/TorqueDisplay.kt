@@ -12,7 +12,7 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 
-class TorqueDisplay() : Fragment() {
+class TorqueDisplay : Fragment() {
     val TAG = "TorqueDisplay"
     private var rootView: View? = null
     private var valueElement: TextView? = null

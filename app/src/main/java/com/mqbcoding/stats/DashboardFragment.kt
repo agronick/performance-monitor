@@ -92,7 +92,7 @@ class DashboardFragment : CarFragment(), SharedPreferences.OnSharedPreferenceCha
 
     fun getSharedPreferences(): SharedPreferences {
         return requireContext().getSharedPreferences(
-            "${requireContext().getPackageName()}_preferences",
+            "${requireContext().packageName}_preferences",
             Context.MODE_PRIVATE
         )
     }

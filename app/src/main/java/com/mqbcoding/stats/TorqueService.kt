@@ -9,7 +9,7 @@ import android.os.IBinder
 import android.util.Log
 import org.prowl.torque.remote.ITorqueService
 
-class TorqueService() {
+class TorqueService {
     val TAG = "TorqueService"
     var torqueService: ITorqueService? = null
     val onConnect = ArrayList<(ITorqueService) -> Unit>()
