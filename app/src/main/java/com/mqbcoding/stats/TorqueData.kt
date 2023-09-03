@@ -1,5 +1,7 @@
 package com.mqbcoding.stats
 
+import androidx.javascriptengine.JavaScriptIsolate
+import androidx.javascriptengine.JavaScriptSandbox
 import com.mqbcoding.datastore.Display
 import java.math.BigInteger
 
@@ -26,7 +28,8 @@ class TorqueData(val display: Display) {
         }
     }
 
-    fun setLastData(value: Double) {
+    fun setLastData(value: Double, sandbox: JavaScriptIsolate) {
+        val lastDataStr = convertIfNeeded(value, sandbox)
         lastData = value
         if (value > maxValue) {
             maxValue = value
@@ -35,6 +38,13 @@ class TorqueData(val display: Display) {
             minValue = value
         }
         notifyUpdate?.invoke(this)
+    }
+
+    private fun convertIfNeeded(value: Double, sandbox: JavaScriptIsolate): String? {
+        if (!display.enableJs || display.customJs == "") return null
+        sandbox.evaluateJavaScriptAsync(
+            display.customJs.replace("$$", value.toString(), false)
+        )
     }
 
     fun getDrawableName(): String? {

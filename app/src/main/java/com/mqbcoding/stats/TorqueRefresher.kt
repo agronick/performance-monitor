@@ -1,5 +1,7 @@
 package com.mqbcoding.stats
 import android.util.Log
+import androidx.javascriptengine.JavaScriptIsolate
+import androidx.javascriptengine.JavaScriptSandbox
 import com.mqbcoding.datastore.Display
 import com.mqbcoding.datastore.Screen
 import java.lang.RuntimeException
@@ -8,6 +10,7 @@ import java.math.BigInteger
 class TorqueRefresher {
     val TAG = "TorqueRefresher"
     val data = HashMap<Int, TorqueData>()
+    var jsSandbox: JavaScriptIsolate? = null
 
     companion object {
         fun isTorqueQuery(query: String?): Boolean {
@@ -31,7 +34,7 @@ class TorqueRefresher {
                 runOnUiThread(Runnable {
                     needRefresh.forEach {
                         val pidData = ts.getValueForPid(it.value.pidInt!!, true)
-                        it.value.setLastData(pidData.toDouble())
+                        it.value.setLastData(pidData.toDouble(), jsSandbox)
                     }
                 })
             }

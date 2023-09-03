@@ -10,6 +10,8 @@ message Display {
   int32 minValue = 9;
   int32 maxValue = 10;
   string unit = 12;
+  bool enableJs = 13;
+  string customJs = 14;
 }
 
 message Screen {
