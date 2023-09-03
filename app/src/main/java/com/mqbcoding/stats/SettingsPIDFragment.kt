@@ -39,6 +39,8 @@ class SettingsPIDFragment:  PreferenceFragmentCompat() {
     lateinit var minValuePref: EditTextPreference
     lateinit var maxValuePref: EditTextPreference
     lateinit var unitPref: EditTextPreference
+    lateinit var runCustomJsPref: CheckBoxPreference
+    lateinit var jsPref: EditTextPreference
     var torqueService: TorqueServiceWrapper? = null
 
     var torqueConnection = object : ServiceConnection {
@@ -86,6 +88,8 @@ class SettingsPIDFragment:  PreferenceFragmentCompat() {
         minValuePref = findPreference("minValue")!!
         maxValuePref = findPreference("maxValue")!!
         unitPref = findPreference("unit")!!
+        runCustomJsPref = findPreference("runCustomJs")!!
+        jsPref = findPreference("customJs")!!
         lifecycleScope.launch {
             val data = requireContext().dataStore.data.first()
             val screen = data.getScreens(screen)
@@ -97,6 +101,8 @@ class SettingsPIDFragment:  PreferenceFragmentCompat() {
             minValuePref.text = display.minValue.toString()
             maxValuePref.text = display.maxValue.toString()
             unitPref.text = display.unit
+            runCustomJsPref.isChecked = display.enableJs
+            jsPref.text = display.customJs
             if (pidPref.value.startsWith("torque")) {
                 enableItems(true)
             }
@@ -135,6 +141,7 @@ class SettingsPIDFragment:  PreferenceFragmentCompat() {
         minValuePref.isEnabled = enabled
         maxValuePref.isEnabled = enabled
         unitPref.isEnabled = enabled
+        runCustomJsPref.isEnabled = enabled
     }
 
     override fun onPause() {
@@ -158,6 +165,10 @@ class SettingsPIDFragment:  PreferenceFragmentCompat() {
             maxValuePref.text!!.toInt()
         ).setUnit(
             unitPref.text
+        ).setEnableJs(
+            runCustomJsPref.isChecked
+        ).setCustomJs(
+            jsPref.text
         )
         if (imagePref.value != null) {
             display = display.setIcon(imagePref.value)
