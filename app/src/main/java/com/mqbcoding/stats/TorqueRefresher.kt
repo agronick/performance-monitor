@@ -8,7 +8,6 @@ import java.math.BigInteger
 class TorqueRefresher {
     val TAG = "TorqueRefresher"
     val data = HashMap<Int, TorqueData>()
-    var hasLoadedData = false
 
     companion object {
         fun isTorqueQuery(query: String?): Boolean {
@@ -35,22 +34,6 @@ class TorqueRefresher {
                         it.value.setLastData(pidData.toDouble())
                     }
                 })
-            }
-        }
-    }
-
-    fun refreshInformation(service: TorqueService, notifyDone: (pos: Int, data: TorqueData)-> Unit) {
-        hasLoadedData = false
-        val needRefresh = data.filter { it.value.pid != null }
-        if (needRefresh.isNotEmpty()) {
-            val refreshKeys = needRefresh.map { it.key }
-            //  "<longName>,<shortName>,<unit>,<maxValue>,<minValue>,<scale>",
-            service.addConnectCallback {
-                refreshKeys.forEachIndexed { idx, i ->
-                    val elm = data[i]!!
-                    notifyDone(i,  elm)
-                }
-                hasLoadedData = true
             }
         }
     }

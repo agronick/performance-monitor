@@ -8,8 +8,10 @@ class TorqueData(val display: Display) {
     var lastData: Double? = null
     var pid: String? = null
     var pidInt: Long? = null
+    var minValue: Double = 0.0
+    var maxValue: Double = 0.0
 
-    var notifyUpdate: ((Double) -> Unit)? = null
+    var notifyUpdate: ((TorqueData) -> Unit)? = null
     companion object {
         const val PREFIX = "torque_"
         val drawableRegex = Regex("res/drawable/(?<name>.+)\\.[a-z]+")
@@ -26,7 +28,13 @@ class TorqueData(val display: Display) {
 
     fun setLastData(value: Double) {
         lastData = value
-        notifyUpdate?.invoke(value)
+        if (value > maxValue) {
+            maxValue = value
+        }
+        if (value < minValue) {
+            minValue = value
+        }
+        notifyUpdate?.invoke(this)
     }
 
     fun getDrawableName(): String? {

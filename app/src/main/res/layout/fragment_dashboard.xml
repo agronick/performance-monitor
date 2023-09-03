@@ -29,23 +29,7 @@
         app:layout_constraintStart_toEndOf="@+id/imageButton2"
         app:layout_constraintTop_toBottomOf="@+id/textTitleElement" />
 
-    <TextView
-        android:id="@+id/textTitleNAVDestinationAddress"
-        android:layout_width="0dp"
-        android:layout_height="22dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="6dp"
-        android:ellipsize="marquee"
-        android:singleLine="true"
-        android:text=""
-        android:textAppearance="@style/CarBody2"
-        android:textColor="@android:color/white"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/titleIcon1"
-        app:layout_constraintStart_toEndOf="@+id/textTitleElement"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
+        <TextView
         android:id="@+id/textTitleElement"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
@@ -91,35 +75,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/textTitleNavDistance"
-        android:layout_width="0dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="4dp"
-        android:maxLines="1"
-        android:text=""
-        android:textAppearance="@style/CarBody2"
-        android:textColor="@android:color/white"
-        android:textSize="20sp"
-        app:layout_constraintLeft_toRightOf="@id/titleIcon3"
-        app:layout_constraintTop_toTopOf="parent" />
 
-
-    <TextView
-        android:id="@+id/textTitleNavTime"
-        android:layout_width="0dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="8dp"
-        android:maxLines="1"
-        android:text=""
-        android:textAppearance="@style/CarBody2"
-        android:textColor="@android:color/white"
-        android:textSize="18sp"
-        app:layout_constraintLeft_toRightOf="@id/titleIcon4"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
+        <TextView
         android:id="@+id/titleIcon1"
         android:layout_width="25dp"
         android:layout_height="25dp"
@@ -150,16 +107,15 @@
         app:layout_constraintLeft_toRightOf="@id/textTitleElement"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/titleIcon4"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="4dp"
-        android:background="@drawable/ic_measurement"
-        android:visibility="invisible"
-        app:layout_constraintLeft_toRightOf="@id/textTitleNavDistance"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/titleIcon4"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/ic_measurement"
+            android:visibility="invisible"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="307dp" />
 
     <ImageButton
         android:id="@+id/imageButton2"

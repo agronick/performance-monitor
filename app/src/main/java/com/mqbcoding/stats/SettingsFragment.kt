@@ -8,9 +8,15 @@ import android.os.Bundle
 import android.os.IBinder
 import android.preference.ListPreference
 import android.preference.Preference.OnPreferenceChangeListener
+import android.util.AttributeSet
 import android.util.Log
 import androidx.lifecycle.lifecycleScope
+import androidx.preference.EditTextPreference
+import androidx.preference.Preference
+import androidx.preference.PreferenceCategory
 import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.children
+import com.mqbcoding.prefs.UserPreferenceSerializer
 import com.mqbcoding.prefs.dataStore
 import kotlinx.coroutines.launch
 import java.io.File
@@ -18,7 +24,8 @@ import java.io.IOException
 import java.util.Collections
 
 class SettingsFragment : PreferenceFragmentCompat() {
-
+    lateinit var numScreensPref: EditTextPreference
+    lateinit var dashboardsCat: PreferenceCategory
 
     @Throws(IOException::class)
     private fun findLogs(): List<File> {
@@ -33,70 +40,58 @@ class SettingsFragment : PreferenceFragmentCompat() {
         return files
     }
 
-    var torqueConnection = object : ServiceConnection {
-        override fun onServiceConnected(className: ComponentName, service: IBinder) {
-            val torqueService = (service as TorqueServiceWrapper.LocalBinder).getService()
-            torqueService!!.loadPidInformation(false) {
-                    pids, detailsQuery ->
-                requireActivity().runOnUiThread {
-                    val valuesQuery = pids.map { "torque_${it}" }.toTypedArray()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        dashboardsCat = findPreference("dashboardsCat")!!
+        numScreensPref = findPreference("dashboardCount")!!
+        numScreensPref.summaryProvider = EditTextPreference.SimpleSummaryProvider.getInstance()
 
-                    lifecycleScope.launch {
-                        requireContext().dataStore.data.collect { userPreference ->
-                            userPreference.screensList.forEachIndexed {
-                                i, screen ->
-                                screen.gaugesList.forEachIndexed {
-                                    j, screen ->
-                                    if (valuesQuery.contains(screen.pid)) {
-                                        findPreference<
-                                                androidx.preference.Preference
-                                                >("clock_${i}_${j}")?.summary =
-                                            detailsQuery.get(valuesQuery.indexOf(screen.pid))[0]
-                                    }
-                                }
-                                screen.displaysList.forEachIndexed {
-                                        j, screen ->
-                                    if (valuesQuery.contains(screen.pid)) {
-                                        findPreference<
-                                                androidx.preference.Preference
-                                                >("display_${i}_${j}")?.summary =
-                                            detailsQuery.get(valuesQuery.indexOf(screen.pid))[0]
-                                    }
-                                }
-                            }
-                        }
-                    }
+        lifecycleScope.launch {
+            requireContext().dataStore.data.collect { userPreference ->
+                dashboardsCat.removeAll()
+                numScreensPref.text = userPreference.screensCount.toString()
+                userPreference.screensList.forEachIndexed {
+                        i, screen ->
+                    dashboardsCat.addPreference(Preference(requireContext()).also {
+                        it.title = requireContext().getString(
+                            R.string.pref_dataelementsettings_1
+                        ).replace("1", (i + 1).toString())
+                        it.key = "dashboard_$i"
+                        it.fragment = "com.mqbcoding.stats.SettingsDashboard"
+                        it.summary = screen.title
+                    })
                 }
             }
         }
 
-        override fun onServiceDisconnected(name: ComponentName?) {
-            TODO("Not yet implemented")
+        numScreensPref.setOnPreferenceChangeListener {
+                preference, newValue ->
+            val intVal = (newValue as String).toInt()
+            if (intVal in 1..10) {
+                lifecycleScope.launch {
+                    requireContext().dataStore.updateData { currentSettings ->
+                        var bldr = currentSettings.toBuilder()
+                        if (bldr.screensCount > intVal) {
+                            val keeping = bldr.screensList.subList(0, intVal)
+                            bldr = bldr.clearScreens().addAllScreens(keeping)
+                        } else {
+                            for (i in bldr.screensCount - 1..intVal) {
+                                bldr = bldr.addScreens(
+                                    UserPreferenceSerializer.defaultValue.getScreens(0)
+                                )
+                            }
+                        }
+                        return@updateData bldr.build()
+                    }
+                }
+                return@setOnPreferenceChangeListener true
+            }
+            return@setOnPreferenceChangeListener false
         }
-    }
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        Intent(requireContext(), TorqueServiceWrapper::class.java).also { intent ->
-            requireActivity().bindService(intent, torqueConnection, Context.BIND_AUTO_CREATE)
-        }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        requireActivity().unbindService(torqueConnection)
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         addPreferencesFromResource(R.xml.settings)
-        lifecycleScope.launch {
-            requireContext().dataStore.data.collect { userPreference ->
-                for (screen in userPreference.screensList) {
-                    for (gauge in screen.gaugesList)  {
-                        gauge.pid
-                    }
-                }
-            }
-        }
     }
 
     companion object {

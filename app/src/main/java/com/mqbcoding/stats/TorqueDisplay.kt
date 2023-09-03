@@ -48,7 +48,7 @@ class TorqueDisplay : Fragment() {
 
         data.notifyUpdate = this::onUpdate
 
-        var icon = ""
+        var icon = data.getDrawableName()
         label.setBackgroundResource(0)
         value.visibility = View.VISIBLE
 
@@ -58,9 +58,21 @@ class TorqueDisplay : Fragment() {
             value.visibility = View.INVISIBLE
             icon = "empty"
         } else {
-            label.text = data.display.label
+            if (icon == null) {
+                label.text = data.display.label
+            } else {
+                label.setBackgroundResource(
+                    resources.getIdentifier(
+                        icon,
+                        "drawable",
+                        requireContext().packageName,
+                    )
+                )
+            }
             value.text = "-"
         }
+
+
 
         if (icon == "empty") {
             label.setBackgroundResource(0)
@@ -76,8 +88,8 @@ class TorqueDisplay : Fragment() {
     }
 
     @SuppressLint("SetTextI18n")
-    fun onUpdate(value: Double) {
-        valueElement?.text = "${numberFormatter.format(value)}${unit}"
+    fun onUpdate(data: TorqueData) {
+        valueElement?.text = "${numberFormatter.format(data.lastData)}${unit}"
     }
 
     fun bottomDisplay() {
