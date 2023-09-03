@@ -347,6 +347,7 @@
     <string name="title_activity_settings">Settings</string>
     <string name="min_value">Minimum Value</string>
     <string name="max_value">Maximum Value</string>
-    <string name="num_screens">Number of screens to display</string>
+    <string name="num_screens">Number of dashboards to display</string>
     <string name="unit">Unit</string>
+    <string name="dashboards">Dashboards</string>
 </resources>

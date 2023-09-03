@@ -16,6 +16,7 @@ import com.github.anastr.speedviewlib.RaySpeedometer
 import com.github.anastr.speedviewlib.Speedometer
 import com.github.anastr.speedviewlib.components.Indicators.ImageIndicator
 import com.github.anastr.speedviewlib.components.Indicators.Indicator
+import java.util.Locale
 
 
 class TorqueGauge : Fragment(){
@@ -263,12 +264,21 @@ class TorqueGauge : Fragment(){
         } else if (speedFormat == "integer") {
             clock.speedTextFormat = Gauge.INTEGER_FORMAT.toInt()
         }
+        clock.setSpeedAt(0f)
+        mMax?.setSpeedAt(0f)
+        mTextMax?.text = "0"
     }
 
-    fun onUpdate(value: Double) {
+    fun onUpdate(data: TorqueData) {
         if (!isVisible || isRemoving) return
-        val fVal = value.toFloat()
+        val fVal = data.lastData!!.toFloat()
         mClock?.speedTo(fVal, 250)
         mRayClock?.speedTo(fVal, 250)
+        if (maxMarksOn == true) {
+            mMax?.setSpeedAt(data.maxValue.toFloat())
+        }
+        if (maxOn == true) {
+            mTextMax?.text = String.format(Locale.US, "%.1f", data.maxValue)
+        }
     }
 }

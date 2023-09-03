@@ -1,5 +1,7 @@
 package com.mqbcoding.stats
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.Typeface
@@ -12,19 +14,23 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import androidx.lifecycle.withStateAtLeast
 import com.google.android.apps.auto.sdk.StatusBarController
 import com.mqbcoding.prefs.dataStore
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import java.util.Timer
 import java.util.TimerTask
+import kotlin.math.abs
 
 class DashboardFragment : CarFragment(), SharedPreferences.OnSharedPreferenceChangeListener {
     private val TAG = "DashboardFragment"
     private var rootView: View? = null
-    private var dashboardId = 1
     private val torqueRefresher = TorqueRefresher()
     private val torqueService = TorqueService()
     private var updateTimer: Timer? = null
@@ -34,12 +40,11 @@ class DashboardFragment : CarFragment(), SharedPreferences.OnSharedPreferenceCha
     private var mTitleElement: TextView? = null
     private var mTitleElementLeft: TextView? = null
     private var mTitleElementRight: TextView? = null
+    lateinit private var mWrapper: ConstraintLayout
 
     private var guages = arrayOfNulls<TorqueGauge>(3)
     private var displays = arrayOfNulls<TorqueDisplay>(4)
 
-    private val pressureUnits: Boolean? = null
-    private val temperatureUnits: Boolean? = null
     private var stagingDone: Boolean? = null
     private var raysOn: Boolean? = null
     private var maxOn: Boolean? = null
@@ -50,38 +55,40 @@ class DashboardFragment : CarFragment(), SharedPreferences.OnSharedPreferenceCha
     private var proximityOn: Boolean? = null
     private var updateSpeed = 2000
     private var selectedFont: String? = null
-    private var selectedTheme: String? = null
     private var selectedBackground: String? = null
-    private var selectedPressureUnits = false
-    private var DISPLAY_OFFSET = 3
-
-    private var doRefresh = false
+    private val DISPLAY_OFFSET = 3
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         torqueService.startTorque(requireContext())
         lifecycleScope.launch {
             requireContext().dataStore.data.map {
-                it.screensList[it.currentScreen]
+                it.screensList[abs(it.currentScreen) % it.screensCount]
             }.collect {
                 screens ->
+                lifecycleScope.launch {
+                    lifecycle.withStateAtLeast(Lifecycle.State.RESUMED) {
+                        mTitleElement!!.text = screens.title
+                    }
+                }
                 screens.gaugesList.forEachIndexed { index, display ->
                     if (torqueRefresher.hasChanged(index, display)) {
-                        torqueRefresher.populateQuery(index, display)
+                        val clock = torqueRefresher.populateQuery(index, display)
+                        lifecycleScope.launch {
+                            lifecycle.withStateAtLeast(Lifecycle.State.RESUMED) {
+                                guages[index]!!.setupClock(clock)
+                            }
+                        }
                     }
                 }
                 screens.displaysList.forEachIndexed { index, display ->
                     if (torqueRefresher.hasChanged(index + DISPLAY_OFFSET, display)) {
-                        torqueRefresher.populateQuery(index + DISPLAY_OFFSET, display)
-                    }
-                }
-
-
-                torqueRefresher.refreshInformation(torqueService) { pos: Int, data: TorqueData ->
-                    if (pos >= DISPLAY_OFFSET) {
-                        displays[pos - DISPLAY_OFFSET]!!.setupElement(data)
-                    } else {
-                        guages[pos]!!.setupClock(data)
+                        val display = torqueRefresher.populateQuery(index + DISPLAY_OFFSET, display)
+                        lifecycleScope.launch {
+                            lifecycle.withStateAtLeast(Lifecycle.State.RESUMED) {
+                                displays[index]!!.setupElement(display)
+                            }
+                        }
                     }
                 }
             }
@@ -98,9 +105,12 @@ class DashboardFragment : CarFragment(), SharedPreferences.OnSharedPreferenceCha
 
         mBtnNext = view.findViewById(R.id.imageButton2)
         mBtnPrev = view.findViewById(R.id.imageButton3)
+        mBtnNext!!.setOnClickListener { setScreen(1) }
+        mBtnPrev!!.setOnClickListener  { setScreen(-1) }
         mTitleElementLeft = view.findViewById(R.id.textTitleElementLeft)
         mTitleElementRight = view.findViewById(R.id.textTitleElementRight)
-        mTitleElement = view.findViewById(R.id.textTitleElement)
+        mTitleElement = view.findViewById(R.id.textTitle)
+        mWrapper = view.findViewById(R.id.include_wrap)
 
         guages[0] = childFragmentManager.findFragmentById(R.id.gaugeLeft)!! as TorqueGauge
         guages[1] = childFragmentManager.findFragmentById(R.id.gaugeCenter)!! as TorqueGauge
@@ -113,6 +123,27 @@ class DashboardFragment : CarFragment(), SharedPreferences.OnSharedPreferenceCha
         displays[3]!!.bottomDisplay()
         onSharedPreferenceChanged(getSharedPreferences(), "")
         return rootView
+    }
+
+    fun setScreen(direction: Int) {
+        lifecycleScope.launch {
+            requireContext().dataStore.updateData {
+                currentSettings ->
+                currentSettings.toBuilder().setCurrentScreen(
+                    (currentSettings.currentScreen + direction) % currentSettings.screensCount
+                ).build()
+            }
+            val duration = resources.getInteger(android.R.integer.config_shortAnimTime).toLong()
+            mWrapper.animate()!!.translationX((rootView!!.width * -direction).toFloat()).setDuration(
+                duration
+            ).alpha(0f).setListener(object : AnimatorListenerAdapter() {
+                override fun onAnimationEnd(animation: Animator) {
+                    mWrapper.translationX = (rootView!!.width * direction).toFloat()
+                    mWrapper.alpha = 1f
+                    mWrapper.animate().setListener(null).translationX(0f).setDuration(duration)
+                }
+            })
+        }
     }
 
     fun getSharedPreferences(): SharedPreferences {
@@ -241,7 +272,7 @@ class DashboardFragment : CarFragment(), SharedPreferences.OnSharedPreferenceCha
         val handler = Handler(Looper.getMainLooper())
         updateTimer!!.schedule(object : TimerTask() {
             override fun run() {
-                if (isVisible && !isRemoving && torqueService.isAvailable() && torqueRefresher.hasLoadedData) {
+                if (isVisible && !isRemoving && torqueService.isAvailable()) {
                     torqueRefresher.refreshQueries(torqueService) {
                         handler.postDelayed(it, 1)
                     }
