@@ -12,10 +12,10 @@ package com.mqbcoding.stats;
         import java.util.Map;
 
 public class ListMenuAdapter extends MenuAdapter {
-    private List<MenuItem> mMenuItems = new ArrayList<>();
-    private Map<String, Integer> mMenuItemsByNames = new HashMap<>();
-    private SparseArray<String> mMenuItemNames = new SparseArray<>();
-    private SparseArray<MenuAdapter> mSubmenus = new SparseArray<>();
+    private final List<MenuItem> mMenuItems = new ArrayList<>();
+    private final Map<String, Integer> mMenuItemsByNames = new HashMap<>();
+    private final SparseArray<String> mMenuItemNames = new SparseArray<>();
+    private final SparseArray<MenuAdapter> mSubmenus = new SparseArray<>();
     private MenuCallbacks mCallbacks;
 
     public interface MenuCallbacks {

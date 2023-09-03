@@ -118,7 +118,7 @@ public class GeocodeLocationService extends Service {
                     List<Address> addresses = geocoder.getFromLocation(
                             lastLocation.getLatitude(), lastLocation.getLongitude(), 1);
                     if (mListener != null && addresses != null && addresses.size() > 0) {
-                        addresses.set(0,addresses.get(0)).setUrl(String.valueOf(lastAltitude)+" m");
+                        addresses.set(0,addresses.get(0)).setUrl(lastAltitude +" m");
                         mListener.onNewGeocodeResult(addresses.get(0));
                         mLastDecodedLocation.set(lastLocation);
                         Log.d(TAG, "Sended location to client: " + mLastDecodedLocation);

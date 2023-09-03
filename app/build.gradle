@@ -16,7 +16,7 @@ android {
     compileSdk 33
     defaultConfig {
         applicationId "com.mqbcoding.stats"
-        minSdkVersion 24
+        minSdkVersion 26
         targetSdkVersion 33
         versionCode versionMajor * 100 + versionMinor * 10 + versionPatch
         versionName "${versionMajor}.${versionMinor}.${versionPatch}"

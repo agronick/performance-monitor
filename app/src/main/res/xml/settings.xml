@@ -73,24 +73,8 @@
             android:summaryOff="@string/pref_highlowmarks_off"
             android:summaryOn="@string/pref_highlowmarks_on"
             android:title="@string/pref_highlowmarks" />
-        <CheckBoxPreference
-            android:defaultValue="false"
-            android:key="ambientActive"
-            android:summaryOff="@string/pref_ambient_off"
-            android:summaryOn="@string/pref_ambient_on"
-            android:title="@string/pref_ambient" />
-        <CheckBoxPreference
-            android:defaultValue="true"
-            android:key="stagingActive"
-            android:summary="@string/pref_staging_summary"
-            android:summaryOff="@string/pref_staging_summary_off"
-            android:title="@string/pref_staging_title" />
-        <CheckBoxPreference
-            android:defaultValue="false"
-            android:key="proximityActive"
-            android:summaryOff="@string/pref_proximity_off"
-            android:summaryOn="@string/pref_proximity_on"
-            android:title="@string/pref_proximity" />
+
+
 
     </PreferenceCategory>
 
@@ -108,89 +92,49 @@
 
         <Preference
             app:fragment="com.mqbcoding.stats.SettingsPIDFragment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:icon="@drawable/ic_settings_clockl"
             android:title="@string/pref_leftclock"
             android:key="clock_0_0" />
 
-        <ListPreference
-            android:id="@+id/prefClock_0_1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:entries="@array/ClockDataElementsEntries"
-            android:entryValues="@array/ClockDataElementsValues"
+        <Preference
+            app:fragment="com.mqbcoding.stats.SettingsPIDFragment"
             android:icon="@drawable/ic_settings_clockc"
-            android:key="selectedClockCenter1"
-            android:summary="%s"
+            android:key="clock_0_1"
             android:title="@string/pref_centerclock" />
 
-
-        <ListPreference
-            android:id="@+id/prefClock_0_2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:entries="@array/ClockDataElementsEntries"
-            android:entryValues="@array/ClockDataElementsValues"
+        <Preference
+            app:fragment="com.mqbcoding.stats.SettingsPIDFragment"
             android:icon="@drawable/ic_settings_clockr"
-            android:key="selectedClockRight1"
-            android:summary="%s"
+            android:key="clock_0_2"
             android:title="@string/pref_rightclock" />
 
-        <ListPreference
-            android:id="@+id/prefDisplay_0_0"
-            android:defaultValue="1"
-            android:entries="@array/TextDataElementsEntries"
-            android:entryValues="@array/TextDataElementsValues"
-            android:icon="@drawable/ic_settings_view1"
-            android:key="selectedView1_1"
-            android:summary="%s"
+        <Preference
+            app:fragment="com.mqbcoding.stats.SettingsPIDFragment"
             android:title="@string/pref_view1"
-            app:ilp_backgroundTint="@android:color/transparent"
-            app:ilp_entryImages="@array/TextDataElementsIcons"
-            app:ilp_tint="#00FFFFFF" />
-        <ListPreference
-            android:id="@+id/prefDisplay_0_1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:defaultValue="1"
-            android:entries="@array/TextDataElementsEntries"
-            android:entryValues="@array/TextDataElementsValues"
-            android:icon="@drawable/ic_settings_view2"
-            android:key="selectedView2_1"
-            android:summary="%s"
+            android:icon="@drawable/ic_settings_view1"
+            android:key="display_0_0" />
+
+
+        <Preference
+            app:fragment="com.mqbcoding.stats.SettingsPIDFragment"
             android:title="@string/pref_view2"
-            app:ilp_backgroundTint="@android:color/transparent"
-            app:ilp_entryImages="@array/TextDataElementsIcons"
-            app:ilp_tint="#00FFFFFF" />
-        <ListPreference
-            android:id="@+id/prefDisplay_0_2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:defaultValue="1"
-            android:entries="@array/TextDataElementsEntries"
-            android:entryValues="@array/TextDataElementsValues"
-            android:icon="@drawable/ic_settings_view3"
-            android:key="selectedView3_1"
-            android:summary="%s"
+            android:icon="@drawable/ic_settings_view2"
+            android:key="display_0_1" />
+
+
+        <Preference
+            app:fragment="com.mqbcoding.stats.SettingsPIDFragment"
             android:title="@string/pref_view3"
-            app:ilp_backgroundTint="@android:color/transparent"
-            app:ilp_entryImages="@array/TextDataElementsIcons"
-            app:ilp_tint="#00FFFFFF" />
-        <ListPreference
-            android:id="@+id/prefDisplay_0_3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:defaultValue="1"
-            android:entries="@array/TextDataElementsEntries"
-            android:entryValues="@array/TextDataElementsValues"
-            android:icon="@drawable/ic_settings_view4"
-            android:key="selectedView4_1"
-            android:summary="%s"
+            android:icon="@drawable/ic_settings_view3"
+            android:key="display_0_2" />
+
+
+        <Preference
+            app:fragment="com.mqbcoding.stats.SettingsPIDFragment"
             android:title="@string/pref_view4"
-            app:ilp_backgroundTint="@android:color/transparent"
-            app:ilp_entryImages="@array/TextDataElementsIcons"
-            app:ilp_tint="#00FFFFFF" />
+            android:icon="@drawable/ic_settings_view4"
+            android:key="display_0_3" />
+
     </PreferenceCategory>
 
     <PreferenceCategory

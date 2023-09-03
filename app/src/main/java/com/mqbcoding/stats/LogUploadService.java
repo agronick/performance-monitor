@@ -70,7 +70,7 @@ public class LogUploadService extends JobService {
     private final JsonFactory mJsonFactory = GsonFactory.getDefaultInstance();
     private final Gson mGson = new Gson();
 
-    private SparseArray<LogUploadTask> mTasks = new SparseArray<>();
+    private final SparseArray<LogUploadTask> mTasks = new SparseArray<>();
 
     public static synchronized void schedule(Context context, File logFile) {
         JobScheduler scheduler = (JobScheduler) context.getSystemService(Context.JOB_SCHEDULER_SERVICE);

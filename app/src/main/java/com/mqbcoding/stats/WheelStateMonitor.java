@@ -28,9 +28,9 @@ class WheelStateMonitor implements CarStatsClient.Listener {
 
     private boolean mIsEnabled;
     private WheelState mWheelState = WheelState.WHEEL_UNKNOWN;
-    private Map<String, Object> mLastMeasurements = new HashMap<>();
+    private final Map<String, Object> mLastMeasurements = new HashMap<>();
     private final Handler mHandler;
-    private CarNotificationSoundPlayer mNotificationPlayer;
+    private final CarNotificationSoundPlayer mNotificationPlayer;
 
     public WheelStateMonitor(Context context, Handler handler) {
         mHandler = handler;
@@ -76,10 +76,8 @@ class WheelStateMonitor implements CarStatsClient.Listener {
         Float lastSpeed = (Float) mLastMeasurements.get("vehicleSpeed");
         String speedUnit = (String) mLastMeasurements.get("vehicleSpeed.unit");
         if (lastSpeed != null && speedUnit != null) {
-            switch (speedUnit) {
-                case "mph":
-                    lastSpeed *= 1.60934f;
-                    break;
+            if (speedUnit.equals("mph")) {
+                lastSpeed *= 1.60934f;
             }
         }
         Float lastSpeedKmh = lastSpeed;
