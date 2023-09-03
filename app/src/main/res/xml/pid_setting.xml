@@ -64,5 +64,17 @@
         android:dependency="pidList"
         android:enabled="false"
     />
+     <CheckBoxPreference
+        android:key="runCustomJs"
+        android:title="@string/enable_js"
+        android:summary="@string/enable_js_desc"
+     />
+    <EditTextPreference
+        android:key="customJs"
+        android:title="@string/custom_js"
+        android:summary="@string/custom_js_desc"
+        android:dependency="runCustomJs"
+        android:inputType="textMultiLine"
+     />
     </PreferenceCategory>
 </PreferenceScreen>

@@ -16,7 +16,7 @@ android {
     compileSdk 33
     defaultConfig {
         applicationId "com.mqbcoding.stats"
-        minSdkVersion 26
+        minSdkVersion 28
         targetSdkVersion 33
         versionCode versionMajor * 100 + versionMinor * 10 + versionPatch
         versionName "${versionMajor}.${versionMinor}.${versionPatch}"
@@ -91,6 +91,7 @@ dependencies {
     implementation 'androidx.preference:preference-ktx:1.2.1'
     implementation "androidx.datastore:datastore-preferences:1.0.0"
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.1'
+    implementation "androidx.javascriptengine:javascriptengine:1.0.0-alpha05"
 
     testImplementation 'junit:junit:4.13.2'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.10"
