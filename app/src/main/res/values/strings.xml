@@ -352,8 +352,8 @@
     <string name="dashboards">Dashboards</string>
     <string name="rotary_input">Rotary Input</string>
     <string name="rotary_desc">Disable buttons and use rotary dial if equipped</string>
-    <string name="enable_js">Enable JavaScript</string>
-    <string name="enable_js_desc">Run custom Javascript to modify the output</string>
-    <string name="custom_js">Unit conversion JavaScript\n</string>
-    <string name="custom_js_desc">Run JavaScript on each value. $$ will be replaced with the current value.</string>
+    <string name="enable_script">Enable JavaScript</string>
+    <string name="enable_script_desc">Run custom Javascript to modify the output</string>
+    <string name="custom_script">Unit conversion</string>
+    <string name="custom_script_desc">Run an EvalEx expression. Use a to represent the current value.</string>
 </resources>

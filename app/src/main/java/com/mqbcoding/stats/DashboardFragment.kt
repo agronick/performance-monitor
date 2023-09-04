@@ -5,7 +5,6 @@ import android.animation.AnimatorListenerAdapter
 import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.Typeface
-import android.opengl.Visibility
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -18,19 +17,12 @@ import android.widget.ImageButton
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
-<<<<<<< HEAD
 import androidx.core.view.InputDeviceCompat
 import androidx.core.view.MotionEventCompat
-=======
-import androidx.javascriptengine.JavaScriptSandbox
->>>>>>> 4a5b2ec (Wip)
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.withStateAtLeast
 import com.google.android.apps.auto.sdk.StatusBarController
-import com.google.common.util.concurrent.FutureCallback
-import com.google.common.util.concurrent.Futures
-import com.google.common.util.concurrent.ListenableFuture
 import com.mqbcoding.prefs.dataStore
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
@@ -68,26 +60,11 @@ class DashboardFragment : CarFragment(), SharedPreferences.OnSharedPreferenceCha
     private var selectedFont: String? = null
     private var selectedBackground: String? = null
     private val DISPLAY_OFFSET = 3
-    private lateinit var jsSandboxFuture: ListenableFuture<JavaScriptSandbox>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         torqueService.startTorque(requireContext())
-        jsSandboxFuture = JavaScriptSandbox.createConnectedInstanceAsync(requireContext())
-        Futures.addCallback(
-            jsSandboxFuture,
-            object : FutureCallback<JavaScriptSandbox> {
-                override fun onSuccess(result: JavaScriptSandbox) {
-                    torqueRefresher.jsSandbox = result.createIsolate()
-                }
 
-                override fun onFailure(t: Throwable) {
-                    // handle failure
-                }
-            },
-            // causes the callbacks to be executed on the main (UI) thread
-            requireContext().mainExecutor
-        )
         lifecycleScope.launch {
             requireContext().dataStore.data.map {
                 it.screensList[abs(it.currentScreen) % it.screensCount]
@@ -191,7 +168,6 @@ class DashboardFragment : CarFragment(), SharedPreferences.OnSharedPreferenceCha
 
     override fun onPause() {
         super.onPause()
-        jsSandboxFuture.get().close()
         updateTimer!!.cancel()
     }
 
