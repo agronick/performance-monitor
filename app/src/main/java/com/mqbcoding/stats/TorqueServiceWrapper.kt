@@ -119,24 +119,4 @@ class TorqueServiceWrapper: Service() {
         return torqueBind
     }
 
-    companion object {
-        fun getConnection(forceLoad: Boolean? = false): ServiceConnection {
-            return object : ServiceConnection {
-                var mBound = false
-                lateinit var service: TorqueServiceWrapper
-                override fun onServiceConnected(className: ComponentName, service: IBinder) {
-                    if (forceLoad != null) {
-                        this.service =
-                            (service as TorqueServiceWrapper.LocalBinder).getService()
-                        this.service.loadPidInformation(forceLoad)
-                    }
-                    mBound = true
-                }
-
-                override fun onServiceDisconnected(arg0: ComponentName) {
-                    mBound = false
-                }
-            }
-        }
-    }
 }

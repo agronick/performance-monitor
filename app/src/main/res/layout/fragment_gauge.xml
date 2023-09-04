@@ -16,16 +16,17 @@
         android:layout_width="100dp"
         android:layout_height="30dp"
         android:layout_marginBottom="17dp"
-        android:drawableLeft="@drawable/ic_max_text"
         android:elevation="1dp"
         android:gravity="bottom"
         android:text=""
         android:textAlignment="center"
         android:textSize="24sp"
         android:textColor="@android:color/white"
+        android:translationY="-15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:drawableLeft="@drawable/ic_max_text" />
 
 
     <TextView
