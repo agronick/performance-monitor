@@ -39,6 +39,7 @@
             android:summaryOn="@string/pref_highvis_on"
             android:title="@string/pref_highvis" />
 
+        <!--
         <CheckBoxPreference
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -47,6 +48,13 @@
             android:summaryOff="@string/pref_accurate_off"
             android:summaryOn="@string/pref_accurate_on"
             android:title="@string/pref_accurate" />
+        -->
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="rotaryInput"
+            android:summary="@string/rotary_desc"
+            android:title="@string/rotary_input" />
 
         <CheckBoxPreference
             android:defaultValue="false"
@@ -85,224 +93,6 @@
         android:title="@string/dashboards"
         android:layout="@layout/prefcat"
         android:key="dashboardsCat">
-
-    </PreferenceCategory>
-
-    <PreferenceCategory
-        android:singleLineTitle="false"
-        android:title="@string/pref_dataelementsettings_4"
-        android:layout="@layout/prefcat">
-
-    <CheckBoxPreference
-        android:defaultValue="false"
-        android:key="d4_active"
-        android:title="@string/pref_enable_4nd_dash" />
-    </PreferenceCategory>
-
-    <PreferenceCategory
-        android:singleLineTitle="false"
-        android:title="@string/pref_dataelementsettings_5"
-        android:layout="@layout/prefcat">
-
-        <CheckBoxPreference
-            android:defaultValue="false"
-            android:key="d5_active"
-            android:title="@string/pref_enable_5nd_dash" />
-            app:ilp_backgroundTint="@android:color/transparent"
-            app:ilp_entryImages="@array/TextDataElementsIcons"
-            app:ilp_tint="#00FFFFFF" />
-    </PreferenceCategory>
-
-    <PreferenceCategory
-        android:title="@string/pref_location_category_title"
-        android:layout="@layout/prefcat">
-        <SwitchPreference
-            android:defaultValue="true"
-            android:key="showStreetNameInTitle"
-            android:summaryOff="@string/pref_location_showstreet_summary_off"
-            android:summaryOn="@string/pref_location_showstreet_summary_on"
-            android:title="@string/pref_location_showstreet_title" />
-        <SwitchPreference
-            android:defaultValue="false"
-            android:key="useGoogleGeocoding"
-            android:dependency="showStreetNameInTitle"
-            android:summary="@string/pref_location_use_geocoding_summary"
-            android:title="@string/pref_location_use_geocoding_title" />
-        <SwitchPreference
-            android:defaultValue="false"
-            android:key="forceGoogleGeocoding"
-            android:summaryOff="@string/pref_location_force_geocoding_summary_off"
-            android:summaryOn="@string/pref_location_force_geocoding_summary_on"
-            android:dependency="useGoogleGeocoding"
-            android:title="@string/pref_location_force_geocoding_title" />
-        <ListPreference
-            android:defaultValue="Google Maps"
-            android:entries="@array/LocationDataSource"
-            android:entryValues="@array/LocationValueSource"
-            android:key="locationSourceData"
-            android:summary="%s"
-            android:title="@string/pref_location_DataSource" />
-
-    </PreferenceCategory>
-    <PreferenceCategory
-        android:title="@string/pref_unitprefs"
-        android:layout="@layout/prefcat">
-
-        <EditTextPreference
-            android:defaultValue="50"
-            android:inputType="number"
-            android:key="fueltanksize"
-            android:title="@string/pref_fuel_tank_size" />
-
-        <SwitchPreference
-            android:defaultValue="true"
-            android:key="selectTemperatureUnit"
-            android:summaryOff="@string/unit_fahrenheit"
-            android:summaryOn="@string/unit_celcius"
-            android:title="@string/pref_temperatureunit"
-            android:visibility="invisible" />
-        <SwitchPreference
-            android:defaultValue="true"
-            android:key="selectPressureUnit"
-            android:summaryOff="@string/unit_psi"
-            android:summaryOn="@string/unit_bar"
-            android:title="@string/pref_pressureunit"
-            android:visibility="invisible" />
-
-        <!--    Disabled because it causes black screens of death currently
-
-        <SwitchPreference
-                android:defaultValue="true"
-                android:key="selectPowerUnit"
-                android:summaryOff="@string/unit_hp"
-                android:summaryOn="@string/unit_kw"
-                android:title="@string/pref_powerunit"
-                android:visibility="invisible" />-->
-
-        <CheckBoxPreference
-            android:defaultValue="true"
-            android:key="omitEmptyEntries"
-            android:summary="@string/pref_omit_empty_readings_summary"
-            android:summaryOff="@string/pref_omit_empty_readings_summary_off"
-            android:title="@string/pref_omit_empty_readings_title" />
-    </PreferenceCategory>
-
-    <PreferenceCategory
-        android:title="@string/pref_notifications_category_title"
-        android:layout="@layout/prefcat">
-        <CheckBoxPreference
-            android:defaultValue="true"
-            android:key="oilTempMonitoringActive"
-            android:summary="@string/pref_oil_temp_monitoring_summary"
-            android:title="@string/pref_oil_temp_monitoring_title" />
-        <CheckBoxPreference
-            android:defaultValue="false"
-            android:key="wheelStateMonitoringActive"
-            android:summary="@string/pref_wheel_state_monitoring_summary"
-            android:title="@string/pref_wheel_state_monitoring_title" />
-    </PreferenceCategory>
-
-    <PreferenceCategory
-        android:title="@string/pref_enginespeed_category_title"
-        android:layout="@layout/prefcat">
-        <!-- TODO: Localize and add summaries -->
-        <CheckBoxPreference
-            android:defaultValue="true"
-            android:key="engineSpeedMonitoringActive"
-            android:title="@string/pref_enginespeed_monitor" />
-
-        <EditTextPreference
-            android:defaultValue="5500"
-            android:dependency="engineSpeedMonitoringActive"
-            android:dialogTitle="@string/pref_enginespeed_rpm_dialog_title"
-            android:inputType="number"
-            android:key="engineSpeedESInform"
-            android:title="@string/pref_enginespeed_rpm_inform"/>
-        <EditTextPreference
-            android:defaultValue="5900"
-            android:dependency="engineSpeedMonitoringActive"
-            android:dialogTitle="@string/pref_enginespeed_rpm_dialog_title"
-            android:inputType="number"
-            android:key="engineSpeedESHint"
-            android:title="@string/pref_enginespeed_rpm_hint" />
-        <EditTextPreference
-            android:defaultValue="6300"
-            android:dependency="engineSpeedMonitoringActive"
-            android:dialogTitle="@string/pref_enginespeed_rpm_dialog_title"
-            android:inputType="number"
-            android:key="engineSpeedESWarn"
-            android:title="@string/pref_enginespeed_rpm_warn" />
-
-        <CheckBoxPreference
-            android:defaultValue="true"
-            android:dependency="engineSpeedMonitoringActive"
-            android:key="engineSpeedSoundActive"
-            android:title="@string/pref_enginespeed_play_sound"
-            android:summary="@string/pref_enginespeed_play_sound_summary"/>
-
-        <EditTextPreference
-            android:defaultValue="4"
-            android:dependency="engineSpeedSoundActive"
-            android:dialogTitle="@string/pref_enginespeed_play_sound_upto"
-            android:inputType="number"
-            android:key="engineSpeedSoundUpToGear"
-            android:title="@string/pref_enginespeed_play_sound_upto" />
-    </PreferenceCategory>
-
-    <PreferenceCategory
-        android:title="@string/pref_providers_category_title"
-        android:layout="@layout/prefcat">
-        <Preference
-            android:key="listProviders"
-            android:title="@string/pref_list_providers_title" />
-    </PreferenceCategory>
-
-    <PreferenceCategory
-        android:title="@string/pref_logging_category_title"
-        android:layout="@layout/prefcat">
-        <CheckBoxPreference
-            android:defaultValue="true"
-            android:key="statsLoggingActive"
-            android:summary="@string/pref_stats_logging_summary"
-            android:title="@string/pref_stats_logging_title" />
-        <CheckBoxPreference
-            android:defaultValue="false"
-            android:dependency="statsLoggingActive"
-            android:key="uploadToBigquery"
-            android:title="@string/pref_upload_to_bigquery_title" />
-        <Preference
-            android:dependency="uploadToBigquery"
-            android:key="accountName"
-            android:title="@string/pref_choose_account_title" />
-        <EditTextPreference
-            android:dependency="uploadToBigquery"
-            android:key="bigqueryProjectId"
-            android:title="@string/pref_bigquery_project_id_title" />
-        <EditTextPreference
-            android:dependency="uploadToBigquery"
-            android:key="bigqueryDataset"
-            android:title="@string/pref_bigquery_dataset_title" />
-        <EditTextPreference
-            android:defaultValue="@string/pref_bigquery_table_default"
-            android:dependency="uploadToBigquery"
-            android:key="bigqueryTable"
-            android:title="@string/pref_bigquery_table_title" />
-        <Preference
-            android:key="bigqueryReuploadAll"
-            android:dependency="uploadToBigquery"
-            android:title="@string/pref_bigquery_reupload_all_title" />
-        <Preference
-            android:dependency="uploadToBigquery"
-            android:key="bigqueryReuploadLast"
-            android:title="@string/pref_bigquery_reupload_last_title" />
-        <Preference
-            android:dependency="uploadToBigquery"
-            android:key="kickUploads"
-            android:title="@string/pref_kick_uploads_title" />
-        <Preference
-            android:key="cancelUploads"
-            android:dependency="uploadToBigquery"
-            android:title="@string/pref_cancel_uploads_title" />
 
     </PreferenceCategory>
 

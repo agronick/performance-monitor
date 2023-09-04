@@ -266,7 +266,7 @@ class TorqueGauge : Fragment(){
         }
         clock.setSpeedAt(0f)
         mMax?.setSpeedAt(0f)
-        mTextMax?.text = "0"
+        mTextMax?.text = minspeed.toString()
     }
 
     fun onUpdate(data: TorqueData) {
