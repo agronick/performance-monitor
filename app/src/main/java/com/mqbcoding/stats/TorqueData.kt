@@ -1,7 +1,7 @@
 package com.mqbcoding.stats
 
-import androidx.javascriptengine.JavaScriptIsolate
-import androidx.javascriptengine.JavaScriptSandbox
+import androidx.core.text.isDigitsOnly
+import com.ezylang.evalex.Expression
 import com.mqbcoding.datastore.Display
 import java.math.BigInteger
 
@@ -12,6 +12,8 @@ class TorqueData(val display: Display) {
     var pidInt: Long? = null
     var minValue: Double = 0.0
     var maxValue: Double = 0.0
+    var expression: Expression? = null
+    var lastDataStr: String? = null
 
     var notifyUpdate: ((TorqueData) -> Unit)? = null
     companion object {
@@ -28,9 +30,13 @@ class TorqueData(val display: Display) {
         }
     }
 
-    fun setLastData(value: Double, sandbox: JavaScriptIsolate) {
-        val lastDataStr = convertIfNeeded(value, sandbox)
-        lastData = value
+    fun setLastData(value: Double) {
+        lastDataStr = convertIfNeeded(value)
+        if (lastDataStr != null && lastDataStr?.isDigitsOnly() == true) {
+            lastData = lastDataStr!!.toDouble()
+        } else {
+            lastData = value
+        }
         if (value > maxValue) {
             maxValue = value
         }
@@ -40,11 +46,12 @@ class TorqueData(val display: Display) {
         notifyUpdate?.invoke(this)
     }
 
-    private fun convertIfNeeded(value: Double, sandbox: JavaScriptIsolate): String? {
-        if (!display.enableJs || display.customJs == "") return null
-        sandbox.evaluateJavaScriptAsync(
-            display.customJs.replace("$$", value.toString(), false)
-        )
+    private fun convertIfNeeded(value: Double): String? {
+        if (!display.enableScript || display.customScript == "") return null
+        if (expression == null) {
+            expression = Expression(display.customScript)
+        }
+        return expression!!.with("a", value).toString()
     }
 
     fun getDrawableName(): String? {
