@@ -65,15 +65,15 @@
         android:enabled="false"
     />
      <CheckBoxPreference
-        android:key="runCustomJs"
-        android:title="@string/enable_js"
-        android:summary="@string/enable_js_desc"
+        android:key="runcustomScript"
+        android:title="@string/enable_script"
+        android:summary="@string/enable_script_desc"
      />
     <EditTextPreference
-        android:key="customJs"
-        android:title="@string/custom_js"
-        android:summary="@string/custom_js_desc"
-        android:dependency="runCustomJs"
+        android:key="customScript"
+        android:title="@string/custom_script"
+        android:summary="@string/custom_script_desc"
+        android:dependency="runcustomScript"
         android:inputType="textMultiLine"
      />
     </PreferenceCategory>
