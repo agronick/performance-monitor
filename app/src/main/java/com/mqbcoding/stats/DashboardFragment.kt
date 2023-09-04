@@ -5,17 +5,21 @@ import android.animation.AnimatorListenerAdapter
 import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.Typeface
+import android.opengl.Visibility
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.core.view.InputDeviceCompat
+import androidx.core.view.MotionEventCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -198,6 +202,8 @@ class DashboardFragment : CarFragment(), SharedPreferences.OnSharedPreferenceCha
             2000
         }
 
+        configureRotaryInput(sharedPreferences.getBoolean("rotaryInput", false))
+
         val readedFont = sharedPreferences.getString("selectedFont", "segments")
 
         if (readedFont != selectedFont && readedFont != null) {
@@ -288,6 +294,30 @@ class DashboardFragment : CarFragment(), SharedPreferences.OnSharedPreferenceCha
             rootView!!.background = wallpaperImage
         }
         selectedBackground = newBackground
+    }
+
+    private fun configureRotaryInput(enabled: Boolean) {
+        if (enabled) {
+            mBtnPrev?.visibility = View.INVISIBLE
+            mBtnNext?.visibility = View.INVISIBLE
+            rootView!!.setOnGenericMotionListener { v, ev ->
+                if (ev.action == MotionEvent.ACTION_SCROLL &&
+                    ev.isFromSource(InputDeviceCompat.SOURCE_MOUSE)
+                ) {
+                    // Don't forget the negation here
+                    val delta = -ev.getAxisValue(MotionEventCompat.AXIS_SCROLL)
+                    // Swap these axes to scroll horizontally instead
+                    setScreen(if (delta > 0) 1 else -1)
+                    true
+                } else {
+                    false
+                }
+            }
+        } else {
+            mBtnPrev?.visibility = View.VISIBLE
+            mBtnNext?.visibility = View.VISIBLE
+            rootView?.setOnGenericMotionListener(null)
+        }
     }
 
     fun setupTypeface(typeface: Typeface) {

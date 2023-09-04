@@ -350,4 +350,6 @@
     <string name="num_screens">Number of dashboards to display</string>
     <string name="unit">Unit</string>
     <string name="dashboards">Dashboards</string>
+    <string name="rotary_input">Rotary Input</string>
+    <string name="rotary_desc">Disable buttons and use rotary dial if equipped</string>
 </resources>

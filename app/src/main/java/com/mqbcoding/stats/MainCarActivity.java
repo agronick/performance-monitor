@@ -187,7 +187,9 @@ public class MainCarActivity extends CarActivity{
         switchToFragment(initialFragmentTag);
 
         MenuController menuController = getCarUiController().getMenuController();
-        menuController.showMenuButton();
+        if (!preferences.getBoolean("rotaryInput", false)) {
+            menuController.showMenuButton();
+        }
         StatusBarController statusBarController = getCarUiController().getStatusBarController();
         carfragment.setupStatusBar(statusBarController);
 
