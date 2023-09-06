@@ -1,12 +1,9 @@
-package com.mqbcoding.stats
+package com.mqbcoding.prefs
 
 import android.content.ComponentName
-import android.content.Context
-import android.content.Intent
 import android.content.ServiceConnection
 import android.os.Bundle
 import android.os.IBinder
-import android.util.Log
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.CheckBoxPreference
 import androidx.preference.EditTextPreference
@@ -15,7 +12,9 @@ import androidx.preference.PreferenceCategory
 import androidx.preference.PreferenceFragmentCompat
 import com.mqbcoding.datastore.Display
 import com.mqbcoding.datastore.Screen
-import com.mqbcoding.prefs.dataStore
+import com.mqbcoding.stats.R
+import com.mqbcoding.stats.TorqueService
+import com.mqbcoding.stats.TorqueServiceWrapper
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -40,7 +39,7 @@ class SettingsPIDFragment:  PreferenceFragmentCompat() {
     lateinit var maxValuePref: EditTextPreference
     lateinit var unitPref: EditTextPreference
     lateinit var runcustomScriptPref: CheckBoxPreference
-    lateinit var jsPref: EditTextPreference
+    lateinit var jsPref: FormulaPreference
     var torqueService: TorqueServiceWrapper? = null
 
     var torqueConnection = object : ServiceConnection {
@@ -90,23 +89,6 @@ class SettingsPIDFragment:  PreferenceFragmentCompat() {
         unitPref = findPreference("unit")!!
         runcustomScriptPref = findPreference("runcustomScript")!!
         jsPref = findPreference("customScript")!!
-        lifecycleScope.launch {
-            val data = requireContext().dataStore.data.first()
-            val screen = data.getScreens(screen)
-            val display = if (isClock) screen.getGauges(index) else screen.getDisplays(index)
-            pidPref.value = display.pid
-            showLabelPref.isChecked = display.showLabel
-            labelPref.text = display.label
-            imagePref.value = display.icon
-            minValuePref.text = display.minValue.toString()
-            maxValuePref.text = display.maxValue.toString()
-            unitPref.text = display.unit
-            runcustomScriptPref.isChecked = display.enableScript
-            jsPref.text = display.customScript
-            if (pidPref.value.startsWith("torque")) {
-                enableItems(true)
-            }
-        }
 
         imagePref.summaryProvider = ListPreference.SimpleSummaryProvider.getInstance()
         labelPref.summaryProvider = EditTextPreference.SimpleSummaryProvider.getInstance()
@@ -126,11 +108,26 @@ class SettingsPIDFragment:  PreferenceFragmentCompat() {
             return@setOnPreferenceChangeListener true
         }
 
-        Intent(requireContext(), TorqueServiceWrapper::class.java).also { intent ->
-            if (!requireContext().bindService(intent, torqueConnection, Context.BIND_AUTO_CREATE)) {
-                Log.e(TAG, "Failed to bind internal service")
-            } else {
-                Log.d(TAG, "Started intent for service wrapper")
+        TorqueServiceWrapper.runStartIntent(requireContext(), torqueConnection)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        lifecycleScope.launch {
+            val data = requireContext().dataStore.data.first()
+            val screen = data.getScreens(screen)
+            val display = if (isClock) screen.getGauges(index) else screen.getDisplays(index)
+            pidPref.value = display.pid
+            showLabelPref.isChecked = display.showLabel
+            labelPref.text = display.label
+            imagePref.value = display.icon
+            minValuePref.text = display.minValue.toString()
+            maxValuePref.text = display.maxValue.toString()
+            unitPref.text = display.unit
+            runcustomScriptPref.isChecked = display.enableScript
+            jsPref.setValue(display.customScript)
+            if (pidPref.value.startsWith("torque")) {
+                enableItems(true)
             }
         }
     }
@@ -138,10 +135,12 @@ class SettingsPIDFragment:  PreferenceFragmentCompat() {
     fun enableItems(enabled: Boolean) {
         showLabelPref.isEnabled = enabled
         imagePref.isEnabled = enabled
-        minValuePref.isEnabled = enabled
-        maxValuePref.isEnabled = enabled
         unitPref.isEnabled = enabled
         runcustomScriptPref.isEnabled = enabled
+        if (isClock) {
+            minValuePref.isEnabled = enabled
+            maxValuePref.isEnabled = enabled
+        }
     }
 
     override fun onPause() {
@@ -168,7 +167,7 @@ class SettingsPIDFragment:  PreferenceFragmentCompat() {
         ).setEnableScript(
             runcustomScriptPref.isChecked
         ).setCustomScript(
-            jsPref.text
+            jsPref.getValue()
         )
         if (imagePref.value != null) {
             display = display.setIcon(imagePref.value)

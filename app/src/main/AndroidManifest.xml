@@ -28,7 +28,7 @@
         tools:ignore="GoogleAppIndexingWarning">
 
         <activity
-            android:name=".SettingsActivity"
+            android:name="com.mqbcoding.prefs.SettingsActivity"
             android:exported="true"
             android:label="@string/activity_settings_title"
             android:launchMode="singleTop">

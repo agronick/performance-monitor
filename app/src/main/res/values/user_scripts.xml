@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="user_script_name">
+        <item>@string/element_none</item>
+        <item>@string/convert_c_to_f</item>
+        <item>@string/convert_bar_psi</item>
+    </array>
+    <array name="user_script">
+        <item></item>
+        <item>a * 1.8 + 32</item>
+        <item>a * 14.5038</item>
+    </array>
+
+</resources>

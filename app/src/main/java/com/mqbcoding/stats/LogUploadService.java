@@ -36,6 +36,7 @@ import com.google.common.io.Files;
 import com.google.common.net.MediaType;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.mqbcoding.prefs.SettingsActivity;
 
 import java.io.BufferedReader;
 import java.io.File;

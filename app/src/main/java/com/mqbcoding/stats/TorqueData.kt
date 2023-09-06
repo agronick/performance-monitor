@@ -4,6 +4,7 @@ import androidx.core.text.isDigitsOnly
 import com.ezylang.evalex.Expression
 import com.mqbcoding.datastore.Display
 import java.math.BigInteger
+import java.util.concurrent.ScheduledFuture
 
 class TorqueData(val display: Display) {
 
@@ -14,6 +15,7 @@ class TorqueData(val display: Display) {
     var maxValue: Double = 0.0
     var expression: Expression? = null
     var lastDataStr: String? = null
+    var refreshTimer: ScheduledFuture<*>? = null
 
     var notifyUpdate: ((TorqueData) -> Unit)? = null
     companion object {
