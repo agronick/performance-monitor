@@ -3,6 +3,7 @@ package com.mqbcoding.stats
 import android.app.Activity
 import android.app.Service
 import android.content.ComponentName
+import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
 import android.os.Binder
@@ -21,15 +22,22 @@ class TorqueServiceWrapper: Service() {
     val onConnect = ArrayList<(ITorqueService) -> Unit>()
     var pids: Array<String>? = null
     var pidInfo: List<List<String>>? = null
+    var connectCount = 0
 
     override fun onCreate() {
         super.onCreate()
-        wasStartAttempted = startTorque()
+        if (!wasStartAttempted) {
+            wasStartAttempted = startTorque()
+        }
+        connectCount++
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        unbindService(torqueConnection)
+        connectCount--
+        if (connectCount == 0) {
+            unbindService(torqueConnection)
+        }
     }
 
     class ListPids(val ts: ITorqueService, val onComplete: (Array<String>, List<List<String>>) -> Unit): java.lang.Runnable {
@@ -119,4 +127,16 @@ class TorqueServiceWrapper: Service() {
         return torqueBind
     }
 
+    fun requestQuit() {
+        sendBroadcast(Intent("org.prowl.torque.REQUEST_TORQUE_QUIT"))
+        Log.d(TAG, "Torque stop")
+    }
+
+    companion object {
+        fun runStartIntent(context: Context, conn: ServiceConnection): Intent {
+            return Intent(context, TorqueServiceWrapper::class.java).also { intent ->
+                context.bindService(intent, conn, Context.BIND_AUTO_CREATE)
+            }
+        }
+    }
 }

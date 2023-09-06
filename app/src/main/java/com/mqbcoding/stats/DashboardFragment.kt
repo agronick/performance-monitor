@@ -6,8 +6,6 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.Typeface
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -18,7 +16,6 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.InputDeviceCompat
-import androidx.core.view.MotionEventCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.withStateAtLeast
@@ -27,7 +24,6 @@ import com.mqbcoding.prefs.dataStore
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import java.util.Timer
-import java.util.TimerTask
 import kotlin.math.abs
 
 
@@ -56,10 +52,11 @@ class DashboardFragment : CarFragment(), SharedPreferences.OnSharedPreferenceCha
     private var ambientOn: Boolean? = null
     private var accurateOn: Boolean? = null
     private var proximityOn: Boolean? = null
-    private var updateSpeed = 2000
+    private var updateSpeed = 250
     private var selectedFont: String? = null
     private var selectedBackground: String? = null
     private val DISPLAY_OFFSET = 3
+    private var screensAnimating = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -87,10 +84,11 @@ class DashboardFragment : CarFragment(), SharedPreferences.OnSharedPreferenceCha
                 }
                 screens.displaysList.forEachIndexed { index, display ->
                     if (torqueRefresher.hasChanged(index + DISPLAY_OFFSET, display)) {
-                        val display = torqueRefresher.populateQuery(index + DISPLAY_OFFSET, display)
+                        val td = torqueRefresher.populateQuery(index + DISPLAY_OFFSET, display)
+                        torqueRefresher.makeExecutors(torqueService)
                         lifecycleScope.launch {
                             lifecycle.withStateAtLeast(Lifecycle.State.RESUMED) {
-                                displays[index]!!.setupElement(display)
+                                displays[index]!!.setupElement(td)
                             }
                         }
                     }
@@ -130,24 +128,35 @@ class DashboardFragment : CarFragment(), SharedPreferences.OnSharedPreferenceCha
     }
 
     fun setScreen(direction: Int) {
-        lifecycleScope.launch {
-            requireContext().dataStore.updateData {
-                currentSettings ->
-                currentSettings.toBuilder().setCurrentScreen(
-                    (currentSettings.currentScreen + direction) % currentSettings.screensCount
-                ).build()
-            }
-            val duration = resources.getInteger(android.R.integer.config_shortAnimTime).toLong()
-            mWrapper.animate()!!.translationX((rootView!!.width * -direction).toFloat()).setDuration(
-                duration
-            ).alpha(0f).setListener(object : AnimatorListenerAdapter() {
-                override fun onAnimationEnd(animation: Animator) {
+        if (screensAnimating) return
+        screensAnimating = true
+        val duration = resources.getInteger(android.R.integer.config_shortAnimTime).toLong()
+        mTitleElement!!.animate().alpha(0f).setDuration(duration)
+        mWrapper.animate()!!.translationX((rootView!!.width * -direction).toFloat()).setDuration(
+            duration
+        ).alpha(0f).setListener(object : AnimatorListenerAdapter() {
+            override fun onAnimationEnd(animation: Animator) {
+                lifecycleScope.launch {
+                    requireContext().dataStore.updateData {
+                            currentSettings ->
+                        currentSettings.toBuilder().setCurrentScreen(
+                            (currentSettings.screensCount +
+                                    currentSettings.currentScreen +
+                                    direction
+                                    ) % currentSettings.screensCount
+                        ).build()
+                    }
                     mWrapper.translationX = (rootView!!.width * direction).toFloat()
                     mWrapper.alpha = 1f
-                    mWrapper.animate().setListener(null).translationX(0f).setDuration(duration)
+                    mWrapper.animate().setListener(object : AnimatorListenerAdapter() {
+                        override fun onAnimationEnd(animation: Animator) {
+                            screensAnimating = false
+                        }
+                    }).translationX(0f).setDuration(duration)
+                    mTitleElement!!.animate().alpha(1f).setDuration(duration)
                 }
-            })
-        }
+            }
+        })
     }
 
     fun getSharedPreferences(): SharedPreferences {
@@ -163,12 +172,12 @@ class DashboardFragment : CarFragment(), SharedPreferences.OnSharedPreferenceCha
 
     override fun onResume() {
         super.onResume()
-        createAndStartUpdateTimer()
+        torqueRefresher.makeExecutors(torqueService)
     }
 
     override fun onPause() {
         super.onPause()
-        updateTimer!!.cancel()
+        torqueRefresher.stopExecutors()
     }
 
     override fun onDestroy() {
@@ -273,20 +282,6 @@ class DashboardFragment : CarFragment(), SharedPreferences.OnSharedPreferenceCha
         }
     }
 
-    private fun createAndStartUpdateTimer() {
-        updateTimer = Timer()
-        val handler = Handler(Looper.getMainLooper())
-        updateTimer!!.schedule(object : TimerTask() {
-            override fun run() {
-                if (isVisible && !isRemoving && torqueService.isAvailable()) {
-                    torqueRefresher.refreshQueries(torqueService) {
-                        handler.postDelayed(it, 1)
-                    }
-                }
-            }
-        }, 0, 250) //Update display 0,25 second
-    }
-
     private fun setupBackground(newBackground: String?) {
         val resId = resources.getIdentifier(newBackground, "drawable", requireContext().packageName)
         if (resId != 0) {
@@ -304,10 +299,8 @@ class DashboardFragment : CarFragment(), SharedPreferences.OnSharedPreferenceCha
                 if (ev.action == MotionEvent.ACTION_SCROLL &&
                     ev.isFromSource(InputDeviceCompat.SOURCE_MOUSE)
                 ) {
-                    // Don't forget the negation here
-                    val delta = -ev.getAxisValue(MotionEventCompat.AXIS_SCROLL)
-                    // Swap these axes to scroll horizontally instead
-                    setScreen(if (delta > 0) 1 else -1)
+                    val delta = ev.getAxisValue(MotionEvent.AXIS_VSCROLL)
+                    setScreen(if (delta < 0) 1 else -1)
                     true
                 } else {
                     false

@@ -1,4 +1,4 @@
-package com.mqbcoding.stats
+package com.mqbcoding.prefs
 
 import android.content.Context
 import android.util.AttributeSet
@@ -11,15 +11,23 @@ import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.ListView
 import android.widget.TextView
-import androidx.annotation.ArrayRes
 import androidx.appcompat.app.AlertDialog
 import androidx.preference.ListPreference
+import com.mqbcoding.stats.R
+
+
 
 class ImageListPreference(
     context: Context,
     attrs: AttributeSet?
 ) : ListPreference(context, attrs) {
 
+    data class CustomListItem(
+        val title: String,
+        val value: String,
+        val iconRes: Int,
+        var checked: Boolean
+    )
     class CustomListAdapter(
         context: Context,
         private val layoutResource: Int,
@@ -89,10 +97,3 @@ class ImageListPreference(
             .show()
     }
 }
-
-data class CustomListItem(
-    val title: String,
-    val value: String,
-    val iconRes: Int,
-    var checked: Boolean
-)

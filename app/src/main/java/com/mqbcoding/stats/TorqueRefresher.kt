@@ -1,10 +1,17 @@
 package com.mqbcoding.stats
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import com.mqbcoding.datastore.Display
+import java.util.concurrent.ScheduledFuture
+import java.util.concurrent.ScheduledThreadPoolExecutor
+import java.util.concurrent.TimeUnit
 
 class TorqueRefresher {
     val TAG = "TorqueRefresher"
     val data = HashMap<Int, TorqueData>()
+    private val executor = ScheduledThreadPoolExecutor(7)
+    val handler = Handler(Looper.getMainLooper())
 
     fun populateQuery(pos: Int, query: Display): TorqueData {
         data[pos]?.notifyUpdate = null
@@ -14,17 +21,26 @@ class TorqueRefresher {
         return td
     }
 
-    fun refreshQueries(service: TorqueService, runOnUiThread: (action: Runnable) -> Unit) {
-        val needRefresh = data.filter { it.value.pid != null }
-        if (needRefresh.isNotEmpty()) {
-            service.addConnectCallback { ts ->
-                runOnUiThread(Runnable {
-                    needRefresh.forEach {
-                        val pidData = ts.getValueForPid(it.value.pidInt!!, true)
-                        it.value.setLastData(pidData.toDouble())
+    fun makeExecutors(service: TorqueService) {
+        data.values.forEachIndexed { index, torqueData ->
+            val refreshOffset = (250L / data.size) * index
+            if (torqueData.pid != null && torqueData.refreshTimer == null) {
+                torqueData.refreshTimer = executor.scheduleAtFixedRate({
+                    service.addConnectCallback { ts ->
+                        val value = ts.getValueForPid(torqueData.pidInt!!, true)
+                        handler.post {
+                            torqueData.setLastData(value.toDouble())
+                        }
                     }
-                })
+                }, refreshOffset, 250L, TimeUnit.MILLISECONDS)
             }
+        }
+    }
+
+    fun stopExecutors() {
+        for (td in data.values) {
+            td.refreshTimer?.cancel(true)
+            td.refreshTimer = null
         }
     }
 

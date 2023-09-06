@@ -1,23 +1,19 @@
-package com.mqbcoding.stats
+package com.mqbcoding.prefs
 
-import android.content.ComponentName
-import android.content.Context
-import android.content.Intent
-import android.content.ServiceConnection
 import android.os.Bundle
-import android.os.IBinder
 import android.preference.ListPreference
 import android.preference.Preference.OnPreferenceChangeListener
-import android.util.AttributeSet
 import android.util.Log
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.EditTextPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
 import androidx.preference.PreferenceFragmentCompat
-import androidx.preference.children
-import com.mqbcoding.prefs.UserPreferenceSerializer
-import com.mqbcoding.prefs.dataStore
+import com.mqbcoding.datastore.Screen
+import com.mqbcoding.stats.CarStatsLogger
+import com.mqbcoding.stats.R
+import com.mqbcoding.stats.TemperaturePreference
+import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.launch
 import java.io.File
 import java.io.IOException
@@ -45,25 +41,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
         dashboardsCat = findPreference("dashboardsCat")!!
         numScreensPref = findPreference("dashboardCount")!!
         numScreensPref.summaryProvider = EditTextPreference.SimpleSummaryProvider.getInstance()
-
-        lifecycleScope.launch {
-            requireContext().dataStore.data.collect { userPreference ->
-                dashboardsCat.removeAll()
-                numScreensPref.text = userPreference.screensCount.toString()
-                userPreference.screensList.forEachIndexed {
-                        i, screen ->
-                    dashboardsCat.addPreference(Preference(requireContext()).also {
-                        it.title = requireContext().getString(
-                            R.string.pref_dataelementsettings_1
-                        ).replace("1", (i + 1).toString())
-                        it.key = "dashboard_$i"
-                        it.fragment = "com.mqbcoding.stats.SettingsDashboard"
-                        it.summary = screen.title
-                    })
-                }
-            }
-        }
-
         numScreensPref.setOnPreferenceChangeListener {
                 preference, newValue ->
             val intVal = (newValue as String).toInt()
@@ -74,12 +51,13 @@ class SettingsFragment : PreferenceFragmentCompat() {
                         if (bldr.screensCount > intVal) {
                             val keeping = bldr.screensList.subList(0, intVal)
                             bldr = bldr.clearScreens().addAllScreens(keeping)
-                        } else {
-                            for (i in bldr.screensCount - 1..intVal) {
-                                bldr = bldr.addScreens(
-                                    UserPreferenceSerializer.defaultValue.getScreens(0)
-                                )
-                            }
+                        } else if (currentSettings.screensCount < intVal) {
+                            val newItms = Collections.nCopies(
+                                intVal - currentSettings.screensCount,
+                                UserPreferenceSerializer.defaultScreen.build()
+                            )
+                            bldr = bldr.addAllScreens(newItms.toMutableList())
+                            Log.d(TAG, "${newItms.size} added, ${intVal} specified")
                         }
                         return@updateData bldr.build()
                     }
@@ -87,6 +65,25 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 return@setOnPreferenceChangeListener true
             }
             return@setOnPreferenceChangeListener false
+        }
+
+        lifecycleScope.launch {
+            requireContext().dataStore.data.distinctUntilChangedBy{
+                it.screensCount
+            }.collect { userPreference ->
+                dashboardsCat.removeAll()
+                userPreference.screensList.forEachIndexed {
+                        i, screen ->
+                    dashboardsCat.addPreference(Preference(requireContext()).also {
+                        it.title = requireContext().getString(
+                            R.string.pref_dataelementsettings_1
+                        ).replace("1", (i + 1).toString())
+                        it.key = "dashboard_$i"
+                        it.fragment = "com.mqbcoding.prefs.SettingsDashboard"
+                        it.summary = screen.title
+                    })
+                }
+            }
         }
     }
 
@@ -96,24 +93,5 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     companion object {
         private const val TAG = "PreferenceFragment"
-        private val sBindPreferenceSummaryToValueListener =
-            OnPreferenceChangeListener { preference, value ->
-                Log.d(TAG, "Pereference change: " + preference.key)
-                val stringValue = value?.toString() ?: ""
-                if (preference is ListPreference) {
-                    val listPreference = preference
-                    val index = listPreference.findIndexOfValue(stringValue)
-                    preference.setSummary(
-                        if (index >= 0) listPreference.entries[index] else null
-                    )
-                }
-                if (preference is TemperaturePreference) {
-                    return@OnPreferenceChangeListener true
-                } else {
-                    preference.summary = stringValue
-                }
-                true
-            }
-
     }
 }

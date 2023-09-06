@@ -1,14 +1,10 @@
-package com.mqbcoding.stats
+package com.mqbcoding.prefs
 
 import android.Manifest
 import android.accounts.AccountManager
-import android.content.ComponentName
-import android.content.Context
 import android.content.Intent
-import android.content.ServiceConnection
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.os.IBinder
 import androidx.preference.PreferenceManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -21,7 +17,9 @@ import androidx.preference.PreferenceFragmentCompat
 import com.github.martoreto.aauto.vex.CarStatsClient
 import com.google.android.gms.common.GoogleApiAvailability
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential
-import dagger.hilt.android.AndroidEntryPoint
+import com.mqbcoding.stats.App
+import com.mqbcoding.stats.LogUploadService
+import com.mqbcoding.stats.R
 
 class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
     private var mCredential: GoogleAccountCredential? = null

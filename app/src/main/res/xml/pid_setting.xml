@@ -14,9 +14,6 @@
         android:title="@string/pid"
         app:dialogTitle="@string/pid" />
     </PreferenceCategory>
-    <PreferenceCategory
-        android:key="pidOptions"
-        android:dependency="pidList" >
     <CheckBoxPreference
         android:key="showLabel"
         android:layout_width="wrap_content"
@@ -35,7 +32,7 @@
         android:summary="%s"
         android:title="@string/pidLabel"
         android:dependency="showLabel" />
-    <com.mqbcoding.stats.ImageListPreference
+    <com.mqbcoding.prefs.ImageListPreference
         android:key="image"
         android:title="@string/icon"
         app:entryImages="@array/icons"
@@ -69,12 +66,10 @@
         android:title="@string/enable_script"
         android:summary="@string/enable_script_desc"
      />
-    <EditTextPreference
+    <com.mqbcoding.prefs.FormulaPreference
         android:key="customScript"
         android:title="@string/custom_script"
         android:summary="@string/custom_script_desc"
         android:dependency="runcustomScript"
-        android:inputType="textMultiLine"
-     />
-    </PreferenceCategory>
+        />
 </PreferenceScreen>
