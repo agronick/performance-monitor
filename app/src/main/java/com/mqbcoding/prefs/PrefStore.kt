@@ -15,16 +15,17 @@ import java.io.OutputStream
 
 object UserPreferenceSerializer : Serializer<UserPreference> {
     val defaultGauge = Display.newBuilder()
+    val defaultScreen = Screen.newBuilder()
+        .addGauges(defaultGauge)
+        .addGauges(defaultGauge)
+        .addGauges(defaultGauge)
+        .addDisplays(defaultGauge)
+        .addDisplays(defaultGauge)
+        .addDisplays(defaultGauge)
+        .addDisplays(defaultGauge)
 
     override val defaultValue: UserPreference = UserPreference.newBuilder().addScreens(
-        Screen.newBuilder()
-            .addGauges(defaultGauge)
-            .addGauges(defaultGauge)
-            .addGauges(defaultGauge)
-            .addDisplays(defaultGauge)
-            .addDisplays(defaultGauge)
-            .addDisplays(defaultGauge)
-            .addDisplays(defaultGauge)
+        defaultScreen
     ).build()
 
     override suspend fun readFrom(input: InputStream): UserPreference {

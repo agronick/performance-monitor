@@ -61,6 +61,7 @@ class TorqueDisplay : Fragment() {
             if (icon == null) {
                 label.text = data.display.label
             } else {
+                label.text = ""
                 label.setBackgroundResource(
                     resources.getIdentifier(
                         icon,
@@ -89,7 +90,11 @@ class TorqueDisplay : Fragment() {
 
     @SuppressLint("SetTextI18n")
     fun onUpdate(data: TorqueData) {
-        valueElement?.text = "${numberFormatter.format(data.lastData)}${unit}"
+        valueElement?.text = if (data.lastDataStr != null) {
+            data.lastDataStr
+        } else {
+            "${numberFormatter.format(data.lastData)}${unit}"
+        }
     }
 
     fun bottomDisplay() {

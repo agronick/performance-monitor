@@ -1,4 +1,4 @@
-package com.mqbcoding.stats
+package com.mqbcoding.prefs
 
 import android.content.ComponentName
 import android.content.Context
@@ -12,7 +12,8 @@ import androidx.preference.EditTextPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
 import androidx.preference.PreferenceFragmentCompat
-import com.mqbcoding.prefs.dataStore
+import com.mqbcoding.stats.R
+import com.mqbcoding.stats.TorqueServiceWrapper
 import kotlinx.coroutines.launch
 
 class SettingsDashboard: PreferenceFragmentCompat() {
@@ -50,7 +51,7 @@ class SettingsDashboard: PreferenceFragmentCompat() {
                     pids, detailsQuery ->
                 val valuesQuery = pids.map { "torque_${it}" }.toTypedArray()
                 requireActivity().runOnUiThread {
-                    mainCat.title = mainCat.title?.replace("1".toRegex(), (dashboardIndex() + 1).toString())
+                    mainCat.title = resources.getText(R.string.pref_dataelementsettings_1).replace("1".toRegex(), (dashboardIndex() + 1).toString())
                     val dbIndex = dashboardIndex()
                     lifecycleScope.launch {
                         requireContext().dataStore.data.collect { userPreference ->
@@ -71,7 +72,7 @@ class SettingsDashboard: PreferenceFragmentCompat() {
                                             }
                                             it.title = requireContext().getString(texts[i][j])
                                             it.icon = AppCompatResources.getDrawable(requireContext(), icons[i][j])
-                                            it.fragment = "com.mqbcoding.stats.SettingsPIDFragment"
+                                            it.fragment = "com.mqbcoding.prefs.SettingsPIDFragment"
                                         }
                                     )
                                 }
@@ -93,9 +94,7 @@ class SettingsDashboard: PreferenceFragmentCompat() {
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Intent(requireContext(), TorqueServiceWrapper::class.java).also { intent ->
-            requireActivity().bindService(intent, torqueConnection, Context.BIND_AUTO_CREATE)
-        }
+        TorqueServiceWrapper.runStartIntent(requireContext(), torqueConnection)
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
@@ -108,7 +107,7 @@ class SettingsDashboard: PreferenceFragmentCompat() {
             lifecycleScope.launch {
                 requireContext().dataStore.updateData {
                     val screen = it.getScreens(dashboardIndex()).toBuilder().setTitle(newValue as String)
-                    return@updateData it.toBuilder().addScreens(dashboardIndex(), screen).build()
+                    return@updateData it.toBuilder().setScreens(dashboardIndex(), screen).build()
                 }
             }
             return@setOnPreferenceChangeListener true
