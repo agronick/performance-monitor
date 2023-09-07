@@ -356,8 +356,6 @@
     <string name="enable_script_desc">Run formula on output</string>
     <string name="custom_script">Unit conversion</string>
     <string name="custom_script_desc">Run an EvalEx expression. Use "a" to represent the current value</string>
-    <string name="convert_c_to_f">Celsius to Fahrenheit</string>
-    <string name="convert_bar_psi">Convert BAR to PSI</string>
     <string name="formulas">Formulas</string>
     <string name="custom_expression">Custom expression</string>
 </resources>
