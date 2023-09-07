@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
+import android.text.Editable
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -21,6 +22,7 @@ class FormulaPreference(context: Context, attributeSet: AttributeSet) : Preferen
     lateinit var mTextField: EditText
     val scriptNames: Array<String>
     val scripts: Array<String>
+    var mText = ""
     // Bind the current script value to the dialog view
 
     init {
@@ -50,8 +52,7 @@ class FormulaPreference(context: Context, attributeSet: AttributeSet) : Preferen
         // Get the spinner and the textbox from the view
         mSpinner = view.findViewById(R.id.spinner)
         mTextField = view.findViewById(R.id.text_field)
-        mTextField.text.clear()
-        mTextField.text.append(getValue())
+        mTextField.text = Editable.Factory.getInstance().newEditable(getValue())
 
 
         // Create an adapter for the spinner with the script names
@@ -69,8 +70,10 @@ class FormulaPreference(context: Context, attributeSet: AttributeSet) : Preferen
                 position: Int,
                 id: Long
             ) {
-                // When an item is selected, update the textbox with the corresponding script
-                mTextField.setText(scripts[position])
+                if (position != 0) {
+                    // When an item is selected, update the textbox with the corresponding script
+                    mTextField.setText(scripts[position])
+                }
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -81,13 +84,13 @@ class FormulaPreference(context: Context, attributeSet: AttributeSet) : Preferen
     }
 
     fun setValue(value: String) {
-        persistString(value)
+        mText = value
     }
 
 
 
     fun getValue(): String {
-        return getPersistedString("")
+        return mText
     }
 
     override fun onClick() {
@@ -97,7 +100,7 @@ class FormulaPreference(context: Context, attributeSet: AttributeSet) : Preferen
         ).setPositiveButton(android.R.string.ok) { dialog, which ->
             val txt = mTextField.text.toString()
             if (callChangeListener(txt)) {
-                persistString(mTextField.text.toString())
+                setValue(txt)
                 notifyChanged()
             }
             dialog.dismiss()

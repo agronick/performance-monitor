@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import com.github.anastr.speedviewlib.Gauge
@@ -222,8 +223,7 @@ class TorqueGauge : Fragment(){
             "drawable",
             context.packageName,
         )
-        val iconDrawable = context.getDrawable(resId)
-        val resIdEmpty = R.drawable.ic_none
+        val iconDrawable = AppCompatResources.getDrawable(requireContext(), resId)
         val typedArray =
             context.theme.obtainStyledAttributes(intArrayOf(R.attr.themedEmptyDialBackground))
         val emptyBackgroundResource = typedArray.getResourceId(0, 0)
@@ -246,7 +246,7 @@ class TorqueGauge : Fragment(){
 
 
         //dynamically scale the icon_space in case there's only an icon, and no text
-        if (iconText != "" && resId == resIdEmpty) {
+        if (iconText != "" && resId == R.drawable.ic_none) {
             val params = icon.layoutParams as ConstraintLayout.LayoutParams
             params.width = 40
             icon.layoutParams = params
