@@ -11,6 +11,8 @@ import android.os.IBinder
 import android.util.Log
 import org.prowl.torque.remote.ITorqueService
 import kotlinx.coroutines.*
+import java.util.concurrent.locks.ReentrantLock
+import kotlin.concurrent.withLock
 
 class TorqueServiceWrapper: Service() {
     // Binder given to clients.
@@ -23,6 +25,7 @@ class TorqueServiceWrapper: Service() {
     var pids: Array<String>? = null
     var pidInfo: List<List<String>>? = null
     var connectCount = 0
+    val conLock = ReentrantLock()
 
     override fun onCreate() {
         super.onCreate()
@@ -79,7 +82,9 @@ class TorqueServiceWrapper: Service() {
 
     fun addConnectCallback(func: (ITorqueService) -> Unit): TorqueServiceWrapper {
         if (torqueService == null) {
-            onConnect.add(func)
+            conLock.withLock {
+                onConnect.add(func)
+            }
         } else {
             func(torqueService!!)
         }
@@ -100,8 +105,11 @@ class TorqueServiceWrapper: Service() {
          */
         override fun onServiceConnected(arg0: ComponentName, service: IBinder) {
             val service = ITorqueService.Stub.asInterface(service)
-            for (funt in onConnect) {
-                funt(service)
+            conLock.withLock {
+                for (funt in onConnect) {
+                    funt(service)
+                }
+                onConnect.clear()
             }
             torqueService = service
         }

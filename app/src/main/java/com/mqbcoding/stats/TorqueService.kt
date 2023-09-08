@@ -8,19 +8,21 @@ import android.content.ServiceConnection
 import android.os.IBinder
 import android.util.Log
 import org.prowl.torque.remote.ITorqueService
+import java.util.concurrent.locks.ReadWriteLock
+import java.util.concurrent.locks.ReentrantLock
+import kotlin.concurrent.withLock
 
 class TorqueService {
     val TAG = "TorqueService"
     var torqueService: ITorqueService? = null
     val onConnect = ArrayList<(ITorqueService) -> Unit>()
-
-    fun isAvailable(): Boolean {
-        return torqueService != null
-    }
+    val conLock = ReentrantLock()
 
     fun addConnectCallback(func: (ITorqueService) -> Unit): TorqueService {
         if (torqueService == null) {
-            onConnect.add(func)
+            conLock.withLock {
+                onConnect.add(func)
+            }
         } else {
             func(torqueService!!)
         }
@@ -36,8 +38,11 @@ class TorqueService {
          */
         override fun onServiceConnected(arg0: ComponentName, service: IBinder) {
             val service = ITorqueService.Stub.asInterface(service)
-            for (funt in onConnect) {
-                funt(service)
+            conLock.withLock {
+                for (funt in onConnect) {
+                    funt(service)
+                }
+                onConnect.clear()
             }
             torqueService = service
         }
