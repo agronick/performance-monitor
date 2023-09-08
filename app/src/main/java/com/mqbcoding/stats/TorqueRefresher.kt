@@ -28,8 +28,9 @@ class TorqueRefresher {
                 torqueData.refreshTimer = executor.scheduleAtFixedRate({
                     service.addConnectCallback { ts ->
                         val value = ts.getValueForPid(torqueData.pidInt!!, true)
+                        torqueData.setLastData(value.toDouble())
                         handler.post {
-                            torqueData.setLastData(value.toDouble())
+                            torqueData.sendNotifyUpdate()
                         }
                     }
                 }, refreshOffset, 250L, TimeUnit.MILLISECONDS)
