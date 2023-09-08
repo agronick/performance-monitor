@@ -9,10 +9,10 @@
     </array>
     <array name="user_script">
         <item />
-        <item>a * 1.8 + 32</item>
+        <item>a * 1.8 + 32</item>  j
         <item>(a − 32) × 5/9</item>
         <item>a * 14.5038</item>
-        <item>IF(x == 1, "On", "Off")</item>
+        <item>IF(a == 0, \"Off\", \"On\")</item>
     </array>
 
     <string name="convert_f_to_c">Fahrenheit to Celsius</string>

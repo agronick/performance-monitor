@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.core.text.isDigitsOnly
 import com.ezylang.evalex.BaseException
 import com.ezylang.evalex.Expression
+import com.ezylang.evalex.config.ExpressionConfiguration
 import com.mqbcoding.datastore.Display
 import java.math.BigInteger
 import java.text.ParseException
@@ -26,7 +27,9 @@ class TorqueData(val display: Display) {
         const val TAG = "TorqueData"
         const val PREFIX = "torque_"
         val drawableRegex = Regex("res/drawable/(?<name>.+)\\.[a-z]+")
-        val numberRegex = Regex("-?[0-9,\\.]+")
+        val evalConfig = ExpressionConfiguration.builder()
+            .decimalPlacesRounding(2)
+            .build()
     }
 
     init {
@@ -40,12 +43,14 @@ class TorqueData(val display: Display) {
 
     fun setLastData(value: Double) {
         lastDataStr = convertIfNeeded(value)
-        if (lastDataStr != null) {
-            lastData = try {
+        lastData = if (lastDataStr != null) {
+             try {
                 lastDataStr!!.toDouble()
             } catch (e: NumberFormatException) {
                 lastData
             }
+        } else {
+            value
         }
         if (value > maxValue) {
             maxValue = value
@@ -53,13 +58,12 @@ class TorqueData(val display: Display) {
         if (value < minValue) {
             minValue = value
         }
-        notifyUpdate?.invoke(this)
     }
 
     private fun convertIfNeeded(value: Double): String? {
         if (!display.enableScript || display.customScript == "" || parseError) return null
         if (expression == null) {
-            expression = Expression(display.customScript)
+            expression = Expression(display.customScript, evalConfig)
         }
         return try {
             expression!!.with("a", value).evaluate().stringValue
@@ -77,6 +81,10 @@ class TorqueData(val display: Display) {
             return match.groups["name"]!!.value
         }
         return null
+    }
+
+    fun sendNotifyUpdate() {
+        notifyUpdate?.let { it(this) }
     }
 
 }

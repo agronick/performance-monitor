@@ -91,7 +91,7 @@ class TorqueDisplay : Fragment() {
     @SuppressLint("SetTextI18n")
     fun onUpdate(data: TorqueData) {
         valueElement?.text = if (data.lastDataStr != null) {
-            data.lastDataStr
+            data.lastDataStr + unit
         } else {
             "${numberFormatter.format(data.lastData)}${unit}"
         }

@@ -12,6 +12,9 @@ import com.google.api.services.bigquery.BigqueryScopes
 import com.mqbcoding.datastore.UserPreference
 import com.mqbcoding.prefs.UserPreferenceSerializer
 import dagger.hilt.android.HiltAndroidApp
+import org.acra.config.toast
+import org.acra.data.StringFormat
+import org.acra.ktx.initAcra
 import java.io.File
 import java.io.FileWriter
 import java.io.PrintWriter
@@ -22,6 +25,8 @@ import java.util.Calendar
 import java.util.Date
 import java.util.logging.Level
 import java.util.logging.Logger
+import com.mqbcoding.stats.BuildConfig;
+import org.acra.config.mailSender
 
 @HiltAndroidApp
 class App : Application() {
@@ -55,31 +60,27 @@ class App : Application() {
         gc.setSelectedAccountName(settings.getString(PREF_ACCOUNT_NAME, null))
         googleCredential = gc
         // Save original exception handler before we change it
-        defaultExceptionHandler = Thread.getDefaultUncaughtExceptionHandler()
-        Thread.setDefaultUncaughtExceptionHandler { t, e -> createCrashDump(t, e) }
+
     }
 
-    private fun createCrashDump(t: Thread, e: Throwable) {
-        val sdf = SimpleDateFormat("yyyyMMddHH_mm_ss")
-        val path = Environment.getExternalStorageDirectory().toString() + "/CarLogs/"
-        val fullName = path + "crashlog_" + sdf.format(Date()) + ".log"
-        val file = File(fullName)
-        val writer: FileWriter
-        try {
-            writer = FileWriter(file)
-            writer.write(
-                """
-    EXCEPTION OCCURRED ON ${Calendar.getInstance().time}!
-    
-    """.trimIndent()
-            )
-            writer.write(getStackTrace(e))
-            writer.write("-----\n")
-            writer.close()
-        } catch (ex: Exception) {
-            Log.e("App", "uncaughtException: " + e.localizedMessage)
+    override fun attachBaseContext(base:Context) {
+        super.attachBaseContext(base)
+
+        initAcra {
+            buildConfigClass = BuildConfig::class.java
+            reportFormat = StringFormat.JSON
+            toast {
+                text = "Reporting crash"
+            }
+            mailSender {
+                //required
+                mailTo = "agronick+acra@gmail.com"
+                //defaults to true
+                reportAsFile = false
+                //defaults to ACRA-report.stacktrace
+                reportFileName = "Crash.txt"
+            }
         }
-        defaultExceptionHandler!!.uncaughtException(t, e)
     }
 
     companion object {
