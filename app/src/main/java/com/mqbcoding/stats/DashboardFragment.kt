@@ -37,9 +37,8 @@ class DashboardFragment : CarFragment(), SharedPreferences.OnSharedPreferenceCha
     private var mBtnNext: ImageButton? = null
     private var mBtnPrev: ImageButton? = null
     private var mTitleElement: TextView? = null
-    private var mTitleElementLeft: TextView? = null
-    private var mTitleElementRight: TextView? = null
-    lateinit private var mWrapper: ConstraintLayout
+    private lateinit var mWrapper: ConstraintLayout
+    lateinit var mConStatus: TextView
 
     private var guages = arrayOfNulls<TorqueGauge>(3)
     private var displays = arrayOfNulls<TorqueDisplay>(4)
@@ -109,10 +108,9 @@ class DashboardFragment : CarFragment(), SharedPreferences.OnSharedPreferenceCha
         mBtnPrev = view.findViewById(R.id.imageButton3)
         mBtnNext!!.setOnClickListener { setScreen(1) }
         mBtnPrev!!.setOnClickListener  { setScreen(-1) }
-        mTitleElementLeft = view.findViewById(R.id.textTitleElementLeft)
-        mTitleElementRight = view.findViewById(R.id.textTitleElementRight)
         mTitleElement = view.findViewById(R.id.textTitle)
         mWrapper = view.findViewById(R.id.include_wrap)
+        mConStatus = view.findViewById<TextView>(R.id.con_status)
 
         guages[0] = childFragmentManager.findFragmentById(R.id.gaugeLeft)!! as TorqueGauge
         guages[1] = childFragmentManager.findFragmentById(R.id.gaugeCenter)!! as TorqueGauge
@@ -128,7 +126,7 @@ class DashboardFragment : CarFragment(), SharedPreferences.OnSharedPreferenceCha
     }
 
     fun setScreen(direction: Int) {
-        if (screensAnimating) return
+        if (screensAnimating || torqueRefresher.lastConnectStatus == false) return
         screensAnimating = true
         val duration = resources.getInteger(android.R.integer.config_shortAnimTime).toLong()
         mTitleElement!!.animate().alpha(0f).setDuration(duration)
@@ -173,6 +171,16 @@ class DashboardFragment : CarFragment(), SharedPreferences.OnSharedPreferenceCha
     override fun onResume() {
         super.onResume()
         torqueRefresher.makeExecutors(torqueService)
+        torqueRefresher.watchConnection(torqueService) {
+            if (it == null || it == false) {
+                mConStatus.visibility = View.VISIBLE
+                mConStatus.text = resources.getText(
+                    if (it == null) R.string.status_connecting_torque else R.string.status_connecting_to_ecu
+                )
+            } else {
+                mConStatus.visibility = View.INVISIBLE
+            }
+        }
     }
 
     override fun onPause() {
@@ -321,8 +329,6 @@ class DashboardFragment : CarFragment(), SharedPreferences.OnSharedPreferenceCha
             display?.setupTypeface(typeface)
         }
         mTitleElement!!.typeface = typeface
-        mTitleElementRight!!.typeface = typeface
-        mTitleElementLeft!!.typeface = typeface
         Log.d(TAG, "font: $typeface")
     }
 
