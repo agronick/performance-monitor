@@ -33,6 +33,8 @@
 
 -dontwarn java.lang.ClassValue
 -dontwarn javax.lang.model.element.Modifier
+-dontwarn lombok.Generated
+-keepnames class com.aatorque.prefs.*
 
 # Strip Log.d and Log.v
 -assumenosideeffects class android.util.Log {

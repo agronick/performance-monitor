@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.mqbcoding.stats.com.mqbcoding.prefs.SettingsActivity"
+    tools:context="com.aatorque.stats.SettingsActivity"
     android:id="@+id/settingsLayout">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -30,7 +30,7 @@
         <fragment
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:name="com.mqbcoding.prefs.SettingsFragment"
+            android:name="com.aatorque.prefs.SettingsFragment"
             android:id="@+id/settings_fragment" />
 
     </LinearLayout>

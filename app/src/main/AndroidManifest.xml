@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.mqbcoding.stats">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
@@ -18,7 +17,7 @@
     </queries>
 
     <application
-        android:name=".App"
+        android:name="com.aatorque.stats.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -28,7 +27,7 @@
         tools:ignore="GoogleAppIndexingWarning">
 
         <activity
-            android:name="com.mqbcoding.prefs.SettingsActivity"
+            android:name="com.aatorque.prefs.SettingsActivity"
             android:exported="true"
             android:label="@string/activity_settings_title"
             android:launchMode="singleTop">
@@ -40,7 +39,7 @@
         </activity>
 
         <service
-            android:name=".CarService"
+            android:name="com.aatorque.stats.CarService"
             android:exported="true"
             android:label="@string/app_car_service_name"
             tools:ignore="ExportedService">
@@ -57,41 +56,10 @@
             </intent-filter>
         </service>
         <service
-            android:name=".GeocodeLocationService"
-            android:enabled="true"
-            android:exported="false" />
-        <service
-            android:name=".CarStatsService"
-            android:enabled="true" />
-        <service
-            android:name=".LogUploadService"
-            android:exported="true"
-            android:permission="android.permission.BIND_JOB_SERVICE" />
-        <service
             android:name=".TorqueServiceWrapper"
             android:exported="false"
             android:label="TorqueService"
             tools:ignore="ExportedService" />
-
-        <receiver
-            android:name=".CarModeBroadcastReceiver"
-            android:enabled="@bool/not_oreo"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
-                <!-- This won't work in Oreo due to background execution limits -->
-                <action android:name="android.app.action.ENTER_CAR_MODE" />
-            </intent-filter>
-        </receiver>
-        <receiver
-            android:name=".CarModeActiveMonitoringReceiver"
-            android:enabled="@bool/is_oreo"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-            </intent-filter>
-        </receiver>
 
         <meta-data
             android:name="com.google.android.gms.car.application"

@@ -13,10 +13,10 @@ def acraVersion = "5.11.2"
 
 
 android {
-    namespace "com.mqbcoding.stats"
+    namespace "com.aatorque.stats"
     compileSdk 33
     defaultConfig {
-        applicationId "com.mqbcoding.stats"
+        applicationId "com.aatorque.stats"
         minSdkVersion 28
         targetSdkVersion 33
         versionCode versionMajor * 100 + versionMinor * 10 + versionPatch
@@ -71,7 +71,7 @@ dependencies {
     // Replaced with updated SDK from "https://github.com/cupral/aauto-sdk.git" (as git-submodule)
     //implementation 'com.github.martoreto:aauto-sdk:v4.7'
 
-    implementation 'com.github.martoreto:aauto-vex-base:v4.4'
+    implementation 'com.github.martoreto:aauto-sdk:v4.7'
     implementation 'com.jjoe64:graphview:4.2.2'
     implementation 'com.google.apis:google-api-services-bigquery:v2-rev377-1.22.0' exclude module: 'httpclient'
     implementation 'com.google.api-client:google-api-client-android:1.22.0' exclude module: 'httpclient'

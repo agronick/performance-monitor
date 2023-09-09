@@ -31,7 +31,7 @@
         android:singleLine="true"
         android:summary="%s"
         android:title="@string/pidLabel" />
-    <com.mqbcoding.prefs.ImageListPreference
+    <com.aatorque.prefs.ImageListPreference
         android:key="image"
         android:title="@string/icon"
         app:entryImages="@array/icons"
@@ -65,7 +65,7 @@
         android:title="@string/enable_script"
         android:summary="@string/enable_script_desc"
      />
-    <com.mqbcoding.prefs.FormulaPreference
+    <com.aatorque.prefs.FormulaPreference
         android:key="customScript"
         android:title="@string/custom_script"
         android:summary="@string/custom_script_desc"

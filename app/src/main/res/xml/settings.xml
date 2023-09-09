@@ -83,7 +83,7 @@
             android:inputType="number"
             android:key="dashboardCount"
             android:title="@string/num_screens"
-            android:defaultValue="3"
+            android:defaultValue="1"
         />
 
     </PreferenceCategory>
