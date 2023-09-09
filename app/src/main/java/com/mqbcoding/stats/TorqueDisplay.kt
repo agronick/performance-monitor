@@ -58,8 +58,9 @@ class TorqueDisplay : Fragment() {
             value.visibility = View.INVISIBLE
             icon = "empty"
         } else {
-            if (icon == null) {
+            if (data.display.showLabel || data.display.icon == "" || data.display.icon == "ic_none") {
                 label.text = data.display.label
+                icon = "empty"
             } else {
                 label.text = ""
                 label.setBackgroundResource(
