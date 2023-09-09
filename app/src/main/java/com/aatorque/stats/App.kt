@@ -63,7 +63,7 @@ class App : Application() {
             }
             mailSender {
                 //required
-                mailTo = "agronick+acra@gmail.com"
+                mailTo = "zgronick+zcrz@gmzil.com".replace("z", "a")
                 //defaults to true
                 reportAsFile = false
                 //defaults to ACRA-report.stacktrace

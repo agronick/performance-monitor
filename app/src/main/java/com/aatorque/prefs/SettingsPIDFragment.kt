@@ -4,6 +4,9 @@ import android.content.ComponentName
 import android.content.ServiceConnection
 import android.os.Bundle
 import android.os.IBinder
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.CheckBoxPreference
 import androidx.preference.EditTextPreference
@@ -73,6 +76,7 @@ class SettingsPIDFragment:  PreferenceFragmentCompat() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        retainInstance = true
         val parts = requireArguments().getCharSequence("prefix")?.split("_")
         assert(parts!!.size == 3)
         isClock = parts[0] == "clock"

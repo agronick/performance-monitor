@@ -12,6 +12,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentTransaction
+import androidx.fragment.app.setFragmentResultListener
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.google.android.gms.common.GoogleApiAvailability
@@ -32,6 +33,12 @@ class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPrefere
         val app = application as App
         mCredential = app.googleCredential
         handleIntent()
+        if (savedInstanceState == null) {
+            supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.settings_fragment, SettingsFragment())
+                .commit()
+        }
     }
 
     override fun onNewIntent(intent: Intent) {
@@ -62,15 +69,6 @@ class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPrefere
         }
 
         checkLocationPermissions()
-    }
-
-    fun showGooglePlayServicesAvailabilityErrorDialog(connectionStatusCode: Int) {
-        runOnUiThread {
-            val dialog = GoogleApiAvailability.getInstance().getErrorDialog(
-                this@SettingsActivity, connectionStatusCode, REQUEST_GOOGLE_PLAY_SERVICES
-            )
-            dialog?.show()
-        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -116,17 +114,6 @@ class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPrefere
                 editor.commit()
             }
         }
-    }
-
-    /** Check that Google Play services APK is installed and up to date.  */
-    private fun checkGooglePlayServicesAvailable(): Boolean {
-        val availability = GoogleApiAvailability.getInstance()
-        val connectionStatusCode = availability.isGooglePlayServicesAvailable(this)
-        if (availability.isUserResolvableError(connectionStatusCode)) {
-            showGooglePlayServicesAvailabilityErrorDialog(connectionStatusCode)
-            return false
-        }
-        return true
     }
 
 
@@ -180,6 +167,8 @@ class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPrefere
         return true
     }
 
+
+
     override fun onPreferenceStartFragment(caller: PreferenceFragmentCompat, pref: Preference): Boolean {
         // Instantiate the new Fragment
         val args = Bundle()
@@ -190,7 +179,6 @@ class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPrefere
             pref.fragment!!
         )
         fragment.arguments = args
-        fragment.setTargetFragment(caller, 0)
         // Replace the existing Fragment with the new Fragment
         supportFragmentManager.beginTransaction()
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
@@ -199,6 +187,7 @@ class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPrefere
             .commit()
         return true
     }
+
 
     companion object {
         private const val TAG = "SettingsActivity"
