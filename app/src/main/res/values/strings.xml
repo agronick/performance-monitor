@@ -4,13 +4,13 @@
     <string name="activity_credits_title">Credits</string>
     <string name="activity_main_title">Performance Monitor</string>
     <string name="activity_readings_title">Raw data</string>
-    <string name="activity_settings_title">Performance Monitor Settings</string>
+    <string name="activity_settings_title">AA Torque Settings</string>
     <string name="activity_stopwatch_title">Stopwatch</string>
 
-    <string name="app_car_service_name">Performance Monitor</string>
-    <string name="app_name">Performance Monitor</string>
+    <string name="app_car_service_name">AA Torque</string>
+    <string name="app_name">AA Torque</string>
 
-    <string name="credits_author">This application was made by:</string>
+    <string name="credits_author">Based on the app made by:</string>
     <string name="credits_basedon">Based on the SDK and demo App by:</string>
     <string name="credits_drivesafely">Drive Safely.</string>
     <string name="credits_thanks">Special thanks to:</string>
@@ -358,4 +358,7 @@
     <string name="custom_script_desc">Run an EvalEx expression. Use "a" to represent the current value</string>
     <string name="formulas">Formulas</string>
     <string name="custom_expression">Custom expression</string>
+    <string name="status_connecting_torque">Connecting to Torque…</string>
+    <string name="status_connecting_to_ecu">Connecting to ECU…</string>
+    <string name="credits_modifications">With modifications by:</string>
 </resources>

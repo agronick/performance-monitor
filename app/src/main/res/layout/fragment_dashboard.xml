@@ -24,98 +24,23 @@
         android:textAppearance="@style/CarBody2"
         android:textColor="@android:color/white"
         android:textSize="36sp"
-        app:layout_constraintBottom_toTopOf="@+id/include"
+        android:translationY="4dp"
         app:layout_constraintEnd_toStartOf="@+id/imageButton3"
         app:layout_constraintStart_toEndOf="@+id/imageButton2"
-        app:layout_constraintTop_toBottomOf="@+id/textTitleElement" />
+        app:layout_constraintTop_toBottomOf="@+id/con_status" />
 
         <TextView
-        android:id="@+id/textTitleElement"
+        android:id="@+id/con_status"
         android:layout_width="wrap_content"
-        android:layout_height="30dp"
+        android:layout_height="40dp"
         android:layout_marginStart="0dp"
         android:layout_marginEnd="8dp"
         android:textAppearance="@style/CarBody2"
         android:textColor="@android:color/white"
-        android:textSize="28sp"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textTitleElementLeft"
-        android:layout_width="0dp"
-        android:layout_height="22dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="6dp"
-        android:ellipsize="marquee"
-        android:singleLine="true"
-        android:text=""
-        android:textAppearance="@style/CarBody2"
-        android:textColor="@android:color/white"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@id/textTitleElement"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@id/titleIcon2"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-
-    <TextView
-        android:id="@+id/textTitleElementRight"
-        android:layout_width="0dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="8dp"
-        android:maxLines="1"
-        android:text=""
-        android:textAppearance="@style/CarBody2"
-        android:textColor="@android:color/white"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-        <TextView
-        android:id="@+id/titleIcon1"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_marginTop="4dp"
-        android:background="@drawable/ic_outsidetemperature"
-        android:visibility="invisible"
-        app:layout_constraintRight_toLeftOf="@id/textTitleElementRight"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/titleIcon2"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_marginTop="4dp"
-        android:background="@drawable/ic_world"
-        android:visibility="invisible"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/titleIcon3"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="4dp"
-        android:background="@drawable/ic_distance"
-        android:visibility="invisible"
-        app:layout_constraintLeft_toRightOf="@id/textTitleElement"
-        app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/titleIcon4"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_marginTop="4dp"
-            android:background="@drawable/ic_measurement"
-            android:visibility="invisible"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:layout_editor_absoluteX="307dp" />
 
     <ImageButton
         android:id="@+id/imageButton2"
@@ -152,7 +77,7 @@
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         app:layout_constraintTop_toBottomOf="@id/headers_wrap"
-        app:layout_constraintBottom_toBottomOf="parent" >
+        app:layout_constraintBottom_toBottomOf="parent">
 
     <include
         android:id="@+id/include"
@@ -167,4 +92,6 @@
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

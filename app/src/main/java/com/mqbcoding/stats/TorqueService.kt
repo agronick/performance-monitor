@@ -29,6 +29,12 @@ class TorqueService {
         return this
     }
 
+    fun runIfConnected(func: (ITorqueService) -> Unit) {
+        if (torqueService != null) {
+            func(torqueService!!)
+        }
+    }
+
     private val torqueConnection: ServiceConnection = object : ServiceConnection {
         /**
          * What to do when we get connected to Torque.

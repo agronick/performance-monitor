@@ -37,6 +37,18 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/textStopwatch2"
+        style="@style/CarTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:layout_marginLeft="@dimen/car_standard_margin"
+        android:text="@string/credits_modifications"
+        android:textAppearance="@style/CarBody1"
+        android:textColor="@android:color/white"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textStopwatch"/>
+
+    <TextView
         android:id="@+id/textView2"
         style="@style/CarTextView"
         android:layout_width="wrap_content"
@@ -45,7 +57,7 @@
         android:text="@string/credits_basedon"
         android:textColor="@android:color/white"
         app:layout_constraintLeft_toLeftOf="@+id/textStopwatch"
-        app:layout_constraintTop_toBottomOf="@+id/textStopwatch" />
+        app:layout_constraintTop_toBottomOf="@+id/textStopwatch2" />
 
     <TextView
         android:id="@+id/textView6"
@@ -89,6 +101,18 @@
         app:layout_constraintBottom_toBottomOf="@+id/textStopwatch"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textStopwatch" />
+
+    <TextView
+        android:id="@+id/myName"
+        style="@style/CarTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="Kyle Agronick"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/textStopwatch2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textStopwatch2" />
 
     <TextView
         android:id="@+id/textView5"

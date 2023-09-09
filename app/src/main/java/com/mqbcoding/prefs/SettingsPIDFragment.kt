@@ -8,6 +8,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.preference.CheckBoxPreference
 import androidx.preference.EditTextPreference
 import androidx.preference.ListPreference
+import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
 import androidx.preference.PreferenceFragmentCompat
 import com.mqbcoding.datastore.Display
@@ -109,6 +110,11 @@ class SettingsPIDFragment:  PreferenceFragmentCompat() {
         }
 
         TorqueServiceWrapper.runStartIntent(requireContext(), torqueConnection)
+        showLabelPref.setOnPreferenceChangeListener { preference, newValue ->
+            labelPref.isEnabled = !(preference as CheckBoxPreference).isChecked
+            imagePref.isEnabled = preference.isChecked
+            return@setOnPreferenceChangeListener true
+        }
     }
 
     override fun onResume() {
@@ -134,7 +140,8 @@ class SettingsPIDFragment:  PreferenceFragmentCompat() {
 
     fun enableItems(enabled: Boolean) {
         showLabelPref.isEnabled = enabled
-        imagePref.isEnabled = enabled
+        imagePref.isEnabled = if (enabled) !showLabelPref.isChecked else false
+        labelPref.isEnabled = if (enabled) showLabelPref.isChecked else false
         unitPref.isEnabled = enabled
         runcustomScriptPref.isEnabled = enabled
         if (isClock) {
