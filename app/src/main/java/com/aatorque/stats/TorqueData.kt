@@ -10,7 +10,7 @@ import java.util.concurrent.ScheduledFuture
 
 class TorqueData(val display: Display) {
 
-    var lastData: Double? = null
+    var lastData: Double = 0.0
     var pid: String? = null
     var pidInt: Long? = null
     var minValue: Double = 0.0
