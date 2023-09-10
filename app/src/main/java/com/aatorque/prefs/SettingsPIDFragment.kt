@@ -51,8 +51,12 @@ class SettingsPIDFragment:  PreferenceFragmentCompat() {
                 pids, detailsQuery ->
                 requireActivity().runOnUiThread {
                     val valuesQuery = pids.map { "torque_${it}" }.toTypedArray()
-                    pidPref.entryValues = valuesQuery
-                    pidPref.entries = detailsQuery.map { it[0] }.toTypedArray()
+                    val names = detailsQuery.map { it[0] }.toTypedArray()
+                    val sortedItems = valuesQuery.zip(names).sortedBy {
+                        it.second
+                    }.unzip()
+                    pidPref.entryValues = sortedItems.first.toTypedArray()
+                    pidPref.entries = sortedItems.second.toTypedArray()
                     prefCat!!.isEnabled = true
                     prefCat!!.summary = null
                 }
