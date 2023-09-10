@@ -57,7 +57,7 @@ class App : Application() {
 
         initAcra {
             buildConfigClass = BuildConfig::class.java
-            reportFormat = StringFormat.JSON
+            reportFormat = StringFormat.KEY_VALUE_LIST
             toast {
                 text = "App crashed. Tap to report."
             }
