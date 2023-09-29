@@ -13,9 +13,9 @@
 # hide the original source file name.
 -renamesourcefileattribute SourceFile
 
-# Crashlytics
--keep class com.crashlytics.** { *; }
--keep class com.crashlytics.android.**
+-keep class com.aatorque.stats.MainCarActivity { *; }
+-keep class com.ezylang.evalex.** { *; }
+-dontwarn com.ezylag.evalex.**
 -keep public class * extends java.lang.Exception
 
 # Google API client libraries
