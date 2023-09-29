@@ -9,11 +9,13 @@ all data from Torque in a way that is as customizable as possible.
 
 # Main features:
 - Display data from Torque including custom PIDs
-- Many themes and backgrounds to choose from
+- Many themes, fonts, incons, and backgrounds to choose from
 - Up to 10 dashboards
 - Rotary dial support
+- Supports custom expressions using [EvalEx](https://ezylang.github.io/EvalEx/references/functions.html)
+- Backup, restore, and share your configuration
 
-# Installation instructions:
+# Instructions:
 
 Download the latest [release](https://github.com/agronick/aa-torque/releases).
 
