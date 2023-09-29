@@ -27,21 +27,26 @@ class TorqueRefresher {
             val refreshOffset = (400L / data.size) * index
             if (torqueData.pid != null && torqueData.refreshTimer == null) {
                 Log.d(TAG, "Scheduled item in position $index with $refreshOffset delay")
+                doRefresh(service, torqueData)
                 torqueData.refreshTimer = executor.scheduleAtFixedRate({
-                    service.runIfConnected { ts ->
-                        val value = ts.getPIDValuesAsDouble(arrayOf( torqueData.pid!!))[0]
-                        torqueData.lastData = value
-                        handler.post {
-                            torqueData.sendNotifyUpdate()
-                            if (value != 0.0 && lastConnectStatus != true) {
-                                lastConnectStatus = true
-                                conWatcher?.let { it(true) }
-                            }
-                        }
-                    }
+                    doRefresh(service, torqueData)
                 }, refreshOffset, 400L, TimeUnit.MILLISECONDS)
             } else {
                 Log.d(TAG, "No reason to schedule item in position $index")
+            }
+        }
+    }
+
+    fun doRefresh(service: TorqueService, torqueData: TorqueData) {
+        service.runIfConnected { ts ->
+            val value = ts.getPIDValuesAsDouble(arrayOf( torqueData.pid!!))[0]
+            torqueData.lastData = value
+            handler.post {
+                torqueData.sendNotifyUpdate()
+                if (value != 0.0 && lastConnectStatus != true) {
+                    lastConnectStatus = true
+                    conWatcher?.let { it(true) }
+                }
             }
         }
     }

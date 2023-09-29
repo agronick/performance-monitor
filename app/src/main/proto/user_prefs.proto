@@ -2,6 +2,12 @@ syntax = "proto3";
 option java_package = "com.aatorque.datastore";
 option java_multiple_files = true;
 
+enum MaxControl {
+  OFF = 0;
+  MIN = 1;
+  MAX = 2;
+}
+
 message Display {
   string pid = 1;
   bool showLabel = 2;
@@ -13,6 +19,9 @@ message Display {
   bool enableScript = 13;
   string customScript = 14;
   bool wholeNumbers = 15;
+  bool ticksActive = 21;
+  MaxControl maxValuesActive = 22;
+  MaxControl maxMarksActive = 23;
 }
 
 message Screen {
@@ -24,4 +33,9 @@ message Screen {
 message UserPreference {
   int32 currentScreen = 11;
   repeated Screen screens = 8;
+  string selectedTheme = 16;
+  string selectedFont = 17;
+  string selectedBackground = 18;
+  bool highVisActive = 19;
+  bool rotaryInput = 20;
 }

@@ -21,6 +21,7 @@
         android:layout_height="wrap_content"
         android:defaultValue="false"
         android:title="@string/pidShowLabel"
+        android:summary="@string/show_label_desc"
         android:dependency="pidList"
         android:enabled="false"
         android:persistent="false"
@@ -46,35 +47,15 @@
         android:persistent="false"
         />
     <EditTextPreference
-        android:key="minValue"
-        android:inputType="numberSigned"
-        android:title="@string/min_value"
-        android:dependency="pidList"
-        android:enabled="false"
-        android:persistent="false"
-        />
-    <EditTextPreference
-        android:key="maxValue"
-        android:inputType="numberSigned"
-        android:title="@string/max_value"
-        android:dependency="pidList"
-        android:enabled="false"
-        android:persistent="false"
-        />
-    <EditTextPreference
         android:key="unit"
         android:title="@string/unit"
         android:dependency="pidList"
         android:enabled="false"
         android:persistent="false"
     />
-    <CheckBoxPreference
-        android:key="wholeNumbers"
-        android:title="@string/whole_numbers"
-        android:summary="@string/whole_numbers_desc"
-        android:persistent="false"
-        android:enabled="false"
-        />
+    <PreferenceCategory
+        android:title="@string/custom_script"
+        android:layout="@layout/prefcat">
      <CheckBoxPreference
         android:key="runcustomScript"
         android:title="@string/enable_script"
@@ -88,4 +69,53 @@
         android:dependency="runcustomScript"
         android:persistent="false"
         />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:key="gaugeSettings"
+        android:title="@string/gauge_settings"
+        android:layout="@layout/prefcat"
+        android:enabled="false">
+        <CheckBoxPreference
+            android:key="wholeNumbers"
+            android:title="@string/whole_numbers"
+            android:summary="@string/whole_numbers_desc"
+            android:persistent="false"
+            android:enabled="false"
+            />
+        <EditTextPreference
+            android:key="minValue"
+            android:inputType="numberSigned"
+            android:title="@string/min_value"
+            android:dependency="pidList"
+            android:persistent="false"
+            />
+        <EditTextPreference
+            android:key="maxValue"
+            android:inputType="numberSigned"
+            android:title="@string/max_value"
+            android:dependency="pidList"
+            android:persistent="false"
+            />
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="ticksActive"
+            android:summaryOff="@string/pref_ticks_off"
+            android:summaryOn="@string/pref_ticks_on"
+            android:title="@string/pref_ticks"
+            android:persistent="false" />
+        <ListPreference
+            android:defaultValue="0"
+            android:key="maxValuesActive"
+            android:entries="@array/minmax_enum"
+            android:entryValues="@array/minmax_enum_value"
+            android:title="@string/pref_highlow"
+            android:persistent="false" />
+        <ListPreference
+            android:defaultValue="0"
+            android:key="maxMarksActive"
+            android:entries="@array/minmax_enum"
+            android:entryValues="@array/minmax_enum_value"
+            android:title="@string/pref_highlowmarks"
+            android:persistent="false" />
+    </PreferenceCategory>
 </PreferenceScreen>

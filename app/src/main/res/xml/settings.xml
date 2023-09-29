@@ -51,28 +51,7 @@
             android:summary="@string/rotary_desc"
             android:title="@string/rotary_input" />
 
-        <CheckBoxPreference
-            android:defaultValue="false"
-            android:key="ticksActive"
-            android:summaryOff="@string/pref_ticks_off"
-            android:summaryOn="@string/pref_ticks_on"
-            android:title="@string/pref_ticks" />
 
-
-        <CheckBoxPreference
-            android:defaultValue="false"
-            android:key="maxValuesActive"
-            android:summaryOff="@string/pref_highlow_off"
-            android:summaryOn="@string/pref_highlow_on"
-            android:title="@string/pref_highlow" />
-        <CheckBoxPreference
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:defaultValue="false"
-            android:key="maxMarksActive"
-            android:summaryOff="@string/pref_highlowmarks_off"
-            android:summaryOn="@string/pref_highlowmarks_on"
-            android:title="@string/pref_highlowmarks" />
 
         <EditTextPreference
             android:inputType="number"

@@ -10,7 +10,7 @@
         <EditTextPreference
             android:key="performanceTitle"
             android:title="@string/pref_title_performance_1"
-            android:defaultValue="Performance monitor 1"
+            android:defaultValue=""
             android:icon="@drawable/ic_settings_title"
             android:inputType="text"
             android:persistent="false"

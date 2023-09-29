@@ -45,6 +45,10 @@ class SettingsPIDFragment:  PreferenceFragmentCompat() {
     lateinit var runcustomScriptPref: CheckBoxPreference
     lateinit var jsPref: FormulaPreference
     lateinit var wholeNumberPref: CheckBoxPreference
+    lateinit var gaugeSettings: PreferenceCategory
+    lateinit var ticksActivePref: CheckBoxPreference
+    lateinit var maxValuesActivePref: ListPreference
+    lateinit var maxMarksActivePref: ListPreference
     var torqueService: TorqueServiceWrapper? = null
 
     var torqueConnection = object : ServiceConnection {
@@ -96,6 +100,10 @@ class SettingsPIDFragment:  PreferenceFragmentCompat() {
         runcustomScriptPref = findPreference("runcustomScript")!!
         jsPref = findPreference("customScript")!!
         wholeNumberPref = findPreference("wholeNumbers")!!
+        gaugeSettings = findPreference("gaugeSettings")!!
+        ticksActivePref = findPreference("ticksActive")!!
+        maxValuesActivePref = findPreference("maxValuesActive")!!
+        maxMarksActivePref = findPreference("maxMarksActive")!!
 
         pidPref.summaryProvider = ListPreference.SimpleSummaryProvider.getInstance()
         imagePref.summaryProvider = ListPreference.SimpleSummaryProvider.getInstance()
@@ -103,6 +111,10 @@ class SettingsPIDFragment:  PreferenceFragmentCompat() {
         minValuePref.summaryProvider = EditTextPreference.SimpleSummaryProvider.getInstance()
         maxValuePref.summaryProvider = EditTextPreference.SimpleSummaryProvider.getInstance()
         unitPref.summaryProvider = EditTextPreference.SimpleSummaryProvider.getInstance()
+        showLabelPref.setSummaryProvider {
+            val ref = if (isClock) R.string.show_label_desc_clock else R.string.show_label_desc
+            resources.getString(ref)
+        }
 
         val editListen = EditTextPreference.OnBindEditTextListener {
             it.inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_SIGNED
@@ -153,6 +165,9 @@ class SettingsPIDFragment:  PreferenceFragmentCompat() {
             unitPref.text = display.unit
             runcustomScriptPref.isChecked = display.enableScript
             wholeNumberPref.isChecked = display.wholeNumbers
+            ticksActivePref.isChecked = display.ticksActive
+            maxValuesActivePref.value = display.maxValuesActive?.toString() ?: "0"
+            maxMarksActivePref.value = display.maxMarksActive?.toString() ?: "0"
             jsPref.setValue(display.customScript)
             if (pidPref.value.startsWith("torque")) {
                 enableItems(true)
@@ -165,9 +180,7 @@ class SettingsPIDFragment:  PreferenceFragmentCompat() {
         runcustomScriptPref.isEnabled = enabled
         showLabelPref.isEnabled = enabled
         if (isClock) {
-            minValuePref.isEnabled = enabled
-            maxValuePref.isEnabled = enabled
-            wholeNumberPref.isEnabled = enabled
+            gaugeSettings.isEnabled = enabled
             imagePref.isEnabled = enabled
             labelPref.isEnabled = enabled
         } else {
@@ -203,12 +216,15 @@ class SettingsPIDFragment:  PreferenceFragmentCompat() {
             jsPref.getValue()
         ).setWholeNumbers(
             wholeNumberPref.isChecked
+        ).setTicksActive(
+            ticksActivePref.isChecked
         )
         if (imagePref.value != null) {
             display = display.setIcon(imagePref.value)
         }
+        val context = requireContext()
         GlobalScope.launch(Dispatchers.IO) {
-            requireContext().dataStore.updateData {
+            context.dataStore.updateData {
                     currentSettings ->
                 return@updateData currentSettings.toBuilder().let { set1 ->
                     var screenObj: Screen.Builder = try {

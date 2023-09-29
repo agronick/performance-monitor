@@ -385,4 +385,7 @@
     <string name="file_not_available">Export file is not available</string>
     <string name="whole_numbers">Whole numbers</string>
     <string name="whole_numbers_desc">Display gauge without decimal places</string>
+    <string name="gauge_settings">Gauge Settings</string>
+    <string name="show_label_desc">In most cases you want to show an icon, but you can show a label if you cannot find an icon to match the PID.</string>
+    <string name="show_label_desc_clock">Show label above the clock. You can show an icon as well.</string>
 </resources>

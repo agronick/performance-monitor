@@ -255,7 +255,17 @@
         <item>background_incar_dots</item>
         <item>background_incar_aa</item>
     </array>
+    <integer-array name="minmax_enum">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </integer-array>
 
+    <string-array name="minmax_enum_value">
+        <item>@string/element_none</item>
+        <item>@string/max_value</item>
+        <item>@string/min_value</item>
+    </string-array>
     <!--
 
     The following is a list of all other exlap data elements currently known.

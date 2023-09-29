@@ -76,7 +76,6 @@ class ImageListPreference(
     override fun onClick() {
         val entries = entries ?: return
         val entryValues = entryValues
-        val iconResArray = iconResArray ?: return
 
         if (entries.size != entryValues.size || entries.size != iconResArray.size) {
             throw IllegalStateException("Entries, entry values and icons must have the same size")
