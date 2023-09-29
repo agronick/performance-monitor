@@ -12,6 +12,7 @@ import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
+import com.aatorque.datastore.MaxControl
 import com.github.anastr.speedviewlib.Gauge
 import com.github.anastr.speedviewlib.RaySpeedometer
 import com.github.anastr.speedviewlib.Speedometer
@@ -33,9 +34,8 @@ class TorqueGauge : Fragment(){
     private var mMax: Speedometer? =null
 
     private var ticksOn: Boolean? = null
-    private var raysOn: Boolean? = null
-    private var maxMarksOn: Boolean? = null
-    private var maxOn: Boolean? = null
+    private var maxMarksOn: MaxControl = MaxControl.OFF
+    private var maxOn: MaxControl = MaxControl.OFF
     private var torqueMin = 0
     private var torqueMax = 100
     override fun onCreateView(
@@ -65,30 +65,31 @@ class TorqueGauge : Fragment(){
         mIcon!!.typeface = typeface
     }
 
-    fun turnMinMaxMarksEnabled(enabled: Boolean) {
+    fun turnMinMaxMarksEnabled(enabled: MaxControl) {
         //show clock marks for max/min, according to the setting
         maxMarksOn = enabled
         mMax!!.visibility =
-            if (enabled) View.VISIBLE else View.INVISIBLE
+            if (enabled != MaxControl.OFF) View.VISIBLE else View.INVISIBLE
     }
 
-    fun turnMinMaxTextViewsEnabled(enabled: Boolean) {
+    fun turnMinMaxTextViewsEnabled(enabled: MaxControl) {
         maxOn = enabled
         mTextMax!!.visibility =
-            if (enabled) View.VISIBLE else View.INVISIBLE
+            if (enabled != MaxControl.OFF) View.VISIBLE else View.INVISIBLE
+        mTextMax!!.setCompoundDrawablesWithIntrinsicBounds(if (enabled == MaxControl.MIN) {
+            R.drawable.ic_min_text
+        } else {
+            R.drawable.ic_max_text
+        }, 0,0, 0)
     }
 
     fun turnRaysEnabled(enabled: Boolean) {
-        raysOn = enabled
         mRayClock!!.visibility = if (enabled) View.VISIBLE else View.INVISIBLE
         if (enabled) {
             //also hide the needle on the clocks
             mRayClock!!.setIndicator(Indicator.Indicators.NoIndicator)
         }
-        setupIndicators()
-    }
 
-    private fun setupIndicators() {
         var clockSize = mClock!!.height
         if (clockSize == 0) {
             clockSize = 250
@@ -113,8 +114,7 @@ class TorqueGauge : Fragment(){
 
         // if rays on, turn off everything else.
         // it doesn't look too efficient at the moment, but that's to prevent the theme from adding an indicator to the rays.
-        if (raysOn!!) {
-            // todo: move this to setupClock
+        if (enabled) {
             mClock!!.setIndicator(Indicator.Indicators.NoIndicator)
             mRayClock!!.setIndicator(Indicator.Indicators.NoIndicator)
 
@@ -196,6 +196,10 @@ class TorqueGauge : Fragment(){
         mRayClock!!.setMinMaxSpeed(minimum, maximum)
         mMax!!.setMinMaxSpeed(minimum, maximum)
         turnTickEnabled(ticksOn == true)
+        turnTickEnabled(data.display.ticksActive)
+        turnMinMaxMarksEnabled(data.display.maxMarksActive)
+        turnMinMaxTextViewsEnabled(data.display.maxValuesActive)
+        turnRaysEnabled(data.display.highVisActive)
     }
 
     private fun setupClock(
@@ -258,10 +262,10 @@ class TorqueGauge : Fragment(){
         } else if (speedFormat == "integer") {
             clock.speedTextFormat = Gauge.INTEGER_FORMAT.toInt()
         }
-        clock.setSpeedAt(0f)
-        mMax?.setSpeedAt(0f)
-        mRayClock?.setSpeedAt(0f)
-        mTextMax?.text = minspeed.toString()
+        clock.setSpeedAt(clock.getMinSpeed())
+        mMax!!.setSpeedAt(mMax!!.getMinSpeed())
+        mRayClock!!.setSpeedAt(mRayClock!!.getMinSpeed())
+        mTextMax?.text = "-"
     }
 
     fun onUpdate(data: TorqueData) {
@@ -269,11 +273,16 @@ class TorqueGauge : Fragment(){
         val fVal = data.lastData.toFloat()
         mClock?.speedTo(fVal, 250)
         mRayClock?.speedTo(fVal, 250)
-        if (maxMarksOn == true) {
+        if (maxMarksOn == MaxControl.MAX && data.maxValue.isFinite()) {
             mMax?.setSpeedAt(data.maxValue.toFloat())
+        } else if(maxMarksOn == MaxControl.MIN && data.minValue.isFinite()) {
+            mMax?.setSpeedAt(data.minValue.toFloat())
         }
-        if (maxOn == true) {
-            mTextMax?.text = String.format(Locale.US, "%.1f", data.maxValue)
+        if (maxOn != MaxControl.OFF) {
+            val possibleValue = if (maxOn == MaxControl.MAX) data.maxValue else data.minValue
+            if (possibleValue.isFinite()) {
+                mTextMax?.text = String.format(Locale.US, "%.1f", possibleValue)
+            }
         }
     }
 }

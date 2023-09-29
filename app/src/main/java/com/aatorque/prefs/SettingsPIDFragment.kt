@@ -12,6 +12,7 @@ import androidx.preference.ListPreference
 import androidx.preference.PreferenceCategory
 import androidx.preference.PreferenceFragmentCompat
 import com.aatorque.datastore.Display
+import com.aatorque.datastore.MaxControl
 import com.aatorque.datastore.Screen
 import com.aatorque.stats.R
 import com.aatorque.stats.TorqueService
@@ -49,6 +50,8 @@ class SettingsPIDFragment:  PreferenceFragmentCompat() {
     lateinit var ticksActivePref: CheckBoxPreference
     lateinit var maxValuesActivePref: ListPreference
     lateinit var maxMarksActivePref: ListPreference
+    lateinit var highVisActivePref: CheckBoxPreference
+
     var torqueService: TorqueServiceWrapper? = null
 
     var torqueConnection = object : ServiceConnection {
@@ -104,9 +107,17 @@ class SettingsPIDFragment:  PreferenceFragmentCompat() {
         ticksActivePref = findPreference("ticksActive")!!
         maxValuesActivePref = findPreference("maxValuesActive")!!
         maxMarksActivePref = findPreference("maxMarksActive")!!
+        highVisActivePref = findPreference("highVisActive")!!
 
         pidPref.summaryProvider = ListPreference.SimpleSummaryProvider.getInstance()
-        imagePref.summaryProvider = ListPreference.SimpleSummaryProvider.getInstance()
+        imagePref.setSummaryProvider {
+            return@setSummaryProvider if (imagePref.value == "") {
+                resources.getString(R.string.icon_null_desc)
+            } else {
+                ListPreference.SimpleSummaryProvider.getInstance().provideSummary(imagePref)
+            }
+        }
+        imagePref.bgColor = R.color.accent
         labelPref.summaryProvider = EditTextPreference.SimpleSummaryProvider.getInstance()
         minValuePref.summaryProvider = EditTextPreference.SimpleSummaryProvider.getInstance()
         maxValuePref.summaryProvider = EditTextPreference.SimpleSummaryProvider.getInstance()
@@ -121,6 +132,8 @@ class SettingsPIDFragment:  PreferenceFragmentCompat() {
         }
         minValuePref.setOnBindEditTextListener(editListen)
         maxValuePref.setOnBindEditTextListener(editListen)
+        maxValuesActivePref.summaryProvider = ListPreference.SimpleSummaryProvider.getInstance()
+        maxMarksActivePref.summaryProvider = ListPreference.SimpleSummaryProvider.getInstance()
 
         pidPref.setOnPreferenceChangeListener { _, newValue ->
             if (newValue == "") {
@@ -166,8 +179,9 @@ class SettingsPIDFragment:  PreferenceFragmentCompat() {
             runcustomScriptPref.isChecked = display.enableScript
             wholeNumberPref.isChecked = display.wholeNumbers
             ticksActivePref.isChecked = display.ticksActive
-            maxValuesActivePref.value = display.maxValuesActive?.toString() ?: "0"
-            maxMarksActivePref.value = display.maxMarksActive?.toString() ?: "0"
+            maxValuesActivePref.value = display.maxValuesActive.number.toString()
+            maxMarksActivePref.value = display.maxMarksActive.number.toString()
+            highVisActivePref.isChecked = display.highVisActive
             jsPref.setValue(display.customScript)
             if (pidPref.value.startsWith("torque")) {
                 enableItems(true)
@@ -218,6 +232,12 @@ class SettingsPIDFragment:  PreferenceFragmentCompat() {
             wholeNumberPref.isChecked
         ).setTicksActive(
             ticksActivePref.isChecked
+        ).setMaxMarksActive(
+            MaxControl.forNumber(maxMarksActivePref.value.toInt())
+        ).setMaxValuesActive(
+            MaxControl.forNumber(maxValuesActivePref.value.toInt())
+        ).setHighVisActive(
+            highVisActivePref.isChecked
         )
         if (imagePref.value != null) {
             display = display.setIcon(imagePref.value)

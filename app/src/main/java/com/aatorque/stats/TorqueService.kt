@@ -44,6 +44,9 @@ class TorqueService {
          */
         override fun onServiceConnected(arg0: ComponentName, service: IBinder) {
             val svc = ITorqueService.Stub.asInterface(service)
+            if (BuildConfig.SIMULATE_METRICS) {
+                svc.setDebugTestMode(true)
+            }
             conLock.withLock {
                 for (funt in onConnect) {
                     funt(svc)

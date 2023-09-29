@@ -28,7 +28,6 @@ import kotlin.math.abs
 
 
 class DashboardFragment : CarFragment(), SharedPreferences.OnSharedPreferenceChangeListener {
-    private val TAG = "DashboardFragment"
     private var rootView: View? = null
     private val torqueRefresher = TorqueRefresher()
     private val torqueService = TorqueService()
@@ -42,20 +41,15 @@ class DashboardFragment : CarFragment(), SharedPreferences.OnSharedPreferenceCha
     private var guages = arrayOfNulls<TorqueGauge>(3)
     private var displays = arrayOfNulls<TorqueDisplay>(4)
 
-    private var stagingDone: Boolean? = null
-    private var raysOn: Boolean? = null
-    private var maxOn: Boolean? = null
-    private var maxMarksOn: Boolean? = null
-    private var ticksOn: Boolean? = null
-    private var ambientOn: Boolean? = null
-    private var accurateOn: Boolean? = null
-    private var proximityOn: Boolean? = null
-    private var updateSpeed = 250
     private var selectedFont: String? = null
     private var selectedBackground: String? = null
-    private val DISPLAY_OFFSET = 3
     private var screensAnimating = false
     private var mStarted = false
+
+    companion object {
+        const val TAG = "DashboardFragment"
+        const val DISPLAY_OFFSET = 3
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -208,25 +202,6 @@ class DashboardFragment : CarFragment(), SharedPreferences.OnSharedPreferenceCha
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {
         if (context == null) return
 
-        // todo: reimplement or remove
-        ambientOn = sharedPreferences.getBoolean(
-            "ambientActive",
-            false
-        ) //true = use ambient colors, false = don't use.
-        accurateOn = sharedPreferences.getBoolean(
-            "accurateActive",
-            false
-        ) //true = be accurate. false = have 2000ms of animation time
-        proximityOn = sharedPreferences.getBoolean(
-            "proximityActive",
-            false
-        ) //true = be accurate. false = have 2000ms of animation time
-        updateSpeed = if (accurateOn!!) {
-            1
-        } else {
-            2000
-        }
-
         configureRotaryInput(sharedPreferences.getBoolean("rotaryInput", false))
 
         val readedFont = sharedPreferences.getString("selectedFont", "segments")
@@ -252,49 +227,10 @@ class DashboardFragment : CarFragment(), SharedPreferences.OnSharedPreferenceCha
             setupTypeface(typeface)
         }
 
-        // Load this only on first run, then leave it alone
-        if (stagingDone == null) {
-            stagingDone = !sharedPreferences.getBoolean("stagingActive", true)
-        }
         val readedBackground =
             sharedPreferences.getString("selectedBackground", "background_incar_black")
         if (readedBackground != selectedBackground) {
             setupBackground(readedBackground)
-        }
-
-        //show texts and backgrounds for max/min, according to the setting
-        val readedMaxOn = sharedPreferences.getBoolean(
-            "maxValuesActive",
-            false
-        ) //true = show max values, false = hide them
-        if (maxOn == null || readedMaxOn != maxOn) {
-            maxOn = readedMaxOn
-            turnMinMaxTextViewsEnabled(maxOn!!)
-        }
-        val readedMaxMarksOn = sharedPreferences.getBoolean(
-            "maxMarksActive",
-            false
-        ) //true = show max values as a mark on the clock, false = hide them
-        if (maxMarksOn == null || readedMaxMarksOn != maxMarksOn) {
-            maxMarksOn = readedMaxMarksOn
-            turnMinMaxMarksEnabled(maxMarksOn!!)
-        }
-
-        val readedRaysOn = sharedPreferences.getBoolean(
-            "highVisActive",
-            false
-        ) //true = show high vis rays, false = don't show them.
-        if (raysOn == null || readedRaysOn != raysOn) {
-            raysOn = readedRaysOn
-            turnRaysEnabled(raysOn!!)
-        }
-        val readedTicksOn = sharedPreferences.getBoolean(
-            "ticksActive",
-            false
-        ) // if true, it will display the value of each of the ticks
-        if (ticksOn == null || readedTicksOn != ticksOn) {
-            ticksOn = readedTicksOn
-            turnTickEnabled(ticksOn!!)
         }
     }
 
@@ -340,31 +276,5 @@ class DashboardFragment : CarFragment(), SharedPreferences.OnSharedPreferenceCha
         Log.d(TAG, "font: $typeface")
     }
 
-    fun turnMinMaxTextViewsEnabled(enabled: Boolean) {
-        Log.i(TAG, "Min max text view enabled: $enabled")
-        for (gauge in guages) {
-            gauge?.turnMinMaxTextViewsEnabled(enabled)
-        }
-    }
 
-    fun turnMinMaxMarksEnabled(enabled: Boolean) {
-        Log.i(TAG, "Min max marks enabled: $enabled")
-        for (gauge in guages) {
-            gauge?.turnMinMaxMarksEnabled(enabled)
-        }
-    }
-
-    fun turnRaysEnabled(enabled: Boolean) {
-        Log.i(TAG, "Rays enabled: $enabled")
-        for (gauge in guages) {
-            gauge?.turnRaysEnabled(enabled)
-        }
-    }
-
-    fun turnTickEnabled(enabled: Boolean) {
-        Log.i(TAG, "Tick enabled: $enabled")
-        for (gauge in guages) {
-            gauge?.turnTickEnabled(enabled)
-        }
-    }
 }

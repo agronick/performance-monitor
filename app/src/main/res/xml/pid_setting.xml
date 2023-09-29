@@ -76,11 +76,16 @@
         android:layout="@layout/prefcat"
         android:enabled="false">
         <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="highVisActive"
+            android:summaryOff="@string/pref_highvis_off"
+            android:summaryOn="@string/pref_highvis_on"
+            android:title="@string/pref_highvis" />
+        <CheckBoxPreference
             android:key="wholeNumbers"
             android:title="@string/whole_numbers"
             android:summary="@string/whole_numbers_desc"
             android:persistent="false"
-            android:enabled="false"
             />
         <EditTextPreference
             android:key="minValue"
@@ -97,7 +102,7 @@
             android:persistent="false"
             />
         <CheckBoxPreference
-            android:defaultValue="false"
+            android:defaultValue="true"
             android:key="ticksActive"
             android:summaryOff="@string/pref_ticks_off"
             android:summaryOn="@string/pref_ticks_on"
@@ -109,6 +114,7 @@
             android:entries="@array/minmax_enum"
             android:entryValues="@array/minmax_enum_value"
             android:title="@string/pref_highlow"
+            app:dialogTitle="@string/pref_highlow"
             android:persistent="false" />
         <ListPreference
             android:defaultValue="0"

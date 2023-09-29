@@ -48,7 +48,7 @@
     <string name="element_soundVolume">Sound volume</string>
     <string name="element_tankLevelPrimary">Tank level (primary)</string>
     <string name="element_tankLevelSecondary">Tank level (secondary)</string>
-    <string name="element_test">Test (random, does not get data from the car)</string>
+    <string name="element_test">Simulate readings from Torque</string>
     <string name="element_tyreStateFL">Tyrestate front left</string>
     <string name="element_tyreStateFR">Tyrestate front right</string>
     <string name="element_tyreStateRL">Tyrestate rear left</string>
@@ -128,7 +128,7 @@
     <string name="pref_highlowmarks">Mark highest values on clocks</string>
     <string name="pref_highlowmarks_off">A max mark is not shown on the clocks</string>
     <string name="pref_highlowmarks_on">A max mark is shown on the clocks</string>
-    <string name="pref_highvis">High visibility dials</string>
+    <string name="pref_highvis">High visibility dial</string>
     <string name="pref_highvis_off">Display a needle on the clocks</string>
     <string name="pref_highvis_on">Display a highly visible ray instead of a needle</string>
     <string name="pref_kick_uploads_title">Upload data now</string>
@@ -387,5 +387,6 @@
     <string name="whole_numbers_desc">Display gauge without decimal places</string>
     <string name="gauge_settings">Gauge Settings</string>
     <string name="show_label_desc">In most cases you want to show an icon, but you can show a label if you cannot find an icon to match the PID.</string>
-    <string name="show_label_desc_clock">Show label above the clock. You can show an icon as well.</string>
+    <string name="show_label_desc_clock">Show label above the clock.</string>
+    <string name="icon_null_desc">Select an icon to represent the metric</string>
 </resources>

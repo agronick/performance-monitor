@@ -12,7 +12,6 @@ import androidx.fragment.app.FragmentTransaction;
 import android.view.View;
 
 import com.google.android.apps.auto.sdk.CarActivity;
-import com.google.android.apps.auto.sdk.MenuController;
 import com.google.android.apps.auto.sdk.MenuItem;
 import com.google.android.apps.auto.sdk.StatusBarController;
 

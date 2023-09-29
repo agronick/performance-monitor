@@ -27,12 +27,6 @@
             app:entryImages="@array/thumbs_backgrounds"
             android:key="selectedBackground"
             android:title="@string/pref_background" />
-        <CheckBoxPreference
-            android:defaultValue="false"
-            android:key="highVisActive"
-            android:summaryOff="@string/pref_highvis_off"
-            android:summaryOn="@string/pref_highvis_on"
-            android:title="@string/pref_highvis" />
 
         <!--
         <CheckBoxPreference

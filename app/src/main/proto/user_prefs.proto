@@ -22,6 +22,7 @@ message Display {
   bool ticksActive = 21;
   MaxControl maxValuesActive = 22;
   MaxControl maxMarksActive = 23;
+  bool highVisActive = 19;
 }
 
 message Screen {
@@ -36,6 +37,5 @@ message UserPreference {
   string selectedTheme = 16;
   string selectedFont = 17;
   string selectedBackground = 18;
-  bool highVisActive = 19;
   bool rotaryInput = 20;
 }

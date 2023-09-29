@@ -11,11 +11,12 @@ import java.util.concurrent.ScheduledFuture
 class TorqueData(val display: Display) {
 
     var pid: String? = null
-    var minValue: Double = 0.0
-    var maxValue: Double = 0.0
+    var minValue: Double = Double.POSITIVE_INFINITY
+    var maxValue: Double = Double.NEGATIVE_INFINITY
     private var expression: Expression? = null
     var lastDataStr: String? = null
     var refreshTimer: ScheduledFuture<*>? = null
+    var hasReceivedNonZero = false
 
     var notifyUpdate: ((TorqueData) -> Unit)? = null
         set(value) {

@@ -24,15 +24,17 @@ android {
         vectorDrawables {
             useSupportLibrary true
         }
+        buildConfigField "boolean", "SIMULATE_METRICS", "false"
     }
     buildTypes {
         debug {
             versionNameSuffix ".debug"
             resValue "string", "app_version",
                     "${defaultConfig.versionName}${versionNameSuffix}"
+            buildConfigField "boolean", "SIMULATE_METRICS", "true"
         }
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             resValue "string", "app_version", "${defaultConfig.versionName}"
             signingConfig signingConfigs.debug
