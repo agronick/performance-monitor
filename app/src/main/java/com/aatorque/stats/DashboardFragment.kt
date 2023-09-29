@@ -16,6 +16,7 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.InputDeviceCompat
+import androidx.fragment.app.FragmentContainerView
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.withStateAtLeast
@@ -40,6 +41,7 @@ class DashboardFragment : CarFragment(), SharedPreferences.OnSharedPreferenceCha
 
     private var guages = arrayOfNulls<TorqueGauge>(3)
     private var displays = arrayOfNulls<TorqueDisplay>(4)
+    private var gaugeViews = arrayOfNulls<FragmentContainerView>(3)
 
     private var selectedFont: String? = null
     private var selectedBackground: String? = null
@@ -71,6 +73,9 @@ class DashboardFragment : CarFragment(), SharedPreferences.OnSharedPreferenceCha
         mTitleElement = view.findViewById(R.id.textTitle)
         mWrapper = view.findViewById(R.id.include_wrap)
         mConStatus = view.findViewById(R.id.con_status)
+        gaugeViews[0] = view.findViewById(R.id.gaugeLeft)
+        gaugeViews[1] = view.findViewById(R.id.gaugeCenter)
+        gaugeViews[2] = view.findViewById(R.id.gaugeRight)
 
         guages[0] = childFragmentManager.findFragmentById(R.id.gaugeLeft)!! as TorqueGauge
         guages[1] = childFragmentManager.findFragmentById(R.id.gaugeCenter)!! as TorqueGauge
@@ -232,6 +237,15 @@ class DashboardFragment : CarFragment(), SharedPreferences.OnSharedPreferenceCha
         if (readedBackground != selectedBackground) {
             setupBackground(readedBackground)
         }
+        updateScale(sharedPreferences.getBoolean("centerGaugeLarge", false))
+    }
+
+    private fun updateScale(largeCenter: Boolean) {
+        val scaleFactor = if (largeCenter) resources.getFraction(R.dimen.scale_gauge, 1, 1) else 1f
+        gaugeViews[0]!!.scaleX = scaleFactor
+        gaugeViews[0]!!.scaleY = scaleFactor
+        gaugeViews[2]!!.scaleX = scaleFactor
+        gaugeViews[2]!!.scaleY = scaleFactor
     }
 
     private fun setupBackground(newBackground: String?) {

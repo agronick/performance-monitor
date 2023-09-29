@@ -28,16 +28,14 @@
             android:key="selectedBackground"
             android:title="@string/pref_background" />
 
-        <!--
         <CheckBoxPreference
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:defaultValue="false"
-            android:key="accurateActive"
-            android:summaryOff="@string/pref_accurate_off"
-            android:summaryOn="@string/pref_accurate_on"
-            android:title="@string/pref_accurate" />
-        -->
+            android:key="centerGaugeLarge"
+            android:summaryOff="@string/pref_shrink_gauge_off"
+            android:summaryOn="@string/pref_shrink_gauge_on"
+            android:title="@string/pref_shrink_gauge" />
 
         <CheckBoxPreference
             android:defaultValue="false"

@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="progress_bar_height_material_car">16dp</dimen>
+    <item type="dimen" name="scale_gauge">90%</item>
 </resources>

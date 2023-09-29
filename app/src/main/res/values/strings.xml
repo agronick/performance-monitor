@@ -389,4 +389,7 @@
     <string name="show_label_desc">In most cases you want to show an icon, but you can show a label if you cannot find an icon to match the PID.</string>
     <string name="show_label_desc_clock">Show label above the clock.</string>
     <string name="icon_null_desc">Select an icon to represent the metric</string>
+    <string name="pref_shrink_gauge">Large center gauge</string>
+    <string name="pref_shrink_gauge_off">Equal size gauges</string>
+    <string name="pref_shrink_gauge_on">Emphasise center gauge</string>
 </resources>
