@@ -6,9 +6,12 @@ plugins {
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
-def versionMajor = 0
-def versionMinor = 88
-def versionPatch = 0
+Properties props = new Properties()
+props.load(new FileInputStream("$project.rootDir/version.properties"))
+
+def versionMajor = props.getProperty("majorVersion") as Integer
+def versionMinor = props.getProperty("minorVersion") as Integer
+def versionPatch = props.getProperty("patchVersion") as Integer
 def acraVersion = "5.11.2"
 def ghOwner = "agronick"
 def ghPackage = "aa-torque"

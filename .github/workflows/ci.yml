@@ -5,6 +5,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Bump version
+        id: bump_version
+        uses: oflynned/android-version-bump@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - uses: actions/setup-java@v3
         with:
           distribution: 'zulu' # See 'Supported distributions' for available options
