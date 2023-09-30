@@ -1,7 +1,7 @@
 name: ci
 on: [push, pull_request]
 jobs:
-  lint:
+  checkout:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -26,12 +26,17 @@ jobs:
             ~/.gradle/wrapper
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
 
-      - name: Lint release
+
+  lint:
+    runs-on: ubuntu-latest
+    needs: checkout
+    steps:
+      - name: Build Release apk
         run: ./gradlew lintRelease
 
   build:
     runs-on: ubuntu-latest
-    needs: lint
+    needs: checkout
     if: github.ref == 'refs/heads/master'
     steps:
       - name: Build Release apk
