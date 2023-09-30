@@ -9,8 +9,8 @@ jobs:
         id: bump_version
         uses: oflynned/android-version-bump@master
         if: github.ref == 'refs/heads/master'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          token: ${{secrets.PA_TOKEN}}
       - uses: actions/setup-java@v3
         with:
           distribution: 'zulu' # See 'Supported distributions' for available options
