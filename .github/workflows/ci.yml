@@ -33,7 +33,7 @@ jobs:
           java-version: '18'
 
       - name: Restore keystore
-        run: echo ${{ secrets.DEBUG_KEYSTORE }} | base64 -d > ${pwd}/app/debug.keystore
+        run: echo ${{ secrets.DEBUG_KEYSTORE }} | base64 -d > $(pwd)/app/debug.keystore
 
       - name: Cache Gradle and wrapper
         uses: actions/cache@v2
@@ -50,7 +50,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
       - name: Build Release apk
-        run: ./gradlew assembleRelease -Pandroid.injected.signing.store.file=${pwd}/app/debug.keystore
+        run: ./gradlew assembleRelease -Pandroid.injected.signing.store.file=$(pwd)/app/debug.keystore
         
       - name: Rename release
         run: mv app/build/outputs/apk/release/app-release.apk app/build/outputs/apk/release/aa-torque.apk
