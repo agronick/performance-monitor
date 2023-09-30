@@ -392,4 +392,7 @@
     <string name="pref_shrink_gauge">Large center gauge</string>
     <string name="pref_shrink_gauge_off">Equal size gauges</string>
     <string name="pref_shrink_gauge_on">Emphasise center gauge</string>
+    <string name="new_version">A new version is available</string>
+    <string name="download">Download</string>
+    <string name="download_instructions">Update downloading. Install with Kingstaller.</string>
 </resources>

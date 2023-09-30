@@ -2,15 +2,15 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
  
-// The width and color of the border   
+<!-- The width and color of the border -->
  <stroke
         android:width="4dp"
         android:color="#de3d3d" />
  
-// The desired corner radius. reduce it to keep it less rounded
+<!-- The desired corner radius. reduce it to keep it less rounded -->
     <corners android:radius="360dp" />
  
-// Add your desired padding
+<!-- Add your desired padding -->
     <padding
         android:left="20dp"
         android:top="10dp"
