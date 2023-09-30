@@ -8,15 +8,14 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
-import android.util.AttributeSet
 import android.util.Log
 import android.view.Menu
-import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
+import androidx.core.text.isDigitsOnly
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.Preference
@@ -25,7 +24,6 @@ import com.aatorque.datastore.UserPreference
 import com.aatorque.stats.BuildConfig
 import com.aatorque.stats.R
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.json.JSONException
@@ -33,12 +31,11 @@ import org.json.JSONObject
 import java.io.File
 import java.net.HttpURLConnection
 import java.net.URL
+import javax.net.ssl.HttpsURLConnection
 
 
 class SettingsActivity : AppCompatActivity(),
     PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
-
-
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
@@ -49,6 +46,9 @@ class SettingsActivity : AppCompatActivity(),
                 .beginTransaction()
                 .replace(R.id.settings_fragment, SettingsFragment())
                 .commit()
+        }
+        lifecycleScope.launch(Dispatchers.IO) {
+            checkUpdate()
         }
     }
 
@@ -126,7 +126,7 @@ class SettingsActivity : AppCompatActivity(),
         }
     }
 
-    class ExportFileContract() : ActivityResultContract<String, Uri?>() {
+    class ExportFileContract : ActivityResultContract<String, Uri?>() {
 
         override fun createIntent(context: Context, input: String): Intent {
             return Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
@@ -146,7 +146,7 @@ class SettingsActivity : AppCompatActivity(),
         }
     }
 
-    class ImportFileContract() : ActivityResultContract<String, Uri?>() {
+    class ImportFileContract : ActivityResultContract<String, Uri?>() {
 
         override fun createIntent(context: Context, input: String): Intent {
             return Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
@@ -186,13 +186,6 @@ class SettingsActivity : AppCompatActivity(),
 
     }
 
-    override fun onCreateView(name: String, context: Context, attrs: AttributeSet): View? {
-        CoroutineScope(Dispatchers.IO).launch {
-            checkUpdate()
-        }
-        return super.onCreateView(name, context, attrs)
-    }
-
     override fun onPreferenceStartFragment(
         caller: PreferenceFragmentCompat,
         pref: Preference
@@ -217,47 +210,70 @@ class SettingsActivity : AppCompatActivity(),
 
     private fun checkUpdate() {
         Log.d(TAG, "Checking for update")
+
+        var needsUpdate: Boolean? = null
+        var downloadItem: String? = null
+
         val url = URL(BuildConfig.RELEASE_URL)
-        val urlConnection = url.openConnection() as HttpURLConnection
-        urlConnection.setRequestProperty("Accept", "application/vnd.github+json")
+        val urlConnection = url.openConnection() as HttpsURLConnection
         urlConnection.setRequestProperty("X-GitHub-Api-Version", "2022-11-28")
+        urlConnection.connect()
         try {
             if (urlConnection.responseCode == HttpURLConnection.HTTP_OK) {
                 val response = urlConnection.inputStream.bufferedReader().use {
                     JSONObject(it.readText())
                 }
                 val tagName = response.getString("tag_name")
-                val name = response.getString("name")
-                val downloadItem = response.getJSONArray("assets").getJSONObject(0)
+                downloadItem = response.getJSONArray("assets")
+                    .getJSONObject(0)
                     .getString("browser_download_url")
-                if (!tagName.contains(BuildConfig.VERSION_NAME) && !name.contains(BuildConfig.VERSION_NAME)) {
-                    Snackbar.make(
-                        findViewById(android.R.id.content),
-                        R.string.new_version,
-                        Snackbar.LENGTH_LONG
-                    )
-                        .setDuration(30000)
-                        .setActionTextColor(resources.getColor(R.color.white, null))
-                        .setAction(R.string.download) {
-                            val downloadRequest = DownloadManager.Request(Uri.parse(downloadItem))
-                            downloadRequest.setDestinationInExternalPublicDir(
-                                Environment.DIRECTORY_DOWNLOADS,
-                                "aa-torque.apk"
-                            )
-                            downloadRequest.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
-                            val dm = getSystemService(DOWNLOAD_SERVICE) as DownloadManager
-                            dm.enqueue(downloadRequest)
-                            Toast.makeText(
-                                baseContext,
-                                R.string.download_instructions,
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }.show()
+
+                val tagSplit = tagName.split(".")
+                val existingSplit = BuildConfig.VERSION_NAME.split(".")
+
+                tagSplit.forEachIndexed { pos, fromServer ->
+                    if (needsUpdate == null && existingSplit.size > pos) {
+                        val toComp = existingSplit[pos]
+                        if (
+                            fromServer != toComp &&
+                            fromServer.isDigitsOnly() && toComp.isDigitsOnly()
+                        ) {
+                            needsUpdate = fromServer.toInt() > toComp.toInt()
+                        }
+                    }
                 }
             }
         } catch (e: JSONException) {
+            Log.e(TAG, "Failed to parse json on update check")
         } finally {
             urlConnection.disconnect()
+        }
+
+
+        if (needsUpdate == true) {
+            assert(downloadItem != null)
+            Snackbar.make(
+                findViewById(android.R.id.content),
+                R.string.new_version,
+                Snackbar.LENGTH_LONG
+            )
+                .setDuration(10000)
+                .setActionTextColor(resources.getColor(R.color.white, null))
+                .setAction(R.string.download) {
+                    val downloadRequest = DownloadManager.Request(Uri.parse(downloadItem))
+                    downloadRequest.setDestinationInExternalPublicDir(
+                        Environment.DIRECTORY_DOWNLOADS,
+                        "aa-torque.apk"
+                    )
+                    downloadRequest.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+                    val dm = getSystemService(DOWNLOAD_SERVICE) as DownloadManager
+                    dm.enqueue(downloadRequest)
+                    Toast.makeText(
+                        baseContext,
+                        R.string.download_instructions,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }.show()
         }
     }
 
@@ -267,7 +283,6 @@ class SettingsActivity : AppCompatActivity(),
         private const val REQUEST_PERMISSIONS = 0
         private const val PERMISSION_CAR_VENDOR_EXTENSION =
             "com.google.android.gms.permission.CAR_VENDOR_EXTENSION"
-        const val PREF_LOCATION = "useGoogleGeocoding"
         const val EXPORT_MIME = "application/octet-stream"
     }
 }
