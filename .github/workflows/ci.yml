@@ -25,7 +25,6 @@ jobs:
 
 
       - name: Build Release apk
-        env:
         run: ./gradlew assembleRelease
 
 
