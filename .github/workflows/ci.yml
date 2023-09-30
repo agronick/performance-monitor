@@ -1,16 +1,18 @@
 name: ci
 on: [push, pull_request]
 jobs:
-  build:
+  lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      
       - name: Bump version
         id: bump_version
         uses: oflynned/android-version-bump@master
         if: github.ref == 'refs/heads/master'
         with:
-          token: ${{secrets.PA_TOKEN}}
+          token: ${{secrets.PAT}}
+          
       - uses: actions/setup-java@v3
         with:
           distribution: 'zulu' # See 'Supported distributions' for available options
@@ -27,22 +29,24 @@ jobs:
       - name: Lint release
         run: ./gradlew lintRelease
 
+  deploy:
+    runs-on: ubuntu-latest
+    needs: lint
+    if: github.ref == 'refs/heads/master'
+    steps:
       - name: Build Release apk
-        if: success() && github.ref == 'refs/heads/master'
         run: ./gradlew assembleRelease
 
       - name: Rename release
-        if: success() && github.ref == 'refs/heads/master'
         run: mv app/build/outputs/apk/release/app-release.apk app/build/outputs/apk/release/aa-torque.apk
 
       - name: Create Github Release
         uses: softprops/action-gh-release@v1
-        if: success() && github.ref == 'refs/heads/master'
         with:
           tag_name: ${{ steps.bump_version.outputs.new_tag }}
           name: ${{ steps.bump_version.outputs.new_tag }}
           generate_release_notes: true
-          prerelease: true
+          draft: true
           files: |
             app/build/outputs/apk/release/aa-torque.apk
 
