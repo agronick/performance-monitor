@@ -29,6 +29,8 @@ jobs:
       - name: Create Github Release
         uses: softprops/action-gh-release@v1
         with:
+          tag_name: ${{ steps.bump_version.outputs.new_tag }}
+          name: ${{ steps.bump_version.outputs.new_tag }}
           generate_release_notes: true
           prerelease: true
           files: |
