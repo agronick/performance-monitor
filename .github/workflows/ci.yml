@@ -33,7 +33,7 @@ jobs:
           java-version: '18'
 
       - name: Restore keystore
-        run: echo ${{ secrets.DEBUG_KEYSTORE }} | base64 -d > $(pwd)/app/debug.keystore
+        run: echo ${{ secrets.DEBUG_KEYSTORE }} | base64 -d > $HOME/debug.keystore
 
       - name: Cache Gradle and wrapper
         uses: actions/cache@v2
@@ -51,7 +51,7 @@ jobs:
           
       - name: Build Release apk
         run: ./gradlew assembleRelease \
-            -Pandroid.injected.signing.store.file=$(pwd)/app/debug.keystore \
+            -Pandroid.injected.signing.store.file=$HOME/debug.keystore \
             -Pandroid.injected.signing.key.alias=androiddebugkey \
             -Pandroid.injected.signing.store.password=android \
             -Pandroid.injected.signing.key.password=android
