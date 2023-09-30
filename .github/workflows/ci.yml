@@ -28,6 +28,7 @@ jobs:
 
       - name: Create Github Release
         uses: softprops/action-gh-release@v1
+        if: success() && github.ref == 'refs/heads/master'
         with:
           tag_name: ${{ steps.bump_version.outputs.new_tag }}
           name: ${{ steps.bump_version.outputs.new_tag }}
