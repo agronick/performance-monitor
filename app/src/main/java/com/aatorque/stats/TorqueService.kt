@@ -67,9 +67,10 @@ class TorqueService {
     }
 
     fun onDestroy(context: Context) {
-        if (hasBound) {
+        if (torqueService != null) {
             context.unbindService(torqueConnection)
             hasBound = false
+            torqueService = null
         }
     }
 

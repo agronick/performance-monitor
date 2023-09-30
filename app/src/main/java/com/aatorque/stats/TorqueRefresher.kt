@@ -42,11 +42,11 @@ class TorqueRefresher {
             val value = ts.getPIDValuesAsDouble(arrayOf( torqueData.pid!!))[0]
             torqueData.lastData = value
             if (value != 0.0 || torqueData.hasReceivedNonZero) {
+                torqueData.hasReceivedNonZero = true
                 handler.post {
                     torqueData.sendNotifyUpdate()
                     if (value != 0.0 && lastConnectStatus != true) {
                         lastConnectStatus = true
-                        torqueData.hasReceivedNonZero = true
                         conWatcher?.let { it(true) }
                     }
                 }
