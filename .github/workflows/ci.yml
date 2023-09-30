@@ -50,7 +50,11 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
       - name: Build Release apk
-        run: ./gradlew assembleRelease -Pandroid.injected.signing.store.file=$(pwd)/app/debug.keystore
+        run: ./gradlew assembleRelease \
+            -Pandroid.injected.signing.store.file=$(pwd)/app/debug.keystore \
+            -Pandroid.injected.signing.key.alias=androiddebugkey \
+            -Pandroid.injected.signing.store.password=android \
+            -Pandroid.injected.signing.key.password=android
         
       - name: Rename release
         run: mv app/build/outputs/apk/release/app-release.apk app/build/outputs/apk/release/aa-torque.apk
