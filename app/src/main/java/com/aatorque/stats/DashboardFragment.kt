@@ -241,7 +241,7 @@ class DashboardFragment : CarFragment(), SharedPreferences.OnSharedPreferenceCha
     }
 
     private fun updateScale(largeCenter: Boolean) {
-        val scaleFactor = if (largeCenter) resources.getFraction(R.dimen.scale_gauge, 1, 1) else 1f
+        val scaleFactor = if (largeCenter) resources.getFraction(R.fraction.scale_gauge, 1, 1) else 1f
         gaugeViews[0]!!.scaleX = scaleFactor
         gaugeViews[0]!!.scaleY = scaleFactor
         gaugeViews[2]!!.scaleX = scaleFactor

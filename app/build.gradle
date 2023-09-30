@@ -32,7 +32,7 @@ android {
             resValue "string", "app_version",
                     "${defaultConfig.versionName}${versionNameSuffix}"
             buildConfigField "boolean", "SIMULATE_METRICS", "true"
-            buildConfigField "String", "RELEASE_URL", "\"https://api.github.com/repos/agronick/aa-torque/releases\""
+            buildConfigField "String", "RELEASE_URL", "\"https://api.github.com/repos/agronick/aa-torque/releases/latest\""
         }
         release_debug {
             minifyEnabled true
