@@ -50,9 +50,11 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
       - name: Build Release apk
-        run: ./gradlew assembleRelease -Pandroid.injected.signing.store.file=$HOME/debug.keystore \
-            -Pandroid.injected.signing.key.alias=androiddebugkey \
-            -Pandroid.injected.signing.store.password=android \
+        run: >
+            ./gradlew assembleRelease 
+            -Pandroid.injected.signing.store.file=$HOME/debug.keystore 
+            -Pandroid.injected.signing.key.alias=androiddebugkey 
+            -Pandroid.injected.signing.store.password=android 
             -Pandroid.injected.signing.key.password=android
         
       - name: Rename release
