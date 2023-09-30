@@ -1,14 +1,14 @@
 name: ci
 on: [push, pull_request]
 jobs:
-  checkout:
+  lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
           
       - uses: actions/setup-java@v3
         with:
-          distribution: 'zulu' # See 'Supported distributions' for available options
+          distribution: 'zulu'
           java-version: '18'
 
       - name: Cache Gradle and wrapper
@@ -18,20 +18,29 @@ jobs:
             ~/.gradle/caches
             ~/.gradle/wrapper
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
-
-
-  lint:
-    runs-on: ubuntu-latest
-    needs: checkout
-    steps:
+          
       - name: Build Release apk
         run: ./gradlew lintRelease
 
-  build:
+  build_deploy:
     runs-on: ubuntu-latest
-    needs: checkout
     if: github.ref == 'refs/heads/master'
     steps:
+      - uses: actions/checkout@v2
+          
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: '18'
+
+      - name: Cache Gradle and wrapper
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+          
       - name: Bump version
         id: bump_version
         uses: oflynned/android-version-bump@master
@@ -40,12 +49,7 @@ jobs:
           
       - name: Build Release apk
         run: ./gradlew assembleRelease
-
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build
-    if: github.ref == 'refs/heads/master'
-    steps:
+        
       - name: Rename release
         run: mv app/build/outputs/apk/release/app-release.apk app/build/outputs/apk/release/aa-torque.apk
 
