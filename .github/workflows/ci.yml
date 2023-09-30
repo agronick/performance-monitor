@@ -5,5 +5,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu' # See 'Supported distributions' for available options
+          java-version: '18'
       - uses: gradle/wrapper-validation-action@v1
       - run: ./gradlew build
