@@ -10,6 +10,8 @@ def versionMajor = 0
 def versionMinor = 88
 def versionPatch = 0
 def acraVersion = "5.11.2"
+def ghOwner = "agronick"
+def ghPackage = "aa-torque"
 
 
 android {
@@ -26,13 +28,15 @@ android {
         }
         buildConfigField "boolean", "SIMULATE_METRICS", "false"
     }
+    applicationVariants.all {
+        buildConfigField "String", "RELEASE_URL", "\"https://api.github.com/repos/${ghOwner}/${ghPackage}/releases/latest\""
+    }
     buildTypes {
         debug {
             versionNameSuffix ".debug"
             resValue "string", "app_version",
                     "${defaultConfig.versionName}${versionNameSuffix}"
             buildConfigField "boolean", "SIMULATE_METRICS", "true"
-            buildConfigField "String", "RELEASE_URL", "\"https://api.github.com/repos/agronick/aa-torque/releases/latest\""
         }
         release_debug {
             minifyEnabled true
