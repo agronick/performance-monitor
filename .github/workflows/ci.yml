@@ -24,8 +24,7 @@ jobs:
 
   build_deploy:
     runs-on: ubuntu-latest
-    branches:
-      - 'master'
+    if: github.ref == 'refs/heads/master'
     steps:
       - uses: actions/checkout@v2
           
