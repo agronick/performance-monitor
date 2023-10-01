@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import com.google.android.apps.auto.sdk.StatusBarController
 
 abstract class CarFragment : Fragment() {
-    private val TAG = "CarFragment"
 
     var title: String? = null
     fun setTitle(@StringRes resId: Int) {

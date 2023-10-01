@@ -3,7 +3,7 @@ package com.aatorque.stats
 import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
-import android.util.Log
+import timber.log.Timber
 import android.graphics.PorterDuff
 import android.view.LayoutInflater
 import android.view.View
@@ -23,7 +23,6 @@ import java.util.Locale
 
 class TorqueGauge : Fragment(){
 
-    private var TAG = "TorqueGauge"
     private var rootView: View? = null
     private var mClock: Speedometer? = null
     private var mRayClock: RaySpeedometer? = null
@@ -42,7 +41,7 @@ class TorqueGauge : Fragment(){
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        Log.i(TAG, "onCreateView")
+        Timber.i("onCreateView")
         val view = inflater.inflate(R.layout.fragment_gauge, container, false)
         mClock = view.findViewById(R.id.dial)
         mRayClock = view.findViewById(R.id.ray)
@@ -100,7 +99,7 @@ class TorqueGauge : Fragment(){
         typedArray.recycle()
         val imageIndicator = ImageIndicator(requireContext(), resourceId, clockSize, clockSize)
         val color = mClock!!.indicatorColor
-        Log.i(TAG, "IndicatorColor: $color")
+        Timber.i("IndicatorColor: $color")
         if (color == 1996533487) {       // if indicator color in the style is @color:aqua, make it an imageindicator
             mClock!!.setIndicator(imageIndicator)
             mRayClock!!.indicatorLightColor = Color.parseColor("#00FFFFFF")
@@ -214,7 +213,7 @@ class TorqueGauge : Fragment(){
         speedFormat: String,
         tickFormat: String
     ) {
-        Log.d(TAG, "icon: $icon iconDrawableName: $iconDrawableName")
+        Timber.d("icon: $icon iconDrawableName: $iconDrawableName")
         val context = requireContext()
         val resId = resources.getIdentifier(
             if (iconDrawableName == "") "ic_none" else iconDrawableName,
@@ -232,7 +231,7 @@ class TorqueGauge : Fragment(){
         mTextTitle?.text = iconText
         clock!!.setUnit(unit!!)
         if (minspeed >= maxspeed) {
-            Log.e(TAG, "Maxspeed is not greater than minspeed min:${minspeed} max:${maxspeed}")
+            Timber.e("Maxspeed is not greater than minspeed min:${minspeed} max:${maxspeed}")
         } else {
             clock.setMinMaxSpeed(minspeed.toFloat(), maxspeed.toFloat())
         }
@@ -271,8 +270,8 @@ class TorqueGauge : Fragment(){
     fun onUpdate(data: TorqueData) {
         if (!isVisible || isRemoving) return
         val fVal = data.lastData.toFloat()
-        mClock?.speedTo(fVal, 250)
-        mRayClock?.speedTo(fVal, 250)
+        mClock?.speedTo(fVal, TorqueRefresher.REFRESH_INTERVAL)
+        mRayClock?.speedTo(fVal, TorqueRefresher.REFRESH_INTERVAL)
         if (maxMarksOn == MaxControl.MAX && data.maxValue.isFinite()) {
             mMax?.setSpeedAt(data.maxValue.toFloat())
         } else if(maxMarksOn == MaxControl.MIN && data.minValue.isFinite()) {

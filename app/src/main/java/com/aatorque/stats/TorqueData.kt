@@ -1,11 +1,10 @@
 package com.aatorque.stats
 
-import android.util.Log
 import com.ezylang.evalex.BaseException
 import com.ezylang.evalex.Expression
 import com.ezylang.evalex.config.ExpressionConfiguration
 import com.aatorque.datastore.Display
-import java.math.BigInteger
+import timber.log.Timber
 import java.util.concurrent.ScheduledFuture
 
 class TorqueData(val display: Display) {
@@ -44,7 +43,6 @@ class TorqueData(val display: Display) {
             }
         }
     companion object {
-        const val TAG = "TorqueData"
         const val PREFIX = "torque_"
         val drawableRegex = Regex("res/drawable/(?<name>.+)\\.[a-z]+")
         val evalConfig: ExpressionConfiguration = ExpressionConfiguration.builder()
@@ -67,7 +65,7 @@ class TorqueData(val display: Display) {
         return try {
             expression!!.with("a", value).evaluate().stringValue
         } catch (e: BaseException) {
-            Log.e(TAG, "Unable to parse")
+            Timber.e("Unable to parse", e)
             e.printStackTrace()
             "Error"
         }

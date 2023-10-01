@@ -2,7 +2,7 @@ package com.aatorque.stats;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
+import timber.log.Timber;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import com.google.android.apps.auto.sdk.StatusBarController;
 
 public class CreditsFragment extends CarFragment {
-    private final String TAG = "CreditsFragment";
 
     public CreditsFragment() {
         // Required empty public constructor
@@ -24,13 +23,13 @@ public class CreditsFragment extends CarFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.i(TAG, "onCreate");
+        Timber.i("onCreate");
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        Log.i(TAG, "onAttach");
+        Timber.i("onAttach");
 
         setTitle(getContext().getString(R.string.activity_credits_title));
     }
@@ -38,7 +37,7 @@ public class CreditsFragment extends CarFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Log.i(TAG, "onCreateView");
+        Timber.i("onCreateView");
         return inflater.inflate(R.layout.fragment_credits, container, false);
 
 
@@ -48,42 +47,42 @@ public class CreditsFragment extends CarFragment {
     @Override
     public void onStart() {
         super.onStart();
-        Log.i(TAG, "onStart");
+        Timber.i("onStart");
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        Log.i(TAG, "onResume");
+        Timber.i("onResume");
     }
 
     @Override
     public void onPause() {
-        Log.i(TAG, "onPause");
+        Timber.i("onPause");
         super.onPause();
     }
 
     @Override
     public void onDestroyView() {
-        Log.i(TAG, "onDestroyView");
+        Timber.i("onDestroyView");
         super.onDestroyView();
     }
 
     @Override
     public void onStop() {
-        Log.i(TAG, "onStop");
+        Timber.i("onStop");
         super.onStop();
     }
 
     @Override
     public void onDetach() {
-        Log.i(TAG, "onDetach");
+        Timber.i("onDetach");
         super.onDetach();
     }
 
     @Override
     public void onDestroy() {
-        Log.i(TAG, "onDestroy");
+        Timber.i("onDestroy");
         super.onDestroy();
     }
 }

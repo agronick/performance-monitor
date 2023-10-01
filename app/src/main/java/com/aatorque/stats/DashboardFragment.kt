@@ -6,7 +6,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.Typeface
 import android.os.Bundle
-import android.util.Log
+import timber.log.Timber
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -49,7 +49,6 @@ class DashboardFragment : CarFragment(), SharedPreferences.OnSharedPreferenceCha
     private var mStarted = false
 
     companion object {
-        const val TAG = "DashboardFragment"
         const val DISPLAY_OFFSET = 3
     }
 
@@ -62,7 +61,7 @@ class DashboardFragment : CarFragment(), SharedPreferences.OnSharedPreferenceCha
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        Log.i(TAG, "onCreateView")
+        Timber.i("onCreateView")
         val view = inflater.inflate(R.layout.fragment_dashboard, container, false)
         rootView = view
 
@@ -171,7 +170,7 @@ class DashboardFragment : CarFragment(), SharedPreferences.OnSharedPreferenceCha
     }
 
     override fun onResume() {
-        Log.d(TAG, "onResume")
+        Timber.d("onResume")
         super.onResume()
         torqueRefresher.makeExecutors(torqueService)
         torqueRefresher.watchConnection(torqueService) {
@@ -187,7 +186,7 @@ class DashboardFragment : CarFragment(), SharedPreferences.OnSharedPreferenceCha
     }
 
     override fun onPause() {
-        Log.d(TAG, "onPause")
+        Timber.d("onPause")
         super.onPause()
         torqueRefresher.stopExecutors()
     }
@@ -287,7 +286,7 @@ class DashboardFragment : CarFragment(), SharedPreferences.OnSharedPreferenceCha
             display?.setupTypeface(typeface)
         }
         mTitleElement!!.typeface = typeface
-        Log.d(TAG, "font: $typeface")
+        Timber.d("font: $typeface")
     }
 
 

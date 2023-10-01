@@ -115,7 +115,7 @@
     <string name="pref_bigquery_reupload_last_title">Re-upload last log file</string>
     <string name="pref_bigquery_table_default" translatable="false">mqbstats</string>
     <string name="pref_bigquery_table_title">Table name</string>
-    <string name="pref_centerclock">Center clock</string>
+    <string name="pref_centerclock">Center gauges</string>
     <string name="pref_choose_account_title">Choose account</string>
     <string name="pref_dataelementsettings">Data element settings</string>
     <string name="pref_dataelementsettings2">Data element settings (2nd dashboard)</string>
@@ -124,15 +124,15 @@
     <string name="pref_graphitem">Graph</string>
     <string name="pref_highlow">Highest values</string>
     <string name="pref_highlow_off">Do not show max values</string>
-    <string name="pref_highlow_on">Show max values for each clock</string>
-    <string name="pref_highlowmarks">Mark highest values on clocks</string>
-    <string name="pref_highlowmarks_off">A max mark is not shown on the clocks</string>
-    <string name="pref_highlowmarks_on">A max mark is shown on the clocks</string>
+    <string name="pref_highlow_on">Show max values for each gauge</string>
+    <string name="pref_highlowmarks">Mark highest values on the gauge</string>
+    <string name="pref_highlowmarks_off">A max mark is not shown on the gauge</string>
+    <string name="pref_highlowmarks_on">A max mark is shown on the gauge</string>
     <string name="pref_highvis">High visibility dial</string>
-    <string name="pref_highvis_off">Display a needle on the clocks</string>
+    <string name="pref_highvis_off">Display a needle on the gauge</string>
     <string name="pref_highvis_on">Display a highly visible ray instead of a needle</string>
     <string name="pref_kick_uploads_title">Upload data now</string>
-    <string name="pref_leftclock">Left clock</string>
+    <string name="pref_leftclock">Left gauge</string>
     <string name="pref_list_providers_title">List providers</string>
     <string name="pref_logging_category_title">Logging</string>
     <string name="pref_notifications_category_title">Notifications</string>
@@ -146,7 +146,7 @@
     <string name="pref_providers">Telemetry providers</string>
     <string name="pref_providers_category_title">Telemetry providers</string>
     <string name="pref_resettoapply">Please connect to Android Auto to see results.</string>
-    <string name="pref_rightclock">Right clock</string>
+    <string name="pref_rightclock">Right gauge</string>
     <string name="pref_stats_logging_not_available">Logging not available: %1$s</string>
     <string name="pref_stats_logging_summary">Logs folder: %1$s</string>
     <string name="pref_stats_logging_title">Log car telemetry</string>
@@ -176,7 +176,6 @@
     <string name="unit_nm">Nm</string>
     <string name="unit_psi">psi</string>
     <string name="unit_rpm">RPM</string>
-    <string name="unit_rpm1000">×1000</string>
     <string name="unit_volt">V</string>
     <string name="unit_fahrenheit">Fahrenheit</string>
     <string name="unit_celcius">Celcius</string>
@@ -387,7 +386,7 @@
     <string name="whole_numbers_desc">Display gauge without decimal places</string>
     <string name="gauge_settings">Gauge Settings</string>
     <string name="show_label_desc">In most cases you want to show an icon, but you can show a label if you cannot find an icon to match the PID.</string>
-    <string name="show_label_desc_clock">Show label above the clock.</string>
+    <string name="show_label_desc_clock">Show label above the gauge</string>
     <string name="icon_null_desc">Select an icon to represent the metric</string>
     <string name="pref_shrink_gauge">Large center gauge</string>
     <string name="pref_shrink_gauge_off">Equal size gauges</string>
@@ -396,4 +395,5 @@
     <string name="download">Download</string>
     <string name="download_instructions">Update downloading. Install with Kingstaller.</string>
     <string name="expressionDocumentation">View Documentation</string>
+    <string name="copy_logs">Copy logs to clipboard</string>
 </resources>

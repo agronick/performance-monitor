@@ -2,29 +2,23 @@ package com.aatorque.stats
 
 import android.app.Application
 import android.content.Context
+import android.util.Log
 import androidx.preference.PreferenceManager
 import org.acra.config.mailSender
 import org.acra.config.toast
 import org.acra.data.StringFormat
 import org.acra.ktx.initAcra
-import java.util.logging.Level
+import timber.log.Timber
+import timber.log.Timber.*
+
 
 class App : Application() {
 
+    val logTree = CacheLogTree()
+
     override fun onCreate() {
         super.onCreate()
-        /**
-         * Logging level for HTTP requests/responses.
-         *
-         *
-         *
-         * To turn on, set to [Level.CONFIG] or [Level.ALL] and run this from command line:
-         *
-         *
-         * <pre>
-         * adb shell setprop log.tag.HttpTransport DEBUG
-        </pre> *
-         */
+        Timber.plant(logTree)
         PreferenceManager.setDefaultValues(this, R.xml.settings, false)
     }
 

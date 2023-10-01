@@ -2,13 +2,15 @@ package com.aatorque.prefs
 
 import android.app.Activity
 import android.app.DownloadManager
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
-import android.util.Log
+import timber.log.Timber
 import android.view.Menu
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContract
@@ -21,6 +23,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.aatorque.datastore.UserPreference
+import com.aatorque.stats.App
 import com.aatorque.stats.BuildConfig
 import com.aatorque.stats.R
 import com.google.android.material.snackbar.Snackbar
@@ -69,6 +72,11 @@ class SettingsActivity : AppCompatActivity(),
 
             R.id.action_import_dashboards -> {
                 openFile()
+                true
+            }
+
+            R.id.action_copy_logs -> {
+                logsToClipboard()
                 true
             }
 
@@ -209,7 +217,7 @@ class SettingsActivity : AppCompatActivity(),
     }
 
     private fun checkUpdate() {
-        Log.d(TAG, "Checking for update")
+        Timber.i("Checking for update")
 
         var needsUpdate: Boolean? = null
         var downloadItem: String? = null
@@ -244,7 +252,7 @@ class SettingsActivity : AppCompatActivity(),
                 }
             }
         } catch (e: JSONException) {
-            Log.e(TAG, "Failed to parse json on update check")
+            Timber.e("Failed to parse json on update check")
         } finally {
             urlConnection.disconnect()
         }
@@ -277,9 +285,14 @@ class SettingsActivity : AppCompatActivity(),
         }
     }
 
+    private fun logsToClipboard() {
+        val logs = (application as App).logTree.logToString()
+        val clipboard = getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
+        clipboard.setPrimaryClip(ClipData.newPlainText("AA Torque Log", logs.joinToString("\n")))
+    }
+
 
     companion object {
-        private const val TAG = "SettingsActivity"
         private const val REQUEST_PERMISSIONS = 0
         private const val PERMISSION_CAR_VENDOR_EXTENSION =
             "com.google.android.gms.permission.CAR_VENDOR_EXTENSION"

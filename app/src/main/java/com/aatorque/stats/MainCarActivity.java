@@ -23,7 +23,6 @@ import static android.view.View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
 import java.util.Objects;
 
 public class MainCarActivity extends CarActivity{
-    private static final String TAG = "MainCarActivity";
 
     //menu stuff//
 

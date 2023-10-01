@@ -99,6 +99,7 @@ dependencies {
     implementation 'com.github.anastr:speedviewlib:1.4.0'
     implementation 'com.austingreco:image-list-preference:1.0.0'
     implementation 'com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava'
+    implementation 'com.jakewharton.timber:timber:5.0.1'
 
     //noinspection GradleDependency
     implementation 'com.google.guava:guava:32.1.2-jre'

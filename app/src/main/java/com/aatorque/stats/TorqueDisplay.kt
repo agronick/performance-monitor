@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import android.graphics.Typeface
 import android.icu.text.NumberFormat
 import android.os.Bundle
-import android.util.Log
+import timber.log.Timber
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +13,6 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 
 class TorqueDisplay : Fragment() {
-    val TAG = "TorqueDisplay"
     private var rootView: View? = null
     private var valueElement: TextView? = null
     private var iconElement: TextView? = null
@@ -31,7 +30,7 @@ class TorqueDisplay : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        Log.i(TAG, "onCreateView")
+        Timber.i("onCreateView")
         val view = inflater.inflate(R.layout.fragment_display, container, false)
         rootView = view
         valueElement = view.findViewById(R.id.valueElement)

@@ -27,9 +27,7 @@ import kotlin.math.floor
 
 
 class SettingsPIDFragment:  PreferenceFragmentCompat() {
-    val TAG = "SettingsPIDFragment"
     var prefCat: PreferenceCategory? = null
-    var service: TorqueService? = null
     var mBound: Boolean = false
 
     var isClock = true

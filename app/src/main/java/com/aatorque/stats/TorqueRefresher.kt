@@ -1,7 +1,7 @@
 package com.aatorque.stats
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
+import timber.log.Timber
 import com.aatorque.datastore.Display
 import java.util.concurrent.ScheduledThreadPoolExecutor
 import java.util.concurrent.TimeUnit
@@ -14,7 +14,6 @@ class TorqueRefresher {
     var conWatcher: ((Boolean) -> Unit)? = null
 
     companion object {
-        const val TAG = "TorqueRefresher"
         const val REFRESH_INTERVAL = 300L
     }
 
@@ -22,7 +21,7 @@ class TorqueRefresher {
         data[pos]?.stopRefreshing(true)
         val td = TorqueData(query)
         data[pos] = td
-        Log.d(TAG, "Setting query: $query for pos $pos")
+        Timber.i("Setting query: $query for pos $pos")
         return td
     }
 
@@ -30,17 +29,17 @@ class TorqueRefresher {
         data.values.forEachIndexed { index, torqueData ->
             val refreshOffset = (REFRESH_INTERVAL / data.size) * index
             if (torqueData.pid != null && torqueData.refreshTimer == null) {
-                Log.d(TAG, "Scheduled item in position $index with $refreshOffset delay")
+                Timber.i("Scheduled item in position $index with $refreshOffset delay")
                 doRefresh(service, torqueData)
                 torqueData.refreshTimer = executor.scheduleWithFixedDelay({
                     try {
                         doRefresh(service, torqueData)
                     } catch (e: Exception) {
-                        Log.e(TAG, "Refresh failed in pos $index", e)
+                        Timber.e("Refresh failed in pos $index", e)
                     }
                 }, refreshOffset, REFRESH_INTERVAL, TimeUnit.MILLISECONDS)
             } else {
-                Log.i(TAG, "No reason to schedule item in position $index")
+                Timber.i("No reason to schedule item in position $index")
             }
         }
     }
@@ -49,7 +48,7 @@ class TorqueRefresher {
         service.runIfConnected { ts ->
             val value = ts.getPIDValuesAsDouble(arrayOf( torqueData.pid!!))[0]
             torqueData.lastData = value
-            Log.d(TAG, "Got valid $value from torque for ${torqueData.display.label}")
+            Timber.d("Got valid $value from torque for ${torqueData.display.label}")
             if (value != 0.0 || torqueData.hasReceivedNonZero) {
                 torqueData.hasReceivedNonZero = true
                 handler.post {
@@ -64,7 +63,7 @@ class TorqueRefresher {
     }
 
     fun stopExecutors() {
-        Log.i(TAG, "Telling Torque refreshers to stop")
+        Timber.i("Telling Torque refreshers to stop")
         for (td in data.values) {
             td.stopRefreshing()
         }

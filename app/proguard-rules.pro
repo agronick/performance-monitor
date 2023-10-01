@@ -36,7 +36,7 @@
 -dontwarn lombok.Generated
 
 # Strip Log.d and Log.v
--assumenosideeffects class android.util.Log {
+-assumenosideeffects class timber.log.Timber {
     public static *** d(...);
     public static *** v(...);
 }

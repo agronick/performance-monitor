@@ -2,7 +2,7 @@ package com.aatorque.prefs
 
 import android.os.Bundle
 import android.text.InputType
-import android.util.Log
+import timber.log.Timber
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -51,7 +51,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                                 UserPreferenceSerializer.defaultScreen.build()
                             )
                             bldr = bldr.addAllScreens(newItms.toMutableList())
-                            Log.d(TAG, "${newItms.size} added, ${intVal} specified")
+                            Timber.i("${newItms.size} added, ${intVal} specified")
                         }
                         return@updateData bldr.build()
                     }
@@ -89,9 +89,5 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         addPreferencesFromResource(R.xml.settings)
-    }
-
-    companion object {
-        private const val TAG = "PreferenceFragment"
     }
 }

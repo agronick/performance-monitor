@@ -8,18 +8,15 @@ import android.content.Intent
 import android.content.ServiceConnection
 import android.os.Binder
 import android.os.IBinder
-import android.util.Log
+import timber.log.Timber
 import org.prowl.torque.remote.ITorqueService
 import java.util.concurrent.locks.ReentrantLock
 import kotlin.concurrent.withLock
 
 typealias PidInfo = List<Pair<String, List<String>>>
 class TorqueServiceWrapper: Service() {
-    // Binder given to clients.
-    val TAG = "TorqueServiceWrapper"
     private val binder = LocalBinder()
     var wasStartAttempted = false
-    var wasStartSuccessful = false
     var torqueService: ITorqueService? = null
     val onConnect = ArrayList<(ITorqueService) -> Unit>()
     var pids: PidInfo? = null
@@ -129,16 +126,10 @@ class TorqueServiceWrapper: Service() {
         val intent = Intent()
         intent.setClassName("org.prowl.torque", "org.prowl.torque.remote.TorqueService")
         val torqueBind = bindService(intent, torqueConnection, Activity.BIND_AUTO_CREATE)
-        Log.d(
-            TAG,
+        Timber.i(
             if (torqueBind) "Connected to torque service!" else "Unable to connect to Torque plugin service"
         )
         return torqueBind
-    }
-
-    fun requestQuit() {
-        sendBroadcast(Intent("org.prowl.torque.REQUEST_TORQUE_QUIT"))
-        Log.d(TAG, "Torque stop")
     }
 
     companion object {

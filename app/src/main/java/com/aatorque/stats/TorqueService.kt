@@ -6,13 +6,12 @@ import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
 import android.os.IBinder
-import android.util.Log
+import timber.log.Timber
 import org.prowl.torque.remote.ITorqueService
 import java.util.concurrent.locks.ReentrantLock
 import kotlin.concurrent.withLock
 
 class TorqueService {
-    val TAG = "TorqueService"
     var torqueService: ITorqueService? = null
     val onConnect = ArrayList<(ITorqueService) -> Unit>()
     val conLock = ReentrantLock()
@@ -76,14 +75,13 @@ class TorqueService {
 
     fun requestQuit(context: Context) {
         context.sendBroadcast(Intent("org.prowl.torque.REQUEST_TORQUE_QUIT"))
-        Log.d(TAG, "Torque stop")
+        Timber.i("Torque stop")
     }
     fun startTorque(context: Context): Boolean {
         val intent = Intent()
         intent.setClassName("org.prowl.torque", "org.prowl.torque.remote.TorqueService")
         hasBound = context.bindService(intent, torqueConnection, Activity.BIND_AUTO_CREATE)
-        Log.d(
-            TAG,
+        Timber.i(
             if (hasBound) "Connected to torque service!" else "Unable to connect to Torque plugin service"
         )
         return hasBound
