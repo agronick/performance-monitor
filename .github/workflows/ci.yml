@@ -24,6 +24,8 @@ jobs:
 
   build_deploy:
     runs-on: ubuntu-latest
+    branches:
+      - 'master'
     steps:
       - uses: actions/checkout@v2
           
