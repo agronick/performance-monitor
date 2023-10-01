@@ -6,7 +6,7 @@ import timber.log.Timber
 class CacheLogTree: Timber.DebugTree() {
 
     companion object {
-        const val KEEP_LOGS = 10_000
+        const val KEEP_LOGS = 1_000
     }
 
     data class LogDesc(
