@@ -80,7 +80,13 @@ class TorqueData(val display: Display) {
     }
 
     fun sendNotifyUpdate() {
-        notifyUpdate?.let { it(this) }
+        if (notifyUpdate == null) {
+            Timber.e("Cannot update, notifyUpdate is null")
+        } else {
+            notifyUpdate?.let {
+                it(this)
+            }
+        }
     }
 
     fun stopRefreshing(isDestroying: Boolean = false) {
