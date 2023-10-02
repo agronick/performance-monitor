@@ -268,7 +268,6 @@ class TorqueGauge : Fragment(){
     }
 
     fun onUpdate(data: TorqueData) {
-        if (!isVisible || isRemoving) return
         val fVal = data.lastData.toFloat()
         mClock?.speedTo(fVal, TorqueRefresher.REFRESH_INTERVAL)
         mRayClock?.speedTo(fVal, TorqueRefresher.REFRESH_INTERVAL)
