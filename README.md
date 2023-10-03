@@ -29,16 +29,14 @@ Download the latest [release](https://github.com/agronick/aa-torque/releases).
 # Screenshots:
 Some screenshots of the app:
 
-![VW theme](https://user-images.githubusercontent.com/8352494/48626461-322c1380-e9b2-11e8-990a-b380c43f93e1.png)
+![Screenshot_20231002_130401](https://github.com/agronick/aa-torque/assets/2042303/229315c8-ad3b-42e6-86e6-e7fe7abb16a8)
 
-Seat theme:
-![Seat theme](https://camo.githubusercontent.com/c3043a363e40cac344c4f2cb4a943671205806d2/68747470733a2f2f692e696d6775722e636f6d2f56436a58474d582e706e67)
+![Screenshot_20231002_130452](https://github.com/agronick/aa-torque/assets/2042303/698c666b-5e3c-4611-80a5-8e767b04186a)
 
-Skoda ONEapp theme with high min/max turned on.
-![Skoda ONE theme](https://i.imgur.com/OfO3jpb.png)
+![20231001-162619](https://github.com/agronick/aa-torque/assets/2042303/1b07b67b-d4bc-41e8-8235-a1418ee37bfe)
 
-Stopwatch/laptimer mode in VW GTI theme:
-![VW stopwatch](https://i.imgur.com/0jm310L.png)
+![rx2ohmzjsirb1](https://github.com/agronick/aa-torque/assets/2042303/52c83a91-c3b6-430e-967a-4473fc51e51e)
+
 
 
 

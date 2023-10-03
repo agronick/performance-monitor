@@ -32,6 +32,7 @@ import kotlinx.coroutines.launch
 import org.json.JSONException
 import org.json.JSONObject
 import java.io.File
+import java.net.ConnectException
 import java.net.HttpURLConnection
 import java.net.URL
 import javax.net.ssl.HttpsURLConnection
@@ -225,7 +226,11 @@ class SettingsActivity : AppCompatActivity(),
         val url = URL(BuildConfig.RELEASE_URL)
         val urlConnection = url.openConnection() as HttpsURLConnection
         urlConnection.setRequestProperty("X-GitHub-Api-Version", "2022-11-28")
-        urlConnection.connect()
+        try {
+            urlConnection.connect()
+        } catch (e: ConnectException) {
+            return
+        }
         try {
             if (urlConnection.responseCode == HttpURLConnection.HTTP_OK) {
                 val response = urlConnection.inputStream.bufferedReader().use {
