@@ -5,6 +5,7 @@
         <item>@string/convert_c_to_f</item>
         <item>@string/convert_f_to_c</item>
         <item>@string/convert_bar_psi</item>
+        <item>@string/convert_psi_bar</item>
         <item>@string/boolean_logic</item>
         <item>@string/convert_newton_ft_lb</item>
         <item>@string/convert_cc_min_gal_hour</item>
@@ -16,6 +17,7 @@
         <item>a * 1.8 + 32</item>  j
         <item>(a − 32) × 5/9</item>
         <item>a * 14.5038</item>
+        <item>a * 0.0689475729</item>
         <item>IF(a == 0, \"Off\", \"On\")</item>
         <item>a / 1.356</item>
         <item>a * 0.015850323074494</item>
@@ -26,6 +28,7 @@
     <string name="convert_f_to_c">Fahrenheit to Celsius</string>
     <string name="convert_c_to_f">Celsius to Fahrenheit</string>
     <string name="convert_bar_psi">Convert BAR to PSI</string>
+    <string name="convert_psi_bar">Convert PSI to BAR</string>
     <string name="boolean_logic">Boolean Logic</string>
     <string name="convert_newton_ft_lb">Newton Meters to Foot-pounds</string>
     <string name="convert_cc_min_gal_hour">CC per minute to Gallon Hour</string>
