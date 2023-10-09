@@ -1,1 +1,332 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- List of themes, used in settings -->
+    <string-array name="Themes">
+        <item>VW</item>
+        <item>VW GTI</item>
+        <item>VW R/GTE</item>
+        <item>VW MIB2</item>
+        <item>VW AID</item>
+        <item>Clubsport</item>
+        <item>Seat</item>
+        <item>Seat Cupra</item>
+        <item>Cupra Division</item>
+        <item>Skoda</item>
+        <item>Skoda vRS</item>
+        <item>Skoda ONE</item>
+        <item>Skoda Cockpit virtuale</item>
+        <item>Audi</item>
+        <item>Audi Cockpit virtuale</item>
+        <item>Audi TT</item>
+        <item>Minimalista</item>
+        <item>Scuro</item>
+        <item>Mustang GT</item>
+        <item>BMW</item>
+        <item>Test</item>
+    </string-array>
+
+    <array name="ThemesThumbs">
+        <item>@drawable/ic_theme_vw</item>
+        <item>@drawable/ic_theme_vwgti</item>
+        <item>@drawable/ic_theme_vwgte</item>
+        <item>@drawable/ic_theme_vwmib2</item>
+        <item>@drawable/ic_theme_aid</item>
+        <item>@drawable/ic_theme_vwclubsport</item>
+        <item>@drawable/ic_theme_seat</item>
+        <item>@drawable/ic_theme_seatcupra</item>
+        <item>@drawable/ic_theme_cupra</item>
+        <item>@drawable/ic_theme_skoda</item>
+        <item>@drawable/ic_theme_skoda2</item>
+        <item>@drawable/ic_theme_skodaone</item>
+        <item>@drawable/ic_theme_skodavc</item>
+        <item>@drawable/ic_theme_audi</item>
+        <item>@drawable/ic_theme_audivc</item>
+        <item>@drawable/ic_theme_auditt</item>
+        <item>@drawable/ic_theme_minimalistic</item>
+        <item>@drawable/ic_theme_dark</item>
+        <item>@drawable/ic_theme_ford</item>
+        <item>@drawable/ic_theme_bmw</item>
+        <item>@drawable/ic_theme_test</item>
+    </array>
+
+    <string-array name="fontEntries">
+        <item>@string/font_segments</item>
+        <item>@string/font_vw</item>
+        <item>@string/font_vw2</item>
+        <item>@string/font_vw3</item>
+        <item>@string/font_seat</item>
+        <item>@string/font_audi</item>
+        <item>@string/font_frutiger</item>
+        <item>@string/font_skoda</item>
+        <item>@string/font_larabie</item>
+        <item>@string/font_ford</item>
+    </string-array>
+
+    <string-array name="fontValues">
+        <item>segments</item>
+        <item>vw</item>
+        <item>vw2</item>
+        <item>vw3</item>
+        <item>seat</item>
+        <item>audi</item>
+        <item>frutiger</item>
+        <item>skoda</item>
+        <item>larabie</item>
+        <item>ford</item>
+    </string-array>
+
+    <string-array name="FontThumbs">
+        <item>@drawable/ic_font_segments</item>
+        <item>@drawable/ic_font_vwcarui</item>
+        <item>@drawable/ic_font_thesis</item>
+        <item>@drawable/ic_font_vwdigit</item>
+        <item>@drawable/ic_font_seat</item>
+        <item>@drawable/ic_font_audi</item>
+        <item>@drawable/ic_font_frutiger</item>
+        <item>@drawable/ic_font_skoda</item>
+        <item>@drawable/ic_font_larabie</item>
+        <item>@drawable/ic_font_ford</item>
+    </string-array>
+
+    <integer-array name="icons">
+        <item>@drawable/ic_none</item>
+        <item>@drawable/ic_altitude</item>
+        <item>@drawable/ic_barometer</item>
+        <item>@drawable/ic_battery</item>
+        <item>@drawable/ic_brakepedalposition</item>
+        <item>@drawable/ic_cact</item>
+        <item>@drawable/ic_catalyst</item>
+        <item>@drawable/ic_distance</item>
+        <item>@drawable/ic_ecoavg</item>
+        <item>@drawable/ic_eco</item>
+        <item>@drawable/ic_cylinder</item>
+        <item>@drawable/ic_exhaust</item>
+        <item>@drawable/ic_fuel</item>
+        <item>@drawable/ic_fuelpressure</item>
+        <item>@drawable/ic_fuelprimary</item>
+        <item>@drawable/ic_fuelsecondary</item>
+        <item>@drawable/ic_gearbox</item>
+        <item>@drawable/ic_heading</item>
+        <item>@drawable/ic_horse</item>
+        <item>@drawable/ic_lateral</item>
+        <item>@drawable/ic_longitudinal</item>
+        <item>@drawable/ic_manifold</item>
+        <item>@drawable/ic_measurement</item>
+        <item>@drawable/ic_motherboard</item>
+        <item>@drawable/ic_obd2</item>
+        <item>@drawable/ic_odometer</item>
+        <item>@drawable/ic_oil</item>
+        <item>@drawable/ic_outsidetemperature</item>
+        <item>@drawable/ic_pedalposition</item>
+        <item>@drawable/ic_phonebattery</item>
+        <item>@drawable/ic_phone</item>
+        <item>@drawable/ic_powermeter</item>
+        <item>@drawable/ic_radio</item>
+        <item>@drawable/ic_spanner</item>
+        <item>@drawable/ic_throttle</item>
+        <item>@drawable/ic_timing</item>
+        <item>@drawable/ic_transmission</item>
+        <item>@drawable/ic_turbo</item>
+        <item>@drawable/ic_tyre</item>
+        <item>@drawable/ic_vin</item>
+        <item>@drawable/ic_voltage</item>
+        <item>@drawable/ic_volume</item>
+        <item>@drawable/ic_water</item>
+        <item>@drawable/ic_wheelangle</item>
+        <item>@drawable/ic_wheel</item>
+        <item>@drawable/ic_world</item>
+        <item>@drawable/ic_yaw</item>
+    </integer-array>
+
+    <string-array name="icon_values" translatable="false">
+        <item>ic_none</item>
+        <item>ic_altitude</item>
+        <item>ic_barometer</item>
+        <item>ic_battery</item>
+        <item>ic_brakepedalposition</item>
+        <item>ic_cact</item>
+        <item>ic_catalyst</item>
+        <item>ic_distance</item>
+        <item>ic_ecoavg</item>
+        <item>ic_eco</item>
+        <item>ic_cylinder</item>
+        <item>ic_exhaust</item>
+        <item>ic_fuel</item>
+        <item>ic_fuelpressure</item>
+        <item>ic_fuelprimary</item>
+        <item>ic_fuelsecondary</item>
+        <item>ic_gearbox</item>
+        <item>ic_heading</item>
+        <item>ic_horse</item>
+        <item>ic_lateral</item>
+        <item>ic_longitudinal</item>
+        <item>ic_manifold</item>
+        <item>ic_measurement</item>
+        <item>ic_motherboard</item>
+        <item>ic_obd2</item>
+        <item>ic_odometer</item>
+        <item>ic_oil</item>
+        <item>ic_outsidetemperature</item>
+        <item>ic_pedalposition</item>
+        <item>ic_phonebattery</item>
+        <item>ic_phone</item>
+        <item>ic_powermeter</item>
+        <item>ic_radio</item>
+        <item>ic_spanner</item>
+        <item>ic_throttle</item>
+        <item>ic_timing</item>
+        <item>ic_transmission</item>
+        <item>ic_turbo</item>
+        <item>ic_tyre</item>
+        <item>ic_vin</item>
+        <item>ic_voltage</item>
+        <item>ic_volume</item>
+        <item>ic_water</item>
+        <item>ic_wheelangle</item>
+        <item>ic_wheel</item>
+        <item>ic_world</item>
+        <item>ic_yaw</item>
+    </string-array>
+
+    <array name="iconDesc">
+        <item>@string/element_none</item>
+        <item>@string/element_navAltitude</item>
+        <item>@string/element_barometer</item>
+        <item>@string/element_batteryVoltage</item>
+        <item>@string/element_brakePressure</item>
+        <item>@string/element_cac</item>
+        <item>@string/element_torque_catalysttemperature</item>
+        <item>@string/element_distance</item>
+        <item>@string/element_ecoaverage</item>
+        <item>@string/element_eco</item>
+        <item>@string/element_cylinder</item>
+        <item>@string/exhaust</item>
+        <item>@string/element_torque_fuellevel</item>
+        <item>@string/element_torque_fuelpressure</item>
+        <item>@string/element_fuel_primary</item>
+        <item>@string/element_fuel_secondary</item>
+        <item>@string/element_gearboxOilTemperature</item>
+        <item>@string/element_navHeading</item>
+        <item>@string/element_horsepower</item>
+        <item>@string/element_lateralAcceleration</item>
+        <item>@string/element_longitudinalAcceleration</item>
+        <item>@string/element_torque_intakemanifoldpressure</item>
+        <item>@string/element_measurement</item>
+        <item>@string/element_motherboard</item>
+        <item>@string/element_obd2</item>
+        <item>@string/element_odometer</item>
+        <item>@string/element_oilTemperature</item>
+        <item>@string/element_outsideTemperature</item>
+        <item>@string/element_pedal</item>
+        <item>@string/element_torque_phonebatterylevel</item>
+        <item>@string/element_torque_phonebarometer</item>
+        <item>@string/element_torque_engineload</item>
+        <item>@string/element_radio</item>
+        <item>@string/element_wrench</item>
+        <item>@string/element_torque_throttle_position</item>
+        <item>@string/element_torque_timing_advance</item>
+        <item>@string/element_transmission</item>
+        <item>@string/element_torque_turboboost</item>
+        <item>@string/element_tire</item>
+        <item>@string/element_VIN</item>
+        <item>@string/element_batteryVoltage</item>
+        <item>@string/element_soundVolume</item>
+        <item>@string/element_coolantTemperature</item>
+        <item>@string/element_wheelAngle</item>
+        <item>@string/element_wheel</item>
+        <item>@string/element_world</item>
+        <item>@string/element_yawRate</item>
+    </array>
+
+    <array name="thumbs_backgrounds">
+        <item>@drawable/thumb_background_incar_vw</item>
+        <item>@drawable/thumb_background_incar_vw2</item>
+        <item>@drawable/thumb_background_incar_vw3</item>
+        <item>@drawable/thumb_background_incar_vw_plaid</item>
+        <item>@drawable/thumb_background_incar_gtd</item>
+        <item>@drawable/thumb_background_incar_gte</item>
+        <item>@drawable/thumb_background_incar_black</item>
+        <item>@drawable/thumb_background_incar_blackboard</item>
+        <item>@drawable/thumb_background_incar_cloth</item>
+        <item>@drawable/thumb_background_incar_cupra</item>
+        <item>@drawable/thumb_background_incar_outrun</item>
+        <item>@drawable/thumb_background_incar_plain</item>
+        <item>@drawable/thumb_background_incar_seat</item>
+        <item>@drawable/thumb_background_incar_seat2</item>
+        <item>@drawable/thumb_background_incar_skoda</item>
+        <item>@drawable/thumb_background_incar_skoda2</item>
+        <item>@drawable/thumb_background_incar_skodaone</item>
+        <item>@drawable/thumb_background_incar_test</item>
+        <item>@drawable/thumb_background_incar_beetle</item>
+        <item>@drawable/thumb_background_incar_dots</item>
+        <item>@drawable/thumb_background_incar_aa</item>
+    </array>
+
+    <string-array name="backgroundstrings">
+        <item>@string/bg_vw</item>
+        <item>@string/bg_vw2</item>
+        <item>@string/bg_vw3</item>
+        <item>@string/bg_vwplaid</item>
+        <item>@string/bg_vwgtd</item>
+        <item>@string/bg_gte</item>
+        <item>@string/bg_black</item>
+        <item>@string/bg_blackboard</item>
+        <item>@string/bg_cloth</item>
+        <item>@string/bg_rock</item>
+        <item>@string/bg_outrun</item>
+        <item>@string/bg_plain</item>
+        <item>@string/bg_seat</item>
+        <item>@string/bg_seat2</item>
+        <item>@string/bg_skoda</item>
+        <item>@string/bg_skoda2</item>
+        <item>@string/bg_skodaone</item>
+        <item>@string/bg_test</item>
+        <item>@string/bg_beetle</item>
+        <item>@string/bg_dots</item>
+        <item>@string/bg_aa</item>
+    </string-array>
+
+    <array name="backgrounds">
+        <item>background_incar_vw</item>
+        <item>background_incar_vw2</item>
+        <item>background_incar_vw3</item>
+        <item>background_incar_vw_plaid</item>
+        <item>background_incar_vw_gtd</item>
+        <item>background_incar_gte</item>
+        <item>background_incar_black</item>
+        <item>background_incar_blackboard</item>
+        <item>background_incar_cloth</item>
+        <item>background_incar_cupra</item>
+        <item>background_incar_outrun</item>
+        <item>background_incar_plain</item>
+        <item>background_incar_seat</item>
+        <item>background_incar_seat2</item>
+        <item>background_incar_skoda</item>
+        <item>background_incar_skoda2</item>
+        <item>background_incar_skodaone</item>
+        <item>background_incar_test</item>
+        <item>background_incar_beetle</item>
+        <item>background_incar_dots</item>
+        <item>background_incar_aa</item>
+    </array>
+    <string-array name="minmax_enum_value">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
+    <string-array name="minmax_enum">
+        <item>@string/element_none</item>
+        <item>@string/min_value</item>
+        <item>@string/max_value</item>
+    </string-array>
+
+    <string-array name="ic_credits_items">
+        <item>Horse by Peleg Red from <a href="https://thenounproject.com/browse/icons/term/horse/" target="_blank" title="Horse Icons">Noun Project</a> (CC BY 3.0)</item>
+        <item>engine cylinder by Thuy Nguyen from <a href="https://thenounproject.com/browse/icons/term/engine-cylinder/" target="_blank" title="engine cylinder Icons">Noun Project</a> (CC BY 3.0)</item>
+        <item>transmission by Gustyne Pissesa Ardhaneswari from <a href="https://thenounproject.com/browse/icons/term/transmission/" target="_blank" title="transmission Icons">Noun Project</a> (CC BY 3.0)</item>
+    </string-array>
+
+
+</resources>
 
