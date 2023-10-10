@@ -38,4 +38,5 @@ message UserPreference {
   string selectedFont = 17;
   string selectedBackground = 18;
   bool rotaryInput = 20;
+  bool centerGaugeLarge = 21;
 }

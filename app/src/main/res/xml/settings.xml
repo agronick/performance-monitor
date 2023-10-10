@@ -13,6 +13,7 @@
             android:entryValues="@array/Themes"
             android:key="selectedTheme"
             android:title="@string/pref_theme"
+            android:persistent="false"
             app:entryImages="@array/ThemesThumbs" />
         <com.aatorque.prefs.ImageListPreference
             android:entries="@array/fontEntries"
@@ -20,12 +21,14 @@
             android:key="selectedFont"
             android:title="@string/pref_font"
             app:entryImages="@array/FontThumbs"
+            android:persistent="false"
             app:imageBackground="@color/white" />
         <com.aatorque.prefs.ImageListPreference
             android:entries="@array/backgroundstrings"
             android:entryValues="@array/backgrounds"
             app:entryImages="@array/thumbs_backgrounds"
             android:key="selectedBackground"
+            android:persistent="false"
             android:title="@string/pref_background" />
 
         <CheckBoxPreference
@@ -35,6 +38,7 @@
             android:key="centerGaugeLarge"
             android:summaryOff="@string/pref_shrink_gauge_off"
             android:summaryOn="@string/pref_shrink_gauge_on"
+            android:persistent="false"
             android:title="@string/pref_shrink_gauge" />
 
         <CheckBoxPreference
@@ -42,6 +46,7 @@
             android:key="rotaryInput"
             android:icon="@drawable/baseline_360_24"
             android:summary="@string/rotary_desc"
+            android:persistent="false"
             android:title="@string/rotary_input" />
 
 

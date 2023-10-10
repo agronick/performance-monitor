@@ -80,7 +80,7 @@ class TorqueData(val display: Display) {
             }
         } catch (ex: Exception) {
             when(ex) {
-                is BaseException, is NoSuchElementException -> {
+                is BaseException, is NoSuchElementException, is NumberFormatException -> {
                     Timber.e("Unable to parse", ex)
                     ex.printStackTrace()
                     "Error"

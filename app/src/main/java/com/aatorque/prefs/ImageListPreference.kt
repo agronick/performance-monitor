@@ -22,6 +22,7 @@ class ImageListPreference(
     context: Context,
     attrs: AttributeSet?
 ) : ListPreference(context, attrs) {
+    private var lastIconResource: Int? = null
 
     data class CustomListItem(
         val title: String,
@@ -98,7 +99,10 @@ class ImageListPreference(
             .setTitle(dialogTitle)
             .setView(lv)
             .setAdapter(adapter) { dialog, which ->
-                setValueIndex(items[which].origIndex)
+                val value = items[which].value
+                if (callChangeListener(value)) {
+                    setValue(value)
+                }
                 dialog.dismiss()
             }
             .setNegativeButton(android.R.string.cancel) { dialog, _ ->
@@ -107,17 +111,19 @@ class ImageListPreference(
             .create()
             .show()
     }
-
-    private var settingIcon = false
     override fun notifyChanged() {
-        if (settingIcon) return
         super.notifyChanged()
         val valIndex = entryValues.indexOf(value)
-        settingIcon = true
-        icon = if (valIndex == -1) null else AppCompatResources.getDrawable(
-            context,
-            iconResArray[valIndex]
-        )
-        settingIcon = false
+        if (valIndex == -1) {
+            lastIconResource = null
+            icon = null
+        } else {
+            iconResArray[valIndex].let {
+                if (it != lastIconResource) {
+                    lastIconResource = it
+                    icon = AppCompatResources.getDrawable(context, it)
+                }
+            }
+        }
     }
 }

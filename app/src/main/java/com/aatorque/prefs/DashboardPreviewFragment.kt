@@ -8,11 +8,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import androidx.annotation.StyleRes
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import com.aatorque.stats.DashboardFragment
 import com.aatorque.stats.R
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.runBlocking
 
 
 class DashboardPreviewFragment: DashboardFragment() {
@@ -25,9 +30,10 @@ class DashboardPreviewFragment: DashboardFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val preferences = getSharedPreferences()
-        val readedTheme: String? = preferences.getString("selectedTheme", "VW GTI")
-        inflater.context.setTheme(mapTheme(readedTheme))
+        val data = runBlocking {
+            requireContext().dataStore.data.first()
+        }
+        inflater.context.setTheme(mapTheme(data.selectedTheme))
         (requireActivity() as SettingsActivity).supportActionBar!!.hide()
         return super.onCreateView(inflater, container, savedInstanceState)
     }
@@ -90,7 +96,8 @@ class DashboardPreviewFragment: DashboardFragment() {
 
 }
 
-fun mapTheme(theme: String?): Int {
+@StyleRes
+fun mapTheme(theme: String?):  Int {
     return when (theme) {
         "VW GTI" -> R.style.AppTheme_VolkswagenGTI
         "VW R/GTE" -> R.style.AppTheme_VolkswagenGTE

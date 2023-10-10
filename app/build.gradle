@@ -114,6 +114,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.10"
     implementation 'com.ezylang:EvalEx:3.0.5'
 
+    implementation 'androidx.annotation:annotation:1.7.0'
     implementation "androidx.datastore:datastore:1.0.0"
     implementation  "com.google.protobuf:protobuf-javalite:3.22.3"
     implementation 'rongi.rotate-layout:rotate-layout:3.0.0'

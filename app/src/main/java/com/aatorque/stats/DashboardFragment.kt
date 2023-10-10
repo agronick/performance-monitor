@@ -2,8 +2,6 @@ package com.aatorque.stats
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
-import android.content.Context
-import android.content.SharedPreferences
 import android.graphics.Typeface
 import android.os.Bundle
 import timber.log.Timber
@@ -20,14 +18,21 @@ import androidx.fragment.app.FragmentContainerView
 import androidx.lifecycle.lifecycleScope
 import com.google.android.apps.auto.sdk.StatusBarController
 import com.aatorque.prefs.dataStore
+import com.aatorque.prefs.mapTheme
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.drop
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.skip
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import kotlin.math.abs
 
 
-open class DashboardFragment : CarFragment(), SharedPreferences.OnSharedPreferenceChangeListener {
+open class DashboardFragment : CarFragment() {
     lateinit var rootView: View
     lateinit var mLayoutDashboard: ConstraintLayout
+
     val torqueRefresher = TorqueRefresher()
     private val torqueService = TorqueService()
 
@@ -41,8 +46,6 @@ open class DashboardFragment : CarFragment(), SharedPreferences.OnSharedPreferen
     var displays = arrayOfNulls<TorqueDisplay>(4)
     var gaugeViews = arrayOfNulls<FragmentContainerView>(3)
 
-    private var selectedFont: String? = null
-    private var selectedBackground: String? = null
     private var screensAnimating = false
     private var mStarted = false
     protected open val layout = R.layout.fragment_dashboard
@@ -62,6 +65,7 @@ open class DashboardFragment : CarFragment(), SharedPreferences.OnSharedPreferen
     ): View? {
         Timber.i("onCreateView")
         val view = inflater.inflate(layout, container, false)
+
         rootView = view
 
         mLayoutDashboard = view.findViewById(R.id.layoutDashboard)
@@ -93,7 +97,7 @@ open class DashboardFragment : CarFragment(), SharedPreferences.OnSharedPreferen
         lifecycleScope.launch {
             requireContext().dataStore.data.map {
                 it.screensList[abs(it.currentScreen) % it.screensCount]
-            }.collect { screens ->
+            }.distinctUntilChanged().collect { screens ->
                 mTitleElement.text = screens.title
                 screens.gaugesList.forEachIndexed { index, display ->
                     if (torqueRefresher.hasChanged(index, display)) {
@@ -110,7 +114,34 @@ open class DashboardFragment : CarFragment(), SharedPreferences.OnSharedPreferen
                 torqueRefresher.makeExecutors(torqueService)
             }
         }
-        onSharedPreferenceChanged(getSharedPreferences(), "")
+        lifecycleScope.launch {
+            requireContext().dataStore.data.map {
+                it.selectedFont
+            }.distinctUntilChanged().collect(
+                this@DashboardFragment::setupTypeface
+            )
+        }
+        lifecycleScope.launch {
+            requireContext().dataStore.data.map {
+                it.selectedBackground
+            }.distinctUntilChanged().collect(
+                this@DashboardFragment::setupBackground
+            )
+        }
+        lifecycleScope.launch {
+            requireContext().dataStore.data.map {
+                it.rotaryInput
+            }.distinctUntilChanged().collect(
+                this@DashboardFragment::configureRotaryInput
+            )
+        }
+        lifecycleScope.launch {
+            requireContext().dataStore.data.map {
+                it.centerGaugeLarge
+            }.distinctUntilChanged().collect(
+                this@DashboardFragment::updateScale
+            )
+        }
     }
 
     fun setScreen(direction: Int) {
@@ -143,13 +174,6 @@ open class DashboardFragment : CarFragment(), SharedPreferences.OnSharedPreferen
                 }
             }
         })
-    }
-
-    fun getSharedPreferences(): SharedPreferences {
-        return requireContext().getSharedPreferences(
-            "${requireContext().packageName}_preferences",
-            Context.MODE_PRIVATE
-        )
     }
 
     override fun setupStatusBar(sc: StatusBarController) {
@@ -194,48 +218,6 @@ open class DashboardFragment : CarFragment(), SharedPreferences.OnSharedPreferen
         torqueService.requestQuit(requireContext())
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        getSharedPreferences().registerOnSharedPreferenceChangeListener(this)
-    }
-
-
-    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String?) {
-        if (context == null) return
-
-        configureRotaryInput(sharedPreferences.getBoolean("rotaryInput", false))
-
-        val readedFont = sharedPreferences.getString("selectedFont", "segments")
-
-        if (readedFont != selectedFont && readedFont != null) {
-            selectedFont = readedFont
-            val assetsMgr = requireContext().assets
-            var typeface = Typeface.createFromAsset(assetsMgr, "digital.ttf")
-            when (selectedFont) {
-                "segments" -> typeface = Typeface.createFromAsset(assetsMgr, "digital.ttf")
-                "seat" -> typeface =
-                    Typeface.createFromAsset(assetsMgr, "SEAT_MetaStyle_MonoDigit_Regular.ttf")
-
-                "audi" -> typeface = Typeface.createFromAsset(assetsMgr, "AudiTypeDisplayHigh.ttf")
-                "vw" -> typeface = Typeface.createFromAsset(assetsMgr, "VWTextCarUI-Regular.ttf")
-                "vw2" -> typeface = Typeface.createFromAsset(assetsMgr, "VWThesis_MIB_Regular.ttf")
-                "frutiger" -> typeface = Typeface.createFromAsset(assetsMgr, "Frutiger.otf")
-                "vw3" -> typeface = Typeface.createFromAsset(assetsMgr, "VW_Digit_Reg.otf")
-                "skoda" -> typeface = Typeface.createFromAsset(assetsMgr, "Skoda.ttf")
-                "larabie" -> typeface = Typeface.createFromAsset(assetsMgr, "Larabie.ttf")
-                "ford" -> typeface = Typeface.createFromAsset(assetsMgr, "UnitedSans.otf")
-            }
-            setupTypeface(typeface)
-        }
-
-        val readedBackground =
-            sharedPreferences.getString("selectedBackground", "background_incar_black")
-        if (readedBackground != selectedBackground) {
-            setupBackground(readedBackground)
-        }
-        updateScale(sharedPreferences.getBoolean("centerGaugeLarge", false))
-    }
-
     private fun updateScale(largeCenter: Boolean) {
         val scaleFactor = if (largeCenter) resources.getFraction(R.fraction.scale_gauge, 1, 1) else 1f
         gaugeViews[0]!!.scaleX = scaleFactor
@@ -264,7 +246,6 @@ open class DashboardFragment : CarFragment(), SharedPreferences.OnSharedPreferen
             val wallpaperImage = ContextCompat.getDrawable(requireContext(), resId)
             mLayoutDashboard.background = wallpaperImage
         }
-        selectedBackground = newBackground
     }
 
     fun configureRotaryInput(enabled: Boolean) {
@@ -289,7 +270,22 @@ open class DashboardFragment : CarFragment(), SharedPreferences.OnSharedPreferen
         }
     }
 
-    protected fun setupTypeface(typeface: Typeface) {
+    fun setupTypeface(selectedFont: String) {
+        val assetsMgr = requireContext().assets
+        Timber.d("font: $selectedFont")
+        var typeface = Typeface.createFromAsset(assetsMgr, when (selectedFont) {
+            "segments" -> "digital.ttf"
+            "seat" -> "SEAT_MetaStyle_MonoDigit_Regular.ttf"
+            "audi" -> "AudiTypeDisplayHigh.ttf"
+            "vw" -> "VWTextCarUI-Regular.ttf"
+            "vw2" -> "VWThesis_MIB_Regular.ttf"
+            "frutiger" -> "Frutiger.otf"
+            "vw3" -> "VW_Digit_Reg.otf"
+            "skoda" -> "Skoda.ttf"
+            "larabie" -> "Larabie.ttf"
+            "ford" -> "UnitedSans.otf"
+            else -> "digital.ttf"
+        })
         for (gauge in guages) {
             gauge?.setupTypeface(typeface)
         }
@@ -297,6 +293,5 @@ open class DashboardFragment : CarFragment(), SharedPreferences.OnSharedPreferen
             display?.setupTypeface(typeface)
         }
         mTitleElement.typeface = typeface
-        Timber.d("font: $typeface")
     }
 }
