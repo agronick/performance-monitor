@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <FrameLayout android:id="@+id/fragment_container"
+<FrameLayout android:id="@+id/fragment_container"
     android:background="?attr/themedCarBackground"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:fitsSystemWindows="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="false"
+    android:layout_gravity="center"
+    android:layout_weight="1"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <include layout="@layout/fragment_dashboard" />
+    <com.github.rongi.rotate_layout.layout.RotateLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:angle="-90">
+        <include layout="@layout/fragment_dashboard" />
+    </com.github.rongi.rotate_layout.layout.RotateLayout>
 
 </FrameLayout>

@@ -116,6 +116,7 @@ dependencies {
 
     implementation "androidx.datastore:datastore:1.0.0"
     implementation  "com.google.protobuf:protobuf-javalite:3.22.3"
+    implementation 'rongi.rotate-layout:rotate-layout:3.0.0'
    // implementation 'com.google.dagger:hilt-android:2.48'
   //  kapt 'com.google.dagger:hilt-compiler:2.48'
     implementation "ch.acra:acra-mail:$acraVersion"

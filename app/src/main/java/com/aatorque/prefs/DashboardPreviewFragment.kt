@@ -1,20 +1,18 @@
 package com.aatorque.prefs
 
 import android.content.pm.ActivityInfo
-import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowInsets
-import android.view.WindowInsetsController
-import android.view.WindowManager
-import androidx.lifecycle.lifecycleScope
+import android.widget.FrameLayout
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import com.aatorque.stats.DashboardFragment
 import com.aatorque.stats.R
-import kotlinx.coroutines.launch
 
 
 class DashboardPreviewFragment: DashboardFragment() {
@@ -51,7 +49,7 @@ class DashboardPreviewFragment: DashboardFragment() {
 
     fun forceRotate(isOn: Boolean) {
         requireActivity().requestedOrientation = if(isOn) {
-            ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+            ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         } else {
             ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
         }
@@ -61,10 +59,13 @@ class DashboardPreviewFragment: DashboardFragment() {
         super.onResume()
         (requireActivity() as SettingsActivity).supportActionBar!!.hide()
         forceRotate(true)
-        requireActivity().window.setFlags(
-            WindowManager.LayoutParams.FLAG_FULLSCREEN,
-            WindowManager.LayoutParams.FLAG_FULLSCREEN
+        val window = requireActivity().window
+        WindowCompat.setDecorFitsSystemWindows(window, false);
+        WindowInsetsControllerCompat(window, window.decorView).hide(
+            WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.statusBars()
         )
+        WindowCompat.getInsetsController(window, window.decorView).systemBarsBehavior =
+            WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
         if (firstRun) {
             // Force needles to redraw
             handler.postDelayed({
@@ -85,7 +86,6 @@ class DashboardPreviewFragment: DashboardFragment() {
         super.onPause()
         (requireActivity() as SettingsActivity).supportActionBar!!.show()
         forceRotate(false)
-        requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
     }
 
 }

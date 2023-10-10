@@ -26,13 +26,14 @@ import kotlin.math.abs
 
 
 open class DashboardFragment : CarFragment(), SharedPreferences.OnSharedPreferenceChangeListener {
-    private var rootView: View? = null
+    lateinit var rootView: View
+    lateinit var mLayoutDashboard: ConstraintLayout
     val torqueRefresher = TorqueRefresher()
     private val torqueService = TorqueService()
 
-    private var mBtnNext: ImageButton? = null
-    private var mBtnPrev: ImageButton? = null
-    private var mTitleElement: TextView? = null
+    private lateinit var mBtnNext: ImageButton
+    private lateinit var mBtnPrev: ImageButton
+    private lateinit var mTitleElement: TextView
     private lateinit var mWrapper: ConstraintLayout
     lateinit var mConStatus: TextView
 
@@ -63,10 +64,11 @@ open class DashboardFragment : CarFragment(), SharedPreferences.OnSharedPreferen
         val view = inflater.inflate(layout, container, false)
         rootView = view
 
+        mLayoutDashboard = view.findViewById(R.id.layoutDashboard)
         mBtnNext = view.findViewById(R.id.imageButton2)
         mBtnPrev = view.findViewById(R.id.imageButton3)
-        mBtnNext!!.setOnClickListener { setScreen(1) }
-        mBtnPrev!!.setOnClickListener  { setScreen(-1) }
+        mBtnNext.setOnClickListener { setScreen(1) }
+        mBtnPrev.setOnClickListener  { setScreen(-1) }
         mTitleElement = view.findViewById(R.id.textTitle)
         mWrapper = view.findViewById(R.id.include_wrap)
         mConStatus = view.findViewById(R.id.con_status)
@@ -260,16 +262,16 @@ open class DashboardFragment : CarFragment(), SharedPreferences.OnSharedPreferen
         val resId = resources.getIdentifier(newBackground, "drawable", requireContext().packageName)
         if (resId != 0) {
             val wallpaperImage = ContextCompat.getDrawable(requireContext(), resId)
-            rootView!!.background = wallpaperImage
+            mLayoutDashboard.background = wallpaperImage
         }
         selectedBackground = newBackground
     }
 
     fun configureRotaryInput(enabled: Boolean) {
         if (enabled) {
-            mBtnPrev?.visibility = View.INVISIBLE
-            mBtnNext?.visibility = View.INVISIBLE
-            rootView!!.setOnGenericMotionListener { _, ev ->
+            mBtnPrev.visibility = View.INVISIBLE
+            mBtnNext.visibility = View.INVISIBLE
+            rootView.setOnGenericMotionListener { _, ev ->
                 if (ev.action == MotionEvent.ACTION_SCROLL &&
                     ev.isFromSource(InputDeviceCompat.SOURCE_MOUSE)
                 ) {
@@ -281,20 +283,20 @@ open class DashboardFragment : CarFragment(), SharedPreferences.OnSharedPreferen
                 }
             }
         } else {
-            mBtnPrev?.visibility = View.VISIBLE
-            mBtnNext?.visibility = View.VISIBLE
-            rootView?.setOnGenericMotionListener(null)
+            mBtnPrev.visibility = View.VISIBLE
+            mBtnNext.visibility = View.VISIBLE
+            rootView.setOnGenericMotionListener(null)
         }
     }
 
-    fun setupTypeface(typeface: Typeface) {
+    protected fun setupTypeface(typeface: Typeface) {
         for (gauge in guages) {
             gauge?.setupTypeface(typeface)
         }
         for (display in displays) {
             display?.setupTypeface(typeface)
         }
-        mTitleElement!!.typeface = typeface
+        mTitleElement.typeface = typeface
         Timber.d("font: $typeface")
     }
 }
