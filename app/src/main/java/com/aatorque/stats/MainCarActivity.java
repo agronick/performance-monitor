@@ -1,10 +1,11 @@
 package com.aatorque.stats;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
-import android.preference.PreferenceManager;
+
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -19,6 +20,8 @@ import static android.view.View.SYSTEM_UI_FLAG_FULLSCREEN;
 import static android.view.View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
 import static android.view.View.SYSTEM_UI_FLAG_IMMERSIVE;
 import static android.view.View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
+
+import static com.aatorque.prefs.DashboardPreviewFragmentKt.mapTheme;
 
 import java.util.Objects;
 
@@ -143,7 +146,7 @@ public class MainCarActivity extends CarActivity{
         super.onCreate(bundle);
         setLocalTheme("VW GTI");
         setContentView(R.layout.activity_car_main);
-        preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        preferences = getSharedPreferences(getPackageName() + "_preferences", Context.MODE_PRIVATE);
         preferenceChangeHandler();
 /*
         CarUiController carUiController = getCarUiController();
@@ -236,77 +239,7 @@ public class MainCarActivity extends CarActivity{
     }
 
     private void setLocalTheme(String theme) {
-
-        switch (theme) {
-            case "VW GTI":
-                setTheme(R.style.AppTheme_VolkswagenGTI);
-                break;
-            case "VW R/GTE":
-                setTheme(R.style.AppTheme_VolkswagenGTE);
-                break;
-            case "VW":
-                setTheme(R.style.AppTheme_Volkswagen);
-                break;
-            case "VW MIB2":
-                setTheme(R.style.AppTheme_VolkswagenMIB2);
-                break;
-            case "VW AID":
-                setTheme(R.style.AppTheme_VolkswagenAID);
-                break;
-            case "Seat Cupra":
-                setTheme(R.style.AppTheme_SeatCupra);
-                break;
-            case "Cupra Division":
-                setTheme(R.style.AppTheme_Cupra);
-                break;
-            case "Audi TT":
-                setTheme(R.style.AppTheme_AudiTT);
-                break;
-            case "Seat":
-                setTheme(R.style.AppTheme_Seat);
-                break;
-            case "Skoda":
-                setTheme(R.style.AppTheme_Skoda);
-                break;
-            case "Skoda ONE":
-                setTheme(R.style.AppTheme_SkodaOneApp);
-                break;
-            case "Skoda vRS":
-                setTheme(R.style.AppTheme_SkodavRS);
-                break;
-            case "Skoda Virtual Cockpit":
-                setTheme(R.style.AppTheme_SkodaVC);
-                break;
-            case "Audi":
-                setTheme(R.style.AppTheme_Audi);
-                break;
-            case "Audi Virtual Cockpit":
-                setTheme(R.style.AppTheme_AudiVC);
-                break;
-            case "Clubsport":
-                setTheme(R.style.AppTheme_Clubsport);
-                break;
-            case "Minimalistic":
-                setTheme(R.style.AppTheme_Minimalistic);
-                break;
-            case "Test":
-                setTheme(R.style.AppTheme_Testing);
-                break;
-            case "Dark":
-                setTheme(R.style.AppTheme_Dark);
-                break;
-            case "Mustang GT":
-                setTheme(R.style.AppTheme_Ford);
-                break;
-            case "BMW":
-                setTheme(R.style.AppTheme_BMW);
-                break;
-
-            default:
-                // set default theme:
-                setTheme(R.style.AppTheme_VolkswagenMIB2);
-                break;
-        }
+        setTheme(mapTheme(theme));
     }
 
     private void switchToFragment(String tag) {

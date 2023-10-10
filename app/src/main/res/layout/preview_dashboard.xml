@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <FrameLayout android:id="@+id/fragment_container"
+    android:background="?attr/themedCarBackground"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fitsSystemWindows="true"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <include layout="@layout/fragment_dashboard" />
+
+</FrameLayout>

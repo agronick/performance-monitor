@@ -83,7 +83,6 @@ class SettingsPIDFragment:  PreferenceFragmentCompat() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        retainInstance = true
         val parts = requireArguments().getCharSequence("prefix")?.split("_")
         assert(parts!!.size == 3)
         isClock = parts[0] == "clock"

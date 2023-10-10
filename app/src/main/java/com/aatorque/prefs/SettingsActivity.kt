@@ -20,6 +20,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.core.text.isDigitsOnly
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.Preference
@@ -35,8 +36,6 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import org.json.JSONException
 import org.json.JSONObject
-import java.io.ByteArrayOutputStream
-import java.io.File
 import java.net.ConnectException
 import java.net.HttpURLConnection
 import java.net.URL
@@ -47,6 +46,8 @@ import javax.net.ssl.SSLPeerUnverifiedException
 
 class SettingsActivity : AppCompatActivity(),
     PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
+
+    private lateinit var toolbar: Toolbar
 
     val br: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
@@ -59,7 +60,7 @@ class SettingsActivity : AppCompatActivity(),
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
-        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
         if (savedInstanceState == null) {
             supportFragmentManager
@@ -81,6 +82,11 @@ class SettingsActivity : AppCompatActivity(),
     override fun onOptionsItemSelected(item: android.view.MenuItem): Boolean {
         // Handle item selection
         return when (item.itemId) {
+            R.id.action_preview -> {
+                launchFragment("preview", DashboardPreviewFragment())
+                true
+            }
+
             R.id.action_export_dashboards -> {
                 // Export the file to a user provided location
                 exportFile()
@@ -98,7 +104,7 @@ class SettingsActivity : AppCompatActivity(),
             }
 
             R.id.action_credits -> {
-                showCredits()
+                launchFragment("credits", CreditsFragment())
                 true
             }
 
@@ -114,10 +120,16 @@ class SettingsActivity : AppCompatActivity(),
         exportFileLauncher.launch("")
     }
 
-    private fun showCredits() {
+    private fun launchFragment(
+        tag: String,
+        fragment: Fragment
+    ) {
         supportFragmentManager.beginTransaction()
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-            .replace(R.id.settings_fragment, CreditsFragment())
+            .replace(
+                R.id.settings_fragment,
+                supportFragmentManager.findFragmentByTag(tag) ?: fragment,
+            )
             .addToBackStack(null)
             .commit()
     }

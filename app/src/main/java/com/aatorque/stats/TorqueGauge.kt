@@ -1,14 +1,15 @@
 package com.aatorque.stats
 
+import android.content.res.Configuration
+import android.content.res.Resources.NotFoundException
 import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
-import timber.log.Timber
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.appcompat.content.res.AppCompatResources
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.graphics.BlendModeColorFilterCompat
 import androidx.core.graphics.BlendModeCompat
@@ -19,15 +20,15 @@ import com.github.anastr.speedviewlib.RaySpeedometer
 import com.github.anastr.speedviewlib.Speedometer
 import com.github.anastr.speedviewlib.components.Indicators.ImageIndicator
 import com.github.anastr.speedviewlib.components.Indicators.Indicator
-import android.content.res.Resources.NotFoundException
+import timber.log.Timber
 import java.util.Locale
 
 
 class TorqueGauge : Fragment(){
 
     private var rootView: View? = null
-    private var mClock: Speedometer? = null
-    private var mRayClock: RaySpeedometer? = null
+    var mClock: Speedometer? = null
+    var mRayClock: RaySpeedometer? = null
     private var mGraphValue: TextView? = null
     private var mTextMax: TextView? = null
     private var mTextTitle: TextView? = null
@@ -56,6 +57,12 @@ class TorqueGauge : Fragment(){
         mMax?.indicatorColor = resources.getColor(R.color.red, null)
         rootView = view
         return rootView
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        mClock?.invalidate()
+        mRayClock?.invalidate()
     }
 
     fun setupTypeface(typeface: Typeface) {

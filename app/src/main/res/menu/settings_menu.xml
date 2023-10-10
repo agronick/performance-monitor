@@ -2,19 +2,28 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/action_preview"
+        android:title="@string/action_preview"
+        android:icon="@drawable/baseline_preview_24"
+        app:showAsAction="ifRoom"/>
+    <item
         android:id="@+id/action_export_dashboards"
         android:title="@string/export_dashboards"
-        app:showAsAction="never"/>
+        app:showAsAction="never"
+        android:icon="@drawable/baseline_export"/>
     <item
         android:id="@+id/action_import_dashboards"
         android:title="@string/import_dashboards"
-        app:showAsAction="never"/>
+        app:showAsAction="never"
+        android:icon="@drawable/baseline_file_download_24"/>
     <item
         android:id="@+id/action_copy_logs"
         android:title="@string/copy_logs"
-        app:showAsAction="never"/>
+        app:showAsAction="never"
+        android:icon="@drawable/baseline_content_copy_24"/>
     <item
         android:id="@+id/action_credits"
         android:title="@string/activity_credits_title"
-        app:showAsAction="never"/>
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/baseline_info_24"/>
 </menu>

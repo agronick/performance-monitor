@@ -16,23 +16,18 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.InputDeviceCompat
-import androidx.core.view.marginEnd
-import androidx.core.view.marginRight
 import androidx.fragment.app.FragmentContainerView
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.withStateAtLeast
 import com.google.android.apps.auto.sdk.StatusBarController
 import com.aatorque.prefs.dataStore
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
-import java.util.Timer
 import kotlin.math.abs
 
 
-class DashboardFragment : CarFragment(), SharedPreferences.OnSharedPreferenceChangeListener {
+open class DashboardFragment : CarFragment(), SharedPreferences.OnSharedPreferenceChangeListener {
     private var rootView: View? = null
-    private val torqueRefresher = TorqueRefresher()
+    val torqueRefresher = TorqueRefresher()
     private val torqueService = TorqueService()
 
     private var mBtnNext: ImageButton? = null
@@ -41,14 +36,15 @@ class DashboardFragment : CarFragment(), SharedPreferences.OnSharedPreferenceCha
     private lateinit var mWrapper: ConstraintLayout
     lateinit var mConStatus: TextView
 
-    private var guages = arrayOfNulls<TorqueGauge>(3)
-    private var displays = arrayOfNulls<TorqueDisplay>(4)
-    private var gaugeViews = arrayOfNulls<FragmentContainerView>(3)
+    var guages = arrayOfNulls<TorqueGauge>(3)
+    var displays = arrayOfNulls<TorqueDisplay>(4)
+    var gaugeViews = arrayOfNulls<FragmentContainerView>(3)
 
     private var selectedFont: String? = null
     private var selectedBackground: String? = null
     private var screensAnimating = false
     private var mStarted = false
+    protected open val layout = R.layout.fragment_dashboard
 
     companion object {
         const val DISPLAY_OFFSET = 3
@@ -64,7 +60,7 @@ class DashboardFragment : CarFragment(), SharedPreferences.OnSharedPreferenceCha
         savedInstanceState: Bundle?
     ): View? {
         Timber.i("onCreateView")
-        val view = inflater.inflate(R.layout.fragment_dashboard, container, false)
+        val view = inflater.inflate(layout, container, false)
         rootView = view
 
         mBtnNext = view.findViewById(R.id.imageButton2)
@@ -92,28 +88,21 @@ class DashboardFragment : CarFragment(), SharedPreferences.OnSharedPreferenceCha
 
     override fun onStart() {
         super.onStart()
-        mStarted = true
         lifecycleScope.launch {
             requireContext().dataStore.data.map {
                 it.screensList[abs(it.currentScreen) % it.screensCount]
             }.collect { screens ->
-                if (mStarted) {
-                    mTitleElement?.text = screens.title
-                }
+                mTitleElement?.text = screens.title
                 screens.gaugesList.forEachIndexed { index, display ->
                     if (torqueRefresher.hasChanged(index, display)) {
                         val clock = torqueRefresher.populateQuery(index, display)
-                        if (mStarted) {
-                            guages[index]?.setupClock(clock)
-                        }
+                        guages[index]?.setupClock(clock)
                     }
                 }
                 screens.displaysList.forEachIndexed { index, display ->
                     if (torqueRefresher.hasChanged(index + DISPLAY_OFFSET, display)) {
                         val td = torqueRefresher.populateQuery(index + DISPLAY_OFFSET, display)
-                        if (mStarted) {
-                            displays[index]?.setupElement(td)
-                        }
+                        displays[index]?.setupElement(td)
                     }
                 }
                 torqueRefresher.makeExecutors(torqueService)
@@ -209,7 +198,7 @@ class DashboardFragment : CarFragment(), SharedPreferences.OnSharedPreferenceCha
     }
 
 
-    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {
+    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String?) {
         if (context == null) return
 
         configureRotaryInput(sharedPreferences.getBoolean("rotaryInput", false))
@@ -276,7 +265,7 @@ class DashboardFragment : CarFragment(), SharedPreferences.OnSharedPreferenceCha
         selectedBackground = newBackground
     }
 
-    private fun configureRotaryInput(enabled: Boolean) {
+    fun configureRotaryInput(enabled: Boolean) {
         if (enabled) {
             mBtnPrev?.visibility = View.INVISIBLE
             mBtnNext?.visibility = View.INVISIBLE
@@ -308,6 +297,4 @@ class DashboardFragment : CarFragment(), SharedPreferences.OnSharedPreferenceCha
         mTitleElement!!.typeface = typeface
         Timber.d("font: $typeface")
     }
-
-
 }
