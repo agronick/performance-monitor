@@ -19,12 +19,12 @@ class CreditsFragment : Fragment() {
     ): View? {
         Timber.i("onCreateView")
         val view = inflater.inflate(R.layout.fragment_credits, container, false)
-        view.findViewById<View>(R.id.githubBtn).setOnClickListener { v: View? ->
+        view.findViewById<View>(R.id.githubBtn).setOnClickListener { _: View? ->
             val intent =
                 Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/agronick/aa-torque"))
             startActivity(intent)
         }
-        view.findViewById<View>(R.id.donateBtn).setOnClickListener { v: View? ->
+        view.findViewById<View>(R.id.donateBtn).setOnClickListener { _: View? ->
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.paypal.me/kagronick"))
             startActivity(intent)
         }

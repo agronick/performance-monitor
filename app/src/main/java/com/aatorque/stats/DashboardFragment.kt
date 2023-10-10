@@ -94,7 +94,7 @@ open class DashboardFragment : CarFragment(), SharedPreferences.OnSharedPreferen
             requireContext().dataStore.data.map {
                 it.screensList[abs(it.currentScreen) % it.screensCount]
             }.collect { screens ->
-                mTitleElement?.text = screens.title
+                mTitleElement.text = screens.title
                 screens.gaugesList.forEachIndexed { index, display ->
                     if (torqueRefresher.hasChanged(index, display)) {
                         val clock = torqueRefresher.populateQuery(index, display)
@@ -117,8 +117,8 @@ open class DashboardFragment : CarFragment(), SharedPreferences.OnSharedPreferen
         if (screensAnimating) return
         screensAnimating = true
         val duration = resources.getInteger(android.R.integer.config_shortAnimTime).toLong()
-        mTitleElement!!.animate().alpha(0f).duration = duration
-        mWrapper.animate()!!.translationX((rootView!!.width * -direction).toFloat()).setDuration(
+        mTitleElement.animate().alpha(0f).duration = duration
+        mWrapper.animate()!!.translationX((rootView.width * -direction).toFloat()).setDuration(
             duration
         ).alpha(0f).setListener(object : AnimatorListenerAdapter() {
             override fun onAnimationEnd(animation: Animator) {
@@ -132,14 +132,14 @@ open class DashboardFragment : CarFragment(), SharedPreferences.OnSharedPreferen
                                     ) % currentSettings.screensCount
                         ).build()
                     }
-                    mWrapper.translationX = (rootView!!.width * direction).toFloat()
+                    mWrapper.translationX = (rootView.width * direction).toFloat()
                     mWrapper.alpha = 1f
                     mWrapper.animate().setListener(object : AnimatorListenerAdapter() {
                         override fun onAnimationEnd(animation: Animator) {
                             screensAnimating = false
                         }
                     }).translationX(0f).duration = duration
-                    mTitleElement!!.animate().alpha(1f).duration = duration
+                    mTitleElement.animate().alpha(1f).duration = duration
                 }
             }
         })
