@@ -2,15 +2,15 @@
 
 
     <string name="activity_credits_title">Crediti</string>
-    <string name="activity_main_title">Performance Monitor</string>
-    <string name="activity_settings_title">Impostazioni AA Torque</string>
+    <string name="activity_main_title">AA Torque</string>
+    <string name="activity_settings_title">Impostazioni</string>
     <string name="activity_stopwatch_title">Cronometro</string>
 
     <string name="app_car_service_name">AA Torque</string>
     <string name="app_name">AA Torque</string>
 
-    <string name="credits_author">Basato sull\'app creata da:</string>
-    <string name="credits_basedon">Basato su SDK e sull\'app demo di:</string>
+    <string name="credits_author">Basata sull\'app creata da:</string>
+    <string name="credits_basedon">Basata su SDK e app demo di:</string>
     <string name="credits_drivesafely">Guida con prudenza!</string>
     <string name="credits_thanks">Ringraziamenti speciali a:</string>
 
@@ -24,16 +24,16 @@
     <string name="element_navAltitude">Altitudine</string>
     <string name="element_navHeading">Heading</string>
     <string name="element_cylinder">Cilindro motore</string>
-    <string name="element_horsepower">Cavalli vapore</string>
+    <string name="element_horsepower">Potenza</string>
     <string name="element_none">Nessuno</string>
     <string name="element_odometer">Odometro</string>
     <string name="element_oilTemperature">Temperatura olio motore</string>
     <string name="element_outsideTemperature">Temperatura esterna</string>
-    <string name="element_soundVolume">Volume suono</string>
+    <string name="element_soundVolume">Volume avviso</string>
     <string name="element_wheelAngle">Angolo volante</string>
-    <string name="element_wheel">Volante</string>
+    <string name="element_wheel">Ruota</string>
     <string name="element_world">Mondo</string>
-    <string name="element_yawRate">Tasso imbardata</string>
+    <string name="element_yawRate">Imbardata</string>
     <string name="element_cac">Raffreddamento</string>
     <string name="element_distance">Distanza</string>
     <string name="element_ecoaverage">Media Eco</string>
@@ -63,22 +63,22 @@
     <string name="pref_centerclock">Indicatore centrale</string>
     <string name="pref_font">Carattere</string>
     <string name="pref_highlow">Valori più alti</string>
-    <string name="pref_highlowmarks">Segna i valori più alti nell\'indicatore</string>
+    <string name="pref_highlowmarks">Mostra i valori più alti nell\'indicatore</string>
     <string name="pref_highvis">Lancetta ad alta visibilità</string>
     <string name="pref_highvis_off">Mostra lancetta nell\'indicatore</string>
     <string name="pref_highvis_on">Mostra un raggio ad alta visibilità al posto della lancetta</string>
     <string name="pref_leftclock">Indicatore sinistro</string>
     <string name="pref_rightclock">Indicatore destro</string>
     <string name="pref_theme">Tema</string>
-    <string name="pref_ticks">Tick values</string>
-    <string name="pref_ticks_off">Don\'t display value of ticks</string>
-    <string name="pref_ticks_on">Display value of ticks</string>
-    <string name="pref_view1">Vista 1</string>
-    <string name="pref_view2">Vista 2</string>
-    <string name="pref_view3">Vista 3</string>
-    <string name="pref_view4">Vista 4</string>
+    <string name="pref_ticks">Valori sugli indicatori</string>
+    <string name="pref_ticks_off">Nascondi i valori sugli indicatori</string>
+    <string name="pref_ticks_on">Mostra i valori sugli indicatori</string>
+    <string name="pref_view1">Vista 1 (in alto a sx)</string>
+    <string name="pref_view2">Vista 2 (in alto a dx)</string>
+    <string name="pref_view3">Vista 3 (in basso a sx)</string>
+    <string name="pref_view4">Vista 4 (in basso a dx)</string>
 
-    <string name="element_torque_fuelpressure">Pressione carburanteFuel pressure</string>
+    <string name="element_torque_fuelpressure">Pressione carburante</string>
     <string name="element_torque_engineload">Carico motore</string>
     <string name="element_torque_timing_advance">Timing advance</string>
     <string name="element_transmission">Trasmissione</string>
@@ -87,7 +87,7 @@
 
     <string name="element_torque_phonebatterylevel">Batteria telefono</string>
     <string name="element_torque_phonebarometer">Barometro telefono</string>
-    <string name="element_torque_intakemanifoldpressure">Intake manifold</string>
+    <string name="element_torque_intakemanifoldpressure">Collettore aspirazione</string>
     <string name="element_torque_catalysttemperature">Catalizzatore</string>
     <string name="element_torque_fuellevel">Livello carburante</string>
     <string name="element_barometer">Barometro</string>
@@ -102,7 +102,7 @@
     <string name="bg_cloth">Tessuto</string>
     <string name="bg_rock">Roccia</string>
     <string name="bg_outrun">Outrun</string>
-    <string name="bg_plain">Pianura</string>
+    <string name="bg_plain">Semplice</string>
     <string name="bg_seat">Linee</string>
     <string name="bg_seat2">Griglia scura</string>
     <string name="bg_skoda">Columbus</string>
@@ -135,9 +135,9 @@
     <string name="enable_script">Esegui conversione unità</string>
     <string name="enable_script_desc">Esegui la formula sull\'output</string>
     <string name="custom_script">Conversione unità</string>
-    <string name="custom_script_desc">Run an EvalEx expression. Use "a" to represent the current value</string>
+    <string name="custom_script_desc">Esegui espressione EvalEx. Usa "a" per il valore currente</string>
     <string name="formulas">Formule</string>
-    <string name="custom_expression">Espressione custom</string>
+    <string name="custom_expression">Espressione personalizzata</string>
     <string name="status_connecting_torque">Connessione a Torque…</string>
     <string name="status_connecting_to_ecu">Connessione a ECU…</string>
     <string name="credits_modifications">Con modifiche di:</string>
@@ -149,7 +149,7 @@
     <string name="whole_numbers">Numeri interi</string>
     <string name="whole_numbers_desc">Mostra senza valori decimali</string>
     <string name="gauge_settings">Impostazioni indicatore</string>
-    <string name="show_label_desc">"Nella maggior parte dei casi si desidera mostrare un'icona, ma è possibile mostrare un'etichetta se non è disponibile un'icona che corrisponda al PID."</string>
+    <string name="show_label_desc">"Normalmente è preferibile usare un'icona, ma si può usare un'etichetta se non è disponibile un'icona corrispondente al PID."</string>
     <string name="show_label_desc_clock">Mostra etichetta sopra indicatore</string>
     <string name="icon_null_desc">Seleziona icona per rappresentare la metrica</string>
     <string name="pref_shrink_gauge">Indicatore centrale grande</string>
@@ -157,22 +157,22 @@
     <string name="pref_shrink_gauge_on">Enfatizza indicatore centrale</string>
     <string name="new_version">Nuova versione disponibile</string>
     <string name="download">Scarica</string>
-    <string name="download_instructions">Update downloading. Install with Kingstaller.</string>
+    <string name="download_instructions">Scarico aggiornamento. Installa con Kingstaller.</string>
     <string name="expressionDocumentation">Visualizza la documentazione</string>
     <string name="copy_logs">Copia registri negli appunti</string>
     <string name="status_setup_gauges">Configura indicatori nelle impostazioni</string>
 
-    <string name="convert_f_to_c">Fahrenheit a Celsius</string>
-    <string name="convert_c_to_f">Celsius a Fahrenheit</string>
+    <string name="convert_f_to_c">Fahrenheit in Celsius</string>
+    <string name="convert_c_to_f">Celsius in Fahrenheit</string>
     <string name="convert_bar_psi">Converti BAR in PSI</string>
     <string name="convert_psi_bar">Converti PSI in BAR</string>
-    <string name="convert_km_to_miles">Chilometri a Miglia</string>
+    <string name="convert_km_to_miles">Chilometri in Miglia</string>
     <string name="boolean_logic">Logica Booleana</string>
-    <string name="convert_newton_ft_lb">Newton Meters to Foot-pounds</string>
-    <string name="convert_cc_min_gal_hour">CC per minuto a Galloni Ora</string>
+    <string name="convert_newton_ft_lb">Newton Metri in Piedi-libbre</string>
+    <string name="convert_cc_min_gal_hour">CC per minuto in Galloni Ora</string>
     <string name="convert_liter_100_km">Litri 100/km in Miglia per Gallone</string>
     <string name="convert_kpa_psi">Kilopascal (kPa) in (PSI)</string>
-    <string name="download_complete">Download Complete</string>
+    <string name="download_complete">Download completato</string>
 
     <string name="icon_credits">Crediti icone</string>
 </resources>
