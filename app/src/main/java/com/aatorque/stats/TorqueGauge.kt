@@ -72,7 +72,7 @@ class TorqueGauge : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val state = savedInstanceState ?: Bundle()
         mMax.indicator = TriangleIndicator(requireContext())
-        mMax.indicator.color = requireContext().theme.obtainStyledAttributes(intArrayOf(R.attr.themedNeedleColor)).getColor(0, R.color.red)
+        mMax.indicator.color = requireContext().theme.obtainStyledAttributes(intArrayOf(R.attr.themedNeedleColor)).getColor(0, Color.RED)
         setMinMax(
             state.getFloat("minValue", 0f).toInt(),
             state.getFloat("maxValue", 100f).toInt()
