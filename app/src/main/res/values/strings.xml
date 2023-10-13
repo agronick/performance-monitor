@@ -153,7 +153,7 @@
     <string name="pref_shrink_gauge_on">Emphasise center gauge</string>
     <string name="new_version">A new version is available</string>
     <string name="download">Download</string>
-    <string name="download_instructions">Update downloading. Install with Kingstaller.</string>
+    <string name="download_instructions">Update downloading</string>
     <string name="expressionDocumentation">View Documentation</string>
     <string name="copy_logs">Copy logs to clipboard</string>
     <string name="status_setup_gauges">Setup gauges in settings</string>
@@ -169,7 +169,10 @@
     <string name="convert_liter_100_km">Liter 100/km to Miles per Gallon</string>
     <string name="convert_kpa_psi">Kilopascals (kPa) to (PSI)</string>
     <string name="download_complete">Download Complete</string>
+    <string name="download_dialog">Try to install this app as the Play Store? If this fails you can try using Kingstaller.</string>
+    <string name="force_update">Force update</string>
 
     <string name="icon_credits">Icon Credits</string>
     <string name="action_preview">Preview</string>
+    <string name="update_failed">Update check failed</string>
 </resources>

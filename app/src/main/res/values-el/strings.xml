@@ -127,7 +127,7 @@
     <string name="pref_shrink_gauge_on">Δώστε έμφαση στο κεντρικό μετρητή</string>
     <string name="new_version">Μια νέα έκδοση είναι διαθέσιμη</string>
     <string name="download">Κατεβάστε</string>
-    <string name="download_instructions">Λήψη ενημέρωσης. Εγκατάσταση με το Kingstaller.</string>
+    <string name="download_instructions">Λήψη ενημέρωσης</string>
     <string name="expressionDocumentation">Προβολή τεκμηρίωσης</string>
     <string name="copy_logs">Αντιγραφή αρχείων καταγραφής στο πρόχειρο</string>
     <string name="convert_f_to_c">Φαρενάιτ σε Κελσίου</string>

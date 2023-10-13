@@ -130,7 +130,7 @@
     <string name="pref_shrink_gauge_on">"Enfatizza indicatore centrale"</string>
     <string name="new_version">"Nuova versione disponibile"</string>
     <string name="download">"Scarica"</string>
-    <string name="download_instructions">"Scarico aggiornamento. Installa con Kingstaller."</string>
+    <string name="download_instructions">"Scarico aggiornamento"</string>
     <string name="expressionDocumentation">"Visualizza la documentazione"</string>
     <string name="copy_logs">"Copia registri negli appunti"</string>
     <string name="convert_f_to_c">"Fahrenheit in Celsius"</string>

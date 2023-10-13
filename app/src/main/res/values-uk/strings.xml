@@ -130,7 +130,7 @@
     <string name="pref_shrink_gauge_on">Підкреслити центральний калібр</string>
     <string name="new_version">Доступна нова версія</string>
     <string name="download">Завантажити</string>
-    <string name="download_instructions">Оновити завантаження. Встановити за допомогою Kingstaller.</string>
+    <string name="download_instructions">Оновити завантаження</string>
     <string name="expressionDocumentation">Переглянути документацію</string>
     <string name="copy_logs">Скопіювати лог у буфер обміну</string>
     <string name="convert_f_to_c">Фаренгейти в Цельсій</string>

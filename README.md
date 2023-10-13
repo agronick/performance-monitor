@@ -25,9 +25,18 @@ all data from Torque in a way that is as customizable as possible.
 
 Download the latest [release](https://github.com/agronick/aa-torque/releases).
 
+## Prepare
 - Install [Torque Pro](https://play.google.com/store/apps/details?id=org.prowl.torque&hl=en_US&gl=US)
 - Make sure Android Auto is in developer mode: Open Android Auto (while not connected to the car), go to About. Tap the "About Android Auto" header 10 times until you see a toast message saying you're a developer. From the right top corner select developer options, scroll down and make sure you check "Unknown sources". This will allow programs from non-Playstore apps to be run on Android Auto. See a picture guide how to enable Developer mode here: https://www.howtogeek.com/271132/how-to-enable-developer-settings-on-android-auto/
-- Install the AA Torque apk using [Kingstaller](https://github.com/fcaronte/KingInstaller/releases) so your phone thinks it came from the Play Store. Reference the Kingstaller README if you have issues installing. Do not open a bug for an installation issue. This is a hack and may take time and effort in order to get it to work. I can not troubleshoot every phone. Pixel phones have special instructions on the Kingstaller page. There seems to be issues with Android 14 which may be able to be bypassed with root.
+
+## Install
+- Download and install the APK
+- Select the options menu and select force update so your phone will reinstall it thinking it came from the Play Store
+- If this fails, you can try using [Kingstaller](https://github.com/fcaronte/KingInstaller/releases) so your phone thinks it came from the Play Store. Reference the Kingstaller README if you have issues installing. 
+
+Note: Do not open a bug for an installation issue. This is a hack and may take time and effort in order to get it to work. I can not troubleshoot every phone. Pixel phones have special instructions on the Kingstaller page. There seems to be issues with Android 14 which may be able to be bypassed with root.
+
+## Using
 - Open the AA Torque settings, grant all the rights it's requesting. If you don't do this, the app will NOT work.
 - Hook your phone to your car's USB, start Android Auto on your unit.
 - You can find the AA Torque in the menu on the lower right in Android Auto, the one with the dashboard clock on it.

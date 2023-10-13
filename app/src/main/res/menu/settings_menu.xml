@@ -22,6 +22,11 @@
         app:showAsAction="never"
         android:icon="@drawable/baseline_content_copy_24"/>
     <item
+        android:id="@+id/force_update"
+        android:title="@string/force_update"
+        app:showAsAction="never"
+        />
+    <item
         android:id="@+id/action_credits"
         android:title="@string/activity_credits_title"
         app:showAsAction="ifRoom"

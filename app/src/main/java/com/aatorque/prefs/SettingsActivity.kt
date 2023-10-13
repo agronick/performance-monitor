@@ -1,15 +1,18 @@
 package com.aatorque.prefs
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.app.DownloadManager
 import android.content.BroadcastReceiver
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.view.Menu
@@ -50,7 +53,36 @@ class SettingsActivity : AppCompatActivity(),
     val br: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             if (intent?.`package` == BuildConfig.APPLICATION_ID) {
-                Toast.makeText(context, R.string.download_complete, Toast.LENGTH_SHORT).show()
+                AlertDialog.Builder(this@SettingsActivity).setTitle(R.string.download_complete)
+                    .setMessage(R.string.download_dialog)
+                    .setPositiveButton(android.R.string.ok, object: DialogInterface.OnClickListener{
+                        override fun onClick(p0: DialogInterface?, p1: Int) {
+                            val downloadId = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1L)
+                            if (downloadId == -1L) return
+                            val uri = (getSystemService(DOWNLOAD_SERVICE) as DownloadManager).getUriForDownloadedFile(downloadId)
+                            val intent = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                                Intent(Intent.ACTION_INSTALL_PACKAGE).also {
+                                    it.data = uri
+                                    it.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_ACTIVITY_NEW_TASK
+                                }
+                            } else {
+                                Intent(Intent.ACTION_VIEW).also {
+                                    it.setDataAndTypeAndNormalize(
+                                        uri,
+                                        "application/vnd.android.package-archive"
+                                    )
+                                    it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                }
+                            }
+                            intent.putExtra(Intent.EXTRA_NOT_UNKNOWN_SOURCE, true)
+                            intent.putExtra(Intent.EXTRA_INSTALLER_PACKAGE_NAME, "com.android.vending")
+                            applicationContext.startActivity(intent)
+                        }
+                    }).setNegativeButton(android.R.string.cancel, object: DialogInterface.OnClickListener{
+                        override fun onClick(p0: DialogInterface?, p1: Int) {
+                            p0?.dismiss()
+                        }
+                    }).show()
             }
         }
     }
@@ -109,6 +141,15 @@ class SettingsActivity : AppCompatActivity(),
 
             R.id.action_credits -> {
                 launchFragment("credits", CreditsFragment())
+                true
+            }
+
+            R.id.force_update -> {
+                lifecycleScope.launch(Dispatchers.IO) {
+                    if (!checkUpdate(true)) {
+                        Toast.makeText(this@SettingsActivity, R.string.update_failed, Toast.LENGTH_SHORT).show()
+                    }
+                }
                 true
             }
 
@@ -258,10 +299,10 @@ class SettingsActivity : AppCompatActivity(),
         return true
     }
 
-    private fun checkUpdate() {
+    private fun checkUpdate(force: Boolean =false): Boolean {
         Timber.i("Checking for update")
 
-        var needsUpdate: Boolean? = null
+        var needsUpdate: Boolean? = if (!force) null else true
         var downloadItem: String? = null
 
         val url = URL(BuildConfig.RELEASE_URL)
@@ -270,11 +311,11 @@ class SettingsActivity : AppCompatActivity(),
         try {
             urlConnection.connect()
         } catch (e: UnknownHostException) {
-            return
+            return false
         } catch (e: ConnectException) {
-            return
+            return false
         } catch (e: SSLPeerUnverifiedException) {
-            return
+            return false
         }
         try {
             if (urlConnection.responseCode == HttpURLConnection.HTTP_OK) {
@@ -340,6 +381,8 @@ class SettingsActivity : AppCompatActivity(),
                     ).show()
                 }.show()
         }
+
+        return needsUpdate == null
     }
 
     private fun logsToClipboard() {
