@@ -6,6 +6,7 @@
     <data>
         <import type="android.graphics.Typeface" />
         <import type="com.aatorque.datastore.MaxControl" />
+        <import type="com.aatorque.stats.ViewAdapterKt" />
         <import type="android.view.View" />
         <import type="com.github.anastr.speedviewlib.Gauge" />
         <variable
@@ -42,8 +43,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintClockLeft"
-        android:layout_width="275dp"
-        android:layout_height="310dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         tools:showIn="@layout/layout_dashboard_gauges">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -56,7 +57,6 @@
                 android:layout_height="30dp"
                 android:layout_marginBottom="17dp"
                 android:elevation="1dp"
-                android:gravity="bottom"
                 android:typeface="@{font}"
                 android:textAlignment="center"
                 android:textColor="@android:color/white"
@@ -67,7 +67,7 @@
                 android:drawableStart="@{showLimitBelow == MaxControl.MAX ? @drawable/ic_max_text : @drawable/ic_min_text}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"/>
 
 
             <TextView
@@ -89,32 +89,33 @@
 
             <TextView
                 android:id="@+id/textTitle"
-                android:layout_width="275dp"
+                android:layout_width="match_parent"
                 android:layout_height="32dp"
                 android:ellipsize="marquee"
-                android:typeface="@{font}"
                 android:gravity="center"
                 android:singleLine="true"
                 android:text=""
+                android:textAlignment="gravity"
                 android:textColor="@android:color/white"
                 android:textSize="20sp"
-                app:layout_constraintLeft_toLeftOf="parent"
+                android:typeface="@{font}"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constrainedWidth="true"/>
 
-            <com.github.anastr.speedviewlib.SpeedView
+            <com.github.anastr.speedviewlib.ImageSpeedometer
                 android:id="@+id/dial"
                 style="@style/AppTheme.Car.Speedometer"
-                android:layout_width="275dp"
-                android:layout_height="275dp"
-                android:background="?attr/themedDialBackground"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:elevation="0dp"
-                android:padding="25dp"
                 app:textTypeface="@{font}"
                 app:speedTextTypeface="@{font}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textTitle"
+                app:layout_constraintLeft_toLeftOf="parent"
                 app:sv_speedTextSize="36dp"
                 app:sv_textColor="@android:color/white"
                 app:sv_unit=""
@@ -122,54 +123,49 @@
                 app:sv_unitTextSize="20sp"
                 app:minSpeed="@{minLimit}"
                 app:maxSpeed="@{maxLimit}"
-                app:tickTextFormat="@{maxLimit &lt;= 1 ? Gauge.FLOAT_FORMAT : Gauge.INTEGER_FORMAT}"
-                app:tickNumber="@{ticksOn ? 9 : 0}" />
+                app:tickNumber="@{ticksOn ? 9 : 0}"
+                app:layout_constrainedWidth="true"
+                app:layout_constrainedHeight="true"
+                app:layout_constraintDimensionRatio="1:1"/>
 
             <com.github.anastr.speedviewlib.SpeedView
                 android:id="@+id/dial_Max"
-                style="@style/AppTheme.Car.Speedometer"
-                android:layout_width="275dp"
-                android:layout_height="275dp"
-                android:elevation="0dp"
-                android:padding="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:elevation="10dp"
+                android:visibility="@{showLimitMarked != MaxControl.OFF ? View.VISIBLE : View.GONE}"
                 app:layout_constraintBottom_toBottomOf="@+id/dial"
                 app:layout_constraintRight_toRightOf="@+id/dial"
                 app:layout_constraintStart_toStartOf="@+id/dial"
                 app:layout_constraintTop_toTopOf="@+id/dial"
-                app:layout_constraintVertical_bias="0.0"
-                app:sv_indicator="QuarterLineIndicator"
+                app:maxSpeed="@{maxLimit}"
+                app:minSpeed="@{minLimit}"
+                app:sv_indicator="TriangleIndicator"
                 app:sv_indicatorColor="@color/red"
                 app:sv_markColor="@android:color/transparent"
                 app:sv_speedTextColor="@android:color/transparent"
-                app:sv_speedTextPadding="10dp"
-                app:sv_speedTextSize="15dp"
                 app:sv_unitSpeedInterval="0dp"
                 app:sv_unitTextColor="@android:color/transparent"
-                app:sv_unitTextSize="0dp"
                 app:sv_unitUnderSpeedText="false"
                 app:sv_withIndicatorLight="false"
-                android:visibility="@{showLimitMarked != MaxControl.OFF ? View.VISIBLE : View.GONE}"
-                app:minSpeed="@{minLimit}"
-                app:maxSpeed="@{maxLimit}" />
+                app:layout_constrainedWidth="true"
+                app:layout_constrainedHeight="true" />
 
             <com.github.anastr.speedviewlib.RaySpeedometer
                 android:id="@+id/ray"
-                android:layout_width="275dp"
-                android:layout_height="275dp"
-                android:padding="45dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:elevation="1dp"
                 app:layout_constraintBottom_toBottomOf="@+id/dial"
                 app:layout_constraintRight_toRightOf="@+id/dial"
                 app:layout_constraintStart_toStartOf="@+id/dial"
                 app:layout_constraintTop_toTopOf="@+id/dial"
                 app:sv_backgroundCircleColor="@android:color/transparent"
                 app:sv_degreeBetweenMark="1"
-                app:sv_highSpeedColor="@color/highspeed"
                 app:sv_indicatorColor="@android:color/transparent"
                 app:sv_indicatorLightColor="@android:color/transparent"
-                app:sv_lowSpeedColor="?attr/themedNeedleColor"
                 app:sv_markColor="@android:color/transparent"
                 app:sv_markWidth="5dp"
-                app:sv_mediumSpeedColor="?attr/themedNeedleColor"
                 app:sv_rayColor="@android:color/transparent"
                 app:sv_speedBackgroundColor="@android:color/transparent"
                 app:sv_speedTextColor="@android:color/transparent"
@@ -180,7 +176,9 @@
                 app:sv_withEffects="false"
                 app:sv_withTremble="false"
                 app:minSpeed="@{minLimit}"
-                app:maxSpeed="@{maxLimit}"  />
+                app:maxSpeed="@{maxLimit}"
+                app:layout_constrainedWidth="true"
+                app:layout_constrainedHeight="true"  />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

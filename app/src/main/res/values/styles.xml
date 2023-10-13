@@ -28,13 +28,6 @@
         <item name="sv_backgroundCircleColor">@android:color/transparent</item>
         <item name="sv_centerCircleColor">@android:color/transparent</item>
 
-        <!-- Medium, high and low speeds don't need a mark. -->
-        <item name="sv_highSpeedColor">@android:color/transparent</item>
-        <item name="sv_lowSpeedColor">@android:color/transparent</item>
-        <item name="sv_lowSpeedPercent">85</item>
-        <item name="sv_mediumSpeedColor">@android:color/transparent</item>
-        <item name="sv_mediumSpeedPercent">85</item>
-
         <!-- Marks on the dial background are done on the png itself, not rendered dynamiccaly. -->
         <item name="sv_markColor">@android:color/transparent</item>
 
