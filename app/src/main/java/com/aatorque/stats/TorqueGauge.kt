@@ -186,10 +186,6 @@ class TorqueGauge : Fragment() {
         val iconDrawableName = data.getDrawableName() ?: "ic_none"
         val iconText = if (data.display.showLabel) data.display.label else ""
 
-        val typedArray2 =
-            requireContext().theme.obtainStyledAttributes(intArrayOf(R.attr.themedStopWatchBackground))
-
-        typedArray2.recycle()
         // get min/max values and unit from torque
         val context = requireContext()
 
@@ -234,7 +230,6 @@ class TorqueGauge : Fragment() {
         mMax.setSpeedAt(mMax.minSpeed)
         mRayClock.setSpeedAt(mRayClock.minSpeed)
         binding.limitValue = "-"
-        turnTickEnabled(data.display.ticksActive)
         turnTickEnabled(data.display.ticksActive)
         turnMinMaxMarksEnabled(data.display.maxMarksActive)
         turnMinMaxTextViewsEnabled(data.display.maxValuesActive)
