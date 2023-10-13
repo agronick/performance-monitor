@@ -19,8 +19,8 @@ import com.github.anastr.speedviewlib.ImageSpeedometer
 import com.github.anastr.speedviewlib.RaySpeedometer
 import com.github.anastr.speedviewlib.Speedometer
 import com.github.anastr.speedviewlib.components.Section
-import com.github.anastr.speedviewlib.components.indicators.ImageIndicator
 import com.github.anastr.speedviewlib.components.indicators.Indicator
+import com.github.anastr.speedviewlib.components.indicators.TriangleIndicator
 import timber.log.Timber
 import java.util.Locale
 
@@ -64,7 +64,14 @@ class TorqueGauge : Fragment() {
         mIcon = view.findViewById(R.id.textIcon)
         mMax = view.findViewById(R.id.dial_Max)
         rootView = view
+       return rootView
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         val state = savedInstanceState ?: Bundle()
+        mMax.indicator = TriangleIndicator(requireContext())
+        mMax.indicator.color = requireContext().theme.obtainStyledAttributes(intArrayOf(R.attr.themedNeedleColor)).getColor(0, R.color.red)
         turnTickEnabled(state.getBoolean("ticksOn", false))
         turnMinMaxMarksEnabled(
             MaxControl.forNumber(
@@ -104,7 +111,6 @@ class TorqueGauge : Fragment() {
                     )
             )
         )
-        return rootView
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
@@ -141,7 +147,7 @@ class TorqueGauge : Fragment() {
         val indicatorDrawable =
             requireContext().theme.obtainStyledAttributes(intArrayOf(R.attr.themedNeedle))
                 .getDrawable(0)
-        val imageIndicator = ImageIndicator(requireContext(), indicatorDrawable!!)
+        val imageIndicator = SizedImageIndicator(requireContext(), indicatorDrawable!!)
         val color = mClock.indicator.color
         Timber.i("IndicatorColor: $color")
         if (color == 1996533487) {       // if indicator color in the style is @color:aqua, make it an imageindicator
@@ -252,8 +258,10 @@ class TorqueGauge : Fragment() {
         mRayClock.speedTo(fVal, TorqueRefresher.REFRESH_INTERVAL)
         if (data.display.maxMarksActive == MaxControl.MAX && data.maxValue.isFinite()) {
             mMax.setSpeedAt(data.maxValue.toFloat())
+            Timber.d("Settings max speed ${data.maxValue}")
         } else if (data.display.maxMarksActive == MaxControl.MIN && data.minValue.isFinite()) {
             mMax.setSpeedAt(data.minValue.toFloat())
+            Timber.d("Settings min speed ${data.minValue}")
         }
         if (data.display.maxValuesActive != MaxControl.OFF) {
             val possibleValue =

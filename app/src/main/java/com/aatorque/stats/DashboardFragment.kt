@@ -8,6 +8,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
+import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.res.ResourcesCompat
@@ -34,7 +35,7 @@ open class DashboardFragment : CarFragment() {
     private lateinit var mBtnNext: ImageButton
     private lateinit var mBtnPrev: ImageButton
     private lateinit var mTitleElement: TextView
-    private lateinit var mWrapper: ConstraintLayout
+    private lateinit var mWrapper: RelativeLayout
     lateinit var mConStatus: TextView
 
     var guages = arrayOfNulls<TorqueGauge>(3)
