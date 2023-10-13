@@ -8,7 +8,6 @@
         <import type="com.aatorque.datastore.MaxControl" />
         <import type="com.aatorque.stats.ViewAdapterKt" />
         <import type="android.view.View" />
-        <import type="com.github.anastr.speedviewlib.Gauge" />
         <variable
             name="font"
             type="Typeface" />

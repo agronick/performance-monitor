@@ -217,7 +217,7 @@
         <item name="sv_indicatorColor">@color/aqua</item>
         <item name="themedStopWatchBackground">@drawable/dial_background_audi3</item>
         <item name="themedNeedleColor">@color/red</item>
-        <item name="sv_tickPadding">5dp</item>
+        <item name="sv_tickPadding">-5dp</item>
         <item name="sv_tickRotation">false</item>
     </style>
 
@@ -231,7 +231,7 @@
 
         <item name="themedStopWatchBackground">@drawable/sw_background_vw2</item>
         <item name="themedNeedleColor">@color/red</item>
-        <item name="sv_tickPadding">0dp</item>
+        <item name="sv_tickPadding">-12dp</item>
         <item name="sv_tickRotation">false</item>
     </style>
 
