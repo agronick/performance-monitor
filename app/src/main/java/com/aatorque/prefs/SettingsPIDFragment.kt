@@ -140,9 +140,15 @@ class SettingsPIDFragment:  PreferenceFragmentCompat() {
                 torqueService!!.pids!!.firstOrNull {
                     it.first == pidOnly
                 }?.let {entryVal ->
+                    var minVal = ceil(entryVal.second[3].toDouble()).toInt()
+                    var maxVal = floor(entryVal.second[4].toDouble()).toInt()
+                    if (minVal == 0 && maxVal == 0) {
+                        minVal = 0
+                        maxVal = 100
+                    }
                     labelPref.text = entryVal.second[1]
-                    maxValuePref.text = ceil(entryVal.second[3].toDouble()).toInt().toString()
-                    minValuePref.text = floor(entryVal.second[4].toDouble()).toInt().toString()
+                    maxValuePref.text = minVal.toString()
+                    minValuePref.text = maxVal.toString()
                     unitPref.text = entryVal.second[2]
                 }
                 enableItems(true)
@@ -209,6 +215,8 @@ class SettingsPIDFragment:  PreferenceFragmentCompat() {
 
     @OptIn(DelicateCoroutinesApi::class)
     fun saveState() {
+        val minVal = minValuePref.text!!.toInt()
+        val maxVal = maxValuePref.text!!.toInt()
         var display = Display.newBuilder().setPid(
             pidPref.value
         ).setShowLabel(
@@ -216,9 +224,9 @@ class SettingsPIDFragment:  PreferenceFragmentCompat() {
         ).setLabel(
             labelPref.text
         ).setMinValue(
-            minValuePref.text!!.toInt()
+            minVal.coerceAtMost(maxVal)
         ).setMaxValue(
-            maxValuePref.text!!.toInt()
+            maxVal.coerceAtLeast(minVal)
         ).setUnit(
             unitPref.text
         ).setEnableScript(

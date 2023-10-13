@@ -23,6 +23,7 @@ import com.github.anastr.speedviewlib.components.indicators.Indicator
 import com.github.anastr.speedviewlib.components.indicators.TriangleIndicator
 import timber.log.Timber
 import java.util.Locale
+import kotlin.math.abs
 
 
 class TorqueGauge : Fragment() {
@@ -72,7 +73,10 @@ class TorqueGauge : Fragment() {
         val state = savedInstanceState ?: Bundle()
         mMax.indicator = TriangleIndicator(requireContext())
         mMax.indicator.color = requireContext().theme.obtainStyledAttributes(intArrayOf(R.attr.themedNeedleColor)).getColor(0, R.color.red)
-        turnTickEnabled(state.getBoolean("ticksOn", false))
+        setMinMax(
+            state.getFloat("minValue", 0f).toInt(),
+            state.getFloat("maxValue", 100f).toInt()
+        )
         turnMinMaxMarksEnabled(
             MaxControl.forNumber(
                 state.getInt(
@@ -90,10 +94,7 @@ class TorqueGauge : Fragment() {
             )
         )
         turnRaysEnabled(state.getBoolean("rayOn", false))
-        setMinMax(
-            state.getFloat("minValue", 0f).toInt(),
-            state.getFloat("maxValue", 100f).toInt()
-        )
+        turnTickEnabled(state.getBoolean("ticksOn", false))
         mMax.clearSections()
         mMax.addSections(
             Section(
@@ -182,7 +183,6 @@ class TorqueGauge : Fragment() {
 
     fun setupClock(data: TorqueData) {
         data.notifyUpdate = this::onUpdate
-
         val iconDrawableName = data.getDrawableName() ?: "ic_none"
         val iconText = if (data.display.showLabel) data.display.label else ""
 
@@ -238,12 +238,21 @@ class TorqueGauge : Fragment() {
 
     private fun setMinMax(minspeed: Int, maxspeed: Int) {
         val minimum = minspeed.toFloat()
-        val maximum = maxspeed.toFloat()
-        if (minspeed >= maxspeed) {
+        var maximum = maxspeed.toFloat()
+        if (minspeed > maxspeed) {
             Timber.e("Maxspeed is not greater than minspeed min:${minspeed} max:${maxspeed}")
+        } else if (minimum == maximum) {
+            Timber.e("Maxspeed is equal to minspeed min:${minspeed} max:${maxspeed}")
+            maximum += 1f
         }
         binding.minLimit = minimum.coerceAtMost(maximum)
         binding.maxLimit = maximum.coerceAtLeast(minimum)
+        val format = if (
+            // -1 because 0 is a tick
+            (binding.maxLimit - abs(binding.minLimit)) < (mClock.tickNumber - 1)
+        ) "%.1f" else "%.0f"
+        val locale = Locale.getDefault()
+        mClock.onPrintTickLabel = { _, speed -> format.format(locale, speed) }
     }
 
     private fun onUpdate(data: TorqueData) {
@@ -261,7 +270,7 @@ class TorqueGauge : Fragment() {
             val possibleValue =
                 if (data.display.maxValuesActive == MaxControl.MAX) data.maxValue else data.minValue
             if (possibleValue.isFinite()) {
-                binding.limitValue = String.format(Locale.US, "%.1f", possibleValue)
+                binding.limitValue = "%.1f".format(Locale.getDefault(), possibleValue)
             }
         }
     }
