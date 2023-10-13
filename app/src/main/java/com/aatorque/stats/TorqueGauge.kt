@@ -241,10 +241,9 @@ class TorqueGauge : Fragment() {
         val maximum = maxspeed.toFloat()
         if (minspeed >= maxspeed) {
             Timber.e("Maxspeed is not greater than minspeed min:${minspeed} max:${maxspeed}")
-        } else {
-            binding.minLimit = minimum
-            binding.maxLimit = maximum
         }
+        binding.minLimit = minimum.coerceAtMost(maximum)
+        binding.maxLimit = maximum.coerceAtLeast(minimum)
     }
 
     private fun onUpdate(data: TorqueData) {
