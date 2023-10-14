@@ -270,7 +270,12 @@ class TorqueGauge : Fragment() {
             val possibleValue =
                 if (data.display.maxValuesActive == MaxControl.MAX) data.maxValue else data.minValue
             if (possibleValue.isFinite()) {
-                binding.limitValue = "%.1f".format(Locale.getDefault(), possibleValue)
+                binding.limitValue = "%.${
+                    if (possibleValue >= 1000 || data.display.wholeNumbers) '0' else '1'
+                }f".format(
+                    Locale.getDefault(),
+                    possibleValue
+                )
             }
         }
     }

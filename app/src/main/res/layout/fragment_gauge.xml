@@ -49,7 +49,7 @@
                 android:id="@+id/textMax"
                 android:layout_width="90dp"
                 android:layout_height="30dp"
-                android:layout_marginBottom="40dp"
+                android:layout_marginBottom="35dp"
                 android:elevation="1dp"
                 android:typeface="@{font}"
                 android:textAlignment="center"

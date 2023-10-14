@@ -25,6 +25,10 @@
         <variable
             name="font"
             type="Typeface" />
+
+        <variable
+            name="largeCenter"
+            type="Boolean" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -180,8 +184,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout="@layout/fragment_display"
-                    app:layout_constraintEnd_toEndOf="@+id/gaugeCenter"
-                    app:layout_constraintStart_toStartOf="@+id/gaugeLeft"
+                    app:layout_constraintRight_toLeftOf="@+id/line50"
+                    app:layout_constraintLeft_toRightOf="@+id/line25"
                     app:layout_constraintTop_toTopOf="@+id/gaugeCenter" />
 
                 <androidx.fragment.app.FragmentContainerView
@@ -190,8 +194,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout="@layout/fragment_display"
-                    app:layout_constraintEnd_toEndOf="@+id/gaugeRight"
-                    app:layout_constraintStart_toStartOf="@+id/gaugeCenter"
+                    app:layout_constraintRight_toLeftOf="@+id/line75"
+                    app:layout_constraintLeft_toRightOf="@+id/line50"
                     app:layout_constraintTop_toTopOf="@+id/gaugeCenter" />
 
                 <androidx.fragment.app.FragmentContainerView
@@ -201,8 +205,8 @@
                     android:layout_height="wrap_content"
                     android:layout="@layout/fragment_display"
                     app:layout_constraintBottom_toBottomOf="@+id/gaugeCenter"
-                    app:layout_constraintEnd_toEndOf="@+id/gaugeCenter"
-                    app:layout_constraintStart_toStartOf="@+id/gaugeLeft" />
+                    app:layout_constraintRight_toLeftOf="@+id/line50"
+                    app:layout_constraintLeft_toRightOf="@+id/line25" />
 
                 <androidx.fragment.app.FragmentContainerView
                     android:id="@+id/display4"
@@ -211,16 +215,16 @@
                     android:layout_height="wrap_content"
                     android:layout="@layout/fragment_display"
                     app:layout_constraintBottom_toBottomOf="@+id/gaugeCenter"
-                    app:layout_constraintEnd_toEndOf="@+id/gaugeRight"
-                    app:layout_constraintStart_toStartOf="@+id/gaugeCenter" />
+                    app:layout_constraintRight_toLeftOf="@+id/line75"
+                    app:layout_constraintLeft_toRightOf="@+id/line50" />
 
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guideline1"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     app:layout_constraintGuide_begin="0dp"
-                    app:layout_constraintGuide_percent="0.33" />
+                    app:guidelinePercent="@{largeCenter ? (3f/10f) : (1f/3f)}" />
 
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guideline2"
@@ -228,8 +232,31 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     app:layout_constraintGuide_begin="0dp"
-                    app:layout_constraintGuide_percent="0.66" />
+                    app:guidelinePercent="@{largeCenter ? (7f/10f) : (2f/3f)}" />
 
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/line50"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_begin="0dp"
+                    app:layout_constraintGuide_percent="0.5" />
+                
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/line25"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_begin="0dp"
+                    app:guidelinePercent="@{largeCenter ? (1f/6f) * ((3f/10f) / (1f/3f)) : (1f/6f)}" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/line75"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_begin="0dp"
+                    app:guidelinePercent="@{largeCenter ? (5f/6f) * ((7f/10f) / (2f/3f)) : (5f/6f)}" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
