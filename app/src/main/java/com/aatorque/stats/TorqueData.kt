@@ -5,7 +5,7 @@ import com.aatorque.datastore.Display
 import com.ezylang.evalex.BaseException
 import com.ezylang.evalex.Expression
 import timber.log.Timber
-import java.math.MathContext
+import android.icu.math.MathContext
 import java.math.RoundingMode
 import java.util.concurrent.ScheduledFuture
 
