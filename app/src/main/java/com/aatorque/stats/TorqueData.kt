@@ -13,8 +13,8 @@ class TorqueData(val display: Display) {
     companion object {
         const val PREFIX = "torque_"
         val drawableRegex = Regex("res/drawable/(?<name>.+)\\.[a-z]+")
-        val twoPlaces = MathContext(2, RoundingMode.HALF_UP)
-        val intPlaces = MathContext(0, RoundingMode.HALF_UP)
+        val twoPlaces = MathContext(2, MathContext.PLAIN, false, MathContext.HALF_UP)
+        val intPlaces = MathContext(0, MathContext.PLAIN, false, MathContext.HALF_UP)
         private val numberFormatter = NumberFormat.getInstance()
     }
 
@@ -60,11 +60,7 @@ class TorqueData(val display: Display) {
     }
 
     private fun convertValue(value: Double): Pair<Double, String> {
-        val mc = if (display.wholeNumbers) {
-            intPlaces
-        } else {
-            twoPlaces
-        }
+        val mc = if (display.wholeNumbers) intPlaces else twoPlaces
         if (!display.enableScript || display.customScript == "") {
             return Pair(value, try{
                 numberFormatter.format(value.toBigDecimal().round(mc))
