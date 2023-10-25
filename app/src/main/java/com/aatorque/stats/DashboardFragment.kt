@@ -2,7 +2,12 @@ package com.aatorque.stats
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -15,6 +20,7 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.InputDeviceCompat
 import androidx.fragment.app.FragmentContainerView
 import androidx.lifecycle.lifecycleScope
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.aatorque.prefs.dataStore
 import com.aatorque.stats.databinding.FragmentDashboardBinding
 import com.google.android.apps.auto.sdk.StatusBarController
@@ -45,6 +51,7 @@ open class DashboardFragment : CarFragment() {
     private var screensAnimating = false
     private var mStarted = false
     lateinit var binding: FragmentDashboardBinding
+    lateinit var torqueChart: TorqueChart
 
     companion object {
         const val DISPLAY_OFFSET = 3
@@ -84,20 +91,37 @@ open class DashboardFragment : CarFragment() {
         displays[3] = childFragmentManager.findFragmentById(R.id.display4)!! as TorqueDisplay
         displays[2]!!.isBottomDisplay = true
         displays[3]!!.isBottomDisplay = true
+        torqueChart = childFragmentManager.findFragmentById(R.id.chartFrag)!! as TorqueChart
+        val filter = IntentFilter().apply { addAction("KEY_DOWN") }
+        LocalBroadcastManager.getInstance(requireContext()).registerReceiver(object: BroadcastReceiver(){
+            override fun onReceive(p0: Context?, intent: Intent?) {
+                if (intent?.getIntExtra("KEY_CODE", 0) == KeyEvent.KEYCODE_DPAD_CENTER) {
+                    toggleShowChart(binding.showChart != true)
+                }
+            }
+        }, filter)
         return this.rootView
     }
 
     override fun onStart() {
         super.onStart()
         lifecycleScope.launch {
-            requireContext().dataStore.data.map {
-                it.screensList[abs(it.currentScreen) % it.screensCount]
-            }.distinctUntilChanged().collect { screens ->
+            requireContext().dataStore.data.collect {
+                val screens = it.screensList[abs(it.currentScreen) % it.screensCount]
                 binding.title = screens.title
-                screens.gaugesList.forEachIndexed { index, display ->
-                    if (torqueRefresher.hasChanged(index, display)) {
-                        val clock = torqueRefresher.populateQuery(index, display)
-                        guages[index]?.setupClock(clock)
+                binding.showChart = it.showChart
+                if (it.showChart) {
+                    torqueChart.setupItems(
+                        screens.gaugesList.mapIndexed { index, display ->
+                            torqueRefresher.populateQuery(index, display)
+                        }.toTypedArray()
+                    )
+                } else {
+                    screens.gaugesList.forEachIndexed { index, display ->
+                        if (torqueRefresher.hasChanged(index, display)) {
+                            val clock = torqueRefresher.populateQuery(index, display)
+                            guages[index]?.setupClock(clock)
+                        }
                     }
                 }
                 screens.displaysList.forEachIndexed { index, display ->
@@ -169,6 +193,14 @@ open class DashboardFragment : CarFragment() {
                 }
             }
         })
+    }
+
+    fun toggleShowChart(showChart: Boolean) {
+        lifecycleScope.launch {
+            requireContext().dataStore.updateData { currentSettings ->
+                currentSettings.toBuilder().setShowChart(showChart).build()
+            }
+        }
     }
 
     override fun setupStatusBar(sc: StatusBarController) {

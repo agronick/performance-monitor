@@ -30,7 +30,6 @@ class TorqueGauge : Fragment() {
     private var rootView: View? = null
     private lateinit var mClock: ImageSpeedometer
     private lateinit var mRayClock: RaySpeedometer
-    private lateinit var mGraphValue: TextView
     private lateinit var mTextMax: TextView
     private lateinit var mTextTitle: TextView
     private lateinit var mIcon: TextView
@@ -58,7 +57,6 @@ class TorqueGauge : Fragment() {
         val view = binding.root
         mClock = view.findViewById(R.id.dial)
         mRayClock = view.findViewById(R.id.ray)
-        mGraphValue = view.findViewById(R.id.graphValue)
         mTextMax = view.findViewById(R.id.textMax)
         mTextTitle = view.findViewById(R.id.textTitle)
         mIcon = view.findViewById(R.id.textIcon)

@@ -12,9 +12,6 @@ import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentManager.FragmentLifecycleCallbacks
-import com.aatorque.stats.DashboardFragment
 import com.aatorque.stats.R
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
@@ -46,26 +43,6 @@ class DashboardPreviewFragment: Fragment() {
         } else {
             ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
         }
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        childFragmentManager.registerFragmentLifecycleCallbacks(object: FragmentLifecycleCallbacks(){
-            override fun onFragmentResumed(fm: FragmentManager, f: Fragment) {
-                super.onFragmentResumed(fm, f)
-                if (f is DashboardFragment) {
-                    f.configureRotaryInput(false)
-                    // Force needles to redraw
-                    handler.postDelayed({
-                        if (f.isAdded) {
-                            for (index in 0..<DashboardFragment.DISPLAY_OFFSET) {
-                                f.torqueRefresher.data[index]?.let { f.guages[index]?.setupClock(it) }
-                            }
-                        }
-                    }, 0)
-                }
-            }
-        }, false)
     }
 
     override fun onResume() {

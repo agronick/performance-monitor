@@ -5,6 +5,7 @@ plugins {
 }
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-parcelize'
 
 Properties props = new Properties()
 props.load(new FileInputStream("$project.rootDir/version.properties"))

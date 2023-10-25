@@ -29,6 +29,10 @@
         <variable
             name="largeCenter"
             type="Boolean" />
+
+        <variable
+            name="showChart"
+            type="Boolean" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -142,6 +146,18 @@
                 tools:showIn="@layout/fragment_dashboard">
 
                 <androidx.fragment.app.FragmentContainerView
+                    android:id="@+id/chartFrag"
+                    android:name="com.aatorque.stats.TorqueChart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:elevation="1dp"
+                    android:layout="@layout/fragment_chart"
+                    android:visibility="@{showChart ? View.VISIBLE : View.GONE}"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.fragment.app.FragmentContainerView
                     android:id="@+id/gaugeLeft"
                     android:name="com.aatorque.stats.TorqueGauge"
                     android:layout_width="wrap_content"
@@ -151,6 +167,7 @@
                     app:layout_constrainedHeight="true"
                     app:layout_constrainedWidth="true"
                     app:layout_constraintHorizontal_chainStyle="spread"
+                    android:visibility="@{!showChart ? View.VISIBLE : View.GONE}"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toLeftOf="@id/guideline1"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -170,6 +187,7 @@
                     app:layout_constraintLeft_toRightOf="@id/guideline1"
                     app:layout_constraintRight_toLeftOf="@+id/guideline2"
                     app:layout_constraintTop_toTopOf="@id/gaugeLeft"
+                    android:visibility="@{!showChart ? View.VISIBLE : View.GONE}"
                     android:scaleX="@{largeCenter ? 1.1f : 1f}"
                     android:scaleY="@{largeCenter ? 1.1f : 1f}"/>
 
@@ -182,6 +200,7 @@
                     android:layout="@layout/fragment_gauge"
                     app:layout_constrainedHeight="true"
                     app:layout_constrainedWidth="true"
+                    android:visibility="@{!showChart ? View.VISIBLE : View.GONE}"
                     app:layout_constraintBottom_toBottomOf="@id/gaugeLeft"
                     app:layout_constraintLeft_toRightOf="@+id/guideline2"
                     app:layout_constraintRight_toRightOf="parent"

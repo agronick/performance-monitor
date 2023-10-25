@@ -33,6 +33,7 @@ message Screen {
 
 message UserPreference {
   int32 currentScreen = 11;
+  bool showChart = 22;
   repeated Screen screens = 8;
   string selectedTheme = 16;
   string selectedFont = 17;

@@ -1,7 +1,10 @@
 @file:Suppress("MISSING_DEPENDENCY_CLASS", "MISSING_DEPENDENCY_SUPERCLASS")
 package com.aatorque.stats
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.KeyEvent
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.aatorque.prefs.dataStore
 import com.aatorque.prefs.mapTheme
 import com.aatorque.stats.ListMenuAdapter.MenuCallbacks
@@ -35,6 +38,16 @@ class MainCarActivity : CarActivity() {
     private var inBg = false
     private var awaitingTheme: String? = null
     private var lastTheme: String? = null
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        if (event?.action == KeyEvent.ACTION_DOWN) {
+            val intent = Intent("KEY_DOWN").apply {
+                putExtra("KEY_CODE", keyCode)
+            }
+            LocalBroadcastManager.getInstance(this).sendBroadcast(intent)
+        }
+        return super.onKeyDown(keyCode, event)
+    }
 
     @OptIn(DelicateCoroutinesApi::class)
     override fun onCreate(bundle: Bundle?) {

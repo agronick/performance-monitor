@@ -1,45 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <import type="android.graphics.Typeface" />
+
         <import type="com.aatorque.datastore.MaxControl" />
+
         <import type="com.aatorque.stats.ViewAdapterKt" />
+
         <import type="android.view.View" />
+
         <import type="kotlin.Pair" />
+
         <variable
             name="font"
             type="Typeface" />
+
         <variable
             name="minMax"
             type="Pair&lt;Float, Float&gt;" />
         <variable
             name="maxValue"
             type="float" />
+
         <variable
             name="minValue"
             type="float" />
+
         <variable
             name="showLimitMarked"
             type="MaxControl" />
+
         <variable
             name="showLimitBelow"
             type="MaxControl" />
+
         <variable
             name="wholeNumbers"
             type="Boolean" />
+
         <variable
             name="ticksOn"
             type="Boolean" />
+
         <variable
             name="limitValue"
+            type="String" />
+
+        <variable
+            name="title"
             type="String" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintClockLeft"
+        android:id="@+id/constraintWrapper"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -48,33 +64,33 @@
                 android:layout_width="90dp"
                 android:layout_height="30dp"
                 android:layout_marginBottom="35dp"
+                android:drawableStart="@{showLimitBelow == MaxControl.MAX ? @drawable/ic_max_text : @drawable/ic_min_text}"
                 android:elevation="1dp"
-                android:typeface="@{font}"
+                android:ellipsize="marquee"
+                android:text="@{limitValue}"
                 android:textAlignment="center"
                 android:textColor="@android:color/white"
                 android:textSize="24sp"
-                android:ellipsize="marquee"
-                android:text="@{limitValue}"
+                android:typeface="@{font}"
                 android:visibility="@{showLimitBelow == MaxControl.OFF ? View.INVISIBLE : View.VISIBLE}"
-                android:drawableStart="@{showLimitBelow == MaxControl.MAX ? @drawable/ic_max_text : @drawable/ic_min_text}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"/>
+                app:layout_constraintStart_toStartOf="parent" />
 
 
             <TextView
                 android:id="@+id/textIcon"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_marginBottom="75dp"
+                android:layout_marginBottom="65dp"
                 android:alpha="1.0"
-                android:typeface="@{font}"
                 android:background="@drawable/ic_oil"
                 android:backgroundTint="@color/car_primary"
                 android:elevation="5dp"
                 android:gravity="center"
                 android:textColor="@android:color/white"
                 android:textSize="18sp"
+                android:typeface="@{font}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
@@ -86,39 +102,39 @@
                 android:ellipsize="marquee"
                 android:gravity="center"
                 android:singleLine="true"
-                android:text=""
+                android:text="@{title}"
                 android:textAlignment="gravity"
                 android:textColor="@android:color/white"
                 android:textSize="20sp"
                 android:typeface="@{font}"
+                app:layout_constrainedWidth="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constrainedWidth="true"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <com.github.anastr.speedviewlib.ImageSpeedometer
                 android:id="@+id/dial"
                 style="@style/AppTheme.Car.Speedometer"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:elevation="0dp"
-                app:textTypeface="@{font}"
-                app:speedTextTypeface="@{font}"
+                app:layout_constrainedHeight="true"
+                app:layout_constrainedWidth="true"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textTitle"
-                app:layout_constraintLeft_toLeftOf="parent"
+                app:speedTextTypeface="@{font}"
                 app:sv_speedTextSize="36dp"
                 app:sv_textColor="@android:color/white"
                 app:sv_unit=""
                 app:sv_unitSpeedInterval="5dp"
                 app:sv_unitTextSize="20sp"
                 app:minMax="@{minMax}"
+                app:textTypeface="@{font}"
                 app:tickNumber="@{ticksOn ? 9 : 0}"
-                app:layout_constrainedWidth="true"
-                app:layout_constrainedHeight="true"
-                app:layout_constraintDimensionRatio="1:1"
-                app:wholeNumbers="@{wholeNumbers}"/>
+                app:wholeNumbers="@{wholeNumbers}" />
 
             <com.github.anastr.speedviewlib.SpeedView
                 android:id="@+id/dial_Max"
@@ -131,6 +147,7 @@
                 app:layout_constraintRight_toRightOf="@+id/dial"
                 app:layout_constraintTop_toTopOf="@+id/dial"
                 app:minMax="@{minMax}"
+                app:sv_centerCircleColor="@android:color/transparent"
                 app:sv_indicator="TriangleIndicator"
                 app:sv_indicatorColor="@color/red"
                 app:sv_markColor="@android:color/transparent"
@@ -139,8 +156,7 @@
                 app:sv_unitTextColor="@android:color/transparent"
                 app:sv_unitUnderSpeedText="false"
                 app:sv_withIndicatorLight="false"
-                app:sv_withTremble="false"
-                app:sv_centerCircleColor="@android:color/transparent"/>
+                app:sv_withTremble="false" />
 
             <com.github.anastr.speedviewlib.RaySpeedometer
                 android:id="@+id/ray"
@@ -169,52 +185,6 @@
                 app:sv_withEffects="false"
                 app:sv_withTremble="false"
                 app:minMax="@{minMax}"  />
-
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/graph"
-            android:layout_width="275dp"
-            android:layout_height="275dp"
-            android:layout_marginTop="35dp"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <TextView
-                android:id="@+id/graphValue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="32dp"
-                android:textAlignment="viewEnd"
-                android:textAppearance="@style/CarBody2"
-                android:textColor="@android:color/white"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/card"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:layout_margin="16dp"
-                app:cardBackgroundColor="@android:color/transparent"
-                app:cardCornerRadius="1000dp"
-                app:cardElevation="0dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <com.jjoe64.graphview.GraphView
-                    android:id="@+id/chart"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:elevation="0dp" />
-            </androidx.cardview.widget.CardView>
-        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
