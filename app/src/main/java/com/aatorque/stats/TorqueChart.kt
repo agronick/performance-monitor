@@ -107,27 +107,32 @@ class TorqueChart: Fragment() {
             graph.addSeries(line)
             series[data] = line
 
+            val iconRes = try {
+                resources.getIdentifier(
+                    data.getDrawableName(),
+                    "drawable",
+                    requireContext().packageName,
+                )
+            } catch (e: Resources.NotFoundException) {
+                R.drawable.ic_none
+            }
             val binding = LegendBinding().apply {
                 color.value = line.color
                 label.value = data.display.label
-                icon.setValue(
-                    try {
-                        resources.getIdentifier(
-                            data.getDrawableName(),
-                            "drawable",
-                            requireContext().packageName,
-                        )
-                    } catch (e: Resources.NotFoundException) {
-                        R.drawable.ic_none
-                    }
-                )
+                icon.value = if (iconRes == R.drawable.ic_none || iconRes == 0) {
+                    if (data.pid == null) R.drawable.ic_none else R.drawable.ic_box
+                } else {
+                    iconRes
+                }
             }
             data.notifyUpdate = {
                 notifyUpdate(it, binding)
             }
             binding
         }
-        binding.layoutManager = StaggeredGridLayoutManager(legendBinding.size, RecyclerView.VERTICAL)
+        binding.layoutManager = StaggeredGridLayoutManager(legendBinding.size, RecyclerView.VERTICAL).apply {
+            gapStrategy = StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS
+        }
         binding.legendData = LegendAdapter(ImmutableList.copyOf(legendBinding))
         graph.viewport.setMinX(Date().time - 22_000.0)
     }
@@ -136,6 +141,7 @@ class TorqueChart: Fragment() {
         val line = series[data]
         val now = Date()
         line?.appendData(DataPoint(now, data.lastData), true, 100)
-        binding.value.value = "${data.lastDataStr}${data.display.unit}"
+        if (data.hasReceivedNonZero)
+            binding.value.value = "${data.lastDataStr}${data.display.unit}"
     }
 }
