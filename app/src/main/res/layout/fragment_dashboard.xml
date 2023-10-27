@@ -6,6 +6,7 @@
     <data>
         <import type="android.view.View" />
         <import type="android.graphics.Typeface" />
+        <import type="androidx.constraintlayout.widget.ConstraintLayout.LayoutParams" />
         <variable
             name="background"
             type="Integer" />
@@ -137,34 +138,35 @@
             android:layout_centerVertical="true">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/dashContent"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@{showChart ? LayoutParams.MATCH_PARENT : LayoutParams.WRAP_CONTENT, default=wrap_content}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:showIn="@layout/fragment_dashboard">
+                app:layout_constraintTop_toTopOf="parent">
 
                 <androidx.fragment.app.FragmentContainerView
                     android:id="@+id/chartFrag"
                     android:name="com.aatorque.stats.TorqueChart"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:elevation="1dp"
                     android:layout="@layout/fragment_chart"
                     android:visibility="@{showChart ? View.VISIBLE : View.GONE}"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toLeftOf="@id/display1"/>
 
                 <androidx.fragment.app.FragmentContainerView
                     android:id="@+id/gaugeLeft"
                     android:name="com.aatorque.stats.TorqueGauge"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:elevation="1dp"
                     android:layout="@layout/fragment_gauge"
-                    app:layout_constrainedHeight="true"
+                    app:layout_constrainedHeight="false"
                     app:layout_constrainedWidth="true"
                     app:layout_constraintHorizontal_chainStyle="spread"
                     android:visibility="@{!showChart ? View.VISIBLE : View.GONE}"
@@ -178,15 +180,15 @@
                     android:clipChildren="false"
                     android:name="com.aatorque.stats.TorqueGauge"
                     android:layout_width="0dp"
-                    android:layout_height="0dp"
+                    android:layout_height="wrap_content"
                     android:elevation="2dp"
                     android:layout="@layout/fragment_gauge"
-                    app:layout_constrainedHeight="true"
+                    app:layout_constrainedHeight="false"
                     app:layout_constrainedWidth="true"
-                    app:layout_constraintBottom_toBottomOf="@id/gaugeLeft"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toRightOf="@id/guideline1"
                     app:layout_constraintRight_toLeftOf="@+id/guideline2"
-                    app:layout_constraintTop_toTopOf="@id/gaugeLeft"
+                    app:layout_constraintTop_toTopOf="parent"
                     android:visibility="@{!showChart ? View.VISIBLE : View.GONE}"
                     android:scaleX="@{largeCenter ? 1.1f : 1f}"
                     android:scaleY="@{largeCenter ? 1.1f : 1f}"/>
@@ -195,36 +197,38 @@
                     android:id="@+id/gaugeRight"
                     android:name="com.aatorque.stats.TorqueGauge"
                     android:layout_width="0dp"
-                    android:layout_height="0dp"
+                    android:layout_height="wrap_content"
                     android:elevation="1dp"
                     android:layout="@layout/fragment_gauge"
-                    app:layout_constrainedHeight="true"
+                    app:layout_constrainedHeight="false"
                     app:layout_constrainedWidth="true"
                     android:visibility="@{!showChart ? View.VISIBLE : View.GONE}"
-                    app:layout_constraintBottom_toBottomOf="@id/gaugeLeft"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toRightOf="@+id/guideline2"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/gaugeLeft" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.fragment.app.FragmentContainerView
                     android:id="@+id/display1"
                     android:name="com.aatorque.stats.TorqueDisplay"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
                     android:layout="@layout/fragment_display"
-                    app:layout_constraintRight_toLeftOf="@+id/line50"
-                    app:layout_constraintLeft_toRightOf="@+id/line25"
-                    app:layout_constraintTop_toTopOf="@+id/gaugeCenter" />
+                    app:layout_constraintRight_toLeftOf="@{showChart ? LayoutParams.UNSET : @id/line50}"
+                    app:layout_constraintLeft_toRightOf="@{showChart ? @id/chartFrag : @id/line25}"
+                    app:layout_constraintRight_toRightOf="@{showChart ? @id/dashContent : LayoutParams.UNSET}"
+                    app:layout_constraintTop_toTopOf="@{showChart ? @id/chartFrag : @id/gaugeCenter}" />
 
                 <androidx.fragment.app.FragmentContainerView
                     android:id="@+id/display2"
                     android:name="com.aatorque.stats.TorqueDisplay"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
                     android:layout="@layout/fragment_display"
-                    app:layout_constraintRight_toLeftOf="@+id/line75"
-                    app:layout_constraintLeft_toRightOf="@+id/line50"
-                    app:layout_constraintTop_toTopOf="@+id/gaugeCenter" />
+                    app:layout_constraintRight_toLeftOf="@{showChart ? LayoutParams.UNSET : @id/line75}"
+                    app:layout_constraintLeft_toRightOf="@{showChart ? @id/chartFrag : @id/line50}"
+                    app:layout_constraintTop_toTopOf="@{showChart ? LayoutParams.UNSET : @id/gaugeCenter}"
+                    app:layout_constraintTop_toBottomOf="@{showChart ? @id/display1 : LayoutParams.UNSET}" />
 
                 <androidx.fragment.app.FragmentContainerView
                     android:id="@+id/display3"
@@ -232,19 +236,25 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout="@layout/fragment_display"
-                    app:layout_constraintBottom_toBottomOf="@+id/gaugeCenter"
-                    app:layout_constraintRight_toLeftOf="@+id/line50"
-                    app:layout_constraintLeft_toRightOf="@+id/line25" />
+                    app:layout_constraintBottom_toBottomOf="@{showChart ? LayoutParams.UNSET : @id/gaugeCenter}"
+                    app:layout_constraintRight_toLeftOf="@{showChart ? LayoutParams.UNSET : @id/line50}"
+                    app:layout_constraintLeft_toRightOf="@{showChart ? LayoutParams.UNSET : @id/line25}"
+                    app:layout_constraintTop_toBottomOf="@{showChart ? @id/display2 : LayoutParams.UNSET}"
+                    app:layout_constraintRight_toRightOf="@{showChart ? @id/display2 : LayoutParams.UNSET}"
+                    app:layout_constraintLeft_toLeftOf="@{showChart ? @id/display2 : LayoutParams.UNSET}"/>
 
                 <androidx.fragment.app.FragmentContainerView
                     android:id="@+id/display4"
                     android:name="com.aatorque.stats.TorqueDisplay"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
                     android:layout="@layout/fragment_display"
-                    app:layout_constraintBottom_toBottomOf="@+id/gaugeCenter"
-                    app:layout_constraintRight_toLeftOf="@+id/line75"
-                    app:layout_constraintLeft_toRightOf="@+id/line50" />
+                    app:layout_constraintBottom_toBottomOf="@{showChart ? LayoutParams.UNSET : @id/gaugeLeft}"
+                    app:layout_constraintRight_toLeftOf="@{showChart ? LayoutParams.UNSET : @id/line75}"
+                    app:layout_constraintLeft_toRightOf="@{showChart ? LayoutParams.UNSET : @id/line50}"
+                    app:layout_constraintTop_toBottomOf="@{showChart ? @id/display3 : LayoutParams.UNSET}"
+                    app:layout_constraintRight_toRightOf="@{showChart ? @id/display3 : LayoutParams.UNSET}"
+                    app:layout_constraintLeft_toLeftOf="@{showChart ? @id/display3 : LayoutParams.UNSET}" />
 
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guideline1"

@@ -89,8 +89,6 @@ open class DashboardFragment : CarFragment() {
         displays[1] = childFragmentManager.findFragmentById(R.id.display2)!! as TorqueDisplay
         displays[2] = childFragmentManager.findFragmentById(R.id.display3)!! as TorqueDisplay
         displays[3] = childFragmentManager.findFragmentById(R.id.display4)!! as TorqueDisplay
-        displays[2]!!.isBottomDisplay = true
-        displays[3]!!.isBottomDisplay = true
         torqueChart = childFragmentManager.findFragmentById(R.id.chartFrag)!! as TorqueChart
         val filter = IntentFilter().apply { addAction("KEY_DOWN") }
         LocalBroadcastManager.getInstance(requireContext()).registerReceiver(object: BroadcastReceiver(){
@@ -109,7 +107,12 @@ open class DashboardFragment : CarFragment() {
             requireContext().dataStore.data.collect {
                 val screens = it.screensList[abs(it.currentScreen) % it.screensCount]
                 binding.title = screens.title
+
+                val showChartChanged = binding.showChart != it.showChart
                 binding.showChart = it.showChart
+                displays[2]!!.isBottomDisplay = !it.showChart
+                displays[3]!!.isBottomDisplay = !it.showChart
+
                 if (it.showChart) {
                     torqueChart.setupItems(
                         screens.gaugesList.mapIndexed { index, display ->
@@ -118,7 +121,7 @@ open class DashboardFragment : CarFragment() {
                     )
                 } else {
                     screens.gaugesList.forEachIndexed { index, display ->
-                        if (torqueRefresher.hasChanged(index, display)) {
+                        if (showChartChanged || torqueRefresher.hasChanged(index, display)) {
                             val clock = torqueRefresher.populateQuery(index, display)
                             guages[index]?.setupClock(clock)
                         }

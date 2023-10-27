@@ -3,20 +3,22 @@ package com.aatorque.stats
 import android.content.res.Resources
 import android.graphics.Color
 import android.os.Bundle
-import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.aatorque.stats.databinding.FragmentChartBinding
+import com.google.common.collect.ImmutableList
 import com.jjoe64.graphview.DefaultLabelFormatter
 import com.jjoe64.graphview.GraphView
-import com.jjoe64.graphview.LegendRenderer
 import com.jjoe64.graphview.series.DataPoint
 import com.jjoe64.graphview.series.DataPointInterface
 import com.jjoe64.graphview.series.LineGraphSeries
-import kotlinx.parcelize.Parcelize
 import java.util.Date
 import kotlin.math.absoluteValue
 import kotlin.math.roundToInt
@@ -25,13 +27,12 @@ import kotlin.properties.Delegates
 
 class TorqueChart: Fragment() {
 
-    @Parcelize
-    data class LegendBinding(
-        var color: Int,
-        var label: String,
-        var value: String,
-        var icon: Int,
-    ) : Parcelable
+    class LegendBinding : ViewModel() {
+        var color = MutableLiveData<Int>()
+        var label = MutableLiveData<String>()
+        var value = MutableLiveData<String>()
+        var icon = MutableLiveData<Int>()
+    }
 
     private val series = HashMap<TorqueData, LineGraphSeries<DataPointInterface>>()
     private lateinit var graph: GraphView
@@ -52,10 +53,7 @@ class TorqueChart: Fragment() {
         super.onViewCreated(view, savedInstanceState)
         startDate = Date().time
         graph = view.findViewById(R.id.graph)
-        graph.legendRenderer.isVisible = true;
-        graph.legendRenderer.align = LegendRenderer.LegendAlign.TOP
-        graph.legendRenderer.textColor = Color.WHITE
-        graph.legendRenderer.textSize = 25f
+        graph.legendRenderer.isVisible = false
         graph.legendRenderer.width = graph.width
         graph.viewport.isScalable = true
         graph.viewport.isScrollable = true
@@ -76,6 +74,22 @@ class TorqueChart: Fragment() {
         graph.gridLabelRenderer.horizontalLabelsColor = Color.WHITE
         graph.gridLabelRenderer.verticalLabelsColor = Color.WHITE
         graph.gridLabelRenderer.isHorizontalLabelsVisible = true
+
+        view.viewTreeObserver.addOnGlobalLayoutListener(object :
+            ViewTreeObserver.OnGlobalLayoutListener {
+            var previousCanvasHeight = graph.height
+            var previousCanvasWidth = graph.width
+            override fun onGlobalLayout() {
+                val canvasWidth = graph.width
+                val canvasHeight = graph.height
+
+                // Check if the size of the canvas has shrunk.
+                if (canvasWidth != previousCanvasWidth || canvasHeight != previousCanvasHeight) {
+                    previousCanvasHeight = canvasHeight
+                    previousCanvasWidth = canvasWidth
+                }
+            }
+        })
     }
 
     fun setupItems(torqueData: Array<TorqueData>) {
@@ -92,27 +106,28 @@ class TorqueChart: Fragment() {
             line.color = colors[idx]
             graph.addSeries(line)
             series[data] = line
-            val binding = LegendBinding(
-                color = line.color,
-                label = data.display.label,
-                icon = try {
-                    resources.getIdentifier(
-                        data.getDrawableName(),
-                        "drawable",
-                        requireContext().packageName,
-                    )
+
+            val binding = LegendBinding().apply {
+                color.setValue(line.color)
+                label.setValue(data.display.label)
+                icon.setValue(try {
+                        resources.getIdentifier(
+                            data.getDrawableName(),
+                            "drawable",
+                            requireContext().packageName,
+                        )
                 } catch (e: Resources.NotFoundException) {
                     R.drawable.ic_none
-                },
-                value = "-"
-            )
+                }
+                )
+            }
             data.notifyUpdate = {
                 notifyUpdate(it, binding)
             }
             binding
         }
-        binding.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        binding.legendData = LegendAdapter(legendBinding)
+        binding.layoutManager = StaggeredGridLayoutManager(legendBinding.size, RecyclerView.VERTICAL)
+        binding.legendData = LegendAdapter(ImmutableList.copyOf(legendBinding))
         graph.viewport.setMinX(startDate - 40_000.0)
     }
 
@@ -120,6 +135,6 @@ class TorqueChart: Fragment() {
         val line = series[data]
         val now = Date()
         line?.appendData(DataPoint(now, data.lastData), true, 400)
-        binding.value = "${data.lastDataStr}${data.display.unit}"
+        binding.value.value = if (data.lastDataStr == "-") "" else "${data.lastDataStr}${data.display.unit}"
     }
 }

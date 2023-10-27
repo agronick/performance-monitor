@@ -8,7 +8,7 @@
             type="com.aatorque.stats.LegendAdapter" />
         <variable
             name="layoutManager"
-            type="androidx.recyclerview.widget.LinearLayoutManager" />
+            type="androidx.recyclerview.widget.StaggeredGridLayoutManager" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,24 +16,24 @@
         android:layout_height="match_parent">
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/labelWrap"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:adapter="@{legendData}"
             android:orientation="horizontal"
             app:layoutManager="@{layoutManager}"
-            app:layout_constraintStart_toStartOf="@id/graph"
-            app:layout_constraintEnd_toEndOf="@id/graph"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
         <com.jjoe64.graphview.GraphView
             android:id="@+id/graph"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:elevation="0dp"
+            app:layout_constraintHorizontal_weight="1"
             app:layout_constraintTop_toBottomOf="@id/labelWrap"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHeight="true"
-            android:layout_marginBottom="10dp"/>
+            app:layout_constraintBottom_toBottomOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
