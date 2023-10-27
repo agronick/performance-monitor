@@ -71,16 +71,17 @@ open class DashboardFragment : CarFragment() {
         this.rootView = binding.root
 
         mLayoutDashboard = rootView.findViewById(R.id.layoutDashboard)
-        mBtnNext = rootView.findViewById(R.id.imageButton2)
-        mBtnPrev = rootView.findViewById(R.id.imageButton3)
+        mBtnNext = binding.nextBtn
+        mBtnPrev = binding.prevButton
         mBtnNext.setOnClickListener { setScreen(1) }
         mBtnPrev.setOnClickListener  { setScreen(-1) }
-        mTitleElement = rootView.findViewById(R.id.textTitle)
-        mWrapper = rootView.findViewById(R.id.include_wrap)
-        mConStatus = rootView.findViewById(R.id.con_status)
-        gaugeViews[0] = rootView.findViewById(R.id.gaugeLeft)
-        gaugeViews[1] = rootView.findViewById(R.id.gaugeCenter)
-        gaugeViews[2] = rootView.findViewById(R.id.gaugeRight)
+        binding.chartBtn.setOnClickListener { toggleShowChart(binding.showChart != true)  }
+        mTitleElement = binding.textTitle
+        mWrapper = binding.includeWrap
+        mConStatus = binding.conStatus
+        gaugeViews[0] = binding.gaugeLeft
+        gaugeViews[1] = binding.gaugeCenter
+        gaugeViews[2] = binding.gaugeRight
 
         guages[0] = childFragmentManager.findFragmentById(R.id.gaugeLeft)!! as TorqueGauge
         guages[1] = childFragmentManager.findFragmentById(R.id.gaugeCenter)!! as TorqueGauge
@@ -200,7 +201,7 @@ open class DashboardFragment : CarFragment() {
 
     fun toggleShowChart(showChart: Boolean) {
         lifecycleScope.launch {
-            requireContext().dataStore.updateData { currentSettings ->
+            context?.dataStore?.updateData { currentSettings ->
                 currentSettings.toBuilder().setShowChart(showChart).build()
             }
         }

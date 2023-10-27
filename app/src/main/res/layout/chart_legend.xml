@@ -38,6 +38,7 @@
             android:textSize="20sp"
             android:gravity="center_vertical"
             android:minWidth="150dp"
+            android:layout_weight="1"
             />
     </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>

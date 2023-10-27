@@ -65,7 +65,7 @@
             <TextView
                 android:id="@+id/con_status"
                 android:layout_width="wrap_content"
-                android:layout_height="50dp"
+                android:layout_height="40dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="8dp"
                 android:text='@{status == 0 ? "" : context.getString(status)}'
@@ -78,49 +78,61 @@
 
             <TextView
                 android:id="@+id/textTitle"
-                android:layout_width="580dp"
+                android:layout_width="500dp"
+                android:ellipsize="marquee"
                 android:layout_height="0dp"
-                android:layout_marginTop="4dp"
                 android:maxLines="1"
                 android:text="@{title}"
                 android:textAlignment="center"
                 android:textColor="@android:color/white"
                 android:textSize="30sp"
                 android:typeface="@{font}"
-                app:layout_constraintEnd_toStartOf="@+id/imageButton3"
-                app:layout_constraintStart_toEndOf="@+id/imageButton2"
+                app:layout_constraintEnd_toStartOf="@+id/prevButton"
+                app:layout_constraintStart_toEndOf="@+id/chartBtn"
                 app:layout_constraintTop_toBottomOf="@+id/con_status" />
 
             <ImageButton
-                android:id="@+id/imageButton2"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_marginStart="80dp"
+                android:id="@+id/chartBtn"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:src="@drawable/chart"
                 android:background="@android:color/transparent"
-                android:contentDescription="@string/item_details_go_back"
                 android:scaleType="centerCrop"
-                android:src="@drawable/actions_go_previous_view_icon"
-                android:textAlignment="center"
                 android:visibility="@{showBtns ? View.VISIBLE : View.GONE}"
                 app:layout_constraintBottom_toBottomOf="@+id/textTitle"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/textTitle" />
+                app:layout_constraintTop_toTopOf="@+id/textTitle"
+                app:layout_constraintDimensionRatio="1:1"/>
 
             <ImageButton
-                android:id="@+id/imageButton3"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_marginEnd="80dp"
+                android:id="@+id/prevButton"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/item_details_go_back"
+                android:src="@drawable/arrow_back"
+                android:scaleType="centerCrop"
+                android:visibility="@{showBtns ? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toBottomOf="@+id/textTitle"
+                app:layout_constraintEnd_toStartOf="@id/nextBtn"
+                app:layout_constraintTop_toTopOf="@+id/textTitle"
+                app:layout_constraintDimensionRatio="1:1"/>
+
+            <ImageButton
+                android:id="@+id/nextBtn"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:background="@android:color/transparent"
                 android:contentDescription="@string/item_details_go_back"
                 android:nextFocusForward="@id/include_wrap"
                 android:scaleType="centerCrop"
-                android:src="@drawable/actions_go_next_view_icon"
+                android:src="@drawable/arrow_forward"
                 android:textAlignment="center"
                 android:visibility="@{showBtns ? View.VISIBLE : View.GONE}"
                 app:layout_constraintBottom_toBottomOf="@+id/textTitle"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/textTitle" />
+                app:layout_constraintTop_toTopOf="@+id/textTitle"
+                app:layout_constraintDimensionRatio="1:1" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -214,10 +226,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout="@layout/fragment_display"
+                    app:layout_constraintVertical_chainStyle="spread_inside"
                     app:layout_constraintRight_toLeftOf="@{showChart ? LayoutParams.UNSET : @id/line50}"
                     app:layout_constraintLeft_toRightOf="@{showChart ? @id/chartFrag : @id/line25}"
                     app:layout_constraintRight_toRightOf="@{showChart ? @id/dashContent : LayoutParams.UNSET}"
-                    app:layout_constraintTop_toTopOf="@{showChart ? @id/chartFrag : @id/gaugeCenter}" />
+                    app:layout_constraintTop_toTopOf="@{showChart ? @id/chartFrag : @id/gaugeCenter}"
+                    app:layout_constraintBottom_toTopOf="@{showChart ? @id/display2 : LayoutParams.UNSET}" />
 
                 <androidx.fragment.app.FragmentContainerView
                     android:id="@+id/display2"
@@ -228,20 +242,20 @@
                     app:layout_constraintRight_toLeftOf="@{showChart ? LayoutParams.UNSET : @id/line75}"
                     app:layout_constraintLeft_toRightOf="@{showChart ? @id/chartFrag : @id/line50}"
                     app:layout_constraintTop_toTopOf="@{showChart ? LayoutParams.UNSET : @id/gaugeCenter}"
-                    app:layout_constraintTop_toBottomOf="@{showChart ? @id/display1 : LayoutParams.UNSET}" />
+                    app:layout_constraintTop_toBottomOf="@{showChart ? @id/display1 : LayoutParams.UNSET}"
+                    app:layout_constraintBottom_toTopOf="@{showChart ? @id/display3 : LayoutParams.UNSET}" />
 
                 <androidx.fragment.app.FragmentContainerView
                     android:id="@+id/display3"
                     android:name="com.aatorque.stats.TorqueDisplay"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
                     android:layout="@layout/fragment_display"
                     app:layout_constraintBottom_toBottomOf="@{showChart ? LayoutParams.UNSET : @id/gaugeCenter}"
-                    app:layout_constraintRight_toLeftOf="@{showChart ? LayoutParams.UNSET : @id/line50}"
-                    app:layout_constraintLeft_toRightOf="@{showChart ? LayoutParams.UNSET : @id/line25}"
+                    app:layout_constraintRight_toRightOf="@{showChart ? @id/display2 : @id/line50}"
+                    app:layout_constraintLeft_toLeftOf="@{showChart ? @id/display2  : @id/line25}"
                     app:layout_constraintTop_toBottomOf="@{showChart ? @id/display2 : LayoutParams.UNSET}"
-                    app:layout_constraintRight_toRightOf="@{showChart ? @id/display2 : LayoutParams.UNSET}"
-                    app:layout_constraintLeft_toLeftOf="@{showChart ? @id/display2 : LayoutParams.UNSET}"/>
+                    app:layout_constraintBottom_toTopOf="@{showChart ? @id/display4 : LayoutParams.UNSET}"/>
 
                 <androidx.fragment.app.FragmentContainerView
                     android:id="@+id/display4"
@@ -249,12 +263,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout="@layout/fragment_display"
-                    app:layout_constraintBottom_toBottomOf="@{showChart ? LayoutParams.UNSET : @id/gaugeLeft}"
-                    app:layout_constraintRight_toLeftOf="@{showChart ? LayoutParams.UNSET : @id/line75}"
-                    app:layout_constraintLeft_toRightOf="@{showChart ? LayoutParams.UNSET : @id/line50}"
-                    app:layout_constraintTop_toBottomOf="@{showChart ? @id/display3 : LayoutParams.UNSET}"
-                    app:layout_constraintRight_toRightOf="@{showChart ? @id/display3 : LayoutParams.UNSET}"
-                    app:layout_constraintLeft_toLeftOf="@{showChart ? @id/display3 : LayoutParams.UNSET}" />
+                    app:layout_constraintBottom_toBottomOf="@{showChart ? @id/chartFrag : @id/gaugeLeft}"
+                    app:layout_constraintRight_toRightOf="@{showChart ? @id/display3 : @id/line75}"
+                    app:layout_constraintLeft_toLeftOf="@{showChart ? @id/display3 : @id/line50}"/>
 
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guideline1"

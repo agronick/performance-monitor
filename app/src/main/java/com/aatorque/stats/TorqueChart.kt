@@ -61,9 +61,9 @@ class TorqueChart: Fragment() {
             override fun formatLabel(value: Double, isValueX: Boolean): String {
                 if (isValueX) {
                     val diff = (value * 0.001) - (startDate * 0.001)
-                    val minutes = diff.div(if (diff < 0) -60 else 60).toInt()
+                    val minutes = diff.div(60).toInt()
                     val seconds = (diff % 60).absoluteValue.roundToInt()
-                    return "%02d:%02d".format(minutes, seconds)
+                    return "%s%02d:%02d".format(if (diff < 0) "-" else "", minutes, seconds)
                 }
                 return super.formatLabel(value, false)
             }
@@ -95,7 +95,7 @@ class TorqueChart: Fragment() {
     fun setupItems(torqueData: Array<TorqueData>) {
         graph.series.clear()
         series.clear()
-        val colors = arrayOf(R.color.primaryColor, R.color.primaryDarkColor, R.color.primaryLightColor).map {
+        val colors = arrayOf(R.color.graphColor1, R.color.graphColor2, R.color.graphColor3).map {
             resources.getColor(it, context?.theme)
         }
         binding.labelWrap.removeAllViews()
@@ -108,17 +108,18 @@ class TorqueChart: Fragment() {
             series[data] = line
 
             val binding = LegendBinding().apply {
-                color.setValue(line.color)
-                label.setValue(data.display.label)
-                icon.setValue(try {
+                color.value = line.color
+                label.value = data.display.label
+                icon.setValue(
+                    try {
                         resources.getIdentifier(
                             data.getDrawableName(),
                             "drawable",
                             requireContext().packageName,
                         )
-                } catch (e: Resources.NotFoundException) {
-                    R.drawable.ic_none
-                }
+                    } catch (e: Resources.NotFoundException) {
+                        R.drawable.ic_none
+                    }
                 )
             }
             data.notifyUpdate = {
@@ -128,13 +129,13 @@ class TorqueChart: Fragment() {
         }
         binding.layoutManager = StaggeredGridLayoutManager(legendBinding.size, RecyclerView.VERTICAL)
         binding.legendData = LegendAdapter(ImmutableList.copyOf(legendBinding))
-        graph.viewport.setMinX(startDate - 40_000.0)
+        graph.viewport.setMinX(Date().time - 22_000.0)
     }
 
     fun notifyUpdate(data: TorqueData, binding: LegendBinding) {
         val line = series[data]
         val now = Date()
-        line?.appendData(DataPoint(now, data.lastData), true, 400)
-        binding.value.value = if (data.lastDataStr == "-") "" else "${data.lastDataStr}${data.display.unit}"
+        line?.appendData(DataPoint(now, data.lastData), true, 100)
+        binding.value.value = "${data.lastDataStr}${data.display.unit}"
     }
 }

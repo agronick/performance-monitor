@@ -40,4 +40,8 @@
     <color name="secondaryTextColor">#222</color>
     <color name="tintColor">@color/primaryDarkColor</color>
     <color name="snackbarBtnText">#FFF</color>
+
+    <color name="graphColor1">#3daee9</color>
+    <color name="graphColor2">#aee93d</color>
+    <color name="graphColor3">#e9783d</color>
 </resources>

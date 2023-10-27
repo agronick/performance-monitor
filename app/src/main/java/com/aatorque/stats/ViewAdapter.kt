@@ -1,7 +1,9 @@
 package com.aatorque.stats
 
+import android.content.res.Resources
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewGroup.MarginLayoutParams
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.BindingAdapter
 import com.github.anastr.speedviewlib.Gauge
@@ -68,4 +70,23 @@ fun setLayoutHeight(view: View, height: Int?, width: Int?) {
         layoutParams.width = width as Int
     }
     view.layoutParams = layoutParams
+}
+
+
+@BindingAdapter("android:layout_marginTop", "android:layout_marginLeft", "android:layout_marginRight", "android:layout_marginBottom", requireAll = false)
+fun setLayoutMargin(view: View, top: Int?, left: Int?, right: Int?, bottom: Int?) {
+    val lp =  view.layoutParams as MarginLayoutParams?
+    val convertDp = {value: Int? ->
+        if (value == null) {
+            null
+        } else {
+            (value * Resources.getSystem().displayMetrics.density + 0.5f).toInt()
+        }
+    }
+    lp?.setMargins(
+        convertDp(left) ?: lp.leftMargin,
+        convertDp(top) ?: lp.topMargin,
+        convertDp(right) ?: lp.rightMargin,
+        convertDp(bottom) ?: lp.bottomMargin
+    )
 }
