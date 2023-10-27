@@ -200,11 +200,26 @@ open class DashboardFragment : CarFragment() {
     }
 
     fun toggleShowChart(showChart: Boolean) {
-        lifecycleScope.launch {
-            context?.dataStore?.updateData { currentSettings ->
-                currentSettings.toBuilder().setShowChart(showChart).build()
+        if (screensAnimating) return
+        screensAnimating = true
+        mWrapper.animate()!!.alpha(0f).setDuration(
+            300
+        ).setListener(object : AnimatorListenerAdapter() {
+            override fun onAnimationEnd(animation: Animator) {
+                mWrapper.animate()!!.alpha(1f).setDuration(300).setListener(
+                    object : AnimatorListenerAdapter() {
+                        override fun onAnimationEnd(animation: Animator) {
+                            screensAnimating = false
+                        }
+                    }
+                )
+                lifecycleScope.launch {
+                    context?.dataStore?.updateData { currentSettings ->
+                        currentSettings.toBuilder().setShowChart(showChart).build()
+                    }
+                }
             }
-        }
+        })
     }
 
     override fun setupStatusBar(sc: StatusBarController) {

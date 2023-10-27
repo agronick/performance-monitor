@@ -14,8 +14,8 @@
         android:layout_weight="1"
         >
         <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             app:colorFilter="@{binding.color}"
             app:imageResource="@{binding.icon}"
          />
@@ -26,8 +26,10 @@
             android:textColor="@color/white"
             android:text="@{binding.label}"
             android:layout_marginStart="10dp"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:gravity="center_vertical"
+            android:maxLines="1"
+            android:ellipsize="marquee"
             />
         <TextView
             android:layout_width="wrap_content"
@@ -35,10 +37,12 @@
             android:textColor="@color/white"
             android:text="@{binding.value}"
             android:layout_marginStart="10dp"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:gravity="center_vertical"
             android:minWidth="150dp"
             android:layout_weight="1"
+            android:maxLines="1"
+            android:ellipsize="marquee"
             />
     </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>
