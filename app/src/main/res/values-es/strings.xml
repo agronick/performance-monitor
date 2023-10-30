@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="activity_credits_title">"Créditos"</string>
     <string name="activity_main_title">"AA Torque"</string>
 
-    <!-- The previous string is too generic and long -->
+    
     <string name="activity_settings_title">"Ajustes de AA Torque"</string>
     <string name="activity_stopwatch_title">"Cronómetro"</string>
     <string name="app_car_service_name">"AA Torque"</string>
@@ -13,7 +12,7 @@
     <string name="credits_drivesafely">"Conduzca con precaución."</string>
     <string name="credits_thanks">"Agradecimientos a:"</string>
 
-    <!-- The VIN acronym is used widely in spanish too. In some countries like Mexico initials are inverted (NIV) but the original VIN is far more used. -->
+    
     <string name="element_VIN">"VIN"</string>
     <string name="element_batteryVoltage">"Voltaje de la batería"</string>
     <string name="element_brakePressure">"Presión de frenos"</string>
@@ -33,7 +32,7 @@
     <string name="element_world">"Mundo"</string>
     <string name="element_yawRate">"Velocidad de guiñada"</string>
 
-    <!-- this label talks about the charger air cooler or CAC, present in cars with turbo. -->
+    
     <string name="element_cac">"Enfriador de aire del cargador"</string>
     <string name="element_distance">"Distancia"</string>
     <string name="element_ecoaverage">"Promedio ECO"</string>
@@ -51,7 +50,7 @@
     <string name="pref_appearance">"Apariencia"</string>
     <string name="pref_centerclock">"Indicador central"</string>
 
-    <!-- While "Tipografía" is a correct translation, "Fuente" can be used in case the current translation is too long or causes UI problems. -->
+    
     <string name="pref_font">"Tipografía"</string>
     <string name="pref_highlow">"Valores máximos"</string>
     <string name="pref_highlowmarks">"Marcar valores máximos en el reloj"</string>
@@ -80,33 +79,33 @@
     <string name="element_torque_fuellevel">"Nivel de combustible"</string>
     <string name="element_barometer">"Barómetro"</string>
 
-    <!-- Name doesn't need translation -->
+    
     <string name="bg_vw">"Discover Pro Sport"</string>
     <string name="bg_vw2">"Fibra de carbón"</string>
     <string name="bg_vw3">"Destacado"</string>
 
-    <!-- Name doesn't need translation -->
+    
     <string name="bg_vwplaid">"GTI Tartan"</string>
 
-    <!-- Name doesn't need translation -->
+    
     <string name="bg_gte">"GTE Tartan"</string>
 
-    <!-- Name doesn't need translation -->
+    
     <string name="bg_vwgtd">"GTD Tartan"</string>
     <string name="bg_black">"Negro"</string>
     <string name="bg_cloth">"Tela"</string>
     <string name="bg_rock">"Roca"</string>
 
-    <!-- There's no direct translation for this word in spanish. The word Outrun works fine as is. -->
+    
     <string name="bg_outrun">"Outrun"</string>
     <string name="bg_plain">"Plano"</string>
     <string name="bg_seat">"Lineas"</string>
     <string name="bg_seat2">"Red oscura"</string>
 
-    <!-- Name doesn't need translation, because it's a latin term -->
+    
     <string name="bg_skoda">"Columbus"</string>
 
-    <!-- Name doesn't need translation -->
+    
     <string name="bg_skoda2">"Columbus sport"</string>
     <string name="bg_skodaone">"OneApp"</string>
     <string name="bg_blackboard">"Pizarron negro"</string>
@@ -169,21 +168,11 @@
     <string name="convert_liter_100_km">"Litros / 100 km a Millas por galón"</string>
     <string name="convert_kpa_psi">"Kilopascales (kPa) a (PSI)"</string>
 
-    <!-- Additional context is required for a correct translation. Where will be this string used? -->
+    
     <string name="status_setup_gauges">"Configurar indicadores en ajustes"</string>
     <string name="element_cylinder">"Cilindro"</string>
     <string name="element_horsepower">"Caballos de fuerza"</string>
     <string name="element_transmission">"Transmisión"</string>
     <string name="download_complete">"Descarga completa"</string>
     <string name="icon_credits">"Créditos de los Íconos"</string>
-    <string name="action_preview"></string>
-    <string name="pref_view"></string>
-    <string name="pref_data_element_settings"></string>
-    <string name="pref_title_performance"></string>
-    <string name="download_dialog"></string>
-    <string name="force_update"></string>
-    <string name="update_failed"></string>
-    <string name="convert_minutes_seconds"></string>
-    <string name="donate"></string>
-    <string name="translate"></string>
-</resources>
+    </resources>

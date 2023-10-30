@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="activity_credits_title">"Кредити"</string>
     <string name="activity_main_title">"AA Torque"</string>
@@ -147,19 +146,4 @@
     <string name="convert_liter_100_km">"Літр 100/км до миль на галон"</string>
     <string name="convert_kpa_psi">"Кілопаскалі (кПа) до (PSI)"</string>
     <string name="status_setup_gauges">"Налаштування датчиків у налаштуваннях"</string>
-    <string name="element_cylinder"></string>
-    <string name="element_horsepower"></string>
-    <string name="element_transmission"></string>
-    <string name="download_complete"></string>
-    <string name="icon_credits"></string>
-    <string name="action_preview"></string>
-    <string name="pref_view"></string>
-    <string name="pref_data_element_settings"></string>
-    <string name="pref_title_performance"></string>
-    <string name="download_dialog"></string>
-    <string name="force_update"></string>
-    <string name="update_failed"></string>
-    <string name="convert_minutes_seconds"></string>
-    <string name="donate"></string>
-    <string name="translate"></string>
-</resources>
+    </resources>

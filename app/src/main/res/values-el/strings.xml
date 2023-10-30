@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="activity_credits_title">"πληροφοριες"</string>
     <string name="activity_main_title">"
@@ -84,16 +83,13 @@
     <string name="bg_gte">"GTE Tartan"</string>
     <string name="bg_vwgtd">"GTD Ταρτάν"</string>
     <string name="bg_black">"Μαύρος"</string>
-    <string name="bg_cloth"></string>
     <string name="bg_rock">"Βράχος"</string>
-    <string name="bg_outrun"></string>
     <string name="bg_plain">"Πεδιάδα"</string>
     <string name="bg_seat">"Γραμμές"</string>
     <string name="bg_seat2">"Σκοτεινό πλέγμα"</string>
     <string name="bg_skoda">"Κολόμβος"</string>
     <string name="bg_skoda2">"Κολόμβος Sport"</string>
     <string name="bg_skodaone">"OneApp"</string>
-    <string name="bg_blackboard"></string>
     <string name="bg_test">"Δοκιμή"</string>
     <string name="bg_beetle">"Herbie"</string>
     <string name="pref_background">"Ιστορικό"</string>
@@ -159,13 +155,4 @@
     <string name="download_complete">"Η λήψη ολοκληρώθηκε"</string>
     <string name="icon_credits">"Εικονίδιο Πιστώσεις"</string>
     <string name="action_preview">"προεπισκόπηση δράσης"</string>
-    <string name="pref_view"></string>
-    <string name="pref_data_element_settings"></string>
-    <string name="pref_title_performance"></string>
-    <string name="download_dialog"></string>
-    <string name="force_update"></string>
-    <string name="update_failed"></string>
-    <string name="convert_minutes_seconds"></string>
-    <string name="donate"></string>
-    <string name="translate"></string>
-</resources>
+    </resources>
