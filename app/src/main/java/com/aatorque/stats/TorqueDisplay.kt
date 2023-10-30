@@ -22,6 +22,12 @@ class TorqueDisplay : Fragment() {
         set(value) {
             bottomBacking.value = value
         }
+    private val sideBacking = MutableLiveData(false)
+    var isSideDisplay
+        get() = sideBacking.value
+        set(value) {
+            sideBacking.value = value
+        }
     private lateinit var binding: FragmentDisplayBinding
 
     override fun onCreateView(
@@ -34,7 +40,11 @@ class TorqueDisplay : Fragment() {
         bottomBacking.observeForever {
             binding.showBottom = it
         }
+        sideBacking.observeForever {
+            binding.showSide = it
+        }
         binding.showBottom = isBottomDisplay
+        binding.showSide = isSideDisplay
         return binding.root
     }
     // this sets all the labels/values in an initial state, depending on the chosen options

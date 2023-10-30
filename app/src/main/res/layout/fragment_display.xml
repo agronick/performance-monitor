@@ -12,20 +12,23 @@
     <variable name="icon" type="Integer"/>
     <variable name="font" type="Typeface" />
     <variable name="showBottom" type="Boolean" />
+    <variable name="showSide" type="Boolean" />
 </data>
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:clipChildren="false">
 
     <TextView
         android:id="@+id/valueElement"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="@{showBottom ? 35 : 0}"
         android:layout_marginEnd="8dp"
         android:ellipsize="none"
         android:gravity="center"
+        android:maxLines="1"
         android:typeface="@{font}"
         android:text="@{value}"
         android:textSize="25sp"
@@ -54,8 +57,8 @@
         app:backgroundResource="@{icon ?? 0}"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@{showBottom ? LayoutParams.UNSET : @id/valueElement}"
-        app:layout_constraintBottom_toTopOf="@{showBottom ? @id/valueElement : LayoutParams.UNSET}"  />
+        app:layout_constraintTop_toBottomOf="@{showBottom || showSide ? LayoutParams.UNSET : @id/valueElement}"
+        app:layout_constraintBottom_toTopOf="@{showBottom || showSide ? @id/valueElement : LayoutParams.UNSET}"  />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -20,6 +20,8 @@
             android:layout_height="wrap_content"
             android:adapter="@{legendData}"
             app:layoutManager="@{layoutManager}"
+            android:focusable="false"
+            android:background="@android:color/transparent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>

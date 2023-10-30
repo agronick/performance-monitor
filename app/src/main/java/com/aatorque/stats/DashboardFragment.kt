@@ -90,6 +90,8 @@ open class DashboardFragment : CarFragment() {
         displays[1] = childFragmentManager.findFragmentById(R.id.display2)!! as TorqueDisplay
         displays[2] = childFragmentManager.findFragmentById(R.id.display3)!! as TorqueDisplay
         displays[3] = childFragmentManager.findFragmentById(R.id.display4)!! as TorqueDisplay
+        displays[2]!!.isBottomDisplay = true
+        displays[3]!!.isBottomDisplay = true
         torqueChart = childFragmentManager.findFragmentById(R.id.chartFrag)!! as TorqueChart
         val filter = IntentFilter().apply { addAction("KEY_DOWN") }
         LocalBroadcastManager.getInstance(requireContext()).registerReceiver(object: BroadcastReceiver(){
@@ -111,8 +113,9 @@ open class DashboardFragment : CarFragment() {
 
                 val showChartChanged = binding.showChart != it.showChart
                 binding.showChart = it.showChart
-                displays[2]!!.isBottomDisplay = !it.showChart
-                displays[3]!!.isBottomDisplay = !it.showChart
+                for (display in displays) {
+                    display?.isSideDisplay = it.showChart
+                }
 
                 if (it.showChart) {
                     torqueChart.setupItems(

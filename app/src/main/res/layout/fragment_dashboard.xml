@@ -60,6 +60,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:elevation="1dp"
+            android:layout_marginBottom="4dp"
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
@@ -95,6 +96,7 @@
                 android:id="@+id/chartBtn"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:layout_marginStart="15dp"
                 android:src="@drawable/chart"
                 android:background="@android:color/transparent"
                 android:scaleType="centerCrop"
@@ -122,6 +124,7 @@
                 android:id="@+id/nextBtn"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:layout_marginEnd="30dp"
                 android:background="@android:color/transparent"
                 android:contentDescription="@string/item_details_go_back"
                 android:nextFocusForward="@id/include_wrap"
@@ -226,6 +229,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout="@layout/fragment_display"
+                    android:clipChildren="false"
                     app:layout_constraintVertical_chainStyle="spread_inside"
                     app:layout_constraintRight_toLeftOf="@{showChart ? LayoutParams.UNSET : @id/line50}"
                     app:layout_constraintLeft_toRightOf="@{showChart ? @id/chartFrag : @id/line25}"
@@ -239,6 +243,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout="@layout/fragment_display"
+                    android:clipChildren="false"
                     app:layout_constraintRight_toLeftOf="@{showChart ? LayoutParams.UNSET : @id/line75}"
                     app:layout_constraintLeft_toRightOf="@{showChart ? @id/chartFrag : @id/line50}"
                     app:layout_constraintTop_toTopOf="@{showChart ? LayoutParams.UNSET : @id/gaugeCenter}"
@@ -251,6 +256,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout="@layout/fragment_display"
+                    android:clipChildren="false"
                     app:layout_constraintBottom_toBottomOf="@{showChart ? LayoutParams.UNSET : @id/gaugeCenter}"
                     app:layout_constraintRight_toRightOf="@{showChart ? @id/display2 : @id/line50}"
                     app:layout_constraintLeft_toLeftOf="@{showChart ? @id/display2  : @id/line25}"
@@ -263,6 +269,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout="@layout/fragment_display"
+                    android:clipChildren="false"
                     app:layout_constraintBottom_toBottomOf="@{showChart ? @id/chartFrag : @id/gaugeLeft}"
                     app:layout_constraintRight_toRightOf="@{showChart ? @id/display3 : @id/line75}"
                     app:layout_constraintLeft_toLeftOf="@{showChart ? @id/display3 : @id/line50}"/>

@@ -61,7 +61,7 @@ class TorqueChart: Fragment() {
             override fun formatLabel(value: Double, isValueX: Boolean): String {
                 if (isValueX) {
                     val diff = (value * 0.001) - (startDate * 0.001)
-                    val minutes = diff.div(60).toInt()
+                    val minutes = diff.div(60).toInt().absoluteValue
                     val seconds = (diff % 60).absoluteValue.roundToInt()
                     return "%s%02d:%02d".format(if (diff < 0) "-" else "", minutes, seconds)
                 }
@@ -74,6 +74,7 @@ class TorqueChart: Fragment() {
         graph.gridLabelRenderer.horizontalLabelsColor = Color.WHITE
         graph.gridLabelRenderer.verticalLabelsColor = Color.WHITE
         graph.gridLabelRenderer.isHorizontalLabelsVisible = true
+        graph.gridLabelRenderer.isVerticalLabelsVisible = false
 
         view.viewTreeObserver.addOnGlobalLayoutListener(object :
             ViewTreeObserver.OnGlobalLayoutListener {
@@ -140,7 +141,8 @@ class TorqueChart: Fragment() {
     fun notifyUpdate(data: TorqueData, binding: LegendBinding) {
         val line = series[data]
         val now = Date()
-        line?.appendData(DataPoint(now, data.lastData), true, 100)
+        val scaled = (data.lastData / (data.display.maxValue - data.display.minValue)) * 100f
+        line?.appendData(DataPoint(now, scaled), true, 100)
         if (data.hasReceivedNonZero)
             binding.value.value = "${data.lastDataStr}${data.display.unit}"
     }
