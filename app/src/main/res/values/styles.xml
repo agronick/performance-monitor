@@ -345,6 +345,21 @@
         <item name="sv_tickRotation">false</item>
     </style>
 
+    <style name="AppTheme.MK" parent="AppTheme">
+        <item name="themedDialBackground">@drawable/dial_background_blank_mk</item>
+        <item name="themedEmptyDialBackground">@drawable/dial_background_marks_mk</item>
+        <item name="themedBlankDialBackground">@drawable/dial_background_marks_mk</item>
+        <item name="themedNeedle">@drawable/needle_mk</item>
+        <item name="themedStopWatchBackground">@drawable/dial_background_blank_mk</item>
+        <item name="themedNeedleColor">@color/red</item>
+        <item name="sv_withIndicatorLight">false</item>
+        <item name="sv_indicatorLightColor">#44FFFFFF</item>
+        <item name="sv_indicatorColor">@color/aqua</item>
+        <item name="sv_indicatorWidth">0dp</item>
+        <item name="sv_tickPadding">30dp</item>
+        <item name="sv_tickRotation">false</item>
+    </style>
+
     <style name="AppTheme.Testing" parent="AppTheme">
         <item name="themedCarBackground">@drawable/background_incar_test</item>
         <item name="themedDialBackground">@drawable/dial_background_test</item>
