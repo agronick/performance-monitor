@@ -1,11 +1,15 @@
 ---
 name: Bug report
-about: Please read the Readme and search for similar issues before posting!
+about: ISSUES NOT IN ENGLISH WILL BE CLOSED AND IGNORED. Please read the Readme and search for similar issues before posting! 
 title: "[BUG]"
 labels: ''
 assignees: ''
 
 ---
+
+| :exclamation:  Issues that aren't in English will  be closed and igored.  |
+|-----------------------------------------|
+
 
 **Describe the bug**
 A clear and concise description of what the bug is.

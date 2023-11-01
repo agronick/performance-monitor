@@ -2,8 +2,10 @@
 
 [![ci][1]][2]
 
-This is a performance monitor, based on Martoreto's aa-stats.
-It's made specifically for use with the Volkswagen/Skoda/Seat/Audi MIB2 infotainment units, but it might also work on others, as long as they have Android Auto support.
+This was a performance monitor, based on Martoreto's aa-stats.
+It was made specifically for use with the Volkswagen/Skoda/Seat/Audi MIB2 infotainment units, but it might also work on others, as long as they have Android Auto support.
+
+NOTE: I am no longer maintaining the app, and will not provide any support anymore. I've spend a lot of time on it, and had a lot of fun, but after failing to be listed on Google Play, I got demotivated because this meant it was harder for users to use the app. That meant I had to spend a lot of time to support them, because it's not everyone's hobby to jump through tons of hoops to get an app working like it's supposed to work. And then came the sudden influx of AAAD users that overwhelmed the issues-section and my personal email with (mostly) Italian messages. Sometimes the messages were a bit dumb (Like: "How to install on iPhone?" or "Why don't I get data on my BMW?") and sometimes they were very rude and making demands for something they got free in the first place... This took away a lot of the fun and made me decide to spend time on things that are more fun and/or more important. Thanks for all the fun and enthousiasm from everyone! Let's meet again in my future projects.
 
 # Main features:
 - Display data from the in-car exlap channel on your infotainment screen
@@ -70,10 +72,12 @@ Some phones kill the datafeed as soon as the screen is locked. This doesn't happ
 - VW 0430 
 - VW 0613
 - VW 0617
-- VW 0755
-- VW 1156
 - VW 0751
 - VW 0753
+- VW 0755
+- VW 1156
+- VW 1427
+
 
 **MIB2 Std**
 - Seat 0351
@@ -96,6 +100,7 @@ Some phones kill the datafeed as soon as the screen is locked. This doesn't happ
 - Seat 1308
 - Seat 1338
 - Seat 1409
+- Seat 1447
 - Skoda 0468
 - Skoda 1433
 
