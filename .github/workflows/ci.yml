@@ -49,6 +49,7 @@ jobs:
           
       - name: Bump version
         id: bump_version
+        if: github.repository == 'agronick/aa-torque'
         uses: oflynned/android-version-bump@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
