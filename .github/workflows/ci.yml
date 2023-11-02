@@ -54,12 +54,18 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
       - name: Build Release apk
+        if: github.repository == 'agronick/aa-torque'
         run: >
             ./gradlew assembleRelease 
             -Pandroid.injected.signing.store.file=$HOME/debug.keystore 
             -Pandroid.injected.signing.key.alias=androiddebugkey 
             -Pandroid.injected.signing.store.password=android 
             -Pandroid.injected.signing.key.password=android
+            
+      - name: Build Release apk for forked repos
+        if: github.repository != 'agronick/aa-torque'
+        run: >
+            ./gradlew assembleRelease 
         
       - name: Rename release
         run: mv app/build/outputs/apk/release/app-release.apk app/build/outputs/apk/release/aa-torque.apk
