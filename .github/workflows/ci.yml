@@ -59,6 +59,7 @@ jobs:
         with:
           tag: "latest"
           tag_exists_error: false
+          force_push_tag: true
           message: "Latest release"
           
       - name: Build Release apk
