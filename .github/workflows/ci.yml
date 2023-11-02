@@ -5,7 +5,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-          
+
       - uses: actions/setup-java@v3
         with:
           distribution: 'zulu'
@@ -18,7 +18,7 @@ jobs:
             ~/.gradle/caches
             ~/.gradle/wrapper
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
-          
+
       - name: Build Release apk
         run: ./gradlew lintRelease
 
@@ -30,7 +30,7 @@ jobs:
     if: github.ref == 'refs/heads/master'
     steps:
       - uses: actions/checkout@v2
-          
+
       - uses: actions/setup-java@v3
         with:
           distribution: 'zulu'
@@ -46,14 +46,14 @@ jobs:
             ~/.gradle/caches
             ~/.gradle/wrapper
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
-          
+
       - name: Bump version
         id: bump_version
         if: github.repository == 'agronick/aa-torque'
         uses: oflynned/android-version-bump@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          
+
       - uses: rickstaa/action-create-tag@v1
         id: "tag_create"
         with:
@@ -61,21 +61,21 @@ jobs:
           tag_exists_error: false
           force_push_tag: true
           message: "Latest release"
-          
+
       - name: Build Release apk
         if: github.repository == 'agronick/aa-torque'
         run: >
-            ./gradlew assembleRelease 
-            -Pandroid.injected.signing.store.file=$HOME/debug.keystore 
-            -Pandroid.injected.signing.key.alias=androiddebugkey 
-            -Pandroid.injected.signing.store.password=android 
-            -Pandroid.injected.signing.key.password=android
-            
+          ./gradlew assembleRelease 
+          -Pandroid.injected.signing.store.file=$HOME/debug.keystore 
+          -Pandroid.injected.signing.key.alias=androiddebugkey 
+          -Pandroid.injected.signing.store.password=android 
+          -Pandroid.injected.signing.key.password=android
+
       - name: Build Release apk for forked repos
         if: github.repository != 'agronick/aa-torque'
         run: >
-            ./gradlew assembleRelease 
-        
+          ./gradlew assembleRelease 
+
       - name: Rename release
         run: mv app/build/outputs/apk/release/app-release.apk app/build/outputs/apk/release/aa-torque.apk
 
@@ -89,4 +89,3 @@ jobs:
           files: |
             app/build/outputs/apk/release/aa-torque.apk
             app/build/outputs/mapping/release/mapping.txt
-

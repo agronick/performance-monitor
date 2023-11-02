@@ -2,7 +2,6 @@ package com.aatorque.stats
 
 import android.app.Application
 import android.content.Context
-import androidx.preference.PreferenceManager
 import org.acra.config.mailSender
 import org.acra.config.toast
 import org.acra.data.StringFormat
@@ -19,14 +18,19 @@ class App : Application() {
         super.onCreate()
         Timber.plant(logTree)
         fixAndroid14Perms()
-        PreferenceManager.setDefaultValues(this, R.xml.settings, false)
     }
     
     fun fixAndroid14Perms() {
-        for (file in codeCacheDir.listFiles() ?: emptyArray()) {
+        for (file in getDir("car_sdk_impl", Context.MODE_PRIVATE).listFiles() ?: emptyArray()) {
+            if (file.isDirectory) {
+                for (subfile in file.listFiles() ?: emptyArray()) {
+                    Timber.i("Setting read only permission for $subfile")
+                    subfile.setReadOnly()
+                }
+            }
+            Timber.i("Setting read only permission for $file")
             file.setReadOnly()
         }
-        codeCacheDir.setReadOnly()
     }
 
     override fun attachBaseContext(base:Context) {

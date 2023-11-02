@@ -52,6 +52,7 @@ android {
             buildConfigField "boolean", "SIMULATE_METRICS", "true"
         }
         release {
+            debuggable true
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             resValue "string", "app_version", "${defaultConfig.versionName}"
