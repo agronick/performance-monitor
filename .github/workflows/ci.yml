@@ -54,6 +54,13 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
+      - uses: rickstaa/action-create-tag@v1
+        id: "tag_create"
+        with:
+          tag: "latest"
+          tag_exists_error: false
+          message: "Latest release"
+          
       - name: Build Release apk
         if: github.repository == 'agronick/aa-torque'
         run: >
@@ -74,8 +81,8 @@ jobs:
       - name: Create Github Release
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: ${{ steps.bump_version.outputs.new_tag || github.sha }}
-          name: ${{ steps.bump_version.outputs.new_tag || github.sha }}
+          tag_name: ${{ steps.bump_version.outputs.new_tag || 'latest' }}
+          name: ${{ steps.bump_version.outputs.new_tag || 'latest' }}
           generate_release_notes: true
           draft: true
           files: |
