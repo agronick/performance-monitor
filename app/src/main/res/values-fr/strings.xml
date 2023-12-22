@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="activity_credits_title">Crédits</string>
-    <string name="activity_main_title">Performance Monitor</string>
     <string name="activity_settings_title">AA Torque paramètres</string>
     <string name="activity_stopwatch_title">Chonomètre</string>
-    <string name="app_car_service_name">AA Torque</string>
-    <string name="app_name">AA Torque</string>
     <string name="credits_author">Basé sur l \'application réalisée par :</string>
     <string name="credits_basedon">Basé sur le SDK et la démo réalisée par :</string>
     <string name="credits_drivesafely">Conduisez prudemment</string>
@@ -19,30 +16,13 @@
     <string name="element_longitudinalAcceleration">G longitudinaux</string>
     <string name="element_navAltitude">Altitude</string>
     <string name="element_navHeading">Titre</string>
-    <string name="element_none">None</string>
     <string name="element_odometer">Totalisateur</string>
     <string name="element_oilTemperature">Température d\'huile</string>
     <string name="element_outsideTemperature">Température extérieure</string>
-    <string name="element_soundVolume">Sound volume</string>
     <string name="element_wheelAngle">Angle de roue</string>
     <string name="element_wheel">Roue</string>
-    <string name="element_world">World</string>
-    <string name="element_yawRate">Yaw rate</string>
     <string name="element_cac">Refroidisseur d\'air </string>
-    <string name="element_distance">Distance</string>
-    <string name="element_ecoaverage">Eco Average</string>
-    <string name="element_eco">Eco</string>
-    <string name="exhaust">Exhaust</string>
-    <string name="element_fuel_primary">Fuel Primary</string>
-    <string name="element_fuel_secondary">Fuel Secondary</string>
     <string name="element_measurement">Mesure</string>
-    <string name="element_motherboard">Motherboard</string>
-    <string name="element_obd2">OBD2</string>
-    <string name="element_pedal">Pedal</string>
-    <string name="element_radio">Radio</string>
-    <string name="element_wrench">Wrench</string>
-    <string name="element_tire">Tire</string>
-    <string name="pref_appearance">Appearance</string>
     <string name="pref_centerclock">Jauges centrales</string>
     <string name="pref_font">Police de caractère</string>
 
@@ -60,7 +40,6 @@
     <string name="pref_ticks_on">Afficher la valeur des ticks</string>
     <string name="element_torque_fuelpressure">Pression de carburant</string>
     <string name="element_torque_engineload">Charge du moteur</string>
-    <string name="element_torque_timing_advance">Timing advance</string>
     <string name="element_torque_throttle_position">Position du papillon (collecteur)</string>
     <string name="element_torque_turboboost">Pression de suralimentation du turbo</string>
     <string name="element_torque_phonebatterylevel">Niveau de batterie du téléphone</string>
@@ -69,22 +48,11 @@
     <string name="element_torque_catalysttemperature">Catalyseur</string>
     <string name="element_torque_fuellevel">Niveau de carburant</string>
     <string name="element_barometer">Baromètre</string>
-    <string name="bg_vw">Discover Pro Sport</string>
     <string name="bg_vw2">Fibre de carbone</string>
     <string name="bg_vw3">Projecteur</string>
-    <string name="bg_vwplaid">GTI Tartan</string>
-    <string name="bg_gte">GTE Tartan</string>
-    <string name="bg_vwgtd">GTD Tartan</string>
     <string name="bg_black">Noir</string>
-    <string name="bg_cloth">Cloth</string>
-    <string name="bg_rock">Rock</string>
-    <string name="bg_outrun">Outrun</string>
-    <string name="bg_plain">Plain</string>
     <string name="bg_seat">Lignes</string>
     <string name="bg_seat2">Grille sombre</string>
-    <string name="bg_skoda">Columbus</string>
-    <string name="bg_skoda2">Columbus Sport</string>
-    <string name="bg_skodaone">OneApp</string>
     <string name="bg_blackboard">Tableau noir</string>
     <string name="bg_test">Test</string>
     <string name="bg_beetle">Herbie</string>
@@ -102,12 +70,10 @@
     <string name="num_screens">Nombre de tableaux de bord à afficher</string>
     <string name="unit">Unité</string>
     <string name="dashboards">Tableaux de bord</string>
-    <string name="rotary_input">Rotary input</string>
     <string name="rotary_desc">Désactivez les boutons et utilisez le bouton rotatif si équipé</string>
     <string name="enable_script">Exécuter la conversion d\'unité</string>
     <string name="enable_script_desc">Exécuter la formule sur la sortie</string>
     <string name="custom_script">Conversion d\'unité</string>
-    <string name="custom_script_desc">Run an EvalEx expression. Use a to represent the current value</string>
     <string name="formulas">Formules</string>
     <string name="custom_expression">Expression personnalisée</string>
     <string name="status_connecting_torque">Connexion a Torque</string>
@@ -121,7 +87,6 @@
     <string name="whole_numbers">Nombres entiers</string>
     <string name="whole_numbers_desc">Affichage sans décimales</string>
     <string name="gauge_settings">Paramètres de la jauge</string>
-    <string name="show_label_desc">In most cases you want to show an icon, but you can show a label if you cannot find an icon to match the PID.</string>
     <string name="show_label_desc_clock">Afficher l\'étiquette au-dessus de la jauge</string>
     <string name="icon_null_desc">Sélectionnez une icône pour représenter la mesure</string>
     <string name="pref_shrink_gauge">Grande jauge centrale</string>
@@ -149,9 +114,6 @@
     <string name="download_complete">Téléchargement complet</string>
     <string name="icon_credits">Crédits d\'icône</string>
     <string name="action_preview">Aperçu</string>
-    <string name="pref_view">View %1$d</string>
-    <string name="pref_data_element_settings">Data element settings %1$d</string>
-    <string name="pref_title_performance">Title %1$d</string>
     <string name="download_dialog">Essayez d\'installer cette application en tant que Play Store ? Si cela échoue, vous pouvez essayer d\'utiliser Kingstaller.</string>
     <string name="force_update">Forcer la mise à jour</string>
     <string name="update_failed">La vérification de la mise à jour a échoué</string>
@@ -160,7 +122,4 @@
     <string name="translate">Traduire</string>
     <string name="pref_chart_title">Couleur des lignes du graphique</string>
     <string name="pref_chart_summary">Couleur à utiliser pour tracer des lignes sur le graphique</string>
-    <string name="bg_ev">Electro Vehicle</string>
-    <string name="minmax_below">Min/Max below gauge</string>
-    <string name="minmax_below_desc">Place min/max values below gauge instead of overlapping the bottom of the gauge</string>
 </resources>
