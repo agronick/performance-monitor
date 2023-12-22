@@ -56,10 +56,6 @@
     <string name="pref_ticks">Valores de Tick</string>
     <string name="pref_ticks_off">Não mostrar valores de ticks</string>
     <string name="pref_ticks_on">Mostrar valores de ticks</string>
-    <string name="pref_view1">Vista 1</string>
-    <string name="pref_view2">Vista 2</string>
-    <string name="pref_view3">Vista 3</string>
-    <string name="pref_view4">Vista 4</string>
     <string name="element_torque_fuelpressure">Pressão do combustível</string>
     <string name="element_torque_engineload">Carga do motor</string>
     <string name="element_torque_timing_advance">Avanço de ignição</string>
@@ -94,8 +90,6 @@
     <string name="bg_dots">Pontos</string>
     <string name="bg_aa">Android Auto</string>
     <string name="item_details_go_back">Voltar</string>
-    <string name="pref_dataelementsettings_1">Configurações de elementos de dados 1</string>
-    <string name="pref_title_performance_1">Título 1</string>
     <string name="pid">PID</string>
     <string name="pidLabel">Rótulo</string>
     <string name="pidShowLabel">Mostrar rótulo</string>
