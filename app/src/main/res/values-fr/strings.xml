@@ -45,6 +45,8 @@
     <string name="pref_appearance">Appearance</string>
     <string name="pref_centerclock">Jauges centrales</string>
     <string name="pref_font">Police de caractère</string>
+
+    <!-- Fuzzy -->
     <string name="pref_highlow">Valeurs les plus élevées</string>
     <string name="pref_highlowmarks">Marquer les valeurs les plus élevées sur la jauge</string>
     <string name="pref_highvis">Cadran haute visibilité</string>
@@ -56,10 +58,6 @@
     <string name="pref_ticks">Graduations</string>
     <string name="pref_ticks_off">Ne pas afficher les graduations</string>
     <string name="pref_ticks_on">Afficher la valeur des ticks</string>
-    <string name="pref_view1">Vue 1</string>
-    <string name="pref_view2">Vue 2</string>
-    <string name="pref_view3">Vue 3</string>
-    <string name="pref_view4">Vue 4</string>
     <string name="element_torque_fuelpressure">Pression de carburant</string>
     <string name="element_torque_engineload">Charge du moteur</string>
     <string name="element_torque_timing_advance">Timing advance</string>
@@ -94,8 +92,6 @@
     <string name="bg_dots">Points</string>
     <string name="bg_aa">Android Auto</string>
     <string name="item_details_go_back">Retourner</string>
-    <string name="pref_dataelementsettings_1">Paramètres des éléments de données 1</string>
-    <string name="pref_title_performance_1">Titre 1</string>
     <string name="pid">PID</string>
     <string name="pidLabel">Étiquette</string>
     <string name="pidShowLabel">Afficher l\'étiquette</string>
@@ -106,7 +102,7 @@
     <string name="num_screens">Nombre de tableaux de bord à afficher</string>
     <string name="unit">Unité</string>
     <string name="dashboards">Tableaux de bord</string>
-    <string name="rotary_input">Rotary Input</string>
+    <string name="rotary_input">Rotary input</string>
     <string name="rotary_desc">Désactivez les boutons et utilisez le bouton rotatif si équipé</string>
     <string name="enable_script">Exécuter la conversion d\'unité</string>
     <string name="enable_script_desc">Exécuter la formule sur la sortie</string>
@@ -164,4 +160,7 @@
     <string name="translate">Traduire</string>
     <string name="pref_chart_title">Couleur des lignes du graphique</string>
     <string name="pref_chart_summary">Couleur à utiliser pour tracer des lignes sur le graphique</string>
+    <string name="bg_ev">Electro Vehicle</string>
+    <string name="minmax_below">Min/Max below gauge</string>
+    <string name="minmax_below_desc">Place min/max values below gauge instead of overlapping the bottom of the gauge</string>
 </resources>
