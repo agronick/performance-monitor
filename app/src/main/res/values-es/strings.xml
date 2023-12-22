@@ -186,7 +186,4 @@
     <string name="translate">Traducir</string>
     <string name="pref_chart_title">Color de linea del gráfico</string>
     <string name="pref_chart_summary">Color a usar para dibujar lineas en el gráfico</string>
-    <string name="bg_ev">Electro Vehicle</string>
-    <string name="minmax_below">Min/Max below gauge</string>
-    <string name="minmax_below_desc">Place min/max values below gauge instead of overlapping the bottom of the gauge</string>
 </resources>
