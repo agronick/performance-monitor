@@ -78,16 +78,13 @@
     <string name="bg_gte">GTE Tartan</string>
     <string name="bg_vwgtd">GTD Ταρτάν</string>
     <string name="bg_black">Μαύρος</string>
-    <string name="bg_cloth">Cloth</string>
     <string name="bg_rock">Βράχος</string>
-    <string name="bg_outrun">Outrun</string>
     <string name="bg_plain">Πεδιάδα</string>
     <string name="bg_seat">Γραμμές</string>
     <string name="bg_seat2">Σκοτεινό πλέγμα</string>
     <string name="bg_skoda">Κολόμβος</string>
     <string name="bg_skoda2">Κολόμβος Sport</string>
     <string name="bg_skodaone">OneApp</string>
-    <string name="bg_blackboard">Blackboard</string>
     <string name="bg_test">Δοκιμή</string>
     <string name="bg_beetle">Herbie</string>
     <string name="pref_background">Ιστορικό</string>
@@ -163,18 +160,4 @@
     <string name="download_complete">Η λήψη ολοκληρώθηκε</string>
     <string name="icon_credits">Εικονίδιο Πιστώσεις</string>
     <string name="action_preview">προεπισκόπηση δράσης</string>
-    <string name="pref_view">View %1$d</string>
-    <string name="pref_data_element_settings">Data element settings %1$d</string>
-    <string name="pref_title_performance">Title %1$d</string>
-    <string name="download_dialog">Try to install this app as the Play Store? If this fails you can try using Kingstaller.</string>
-    <string name="force_update">Force update</string>
-    <string name="update_failed">Update check failed</string>
-    <string name="convert_minutes_seconds">Seconds to Minutes:Seconds</string>
-    <string name="donate">Please donate!</string>
-    <string name="translate">Translate</string>
-    <string name="pref_chart_title">Chart line color</string>
-    <string name="pref_chart_summary">Color to be used to draw lines on the chart</string>
-    <string name="bg_ev">Electro Vehicle</string>
-    <string name="minmax_below">Min/Max below gauge</string>
-    <string name="minmax_below_desc">Place min/max values below gauge instead of overlapping the bottom of the gauge</string>
 </resources>
