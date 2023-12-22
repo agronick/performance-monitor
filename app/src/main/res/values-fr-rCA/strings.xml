@@ -1,6 +1,8 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="activity_credits_title">Crédits</string>
+
+    <!-- Fuzzy -->
     <string name="activity_main_title">AA Torque</string>
     <string name="activity_settings_title">AA Torque - paramètres</string>
     <string name="activity_stopwatch_title">Chronomètre</string>
@@ -45,6 +47,8 @@
     <string name="pref_appearance">Apparence</string>
     <string name="pref_centerclock">Jauges centrales</string>
     <string name="pref_font">Police</string>
+
+    <!-- Fuzzy -->
     <string name="pref_highlow">Valeurs max</string>
     <string name="pref_highlowmarks">Marquer valeurs max sur la jauge</string>
     <string name="pref_highvis">Aiguille haute visibilité</string>
@@ -56,7 +60,6 @@
     <string name="pref_ticks">Valeurs des coches</string>
     <string name="pref_ticks_off">Ne pas afficher la valeur des coches</string>
     <string name="pref_ticks_on">Afficher la valeur des coches</string>
-    <string name="pref_view">Vue %1$d</string>
     <string name="element_torque_fuelpressure">Pression d\'essence</string>
     <string name="element_torque_engineload">Charge moteur</string>
     <string name="element_torque_timing_advance">Avance à l\'allumage</string>
@@ -91,8 +94,6 @@
     <string name="bg_dots">Points</string>
     <string name="bg_aa">Android Auto</string>
     <string name="item_details_go_back">Retour</string>
-    <string name="pref_data_element_settings">Paramètres d\'élément de données %1$d</string>
-    <string name="pref_title_performance">Titre %1$d</string>
     <string name="pid">PID</string>
     <string name="pidLabel">Libellé</string>
     <string name="pidShowLabel">Afficher Libellé</string>
@@ -103,6 +104,8 @@
     <string name="num_screens">Nombre de tableaux de bord à afficher</string>
     <string name="unit">Unité</string>
     <string name="dashboards">Tableaux de bords</string>
+
+    <!-- Fuzzy -->
     <string name="rotary_input">Interface rotative</string>
     <string name="rotary_desc">Désactiver boutons et utiliser bouton rond si équipé</string>
     <string name="enable_script">Convertir les unités</string>
@@ -113,6 +116,8 @@
     <string name="custom_expression">Expression personnalisée</string>
     <string name="status_connecting_torque">Connexion à Torque…</string>
     <string name="status_connecting_to_ecu">Connexion à l\'ECU…</string>
+
+    <!-- Fuzzy -->
     <string name="credits_modifications">Avec des modifs par:</string>
     <string name="export_dashboards">Exporter tableaux de bord</string>
     <string name="import_dashboards">Importer tableaux de bord</string>
@@ -122,6 +127,8 @@
     <string name="whole_numbers">Nombres entiers</string>
     <string name="whole_numbers_desc">Afficher sans décimales</string>
     <string name="gauge_settings">Paramètres Jauge</string>
+
+    <!-- Fuzzy -->
     <string name="show_label_desc">Dans la plupart des cas, vous voulez afficher une icône. Vous pouvez afficher un libellé si vous ne trouvez pas une icône pour le PID.</string>
     <string name="show_label_desc_clock">Afficher libellé au-dessus de la jauge</string>
     <string name="icon_null_desc">Sélectionnez une icône pour la métrique</string>
@@ -130,7 +137,9 @@
     <string name="pref_shrink_gauge_on">Emphase jauge centrale</string>
     <string name="new_version">Nouvelle version disponible</string>
     <string name="download">Télécharger</string>
-    <string name="download_instructions">Téléchargement de MàJ</string>
+
+    <!-- Fuzzy -->
+    <string name="download_instructions">Téléchargement de MàJ. Installer avec Kingstaller.</string>
     <string name="expressionDocumentation">Voir documentation</string>
     <string name="copy_logs">Copier journaux dans le presse-papier</string>
     <string name="convert_f_to_c">Fahrenheit à Celcius</string>
@@ -144,9 +153,28 @@
     <string name="convert_liter_100_km">Litre aux 100 vers Miles au Gallon</string>
     <string name="convert_kpa_psi">kPa vers PSI</string>
     <string name="status_setup_gauges">Configurer jauges dans les paramètres</string>
+
+    <!-- Fuzzy -->
     <string name="element_cylinder">cylindre</string>
     <string name="element_horsepower">chevaux</string>
     <string name="element_transmission">Transmission</string>
+
+    <!-- Fuzzy -->
     <string name="download_complete">Téléchargement_complet</string>
     <string name="icon_credits">Icône_crédits</string>
+    <string name="action_preview">Preview</string>
+    <string name="pref_view">Vue %1$d</string>
+    <string name="pref_data_element_settings">Data element settings %1$d</string>
+    <string name="pref_title_performance">Title %1$d</string>
+    <string name="download_dialog">Try to install this app as the Play Store? If this fails you can try using Kingstaller.</string>
+    <string name="force_update">Force update</string>
+    <string name="update_failed">Update check failed</string>
+    <string name="convert_minutes_seconds">Seconds to Minutes:Seconds</string>
+    <string name="donate">Please donate!</string>
+    <string name="translate">Translate</string>
+    <string name="pref_chart_title">Chart line color</string>
+    <string name="pref_chart_summary">Color to be used to draw lines on the chart</string>
+    <string name="bg_ev">Electro Vehicle</string>
+    <string name="minmax_below">Min/Max below gauge</string>
+    <string name="minmax_below_desc">Place min/max values below gauge instead of overlapping the bottom of the gauge</string>
 </resources>
