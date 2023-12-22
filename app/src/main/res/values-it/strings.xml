@@ -45,6 +45,8 @@
     <string name="pref_appearance">Aspetto</string>
     <string name="pref_centerclock">Indicatore centrale</string>
     <string name="pref_font">Carattere</string>
+
+    <!-- Fuzzy -->
     <string name="pref_highlow">Valori più alti</string>
     <string name="pref_highlowmarks">Mostra i valori più alti nell\'indicatore</string>
     <string name="pref_highvis">Lancetta ad alta visibilità</string>
@@ -56,10 +58,6 @@
     <string name="pref_ticks">Valori indicatori</string>
     <string name="pref_ticks_off">Nascondi valori sugli indicatori</string>
     <string name="pref_ticks_on">Mostra valori sugli indicatori</string>
-    <string name="pref_view1">Vista 1 (in alto a sx)</string>
-    <string name="pref_view2">Vista 2 (in alto a dx)</string>
-    <string name="pref_view3">Vista 3 (in basso a sx)</string>
-    <string name="pref_view4">Vista 4 (in basso a dx)</string>
     <string name="element_torque_fuelpressure">Pressione carburante</string>
     <string name="element_torque_engineload">Carico motore</string>
     <string name="element_torque_timing_advance">Anticipo</string>
@@ -104,6 +102,8 @@
     <string name="num_screens">Numero quadri strumenti</string>
     <string name="unit">Unità</string>
     <string name="dashboards">Quadri strumenti</string>
+
+    <!-- Fuzzy -->
     <string name="rotary_input">Manopola</string>
     <string name="rotary_desc">Disabilita i pulsanti e utilizza la manopola se in dotazione</string>
     <string name="enable_script">Esegui conversione unità</string>
@@ -114,7 +114,7 @@
     <string name="custom_expression">Espressione personalizzata</string>
     <string name="status_connecting_torque">Connessione a Torque…</string>
     <string name="status_connecting_to_ecu">Connessione a ECU…</string>
-    <string name="credits_modifications">Sviluppato da:</string>
+    <string name="credits_modifications">Sviluppata da:</string>
     <string name="export_dashboards">Esporta quadri</string>
     <string name="import_dashboards">Importa quadri</string>
     <string name="file_exported_successfully">File esportato correttamente</string>
@@ -162,4 +162,7 @@
     <string name="translate">Traduci</string>
     <string name="pref_chart_title">Colore linea del grafico</string>
     <string name="pref_chart_summary">Colore da usare per tracciare le linee sul grafico</string>
+    <string name="bg_ev">Veicolo elettrico</string>
+    <string name="minmax_below">Min/Max sotto l\'indicatore</string>
+    <string name="minmax_below_desc">Posizionare i valori min/max sotto l\'indicatore per non sovrapporsi all\'indicatore</string>
 </resources>
