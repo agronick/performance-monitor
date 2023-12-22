@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="activity_credits_title">Credits</string>
     <string name="activity_main_title">Leistungs-Monitor</string>
     <string name="activity_settings_title">AA Torque Einstellungen</string>
     <string name="activity_stopwatch_title">Stoppuhr</string>
@@ -36,10 +35,7 @@
     <string name="element_fuel_primary">Primärer Antrieb</string>
     <string name="element_fuel_secondary">Sekundärer Antrieb</string>
     <string name="element_measurement">Messung</string>
-    <string name="element_motherboard">Motherboard</string>
     <string name="element_obd2">OBD2</string>
-    <string name="element_pedal">Pedal</string>
-    <string name="element_radio">Radio</string>
     <string name="element_wrench">Schraubenschlüssel</string>
     <string name="element_tire">Reifen</string>
     <string name="pref_appearance">Aussehen</string>
@@ -55,9 +51,6 @@
     <string name="pref_leftclock">Messinstrument links</string>
     <string name="pref_rightclock">Messinstrument rechts</string>
     <string name="pref_theme">Thema</string>
-    <string name="pref_ticks">Tick values</string>
-    <string name="pref_ticks_off">Don\'t display value of ticks</string>
-    <string name="pref_ticks_on">Display value of ticks</string>
     <string name="element_torque_fuelpressure">Kraftstoff-Druck</string>
     <string name="element_torque_engineload">Motorlast</string>
     <string name="element_torque_timing_advance">Zündzeitwinkel</string>
@@ -121,7 +114,7 @@
     <string name="whole_numbers">Ganze Zahlen</string>
     <string name="whole_numbers_desc">Ohne Nachkommastellen anzeigen</string>
     <string name="gauge_settings">Einstellungen Messinstrument</string>
-    <string name="show_label_desc">In den meisten Fällen wollen Sie ein Symbol anzeigen lassen, aber Sie können auch einen Beschreibungstext anzeigen lassen, wenn Sie kein passendes Symbol zu PID finden.</string>
+    <string name="show_label_desc">In den meisten Fällen wollen Sie ein Symbol anzeigen lassen, aber Sie können auch einen Beschreibungstext anzeigen lassen, wenn Sie kein passendes Symbol zur PID finden.</string>
     <string name="show_label_desc_clock">Beschreibungstext über dem Instrument anzeigen</string>
     <string name="icon_null_desc">Wählen Sie ein Symbol aus, das den Messwert repräsentiert</string>
     <string name="pref_shrink_gauge">Großes Instrument in der Mitte</string>
@@ -138,8 +131,6 @@
     <string name="convert_psi_bar">PSI nach bar umrechnen</string>
     <string name="convert_km_to_miles">Kilometer nach Meilen umrechnen</string>
     <string name="boolean_logic">Boole\'sche Logik</string>
-    <string name="convert_newton_ft_lb">Newton Meters to Foot-pounds</string>
-    <string name="convert_cc_min_gal_hour">CC per minute to Gallon Hour</string>
     <string name="convert_liter_100_km">Liter pro 100 km (l / 100 km) nach Meilen per Gallon (mpg) umrechnen</string>
     <string name="convert_kpa_psi">Kilopascal (kPa) nach PSI umrechnen</string>
     <string name="status_setup_gauges">Richten Sie die Messinstrumente in den Einstellungen ein</string>
@@ -147,12 +138,10 @@
     <string name="element_horsepower">Pferdestärke</string>
     <string name="element_transmission">Getriebe</string>
     <string name="download_complete">Herunterladen abgeschlossen</string>
-    <string name="icon_credits">Icon Credits</string>
     <string name="action_preview">Vorschau</string>
     <string name="pref_view">%1$d ansehen</string>
     <string name="pref_data_element_settings">Datenelement %1$d einstellen</string>
     <string name="pref_title_performance">Titel %1$d</string>
-    <string name="download_dialog">Try to install this app as the Play Store? If this fails you can try using Kingstaller.</string>
     <string name="force_update">Update erzwingen</string>
     <string name="update_failed">Aktualisierung-Prüfung fehlgeschlagen</string>
     <string name="convert_minutes_seconds">Sekunden (s) nach Minuten &amp; Sekunden (MM:SS) umrechnen</string>
