@@ -1,6 +1,8 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="activity_credits_title">"Кредити"</string>
+
+    <!-- Fuzzy -->
     <string name="activity_main_title">"AA Torque"</string>
     <string name="activity_settings_title">"AA Torque налаштування"</string>
     <string name="activity_stopwatch_title">"Таймер"</string>
@@ -45,6 +47,8 @@
     <string name="pref_appearance">"Вигляд"</string>
     <string name="pref_centerclock">"Центрові калібри"</string>
     <string name="pref_font">"Перед"</string>
+
+    <!-- Fuzzy -->
     <string name="pref_highlow">"Найвище значення"</string>
     <string name="pref_highlowmarks">"Відзначте найвищі значення на манометрі"</string>
     <string name="pref_highvis">"Циферблат з високою видимістю"</string>
@@ -56,6 +60,10 @@
     <string name="pref_ticks">"Значення галочок"</string>
     <string name="pref_ticks_off">"Не відображати значення галочок"</string>
     <string name="pref_ticks_on">"Відображати значення галочок"</string>
+    <string name="pref_view1">"Вигляд 1"</string>
+    <string name="pref_view2">"Вигляд 2"</string>
+    <string name="pref_view3">"Вигляд 3"</string>
+    <string name="pref_view4">"Вигляд 4"</string>
     <string name="element_torque_fuelpressure">"Тиск палива"</string>
     <string name="element_torque_engineload">"Навантаження двигуна"</string>
     <string name="element_torque_timing_advance">"Випередження часу"</string>
@@ -90,6 +98,8 @@
     <string name="bg_dots">"Крапки"</string>
     <string name="bg_aa">"Android Auto"</string>
     <string name="item_details_go_back">"Перейти назад"</string>
+    <string name="pref_dataelementsettings_1">"Властивості елемента даних 1"</string>
+    <string name="pref_title_performance_1">"Заголовок 1"</string>
     <string name="pid">"PID"</string>
     <string name="pidLabel">"Мітка"</string>
     <string name="pidShowLabel">"Показати мітку"</string>
@@ -100,6 +110,8 @@
     <string name="num_screens">"Кількість інформаційних панелей для відображення"</string>
     <string name="unit">"Одиниці"</string>
     <string name="dashboards">"Панель приладів"</string>
+
+    <!-- Fuzzy -->
     <string name="rotary_input">"Поворотний вхід"</string>
     <string name="rotary_desc">"Вимкніть кнопки та використовуйте поворотний перемикач, якщо він є"</string>
     <string name="enable_script">"Запустіть конвертацію одиниць виміру"</string>
@@ -108,8 +120,10 @@
     <string name="custom_script_desc">"Запустити вираз EvalEx. Використовуйте a для представлення поточного значення"</string>
     <string name="formulas">"Формула"</string>
     <string name="custom_expression">"Користувацький вираз"</string>
-    <string name="status_connecting_torque">"Підключення до Torque…"</string>
-    <string name="status_connecting_to_ecu">"Підключення до ЕБУ…"</string>
+    <string name="status_connecting_torque">"Підключення до Torque..."</string>
+    <string name="status_connecting_to_ecu">"Підключення до ЕБУ..."</string>
+
+    <!-- Fuzzy -->
     <string name="credits_modifications">"Зі змінами та доповненнями:"</string>
     <string name="export_dashboards">"Експортувати панель приладів"</string>
     <string name="import_dashboards">"Імпортувати панель приладів"</string>
@@ -119,6 +133,8 @@
     <string name="whole_numbers">"Цілі числа"</string>
     <string name="whole_numbers_desc">"Показати без десяткових значень"</string>
     <string name="gauge_settings">"Налаштування датчика"</string>
+
+    <!-- Fuzzy -->
     <string name="show_label_desc">"У більшості випадків ви хочете показати піктограму. Ви можете показати мітку, якщо не можете знайти піктограму, яка відповідає PID."</string>
     <string name="show_label_desc_clock">"Показати етикетку над датчиком"</string>
     <string name="icon_null_desc">"Виберіть іконку для представлення метрики"</string>
@@ -127,6 +143,8 @@
     <string name="pref_shrink_gauge_on">"Підкреслити центральний калібр"</string>
     <string name="new_version">"Доступна нова версія"</string>
     <string name="download">"Завантажити"</string>
+
+    <!-- Fuzzy -->
     <string name="download_instructions">"Оновити завантаження. Встановити за допомогою Kingstaller."</string>
     <string name="expressionDocumentation">"Переглянути документацію"</string>
     <string name="copy_logs">"Скопіювати лог у буфер обміну"</string>
@@ -141,4 +159,24 @@
     <string name="convert_liter_100_km">"Літр 100/км до миль на галон"</string>
     <string name="convert_kpa_psi">"Кілопаскалі (кПа) до (PSI)"</string>
     <string name="status_setup_gauges">"Налаштування датчиків у налаштуваннях"</string>
-    </resources>
+    <string name="element_cylinder">"Engine Cylinder"</string>
+    <string name="element_horsepower">"Horsepower"</string>
+    <string name="element_transmission">"Transmission"</string>
+    <string name="download_complete">"Download Complete"</string>
+    <string name="icon_credits">"Icon Credits"</string>
+    <string name="action_preview">"Preview"</string>
+    <string name="pref_view">"View %1$d"</string>
+    <string name="pref_data_element_settings">"Data element settings %1$d"</string>
+    <string name="pref_title_performance">"Title %1$d"</string>
+    <string name="download_dialog">"Try to install this app as the Play Store? If this fails you can try using Kingstaller."</string>
+    <string name="force_update">"Force update"</string>
+    <string name="update_failed">"Update check failed"</string>
+    <string name="convert_minutes_seconds">"Seconds to Minutes:Seconds"</string>
+    <string name="donate">"Please donate!"</string>
+    <string name="translate">"Translate"</string>
+    <string name="pref_chart_title">"Chart line color"</string>
+    <string name="pref_chart_summary">"Color to be used to draw lines on the chart"</string>
+    <string name="bg_ev">"Electro Vehicle"</string>
+    <string name="minmax_below">"Min/Max below gauge"</string>
+    <string name="minmax_below_desc">"Place min/max values below gauge instead of overlapping the bottom of the gauge"</string>
+</resources>
