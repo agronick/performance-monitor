@@ -1,8 +1,19 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="activity_credits_title">"πληροφοριες"</string>
+
+    <!-- Fuzzy -->
+    <string name="activity_main_title">"
+
+"</string>
     <string name="activity_settings_title">"Ρυθμισης"</string>
     <string name="activity_stopwatch_title">"Χρονόμετρο"</string>
+    <string name="app_car_service_name">"
+
+"</string>
+    <string name="app_name">"
+
+"</string>
     <string name="credits_author">"βασισμένη στην εφαρμογή του :"</string>
     <string name="credits_basedon">"Με βάση την εφαρμογή SDK και επίδειξης από:"</string>
     <string name="credits_drivesafely">"Ασφαλή οδήγηση."</string>
@@ -42,6 +53,8 @@
     <string name="pref_appearance">"Εμφάνιση"</string>
     <string name="pref_centerclock">"Κεντρικοί μετρητές"</string>
     <string name="pref_font">"Γραμματοσειρά"</string>
+
+    <!-- Fuzzy -->
     <string name="pref_highlow">"Υψηλότερες τιμές"</string>
     <string name="pref_highlowmarks">"Σημειώστε τις υψηλότερες τιμές στο μετρητή"</string>
     <string name="pref_highvis">"Καντράν υψηλής ορατότητας"</string>
@@ -53,6 +66,10 @@
     <string name="pref_ticks">"Τιμές τικ"</string>
     <string name="pref_ticks_off">"Μην εμφανίζετε την αξία των κροτώνων"</string>
     <string name="pref_ticks_on">"Εμφάνιση τιμής κροτώνων"</string>
+    <string name="pref_view1">"Προβολή 1"</string>
+    <string name="pref_view2">"Προβολή 2"</string>
+    <string name="pref_view3">"Προβολή 3"</string>
+    <string name="pref_view4">"Προβολή 4"</string>
     <string name="element_torque_fuelpressure">"Πίεση καυσίμου"</string>
     <string name="element_torque_engineload">"Φορτίο κινητήρα"</string>
     <string name="element_torque_timing_advance">"Προώθηση χρόνου"</string>
@@ -71,19 +88,24 @@
     <string name="bg_gte">"GTE Tartan"</string>
     <string name="bg_vwgtd">"GTD Ταρτάν"</string>
     <string name="bg_black">"Μαύρος"</string>
+    <string name="bg_cloth">"Cloth"</string>
     <string name="bg_rock">"Βράχος"</string>
+    <string name="bg_outrun">"Outrun"</string>
     <string name="bg_plain">"Πεδιάδα"</string>
     <string name="bg_seat">"Γραμμές"</string>
     <string name="bg_seat2">"Σκοτεινό πλέγμα"</string>
     <string name="bg_skoda">"Κολόμβος"</string>
     <string name="bg_skoda2">"Κολόμβος Sport"</string>
     <string name="bg_skodaone">"OneApp"</string>
+    <string name="bg_blackboard">"Blackboard"</string>
     <string name="bg_test">"Δοκιμή"</string>
     <string name="bg_beetle">"Herbie"</string>
     <string name="pref_background">"Ιστορικό"</string>
     <string name="bg_dots">"Αποσιωπητικά"</string>
     <string name="bg_aa">"Android Auto"</string>
     <string name="item_details_go_back">"Πήγαινε πίσω"</string>
+    <string name="pref_dataelementsettings_1">"Ρυθμίσεις στοιχείων δεδομένων 1"</string>
+    <string name="pref_title_performance_1">"Τίτλος 1"</string>
     <string name="pid">"PID"</string>
     <string name="pidLabel">"Επιγραφή"</string>
     <string name="pidShowLabel">"Εμφάνιση ετικέτας"</string>
@@ -94,6 +116,8 @@
     <string name="num_screens">"Αριθμός πινάκων εργαλείων προς εμφάνιση"</string>
     <string name="unit">"Μονάδα"</string>
     <string name="dashboards">"Ταμπλό"</string>
+
+    <!-- Fuzzy -->
     <string name="rotary_input">"Περιστροφική είσοδος"</string>
     <string name="rotary_desc">"Απενεργοποιήστε τα κουμπιά και χρησιμοποιήστε τον περιστροφικό επιλογέα εάν υπάρχει"</string>
     <string name="enable_script">"Εκτέλεση μετατροπής μονάδας"</string>
@@ -104,6 +128,8 @@
     <string name="custom_expression">"Προσαρμοσμένη έκφραση"</string>
     <string name="status_connecting_torque">"Σύνδεση στο Torque…"</string>
     <string name="status_connecting_to_ecu">"Σύνδεση σε ECU…"</string>
+
+    <!-- Fuzzy -->
     <string name="credits_modifications">"Με τροποποιήσεις από:"</string>
     <string name="export_dashboards">"Εξαγωγή πινάκων εργαλείων"</string>
     <string name="import_dashboards">"Εισαγωγή πινάκων εργαλείων"</string>
@@ -113,6 +139,8 @@
     <string name="whole_numbers">"Ολόκληροι αριθμοί"</string>
     <string name="whole_numbers_desc">"Εμφάνιση χωρίς δεκαδικά ψηφία"</string>
     <string name="gauge_settings">"Ρυθμίσεις μετρητή"</string>
+
+    <!-- Fuzzy -->
     <string name="show_label_desc">"Στις περισσότερες περιπτώσεις θέλετε να εμφανίσετε ένα εικονίδιο. Μπορείτε να εμφανίσετε μια ετικέτα εάν δεν μπορείτε να βρείτε ένα εικονίδιο που να ταιριάζει με το PID."</string>
     <string name="show_label_desc_clock">"Εμφάνιση ετικέτας πάνω από το μετρητή"</string>
     <string name="icon_null_desc">"Επιλέξτε ένα εικονίδιο για να αναπαραστήσετε τη μέτρηση"</string>
@@ -121,6 +149,8 @@
     <string name="pref_shrink_gauge_on">"Δώστε έμφαση στο κεντρικό μετρητή"</string>
     <string name="new_version">"Μια νέα έκδοση είναι διαθέσιμη"</string>
     <string name="download">"Κατεβάστε"</string>
+
+    <!-- Fuzzy -->
     <string name="download_instructions">"Λήψη ενημέρωσης. Εγκατάσταση με το Kingstaller."</string>
     <string name="expressionDocumentation">"Προβολή τεκμηρίωσης"</string>
     <string name="copy_logs">"Αντιγραφή αρχείων καταγραφής στο πρόχειρο"</string>
@@ -135,10 +165,28 @@
     <string name="convert_liter_100_km">"Λίτρο 100/χλμ σε Μίλια ανά Λίτρο "</string>
     <string name="convert_kpa_psi">"Kilopascals (kPa) έως (PSI)"</string>
     <string name="status_setup_gauges">"Ρύθμιση μετρητών στις ρυθμίσεις"</string>
+
+    <!-- Fuzzy -->
     <string name="element_cylinder">"Κύλινδρος"</string>
     <string name="element_horsepower">"Ιπποδύναμη"</string>
     <string name="element_transmission">"Μετάδοση"</string>
+
+    <!-- Fuzzy -->
     <string name="download_complete">"Η λήψη ολοκληρώθηκε"</string>
     <string name="icon_credits">"Εικονίδιο Πιστώσεις"</string>
     <string name="action_preview">"προεπισκόπηση δράσης"</string>
-    </resources>
+    <string name="pref_view">"View %1$d"</string>
+    <string name="pref_data_element_settings">"Data element settings %1$d"</string>
+    <string name="pref_title_performance">"Title %1$d"</string>
+    <string name="download_dialog">"Try to install this app as the Play Store? If this fails you can try using Kingstaller."</string>
+    <string name="force_update">"Force update"</string>
+    <string name="update_failed">"Update check failed"</string>
+    <string name="convert_minutes_seconds">"Seconds to Minutes:Seconds"</string>
+    <string name="donate">"Please donate!"</string>
+    <string name="translate">"Translate"</string>
+    <string name="pref_chart_title">"Chart line color"</string>
+    <string name="pref_chart_summary">"Color to be used to draw lines on the chart"</string>
+    <string name="bg_ev">"Electro Vehicle"</string>
+    <string name="minmax_below">"Min/Max below gauge"</string>
+    <string name="minmax_below_desc">"Place min/max values below gauge instead of overlapping the bottom of the gauge"</string>
+</resources>
