@@ -53,6 +53,8 @@
 
     <!-- While "Tipografía" is a correct translation, "Fuente" can be used in case the current translation is too long or causes UI problems. -->
     <string name="pref_font">Tipografía</string>
+
+    <!-- Fuzzy -->
     <string name="pref_highlow">Valores máximos</string>
     <string name="pref_highlowmarks">Marcar valores máximos en el reloj</string>
     <string name="pref_highvis">Indicadores de alta visibilidad</string>
@@ -112,8 +114,6 @@
     <string name="bg_dots">Puntos</string>
     <string name="bg_aa">Android Auto</string>
     <string name="item_details_go_back">Volver</string>
-    <string name="pref_dataelementsettings_1">Ajustes de elementos de datos 1</string>
-    <string name="pref_title_performance_1">Titulo 1</string>
     <string name="pid">PID</string>
     <string name="pidLabel">Etiqueta</string>
     <string name="pidShowLabel">Mostrar etiqueta</string>
@@ -124,6 +124,8 @@
     <string name="num_screens">Numero de tableros a mostrar</string>
     <string name="unit">Unidad</string>
     <string name="dashboards">Tableros</string>
+
+    <!-- Fuzzy -->
     <string name="rotary_input">Entrada rotatoria</string>
     <string name="rotary_desc">Desactivar botones y usar selector rotatorio si está equipado</string>
     <string name="enable_script">Ejecutar conversión de unidad</string>
@@ -184,4 +186,7 @@
     <string name="translate">Traducir</string>
     <string name="pref_chart_title">Color de linea del gráfico</string>
     <string name="pref_chart_summary">Color a usar para dibujar lineas en el gráfico</string>
+    <string name="bg_ev">Electro Vehicle</string>
+    <string name="minmax_below">Min/Max below gauge</string>
+    <string name="minmax_below_desc">Place min/max values below gauge instead of overlapping the bottom of the gauge</string>
 </resources>
