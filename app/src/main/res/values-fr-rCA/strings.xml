@@ -162,19 +162,5 @@
     <!-- Fuzzy -->
     <string name="download_complete">Téléchargement_complet</string>
     <string name="icon_credits">Icône_crédits</string>
-    <string name="action_preview">Preview</string>
     <string name="pref_view">Vue %1$d</string>
-    <string name="pref_data_element_settings">Data element settings %1$d</string>
-    <string name="pref_title_performance">Title %1$d</string>
-    <string name="download_dialog">Try to install this app as the Play Store? If this fails you can try using Kingstaller.</string>
-    <string name="force_update">Force update</string>
-    <string name="update_failed">Update check failed</string>
-    <string name="convert_minutes_seconds">Seconds to Minutes:Seconds</string>
-    <string name="donate">Please donate!</string>
-    <string name="translate">Translate</string>
-    <string name="pref_chart_title">Chart line color</string>
-    <string name="pref_chart_summary">Color to be used to draw lines on the chart</string>
-    <string name="bg_ev">Electro Vehicle</string>
-    <string name="minmax_below">Min/Max below gauge</string>
-    <string name="minmax_below_desc">Place min/max values below gauge instead of overlapping the bottom of the gauge</string>
 </resources>
