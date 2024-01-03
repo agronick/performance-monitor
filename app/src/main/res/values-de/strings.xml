@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="activity_credits_title">Anerkennung</string>
     <string name="activity_main_title">Leistungs-Monitor</string>
     <string name="activity_settings_title">AA Torque Einstellungen</string>
     <string name="activity_stopwatch_title">Stoppuhr</string>
@@ -35,14 +36,15 @@
     <string name="element_fuel_primary">Primärer Antrieb</string>
     <string name="element_fuel_secondary">Sekundärer Antrieb</string>
     <string name="element_measurement">Messung</string>
+    <string name="element_motherboard">Platine</string>
     <string name="element_obd2">OBD2</string>
+    <string name="element_pedal">Pedal</string>
+    <string name="element_radio">Radio</string>
     <string name="element_wrench">Schraubenschlüssel</string>
     <string name="element_tire">Reifen</string>
     <string name="pref_appearance">Aussehen</string>
     <string name="pref_centerclock">Messinstrument Mitte</string>
     <string name="pref_font">Schriftart</string>
-
-    <!-- Fuzzy -->
     <string name="pref_highlow">Höchste / niedrigste Werte anzeigen</string>
     <string name="pref_highlowmarks">Höchste und niedrigste Werte auf Instrument markieren</string>
     <string name="pref_highvis">Instrumente mit hohem Kontrast</string>
@@ -51,6 +53,9 @@
     <string name="pref_leftclock">Messinstrument links</string>
     <string name="pref_rightclock">Messinstrument rechts</string>
     <string name="pref_theme">Thema</string>
+    <string name="pref_ticks">Skala</string>
+    <string name="pref_ticks_off">Keine Skala anzeigen</string>
+    <string name="pref_ticks_on">Skala anzeigen</string>
     <string name="element_torque_fuelpressure">Kraftstoff-Druck</string>
     <string name="element_torque_engineload">Motorlast</string>
     <string name="element_torque_timing_advance">Zündzeitwinkel</string>
@@ -85,6 +90,8 @@
     <string name="bg_dots">Punkte</string>
     <string name="bg_aa">Android Auto</string>
     <string name="item_details_go_back">Zurück</string>
+
+    <!-- Fuzzy -->
     <string name="pid">PID</string>
     <string name="pidLabel">Beschreibung</string>
     <string name="pidShowLabel">Beschreibung anzeigen</string>
@@ -103,8 +110,8 @@
     <string name="custom_script_desc">EvalEx-Ausdruck ausführen. Nutzen Sie für den aktuellen Wert \'a\'.</string>
     <string name="formulas">Formeln</string>
     <string name="custom_expression">Benutzerdefinierter Ausdruck</string>
-    <string name="status_connecting_torque">Verbindungsaufbau zu Torque</string>
-    <string name="status_connecting_to_ecu">Verbindungsaufbau zur ECU</string>
+    <string name="status_connecting_torque">Verbindungsaufbau zu Torque...</string>
+    <string name="status_connecting_to_ecu">Verbindungsaufbau zur ECU...</string>
     <string name="credits_modifications">Entwickelt von:</string>
     <string name="export_dashboards">Instrumententafeln exportieren</string>
     <string name="import_dashboards">Instrumententafeln importieren</string>
@@ -131,25 +138,46 @@
     <string name="convert_psi_bar">PSI nach bar umrechnen</string>
     <string name="convert_km_to_miles">Kilometer nach Meilen umrechnen</string>
     <string name="boolean_logic">Boole\'sche Logik</string>
+    <string name="convert_newton_ft_lb">Newtonmeter (Nm) nach Fußpfund (ft•lb) umrechnen</string>
+    <string name="convert_cc_min_gal_hour">Kubikzentimeter pro Minute (cm³ \\ min) nach Gallonen pro Stunde (gal / h) umrechnen</string>
     <string name="convert_liter_100_km">Liter pro 100 km (l / 100 km) nach Meilen per Gallon (mpg) umrechnen</string>
     <string name="convert_kpa_psi">Kilopascal (kPa) nach PSI umrechnen</string>
     <string name="status_setup_gauges">Richten Sie die Messinstrumente in den Einstellungen ein</string>
-    <string name="element_cylinder">Anzahl Zylinder</string>
+    <string name="element_cylinder">Zylinder / Kolben</string>
     <string name="element_horsepower">Pferdestärke</string>
     <string name="element_transmission">Getriebe</string>
     <string name="download_complete">Herunterladen abgeschlossen</string>
+    <string name="icon_credits">Symbol Anerkennung</string>
     <string name="action_preview">Vorschau</string>
-    <string name="pref_view">%1$d ansehen</string>
-    <string name="pref_data_element_settings">Datenelement %1$d einstellen</string>
+    <string name="pref_view">Datenwert %1$d</string>
+    <string name="pref_data_element_settings">Tafel %1$d einstellen</string>
     <string name="pref_title_performance">Titel %1$d</string>
+    <string name="download_dialog">Soll versucht werden, die App so zu installieren, als käme sie vom Google Play Store? Falls es fehlschlägt, können Sie es über KingInstaller versuchen.</string>
     <string name="force_update">Update erzwingen</string>
     <string name="update_failed">Aktualisierung-Prüfung fehlgeschlagen</string>
     <string name="convert_minutes_seconds">Sekunden (s) nach Minuten &amp; Sekunden (MM:SS) umrechnen</string>
-    <string name="donate">Ich freue mich über jede Spende!</string>
+    <string name="donate">Spenden</string>
     <string name="translate">Übersetzen</string>
     <string name="pref_chart_title">Farbe der Diagrammlinie</string>
     <string name="pref_chart_summary">Farbe zum Zeichnen der Linie im Diagramm</string>
     <string name="bg_ev">Elektro-Fahrzeug</string>
     <string name="minmax_below">Min. / max. Werte unterhalb des Instruments</string>
     <string name="minmax_below_desc">Min. / max. Werte unterhalb des Instruments anzeigen anstatt dessen unteren Teil zu überdecken</string>
+    <string name="media">Medien</string>
+    <string name="media_background_title">Medien-Hintergrund</string>
+    <string name="media_background_summary">Album-Cover als Hintergrund verwenden (Beta)</string>
+    <string name="opacity_title">Instrumenten-Deckkraft</string>
+    <string name="opacity_summary">Instrumente verblassen um mehr vom Hintergrund zu sehen</string>
+
+    <!-- Fuzzy -->
+    <string name="media_blur_title">Bild verwaschen</string>
+
+    <!-- Fuzzy -->
+    <string name="media_blur_summary">Bild verwaschen um Lesbarkeit zu verbessern</string>
+
+    <!-- Fuzzy -->
+    <string name="media_darken_title">Bild abdunkeln</string>
+
+    <!-- Fuzzy -->
+    <string name="media_darken_summary">Bild abdunkeln um Lesbarkeit zu verbessern</string>
 </resources>
