@@ -97,7 +97,11 @@
     <string name="pidShowLabel">Beschreibung anzeigen</string>
     <string name="icon">Symbol</string>
     <string name="torque_waiting">Auf Start von Torque warten</string>
+
+    <!-- Fuzzy -->
     <string name="min_value">Minimaler Wert</string>
+
+    <!-- Fuzzy -->
     <string name="max_value">Maximaler Wert</string>
     <string name="num_screens">Anzahl an Instrumententafeln zur Anzeige</string>
     <string name="unit">Einheit</string>
@@ -164,8 +168,12 @@
     <string name="minmax_below">Min. / max. Werte unterhalb des Instruments</string>
     <string name="minmax_below_desc">Min. / max. Werte unterhalb des Instruments anzeigen anstatt dessen unteren Teil zu überdecken</string>
     <string name="media">Medien</string>
+
+    <!-- Fuzzy -->
     <string name="media_background_title">Medien-Hintergrund</string>
     <string name="media_background_summary">Album-Cover als Hintergrund verwenden (Beta)</string>
+
+    <!-- Fuzzy -->
     <string name="opacity_title">Instrumenten-Deckkraft</string>
     <string name="opacity_summary">Instrumente verblassen um mehr vom Hintergrund zu sehen</string>
 
