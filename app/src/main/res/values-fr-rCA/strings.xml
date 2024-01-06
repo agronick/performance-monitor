@@ -99,7 +99,11 @@
     <string name="pidShowLabel">Afficher Libellé</string>
     <string name="icon">Icône</string>
     <string name="torque_waiting">Attendre que Torque soit disponible</string>
+
+    <!-- Fuzzy -->
     <string name="min_value">Valeur Min</string>
+
+    <!-- Fuzzy -->
     <string name="max_value">Valeur Max</string>
     <string name="num_screens">Nombre de tableaux de bord à afficher</string>
     <string name="unit">Unité</string>
