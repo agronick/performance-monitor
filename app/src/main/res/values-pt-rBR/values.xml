@@ -83,7 +83,11 @@
     <string name="pidShowLabel">Mostrar rótulo</string>
     <string name="icon">Ícone</string>
     <string name="torque_waiting">Esperando Torque ficar disponível</string>
+
+    <!-- Fuzzy -->
     <string name="min_value">Valor mínimo</string>
+
+    <!-- Fuzzy -->
     <string name="max_value">Valor máximo</string>
     <string name="num_screens">Número de painéis para mostrar</string>
     <string name="unit">Unidade</string>
