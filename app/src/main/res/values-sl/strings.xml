@@ -78,7 +78,11 @@
     <string name="pref_background">Ozadje</string>
     <string name="bg_aa">Android Auto</string>
     <string name="pid">PID</string>
+
+    <!-- Fuzzy -->
     <string name="min_value">Min vrednost</string>
+
+    <!-- Fuzzy -->
     <string name="max_value">Max vrednost</string>
     <string name="formulas">Formule</string>
     <string name="new_version">Na voljo je nova verzija</string>
