@@ -64,7 +64,11 @@
     <string name="pidShowLabel">Показывать название</string>
     <string name="icon">Иконка</string>
     <string name="torque_waiting">Ожидание Torque</string>
+
+    <!-- Fuzzy -->
     <string name="min_value">Минимальное значение</string>
+
+    <!-- Fuzzy -->
     <string name="max_value">Максимальное значение</string>
     <string name="num_screens">Количество отображаемых панелей</string>
 
