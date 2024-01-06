@@ -99,7 +99,11 @@
     <string name="pidShowLabel">Показати мітку</string>
     <string name="icon">Значок</string>
     <string name="torque_waiting">Чекаємо, коли Torque стане доступним</string>
+
+    <!-- Fuzzy -->
     <string name="min_value">Мінімальне значення</string>
+
+    <!-- Fuzzy -->
     <string name="max_value">Максимальне значення</string>
     <string name="num_screens">Кількість інформаційних панелей для відображення</string>
     <string name="unit">Одиниці</string>
