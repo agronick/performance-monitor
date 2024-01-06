@@ -45,9 +45,7 @@
     <string name="pref_appearance">Aspetto</string>
     <string name="pref_centerclock">Indicatore centrale</string>
     <string name="pref_font">Carattere</string>
-
-    <!-- Fuzzy -->
-    <string name="pref_highlow">Valori più alti</string>
+    <string name="pref_highlow">Mostra valori min/max</string>
     <string name="pref_highlowmarks">Mostra i valori più alti nell\'indicatore</string>
     <string name="pref_highvis">Lancetta ad alta visibilità</string>
     <string name="pref_highvis_off">Mostra lancetta nell\'indicatore</string>
@@ -97,13 +95,15 @@
     <string name="pidShowLabel">Mostra etichetta</string>
     <string name="icon">Icona</string>
     <string name="torque_waiting">In attesa che Torque torni disponibile</string>
+
+    <!-- Fuzzy -->
     <string name="min_value">Valore minimo</string>
+
+    <!-- Fuzzy -->
     <string name="max_value">Valore massimo</string>
     <string name="num_screens">Numero quadri strumenti</string>
     <string name="unit">Unità</string>
     <string name="dashboards">Quadri strumenti</string>
-
-    <!-- Fuzzy -->
     <string name="rotary_input">Manopola</string>
     <string name="rotary_desc">Disabilita i pulsanti e utilizza la manopola se in dotazione</string>
     <string name="enable_script">Esegui conversione unità</string>
@@ -162,7 +162,20 @@
     <string name="translate">Traduci</string>
     <string name="pref_chart_title">Colore linea del grafico</string>
     <string name="pref_chart_summary">Colore da usare per tracciare le linee sul grafico</string>
-    <string name="bg_ev">Veicolo elettrico</string>
+    <string name="bg_ev">Electro Vehicle</string>
     <string name="minmax_below">Min/Max sotto l\'indicatore</string>
-    <string name="minmax_below_desc">Posizionare i valori min/max sotto l\'indicatore per non sovrapporsi all\'indicatore</string>
+    <string name="minmax_below_desc">Posiziona i valori min/max sotto l\'indicatore senza sovrapporsi all\'indicatore</string>
+    <string name="media">Media</string>
+
+    <!-- Fuzzy -->
+    <string name="media_background_title">Sfondo media</string>
+    <string name="media_background_summary">Usa copertina come sfondo (beta)</string>
+
+    <!-- Fuzzy -->
+    <string name="opacity_title">Opacità indicatore</string>
+    <string name="opacity_summary">Attenua indicatori per enfatizzare lo sfondo</string>
+    <string name="media_blur_title">Sfoca la grafica</string>
+    <string name="media_blur_summary">Sfoca la grafica per migliorare la leggibilità</string>
+    <string name="media_darken_title">Scurisci la grafica</string>
+    <string name="media_darken_summary">Scurisci la grafica per migliorare la leggibilità</string>
 </resources>
