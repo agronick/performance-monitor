@@ -48,7 +48,7 @@ class TorqueService {
             try {
                 val svc = ITorqueService.Stub.asInterface(service)
                 if (BuildConfig.SIMULATE_METRICS) {
-                    svc.setDebugTestMode(true)
+                    svc.setDebugTestMode(!svc.isConnectedToECU)
                 }
                 torqueService = svc
                 conLock.withLock {

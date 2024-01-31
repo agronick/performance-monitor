@@ -7,6 +7,7 @@
         <import type="android.graphics.Typeface" />
 
         <import type="com.aatorque.datastore.MaxControl" />
+        <import type="com.aatorque.datastore.Coloring" />
 
         <import type="com.aatorque.stats.ViewAdapterKt" />
 
@@ -77,6 +78,10 @@
         <variable
             name="visible"
             type="Boolean" />
+
+        <variable
+            name="alarm"
+            type="Coloring" />
     </data>
 
 
@@ -159,7 +164,8 @@
                 app:tickNumber="@{ticksOn ? TorqueGaugeKt.NUM_TICKS : 0}"
                 app:onPrintTickLabel="@{ tickFormatter }"
                 app:wholeNumbers="@{wholeNumbers}"
-                app:icon="@{icon}" />
+                app:icon="@{icon}"
+                app:alarm="@{alarm}" />
 
             <com.github.anastr.speedviewlib.SpeedView
                 android:id="@+id/dial_Max"

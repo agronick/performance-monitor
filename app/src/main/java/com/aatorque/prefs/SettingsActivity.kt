@@ -299,7 +299,18 @@ class SettingsActivity : AppCompatActivity(),
         // Instantiate the new Fragment
         val args = Bundle()
         args.putCharSequence("title", pref.title)
-        args.putString("prefix", pref.key)
+        val prefix = pref.extras.getString("prefix") ?: pref.key
+        if (prefix.startsWith("clock_") || prefix.startsWith("display")) {
+            val parts = prefix.split("_")
+            assert(parts.size == 3)
+            val isClock = parts[0] == "clock"
+            val screen = parts[1].toInt()
+            val index = parts[2].toInt()
+            args.putBoolean("isClock", isClock)
+            args.putInt("screen", screen)
+            args.putInt("index", index)
+        }
+        args.putString("prefix", prefix)
         val fragment = supportFragmentManager.fragmentFactory.instantiate(
             classLoader,
             pref.fragment!!

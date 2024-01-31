@@ -1,11 +1,30 @@
 syntax = "proto3";
 option java_package = "com.aatorque.datastore";
 option java_multiple_files = true;
+import "google/protobuf/descriptor.proto";
 
 enum MaxControl {
   OFF = 0;
   MIN = 1;
   MAX = 2;
+}
+
+extend google.protobuf.EnumValueOptions {
+  optional string op = 50000;
+}
+
+enum Operation {
+  LT = 0 [(op) = "<"];
+  LTE = 1 [(op) = "<="];
+  EQ = 3 [(op) = "="];
+  GT = 4 [(op) = ">"];
+  GTE = 5 [(op) = ">="];
+}
+
+message Coloring{
+  double value = 1;
+  Operation operation = 2;
+  int32 color = 3;
 }
 
 message Display {
@@ -25,6 +44,7 @@ message Display {
   MaxControl maxMarksActive = 23;
   bool highVisActive = 19;
   int32 chartColor = 24;
+  repeated Coloring alarms = 26;
 }
 
 message Screen {

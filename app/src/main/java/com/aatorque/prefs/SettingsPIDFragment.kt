@@ -10,6 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.preference.CheckBoxPreference
 import androidx.preference.EditTextPreference
 import androidx.preference.ListPreference
+import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
@@ -21,7 +22,10 @@ import com.aatorque.stats.TorqueServiceWrapper
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import kotlin.math.ceil
@@ -36,6 +40,7 @@ class SettingsPIDFragment:  PreferenceFragmentCompat() {
     var screen = 0
     var index = 0
 
+    lateinit var display: Display
     lateinit var enabledPref: SwitchPreferenceCompat
     lateinit var pidPref: ListPreference
     lateinit var showLabelPref: CheckBoxPreference
@@ -84,11 +89,11 @@ class SettingsPIDFragment:  PreferenceFragmentCompat() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val parts = requireArguments().getCharSequence("prefix")?.split("_")
-        assert(parts!!.size == 3)
-        isClock = parts[0] == "clock"
-        screen = parts[1].toInt()
-        index = parts[2].toInt()
+        val args = requireArguments()
+        val prefix = args.getString("prefix")
+        isClock = args.getBoolean("isClock")
+        screen = args.getInt("screen")
+        index = args.getInt("index")
         preferenceManager.sharedPreferencesName = null
 
         enabledPref = findPreference("enabled")!!
@@ -108,6 +113,7 @@ class SettingsPIDFragment:  PreferenceFragmentCompat() {
         maxMarksActivePref = findPreference("maxMarksActive")!!
         highVisActivePref = findPreference("highVisActive")!!
         colorPref = findPreference("chartColor")!!
+        findPreference<Preference>("indicatorColor")!!.extras.putCharSequence("prefix", prefix)
 
         pidPref.summaryProvider = ListPreference.SimpleSummaryProvider.getInstance()
         imagePref.setSummaryProvider {
@@ -167,43 +173,44 @@ class SettingsPIDFragment:  PreferenceFragmentCompat() {
             }
             return@setOnPreferenceChangeListener true
         }
-    }
 
-    override fun onResume() {
-        super.onResume()
         lifecycleScope.launch {
-            val data = requireContext().dataStore.data.first()
-            val screen = data.getScreens(screen)
-            val display = if (isClock) screen.getGauges(index) else screen.getDisplays(index)
-            enabledPref.isChecked = !display.disabled
-            pidPref.value = display.pid
-            showLabelPref.isChecked = display.showLabel
-            labelPref.text = display.label
-            imagePref.value = display.icon
-            minValuePref.text = display.minValue.toString()
-            maxValuePref.text = display.maxValue.toString()
-            unitPref.text = display.unit
-            runcustomScriptPref.isChecked = display.enableScript
-            wholeNumberPref.isChecked = display.wholeNumbers
-            ticksActivePref.isChecked = display.ticksActive
-            maxValuesActivePref.value = display.maxValuesActive.number.toString()
-            maxMarksActivePref.value = display.maxMarksActive.number.toString()
-            highVisActivePref.isChecked = display.highVisActive
-            colorPref.colorValue = display.chartColor.let {
-                if (it == 0) {
-                    resources.obtainTypedArray(R.array.chartColors).run {
-                        val color = getColor(index, Color.WHITE)
-                        recycle()
-                        color
-                    }
-                } else it
-            }
-            jsPref.setValue(display.customScript)
-            if (pidPref.value.startsWith("torque")) {
-                enableItems(true)
+            requireContext().dataStore.data.map {
+                val screen = it.getScreens(screen)
+                return@map if (isClock) screen.getGauges(index) else screen.getDisplays(index)
+            }.collect{
+                display = it
+                enabledPref.isChecked = !display.disabled
+                pidPref.value = display.pid
+                showLabelPref.isChecked = display.showLabel
+                labelPref.text = display.label
+                imagePref.value = display.icon
+                minValuePref.text = display.minValue.toString()
+                maxValuePref.text = display.maxValue.toString()
+                unitPref.text = display.unit
+                runcustomScriptPref.isChecked = display.enableScript
+                wholeNumberPref.isChecked = display.wholeNumbers
+                ticksActivePref.isChecked = display.ticksActive
+                maxValuesActivePref.value = display.maxValuesActive.number.toString()
+                maxMarksActivePref.value = display.maxMarksActive.number.toString()
+                highVisActivePref.isChecked = display.highVisActive
+                colorPref.colorValue = display.chartColor.let {
+                    if (it == 0) {
+                        resources.obtainTypedArray(R.array.chartColors).run {
+                            val color = getColor(index, Color.WHITE)
+                            recycle()
+                            color
+                        }
+                    } else it
+                }
+                jsPref.setValue(display.customScript)
+                if (pidPref.value.startsWith("torque")) {
+                    enableItems(true)
+                }
             }
         }
     }
+
 
     fun enableItems(enabled: Boolean) {
         unitPref.isEnabled = enabled
@@ -238,7 +245,7 @@ class SettingsPIDFragment:  PreferenceFragmentCompat() {
 
         val minVal = coerce(minValuePref.text, 0)
         val maxVal = coerce(maxValuePref.text, 100)
-        var display = Display.newBuilder().setDisabled(
+        var display = display.toBuilder().setDisabled(
             !enabledPref.isChecked
         ).setPid(
             pidPref.value

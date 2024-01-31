@@ -13,9 +13,11 @@ import androidx.core.graphics.BlendModeColorFilterCompat
 import androidx.core.graphics.BlendModeCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.aatorque.datastore.Coloring
 import com.aatorque.datastore.MaxControl
 import com.aatorque.prefs.SettingsViewModel
 import com.aatorque.stats.databinding.FragmentGaugeBinding
+import com.aatorque.utils.AwareObserver
 import com.github.anastr.speedviewlib.ImageSpeedometer
 import com.github.anastr.speedviewlib.RaySpeedometer
 import com.github.anastr.speedviewlib.Speedometer
@@ -201,6 +203,7 @@ class TorqueGauge : Fragment() {
     fun setupClock(data: TorqueData) {
         binding.visible = data.pid != null
 
+
         data.notifyUpdate = this::onUpdate
         val iconDrawableName = data.getDrawableName() ?: "ic_none"
         val iconText = if (data.display.showLabel) data.display.label else ""
@@ -239,6 +242,8 @@ class TorqueGauge : Fragment() {
         turnMinMaxTextViewsEnabled(data.display.maxValuesActive)
         turnRaysEnabled(data.display.highVisActive)
         turnWholeNumbers(data.display.wholeNumbers)
+
+        alarmObserver.bind(viewLifecycleOwner, data.currentAlarm)
     }
 
     private fun setMinMax(minspeed: Int, maxspeed: Int) {
@@ -284,6 +289,12 @@ class TorqueGauge : Fragment() {
                     possibleValue
                 )
             }
+        }
+    }
+
+    val alarmObserver = object: AwareObserver<Coloring>() {
+        override fun onChanged(value: Coloring?) {
+            binding.alarm = value
         }
     }
 }

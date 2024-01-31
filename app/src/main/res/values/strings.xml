@@ -184,4 +184,11 @@
     <string name="enabled">Enabled</string>
     <string name="enabled_desc_on">Show this item</string>
     <string name="enabled_desc_off">Hide this item</string>
+    <string name="alarms">Alarms</string>
+    <string name="alarms_desc">"Change color based off the value to implement things like shift lights or temperature warnings. "</string>
+    <string name="add_item">Add item</string>
+    <string name="color_instruct">Items are evaluated from top to bottom. The first item that matches will be used.</string>
+    <string name="condition">Condition</string>
+    <string name="value">Value</string>
+    <string name="color">Color</string>
 </resources>

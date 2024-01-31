@@ -60,6 +60,13 @@
         android:enabled="false"
         android:persistent="false"
     />
+    <Preference
+        android:key="indicatorColor"
+        android:title="@string/alarms"
+        android:summary="@string/alarms_desc"
+        android:persistent="false"
+        android:fragment="com.aatorque.prefs.AlarmFragment"
+        />
     <CheckBoxPreference
         android:key="wholeNumbers"
         android:title="@string/whole_numbers"
