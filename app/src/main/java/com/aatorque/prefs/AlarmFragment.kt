@@ -103,18 +103,20 @@ class StateModel : ViewModel() {
     fun prependItem(it: FormData) {
         uiState.add(it)
         uiState.sortWith(
-            compareBy {
-                return@compareBy if (it.operation == Operation.LT || it.operation == Operation.LTE) {
-                    -it.value
-                } else {
-                    it.value
+            compareBy({
+                when (it.operation) {
+                    Operation.EQ -> 0
+                    Operation.GT, Operation.GTE -> 1
+                    Operation.LTE, Operation.LT -> 2
+                    Operation.UNRECOGNIZED -> 3
                 }
-            }
+            }, {
+                when (it.operation) {
+                    Operation.GT, Operation.GTE -> -it.value
+                    else -> it.value
+                }
+            })
         )
-    }
-
-    fun swap(to: Int, from: Int) {
-        uiState.add(to, uiState.removeAt(from))
     }
 
     fun delete(current: FormData) {

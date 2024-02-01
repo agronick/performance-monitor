@@ -14,7 +14,7 @@ class AnimatedLine(context: Context, attributeSet: AttributeSet) : View(context,
 
     var lastRect: RectF? = null
     val animator = OpenCloseAnimator.ofFloat(0f, 1f).apply {
-        duration = 300
+        duration = 250
     }
 
     var paint: Paint? = null

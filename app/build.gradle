@@ -101,7 +101,6 @@ dependencies {
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'com.google.android.material:material:1.11.0'
-    implementation 'com.austingreco:image-list-preference:1.0.0'
     implementation 'com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava'
     implementation 'com.jakewharton.timber:timber:5.0.1'
 
@@ -118,7 +117,7 @@ dependencies {
 
     testImplementation 'junit:junit:4.13.2'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-    implementation 'com.ezylang:EvalEx:3.1.0'
+    implementation 'com.ezylang:EvalEx:3.0.5'
 
     implementation 'androidx.annotation:annotation:1.7.1'
     implementation "androidx.datastore:datastore:1.0.0"

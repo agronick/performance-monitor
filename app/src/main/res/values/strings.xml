@@ -187,7 +187,10 @@
     <string name="alarms">Alarms</string>
     <string name="alarms_desc">"Change color based off the value to implement things like shift lights or temperature warnings. "</string>
     <string name="add_item">Add item</string>
-    <string name="color_instruct">The last item that matches will be used.</string>
+    <string name="color_instruct">First item that matches will be used. Items are sorted in the following order:
+        \n• equality
+        \n• greater than (highest first)
+        \n• less than (lowest first)</string>
     <string name="condition">Condition</string>
     <string name="value">Value</string>
     <string name="color">Color</string>

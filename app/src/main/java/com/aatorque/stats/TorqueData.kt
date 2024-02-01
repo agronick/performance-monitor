@@ -65,7 +65,7 @@ class TorqueData(var display: Display) {
         if (!hasReceivedNonZero) {
             return
         }
-        val newValue = display.alarmsList.lastOrNull {
+        val newValue = display.alarmsList.firstOrNull {
             when (it.operation) {
                 Operation.GT -> field > it.value
                 Operation.GTE -> field >= it.value
@@ -75,7 +75,7 @@ class TorqueData(var display: Display) {
                 else -> false
             }
         }
-        if ((currentAlarm.value != null && newValue == null) || newValue?.equals(currentAlarm) == false) {
+        if (currentAlarm.value?.color != newValue?.color) {
             currentAlarm.postValue(newValue)
         }
     }

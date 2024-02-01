@@ -1,7 +1,9 @@
 syntax = "proto3";
+
+import "google/protobuf/descriptor.proto";
+
 option java_package = "com.aatorque.datastore";
 option java_multiple_files = true;
-import "google/protobuf/descriptor.proto";
 
 enum MaxControl {
   OFF = 0;
@@ -16,9 +18,9 @@ extend google.protobuf.EnumValueOptions {
 enum Operation {
   LT = 0 [(op) = "<"];
   LTE = 1 [(op) = "<="];
-  EQ = 3 [(op) = "="];
-  GT = 4 [(op) = ">"];
-  GTE = 5 [(op) = ">="];
+  GTE = 2 [(op) = ">="];
+  GT = 3 [(op) = ">"];
+  EQ = 4 [(op) = "="];
 }
 
 message Coloring{
