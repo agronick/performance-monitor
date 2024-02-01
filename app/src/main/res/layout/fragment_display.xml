@@ -1,43 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 <data>
     <import type="android.graphics.Typeface" />
     <import type="androidx.constraintlayout.widget.ConstraintLayout.LayoutParams" />
     <import type="com.aatorque.stats.ViewAdapterKt" />
+    <import type="android.view.Gravity" />
     <variable name="value" type="String"/>
     <variable name="iconText" type="String"/>
     <variable name="icon" type="Integer"/>
     <variable name="font" type="Typeface" />
     <variable name="showBottom" type="Boolean" />
     <variable name="showSide" type="Boolean" />
-</data>
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:clipChildren="false">
 
-    <TextView
-        android:id="@+id/valueElement"
-        android:layout_width="120dp"
+    <variable
+        name="alarm"
+        type="Integer" />
+</data>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:ellipsize="none"
-        android:gravity="center"
-        android:maxLines="1"
-        android:typeface="@{font}"
-        android:text="@{value}"
-        android:textSize="25sp"
-        android:textAlignment="gravity"
-        android:textColor="@android:color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@{showBottom || showSide ? LayoutParams.UNSET : LayoutParams.PARENT_ID}"
-        app:layout_constraintBottom_toBottomOf="@{showBottom || showSide ? LayoutParams.PARENT_ID : LayoutParams.UNSET}" />
+        android:clipChildren="false"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        app:reversed="@{showBottom || showSide}">
+
+        <com.aatorque.utils.AnimatedLine
+            android:id="@+id/lineAnim"
+            android:layout_width="50dp"
+            android:layout_height="3dp"
+            app:color="@{alarm}" />
+
+        <TextView
+            android:id="@+id/valueElement"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="8dp"
+            android:ellipsize="none"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="@{value}"
+            android:textAlignment="gravity"
+            android:textColor="@android:color/white"
+            android:textSize="25sp"
+            android:typeface="@{font}" />
 
     <TextView
         android:id="@+id/iconElement"
@@ -55,11 +64,7 @@
         android:textColor="@android:color/white"
         android:textSize="14sp"
         android:text="@{iconText}"
-        app:backgroundResource="@{icon ?? 0}"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@{showBottom || showSide ? LayoutParams.UNSET : @id/valueElement}"
-        app:layout_constraintBottom_toTopOf="@{showBottom || showSide ? @id/valueElement : LayoutParams.UNSET}"  />
+        app:backgroundResource="@{icon ?? 0}" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 </layout>

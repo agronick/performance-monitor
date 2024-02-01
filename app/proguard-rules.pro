@@ -48,4 +48,12 @@
    <fields>;
 }
 
+-keepclassmembers class * extends com.google.protobuf.DescriptorProtos {
+   <fields>;
+}
+
+-keep class * extends com.google.protobuf.DescriptorProtos$**{
+  *;
+}
+
 -keep,allowoptimization class com.aatorque.** { *; }

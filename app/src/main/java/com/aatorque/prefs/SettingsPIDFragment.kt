@@ -22,10 +22,7 @@ import com.aatorque.stats.TorqueServiceWrapper
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import kotlin.math.ceil
@@ -195,7 +192,9 @@ class SettingsPIDFragment:  PreferenceFragmentCompat() {
                 maxMarksActivePref.value = display.maxMarksActive.number.toString()
                 highVisActivePref.isChecked = display.highVisActive
                 colorPref.colorValue = display.chartColor.let {
-                    if (it == 0) {
+                    if (!isClock) {
+                        Color.WHITE
+                    } else if (it == 0) {
                         resources.obtainTypedArray(R.array.chartColors).run {
                             val color = getColor(index, Color.WHITE)
                             recycle()

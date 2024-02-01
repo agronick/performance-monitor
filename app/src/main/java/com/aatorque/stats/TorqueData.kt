@@ -1,6 +1,5 @@
 package com.aatorque.stats
 
-import android.database.Observable
 import android.icu.math.BigDecimal
 import android.icu.text.NumberFormat
 import androidx.lifecycle.MutableLiveData
@@ -63,7 +62,10 @@ class TorqueData(var display: Display) {
         }
 
     private fun updateAlarm(field: Double) {
-        currentAlarm.value = display.alarmsList.firstOrNull {
+        if (!hasReceivedNonZero) {
+            return
+        }
+        val newValue = display.alarmsList.lastOrNull {
             when (it.operation) {
                 Operation.GT -> field > it.value
                 Operation.GTE -> field >= it.value
@@ -72,6 +74,9 @@ class TorqueData(var display: Display) {
                 Operation.LTE -> field <= it.value
                 else -> false
             }
+        }
+        if ((currentAlarm.value != null && newValue == null) || newValue?.equals(currentAlarm) == false) {
+            currentAlarm.postValue(newValue)
         }
     }
 

@@ -7,8 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewGroup.MarginLayoutParams
 import android.widget.ImageView
+import android.widget.LinearLayout
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.Guideline
+import androidx.core.view.children
 import androidx.databinding.BindingAdapter
 import com.github.anastr.speedviewlib.Gauge
 import com.github.anastr.speedviewlib.ImageSpeedometer
@@ -110,4 +112,16 @@ fun bitmapOrResource(view: ImageView, bitmap: Bitmap?, resource: Int?) {
     } else {
         view.setImageResource(0)
     }
+}
+
+@BindingAdapter("reversed")
+fun reversed(view: LinearLayout, isReversed: Boolean) {
+    if ((view.getTag(R.id.container) ?: false) != isReversed) {
+        val children = view.children.toList()
+        view.removeAllViews()
+        children.reversed().forEachIndexed { index, child ->
+            view.addView(child, index)
+        }
+    }
+    view.setTag(R.id.container, isReversed)
 }

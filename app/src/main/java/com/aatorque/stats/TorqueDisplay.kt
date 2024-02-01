@@ -11,9 +11,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
+import com.aatorque.datastore.Coloring
 import com.aatorque.prefs.SettingsViewModel
 import com.aatorque.stats.databinding.FragmentDisplayBinding
+import com.aatorque.utils.AwareObserver
 import timber.log.Timber
+
 
 class TorqueDisplay : Fragment() {
     lateinit var rootView: View
@@ -82,14 +85,7 @@ class TorqueDisplay : Fragment() {
             binding.value = "-"
         }
 
-
-/*
-        if (icon == "empty") {
-            label.setBackgroundResource(0)
-            val params = label.layoutParams as ConstraintLayout.LayoutParams
-            params.width = 40
-            label.layoutParams = params
-        } */
+        alarmObserver.bind(viewLifecycleOwner, data.currentAlarm)
     }
 
     fun setupTypeface(typeface: Typeface) {
@@ -99,5 +95,11 @@ class TorqueDisplay : Fragment() {
     @SuppressLint("SetTextI18n")
     fun onUpdate(data: TorqueData) {
         binding.value = data.lastDataStr + unit
+    }
+
+    val alarmObserver = object : AwareObserver<Coloring>() {
+        override fun onChanged(value: Coloring?) {
+            binding.alarm = value?.color
+        }
     }
 }

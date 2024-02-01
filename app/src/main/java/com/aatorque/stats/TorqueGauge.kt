@@ -18,7 +18,6 @@ import com.aatorque.datastore.MaxControl
 import com.aatorque.prefs.SettingsViewModel
 import com.aatorque.stats.databinding.FragmentGaugeBinding
 import com.aatorque.utils.AwareObserver
-import com.github.anastr.speedviewlib.ImageSpeedometer
 import com.github.anastr.speedviewlib.RaySpeedometer
 import com.github.anastr.speedviewlib.Speedometer
 import com.github.anastr.speedviewlib.components.Section
@@ -32,7 +31,7 @@ val MIN_MAX_DEFAULT = Pair(0f, 100f)
 class TorqueGauge : Fragment() {
 
     private var rootView: View? = null
-    private val mClock: ImageSpeedometer
+    private val mClock: TorqueSpeedometer
         get() {
             return binding.dial
         }
@@ -294,7 +293,7 @@ class TorqueGauge : Fragment() {
 
     val alarmObserver = object: AwareObserver<Coloring>() {
         override fun onChanged(value: Coloring?) {
-            binding.alarm = value
+            mClock.setAlarm(value)
         }
     }
 }

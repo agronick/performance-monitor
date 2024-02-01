@@ -1,6 +1,5 @@
 package com.aatorque.prefs
 
-import com.aatorque.datastore.Operation
 import android.os.Bundle
 import android.os.Parcelable
 import android.view.LayoutInflater
@@ -45,18 +44,17 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.aatorque.datastore.Coloring
 import com.aatorque.datastore.Display
+import com.aatorque.datastore.Operation
 import com.aatorque.datastore.Screen
 import com.aatorque.datastore.UserPreferenceOrBuilder
 import com.aatorque.stats.R
@@ -64,7 +62,6 @@ import com.aatorque.ui.AppTheme
 import com.rarepebble.colorpicker.ColorPickerView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
@@ -414,7 +411,7 @@ fun VerticalReorderList(model: StateModel = viewModel()) {
         model.uiState.forEach { current ->
             ListItem(
                 headlineContent = {
-                    Text(current.operation.op)
+                    Text("value ${current.operation.op} ${current.value}")
                 },
                 leadingContent = {
                     TextButton(
@@ -433,11 +430,6 @@ fun VerticalReorderList(model: StateModel = viewModel()) {
                     ) {
 
                     }
-                },
-                supportingContent = {
-                    Text(
-                        current.value.toString(),
-                    )
                 },
 
                 trailingContent = {

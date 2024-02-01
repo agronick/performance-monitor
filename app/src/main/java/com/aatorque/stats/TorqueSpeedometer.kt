@@ -1,20 +1,16 @@
 package com.aatorque.stats
 
-import android.animation.Animator
-import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.Canvas
-import android.graphics.ColorSpace
 import android.graphics.Paint
-import android.graphics.Rect
 import android.graphics.RectF
 import android.graphics.drawable.Drawable
-import android.support.v4.media.session.PlaybackStateCompat.RepeatMode
 import android.util.AttributeSet
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.core.graphics.toRect
 import com.aatorque.datastore.Coloring
+import com.aatorque.utils.OpenCloseAnimator
 import com.github.anastr.speedviewlib.ImageSpeedometer
 
 class TorqueSpeedometer @JvmOverloads constructor(
@@ -25,25 +21,19 @@ class TorqueSpeedometer @JvmOverloads constructor(
 
     var icon: Drawable? = null
     var alarmPaint: Paint? = null
-    val alarmBottomOffset = dpTOpx(5f)
-    val alarmAnimator = ValueAnimator.ofFloat(0f, 1f).setDuration(
-        300
-    ).apply {
-        repeatCount = 0
+    val alarmBottomOffset = dpTOpx(3f)
+    val alarmAnimator = OpenCloseAnimator.ofFloat(0f, 1f).apply {
         addUpdateListener {
             invalidate()
         }
+        duration = 300
     }
-    var hasAlarmValue = false
 
     fun setAlarm(coloring: Coloring?) {
-        val value = coloring?.color
-        if (!hasAlarmValue && value != null) {
-            alarmAnimator.repeatMode = ValueAnimator.RESTART
-            alarmAnimator.pause()
-            alarmAnimator.start()
+        alarmAnimator.setState(coloring != null)
+        coloring?.let {
             alarmPaint = Paint().apply {
-                color = value ?: Color(0f, 0f, 0f, 0f).toArgb()
+                color = it.color
                 style = Paint.Style.STROKE
                 strokeWidth = alarmBottomOffset
                 setShadowLayer(
@@ -53,12 +43,7 @@ class TorqueSpeedometer @JvmOverloads constructor(
                     Color(0f, 0f, 0f, 0.3f).toArgb()
                 )
             }
-        } else if (hasAlarmValue && value == null) {
-            alarmAnimator.repeatMode = ValueAnimator.REVERSE
-            alarmAnimator.pause()
-            alarmAnimator.start()
         }
-        hasAlarmValue = value != null
     }
 
     override fun onDraw(canvas: Canvas) {
@@ -71,7 +56,12 @@ class TorqueSpeedometer @JvmOverloads constructor(
             start += start - (start * percent)
             distance *= percent
             canvas.drawArc(
-                RectF(0f, 0f, size.toFloat(), size.toFloat() - alarmBottomOffset),
+                RectF(
+                    0f + alarmBottomOffset,
+                    0f + alarmBottomOffset,
+                    size.toFloat() - alarmBottomOffset,
+                    size.toFloat() - alarmBottomOffset
+                ),
                 start,
                 distance,
                 false,
