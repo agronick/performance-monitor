@@ -161,8 +161,6 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0'
     // Optional - Integration with LiveData
     implementation 'androidx.compose.runtime:runtime-livedata'
-    // Optional - Integration with RxJava
-    implementation 'androidx.compose.runtime:runtime-rxjava2'
 
     implementation "org.burnoutcrew.composereorderable:reorderable:0.9.6"
 }
