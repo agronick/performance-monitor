@@ -4,10 +4,12 @@
     <string name="activity_main_title">AA Torque</string>
 
     <!-- The previous string is too generic and long -->
-    <string name="activity_settings_title">Ajustes de AA Torque</string>
+    <string name="activity_settings_title">AA Torque</string>
     <string name="activity_stopwatch_title">Cronómetro</string>
     <string name="app_car_service_name">AA Torque</string>
-    <string name="app_name">Monitor de desempeño para AA</string>
+
+    <!-- The title doesn't need translation. It looks weird in the app -->
+    <string name="app_name">AA Torque</string>
     <string name="credits_author">Basada en la app creada por:</string>
     <string name="credits_basedon">Basada en el SDK y la app demo de:</string>
     <string name="credits_drivesafely">Conduzca con precaución.</string>
@@ -53,17 +55,15 @@
 
     <!-- While "Tipografía" is a correct translation, "Fuente" can be used in case the current translation is too long or causes UI problems. -->
     <string name="pref_font">Tipografía</string>
-
-    <!-- Fuzzy -->
-    <string name="pref_highlow">Valores máximos</string>
+    <string name="pref_highlow">Mostrar valores min/max</string>
     <string name="pref_highlowmarks">Marcar valores máximos en el reloj</string>
-    <string name="pref_highvis">Indicadores de alta visibilidad</string>
-    <string name="pref_highvis_off">Mostrar aguja en los indicadores</string>
+    <string name="pref_highvis">Indicador de alta visibilidad</string>
+    <string name="pref_highvis_off">Mostrar aguja en indicadores</string>
     <string name="pref_highvis_on">Mostrar linea de alta visibilidad en lugar de aguja</string>
     <string name="pref_leftclock">Indicador izquierdo</string>
     <string name="pref_rightclock">Indicador derecho</string>
     <string name="pref_theme">Tema</string>
-    <string name="pref_ticks">Valores tick</string>
+    <string name="pref_ticks">Valores ticks</string>
     <string name="pref_ticks_off">No mostrar valores de ticks</string>
     <string name="pref_ticks_on">Mostrar valores de ticks</string>
     <string name="element_torque_fuelpressure">Presión de combustible</string>
@@ -81,7 +81,9 @@
     <!-- Name doesn't need translation -->
     <string name="bg_vw">Discover Pro Sport</string>
     <string name="bg_vw2">Fibra de carbón</string>
-    <string name="bg_vw3">Destacado</string>
+
+    <!-- Background name doesn't need translation -->
+    <string name="bg_vw3">Spotlight</string>
 
     <!-- Name doesn't need translation -->
     <string name="bg_vwplaid">GTI Tartan</string>
@@ -119,23 +121,17 @@
     <string name="pidShowLabel">Mostrar etiqueta</string>
     <string name="icon">Icono</string>
     <string name="torque_waiting">Esperando que Torque se encuentre disponible</string>
-
-    <!-- Fuzzy -->
     <string name="min_value">Valor minimo</string>
-
-    <!-- Fuzzy -->
     <string name="max_value">Valor máximo</string>
     <string name="num_screens">Numero de tableros a mostrar</string>
     <string name="unit">Unidad</string>
     <string name="dashboards">Tableros</string>
-
-    <!-- Fuzzy -->
     <string name="rotary_input">Entrada rotatoria</string>
     <string name="rotary_desc">Desactivar botones y usar selector rotatorio si está equipado</string>
     <string name="enable_script">Ejecutar conversión de unidad</string>
     <string name="enable_script_desc">Ejecutar formula en resultado</string>
     <string name="custom_script">Conversión de unidad</string>
-    <string name="custom_script_desc">Ejecutar una expresión EValEx. Use a para representar el valor actual</string>
+    <string name="custom_script_desc">Ejecutar una expresión EValEx. Use \'a\' para representar el valor actual</string>
     <string name="formulas">Formulas</string>
     <string name="custom_expression">Expresión personalizada</string>
     <string name="status_connecting_torque">Conectando a Torque</string>
@@ -151,7 +147,7 @@
     <string name="gauge_settings">Ajustes de los indicadores</string>
     <string name="show_label_desc">En la mayoría de los casos querrás mostrar un ícono, pero puedes mostrar una etiqueta si no encuentras un ícono que coincida con el PID.</string>
     <string name="show_label_desc_clock">Mostrar etiqueta encima del indicador</string>
-    <string name="icon_null_desc">Seleccionar un ícono para representar la metrica</string>
+    <string name="icon_null_desc">Selecciona un ícono para representar la métrica</string>
     <string name="pref_shrink_gauge">Indicador central mas grande</string>
     <string name="pref_shrink_gauge_off">Indicadores del mismo tamaño</string>
     <string name="pref_shrink_gauge_on">Enfatizar indicador central</string>
@@ -167,7 +163,7 @@
     <string name="convert_km_to_miles">Kilómetros a Millas</string>
     <string name="boolean_logic">Lógica booleana</string>
     <string name="convert_newton_ft_lb">Newtons-Metro a Libras-Pie</string>
-    <string name="convert_cc_min_gal_hour">CC por minuto a Galones hora</string>
+    <string name="convert_cc_min_gal_hour">CC por minuto a Galones-Hora</string>
     <string name="convert_liter_100_km">Litros / 100 km a Millas por galón</string>
     <string name="convert_kpa_psi">Kilopascales (kPa) a (PSI)</string>
 
@@ -186,8 +182,27 @@
     <string name="force_update">Forzar actualización</string>
     <string name="update_failed">Verificación de actualización falló</string>
     <string name="convert_minutes_seconds">Segundos a Minutos:Segundos</string>
-    <string name="donate">Por favor dona!</string>
+
+    <!-- While "Por favor dona!" is the literal translation, this string is used inside a button in the credits activity. Because it's length, when used in spanish this button will look too long. 
+
+"Donar" has the same meaning for the user and looks far better -->
+    <string name="donate">Donar!</string>
     <string name="translate">Traducir</string>
-    <string name="pref_chart_title">Color de linea del gráfico</string>
+    <string name="pref_chart_title">Color de linea de gráfico</string>
     <string name="pref_chart_summary">Color a usar para dibujar lineas en el gráfico</string>
+    <string name="bg_ev">Vehículo Electrico</string>
+    <string name="minmax_below">Min/Max debajo de aguja</string>
+    <string name="minmax_below_desc">Colocar valores min/max debajo del indicador en lugar de superponer en el fondo del indicador</string>
+    <string name="media">Medios</string>
+    <string name="media_background_title">Medios como fondo</string>
+    <string name="media_background_summary">Usar portada de album como fondo (beta)</string>
+    <string name="opacity_title">Opacidad de indicador</string>
+    <string name="opacity_summary">Oscurecer agujas para mostrar mas del fondo</string>
+    <string name="media_blur_title">Difuminar portada de medios</string>
+    <string name="media_blur_summary">Difuminar portada para mejorar la lectura</string>
+    <string name="media_darken_title">Obscurecer portada de medios</string>
+    <string name="media_darken_summary">Obscurecer portada de medios para ayudar a facilitar la lectura</string>
+    <string name="enabled">Habilitado</string>
+    <string name="enabled_desc_on">Mostrar este elemento</string>
+    <string name="enabled_desc_off">Ocultar este elemento</string>
 </resources>
