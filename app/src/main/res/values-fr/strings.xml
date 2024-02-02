@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="activity_credits_title">Crédits</string>
+    <string name="activity_main_title">Performance Monitor</string>
     <string name="activity_settings_title">AA Torque paramètres</string>
     <string name="activity_stopwatch_title">Chonomètre</string>
+    <string name="app_car_service_name">AA Torque</string>
+    <string name="app_name">AA Torque</string>
     <string name="credits_author">Basé sur l \'application réalisée par :</string>
     <string name="credits_basedon">Basé sur le SDK et la démo réalisée par :</string>
     <string name="credits_drivesafely">Conduisez prudemment</string>
@@ -16,13 +19,29 @@
     <string name="element_longitudinalAcceleration">G longitudinaux</string>
     <string name="element_navAltitude">Altitude</string>
     <string name="element_navHeading">Titre</string>
+    <string name="element_none">vide</string>
     <string name="element_odometer">Totalisateur</string>
     <string name="element_oilTemperature">Température d\'huile</string>
     <string name="element_outsideTemperature">Température extérieure</string>
+    <string name="element_soundVolume">Volume du son</string>
     <string name="element_wheelAngle">Angle de roue</string>
     <string name="element_wheel">Roue</string>
+    <string name="element_world">Monde</string>
+    <string name="element_yawRate">Taux de lacet</string>
     <string name="element_cac">Refroidisseur d\'air </string>
+    <string name="element_distance">Distance</string>
+    <string name="element_ecoaverage">Moyenne Eco</string>
+    <string name="element_eco">Eco</string>
+    <string name="exhaust">Échappement</string>
+    <string name="element_fuel_primary">Carburant primaire</string>
+    <string name="element_fuel_secondary">Carburant secondaire</string>
     <string name="element_measurement">Mesure</string>
+    <string name="element_motherboard">Carte Mère</string>
+    <string name="element_obd2">OBD2</string>
+    <string name="element_pedal">Pédale</string>
+    <string name="element_radio">Radio</string>
+    <string name="element_tire">Pneu</string>
+    <string name="pref_appearance">Apparence</string>
     <string name="pref_centerclock">Jauges centrales</string>
     <string name="pref_font">Police de caractère</string>
 
@@ -40,6 +59,7 @@
     <string name="pref_ticks_on">Afficher la valeur des ticks</string>
     <string name="element_torque_fuelpressure">Pression de carburant</string>
     <string name="element_torque_engineload">Charge du moteur</string>
+    <string name="element_torque_timing_advance">Avance à l\'allumage</string>
     <string name="element_torque_throttle_position">Position du papillon (collecteur)</string>
     <string name="element_torque_turboboost">Pression de suralimentation du turbo</string>
     <string name="element_torque_phonebatterylevel">Niveau de batterie du téléphone</string>
@@ -51,6 +71,7 @@
     <string name="bg_vw2">Fibre de carbone</string>
     <string name="bg_vw3">Projecteur</string>
     <string name="bg_black">Noir</string>
+    <string name="bg_cloth">Tissu</string>
     <string name="bg_seat">Lignes</string>
     <string name="bg_seat2">Grille sombre</string>
     <string name="bg_blackboard">Tableau noir</string>
@@ -78,6 +99,9 @@
     <string name="enable_script">Exécuter la conversion d\'unité</string>
     <string name="enable_script_desc">Exécuter la formule sur la sortie</string>
     <string name="custom_script">Conversion d\'unité</string>
+
+    <!-- I guess there is a character mission after "Use a " -->
+    <string name="custom_script_desc">Exécuter une expression EvalEx. Utilisez un _ pour représenter la valeur actuelle</string>
     <string name="formulas">Formules</string>
     <string name="custom_expression">Expression personnalisée</string>
     <string name="status_connecting_torque">Connexion a Torque</string>
@@ -91,6 +115,7 @@
     <string name="whole_numbers">Nombres entiers</string>
     <string name="whole_numbers_desc">Affichage sans décimales</string>
     <string name="gauge_settings">Paramètres de la jauge</string>
+    <string name="show_label_desc">Dans la majorité des cas vous voulez afficher une icone, mais vous pouvez afficher un label si vous ne trouvez pas une icone qui correspond au PID.</string>
     <string name="show_label_desc_clock">Afficher l\'étiquette au-dessus de la jauge</string>
     <string name="icon_null_desc">Sélectionnez une icône pour représenter la mesure</string>
     <string name="pref_shrink_gauge">Grande jauge centrale</string>
@@ -118,6 +143,9 @@
     <string name="download_complete">Téléchargement complet</string>
     <string name="icon_credits">Crédits d\'icône</string>
     <string name="action_preview">Aperçu</string>
+    <string name="pref_view">Vue %1$d</string>
+    <string name="pref_data_element_settings">Configuration de l\'élément de donnée %1$d</string>
+    <string name="pref_title_performance">Titre %1$d</string>
     <string name="download_dialog">Essayez d\'installer cette application en tant que Play Store ? Si cela échoue, vous pouvez essayer d\'utiliser Kingstaller.</string>
     <string name="force_update">Forcer la mise à jour</string>
     <string name="update_failed">La vérification de la mise à jour a échoué</string>
@@ -126,4 +154,19 @@
     <string name="translate">Traduire</string>
     <string name="pref_chart_title">Couleur des lignes du graphique</string>
     <string name="pref_chart_summary">Couleur à utiliser pour tracer des lignes sur le graphique</string>
+    <string name="bg_ev">Electro Véhicule</string>
+    <string name="minmax_below">Min/Max gauge en bas</string>
+    <string name="minmax_below_desc">Placer les valeurs min/max sous la gauge au lieu de les chevaucher en bas de la gauge</string>
+    <string name="media">Média</string>
+    <string name="media_background_title">Média Fond d\'écran</string>
+    <string name="media_background_summary">Utilisez le couvert d\'album comme fond d\'écran (béta)</string>
+    <string name="opacity_title">Gauge opacité</string>
+    <string name="opacity_summary">Assombrir la gauge pour faire apparaitre le fond d\'écran</string>
+    <string name="media_blur_title">Flouter l\'image</string>
+    <string name="media_blur_summary">Flouter l\'image pour améliorer le lisibilité</string>
+    <string name="media_darken_title">Assombrir l\'image</string>
+    <string name="media_darken_summary">Assombrir l\'image pour améliorer la lisibilité</string>
+    <string name="enabled">Activé</string>
+    <string name="enabled_desc_on">Afficher cet élément</string>
+    <string name="enabled_desc_off">Cacher cet élément</string>
 </resources>
