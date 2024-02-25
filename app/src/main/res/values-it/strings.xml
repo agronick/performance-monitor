@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="activity_credits_title">Crediti</string>
-    <string name="activity_main_title">AA Torque</string>
-    <string name="activity_settings_title">AA Torque</string>
+    <string name="activity_main_title">Monitoraggio delle prestazioni</string>
+    <string name="activity_settings_title">Impostazioni di coppia AA</string>
     <string name="activity_stopwatch_title">Cronometro</string>
-    <string name="app_car_service_name">AA Torque</string>
-    <string name="app_name">AA Torque</string>
-    <string name="credits_author">Basata sull\'app creata da:</string>
-    <string name="credits_basedon">Basata su SDK e app demo di:</string>
-    <string name="credits_drivesafely">Guida con prudenza!</string>
+    <string name="app_car_service_name">Coppia AA</string>
+    <string name="app_name">Coppia AA</string>
+    <string name="credits_author">Basato sull\'app realizzata da:</string>
+    <string name="credits_basedon">Basato sull\'SDK e sull\'app demo di:</string>
+    <string name="credits_drivesafely">Guidare in modo sicuro.</string>
     <string name="credits_thanks">Ringraziamenti speciali a:</string>
     <string name="element_VIN">VIN</string>
     <string name="element_batteryVoltage">Voltaggio batteria</string>
-    <string name="element_brakePressure">Pressione freno</string>
-    <string name="element_coolantTemperature">Temperatura refrigerante</string>
-    <string name="element_gearboxOilTemperature">Cambio</string>
-    <string name="element_lateralAcceleration">G laterale</string>
-    <string name="element_longitudinalAcceleration">G longitudinale</string>
+    <string name="element_brakePressure">Pressione dei freni</string>
+    <string name="element_coolantTemperature">Temperatura del refrigerante</string>
+    <string name="element_gearboxOilTemperature">Riduttore</string>
+    <string name="element_lateralAcceleration">G laterali</string>
+    <string name="element_longitudinalAcceleration">G longitudinali</string>
     <string name="element_navAltitude">Altitudine</string>
-    <string name="element_navHeading">Direzione</string>
+    <string name="element_navHeading">Intestazione</string>
     <string name="element_none">Nessuno</string>
     <string name="element_odometer">Odometro</string>
     <string name="element_oilTemperature">Temperatura olio motore</string>
@@ -178,4 +178,14 @@
     <string name="media_blur_summary">Sfoca la grafica per migliorare la leggibilità</string>
     <string name="media_darken_title">Scurisci la grafica</string>
     <string name="media_darken_summary">Scurisci la grafica per migliorare la leggibilità</string>
+    <string name="enabled">Abilitato</string>
+    <string name="enabled_desc_on">Mostra questo articolo</string>
+    <string name="enabled_desc_off">Nascondi questo elemento</string>
+    <string name="alarms">Allarmi</string>
+    <string name="alarms_desc">Cambia colore in base al valore per implementare cose come luci di cambio o avvisi di temperatura. </string>
+    <string name="add_item">Aggiungi articolo</string>
+    <string name="color_instruct">Verrà utilizzato il primo elemento corrispondente. Gli elementi sono ordinati nel seguente ordine:\n• uguaglianza\n• maggiore di (prima il più alto)\n• inferiore a (prima il più basso)</string>
+    <string name="condition">Condizione</string>
+    <string name="value">Valore</string>
+    <string name="color">Colore</string>
 </resources>
