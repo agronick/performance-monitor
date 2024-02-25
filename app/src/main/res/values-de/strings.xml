@@ -3,6 +3,8 @@
     <string name="activity_credits_title">Anerkennung</string>
     <string name="activity_main_title">Leistungs-Monitor</string>
     <string name="activity_settings_title">AA Torque Einstellungen</string>
+
+    <!-- Fuzzy -->
     <string name="activity_stopwatch_title">Stoppuhr</string>
     <string name="app_car_service_name">AA Torque</string>
     <string name="app_name">AA Torque</string>
@@ -90,18 +92,12 @@
     <string name="bg_dots">Punkte</string>
     <string name="bg_aa">Android Auto</string>
     <string name="item_details_go_back">Zurück</string>
-
-    <!-- Fuzzy -->
     <string name="pid">PID</string>
     <string name="pidLabel">Beschreibung</string>
     <string name="pidShowLabel">Beschreibung anzeigen</string>
     <string name="icon">Symbol</string>
     <string name="torque_waiting">Auf Start von Torque warten</string>
-
-    <!-- Fuzzy -->
     <string name="min_value">Minimaler Wert</string>
-
-    <!-- Fuzzy -->
     <string name="max_value">Maximaler Wert</string>
     <string name="num_screens">Anzahl an Instrumententafeln zur Anzeige</string>
     <string name="unit">Einheit</string>
@@ -172,9 +168,7 @@
     <!-- Fuzzy -->
     <string name="media_background_title">Medien-Hintergrund</string>
     <string name="media_background_summary">Album-Cover als Hintergrund verwenden (Beta)</string>
-
-    <!-- Fuzzy -->
-    <string name="opacity_title">Instrumenten-Deckkraft</string>
+    <string name="opacity_title">Durchsichtigkeit des Messinstruments</string>
     <string name="opacity_summary">Instrumente verblassen um mehr vom Hintergrund zu sehen</string>
 
     <!-- Fuzzy -->
@@ -188,4 +182,14 @@
 
     <!-- Fuzzy -->
     <string name="media_darken_summary">Bild abdunkeln um Lesbarkeit zu verbessern</string>
+    <string name="enabled">Aktiviert</string>
+    <string name="enabled_desc_on">Element anzeigen</string>
+    <string name="enabled_desc_off">Element ausblenden</string>
+    <string name="alarms">Warnungen</string>
+    <string name="alarms_desc">Ändern Sie die Farbe auf der Grundlage des Wertes, um z. B. Schaltblitze oder Temperaturwarnungen zu implementieren. </string>
+    <string name="add_item">Element hinzufügen</string>
+    <string name="color_instruct">Der erste übereinstimmende Eintrag wird verwendet. Die Elemente werden in der folgenden Reihenfolge sortiert:\n- Gleichheit\n- größer als (höchster Wert zuerst)\n- kleiner als (niedrigster Wert zuerst)</string>
+    <string name="condition">Zustand</string>
+    <string name="value">Wert</string>
+    <string name="color">Farbe</string>
 </resources>
