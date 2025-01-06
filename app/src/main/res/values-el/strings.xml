@@ -4,15 +4,15 @@
 
     <!-- Fuzzy -->
     <string name="activity_main_title">\n\n</string>
-    <string name="activity_settings_title">Ρυθμισης</string>
+    <string name="activity_settings_title">Ρυθμίσεις</string>
     <string name="activity_stopwatch_title">Χρονόμετρο</string>
     <string name="app_car_service_name">\n\n</string>
     <string name="app_name">\n\n</string>
     <string name="credits_author">βασισμένη στην εφαρμογή του :</string>
     <string name="credits_basedon">Με βάση την εφαρμογή SDK και επίδειξης από:</string>
-    <string name="credits_drivesafely">Ασφαλή οδήγηση.</string>
+    <string name="credits_drivesafely">Οδηγείτε με ασφάλεια.</string>
     <string name="credits_thanks">Ιδιαίτερες ευχαριστίες στον:</string>
-    <string name="element_VIN">Πλαίσιο</string>
+    <string name="element_VIN">Αριθμός πλαισίου</string>
     <string name="element_batteryVoltage">Τάση μπαταρίας</string>
     <string name="element_brakePressure">Πίεση πέδησης</string>
     <string name="element_coolantTemperature">Θερμοκρασία ψυκτικού</string>
@@ -20,7 +20,7 @@
     <string name="element_lateralAcceleration">Πλευρικά G</string>
     <string name="element_longitudinalAcceleration">Διαμήκη G</string>
     <string name="element_navAltitude">Υψόμετρο</string>
-    <string name="element_navHeading">Heading</string>
+    <string name="element_navHeading">Κατεύθυνση</string>
     <string name="element_none">Κανένα</string>
     <string name="element_odometer">Οδόμετρο</string>
     <string name="element_oilTemperature">Θερμοκρασία λαδιού</string>
@@ -62,7 +62,7 @@
     <string name="pref_ticks_on">Εμφάνιση τιμής κροτώνων</string>
     <string name="element_torque_fuelpressure">Πίεση καυσίμου</string>
     <string name="element_torque_engineload">Φορτίο κινητήρα</string>
-    <string name="element_torque_timing_advance">Προώθηση χρόνου</string>
+    <string name="element_torque_timing_advance">Προπορεία ανάφλεξης(Αβάνς)</string>
     <string name="element_torque_throttle_position">Θέση γκαζιού (Πολλαπλή)</string>
     <string name="element_torque_turboboost">Πίεση υπερπλήρωσης Turbo</string>
     <string name="element_torque_phonebatterylevel">Επίπεδο μπαταρίας τηλεφώνου</string>
@@ -72,36 +72,37 @@
     <string name="element_torque_fuellevel">Επίπεδο καυσίμου</string>
     <string name="element_barometer">Βαρόμετρο</string>
     <string name="bg_vw">Ανακαλύψτε το Pro Sport</string>
-    <string name="bg_vw2">Ινα άνθρακα</string>
-    <string name="bg_vw3">Κέντρο προσοχής</string>
+    <string name="bg_vw2">Ανθρακόνημα</string>
+    <string name="bg_vw3">Spotlight</string>
     <string name="bg_vwplaid">GTI Tartan</string>
     <string name="bg_gte">GTE Tartan</string>
     <string name="bg_vwgtd">GTD Ταρτάν</string>
-    <string name="bg_black">Μαύρος</string>
+    <string name="bg_black">Μαύρο</string>
+    <string name="bg_cloth">Ύφασμα</string>
     <string name="bg_rock">Βράχος</string>
     <string name="bg_plain">Πεδιάδα</string>
     <string name="bg_seat">Γραμμές</string>
     <string name="bg_seat2">Σκοτεινό πλέγμα</string>
-    <string name="bg_skoda">Κολόμβος</string>
-    <string name="bg_skoda2">Κολόμβος Sport</string>
+    <string name="bg_skoda">Columbus</string>
+    <string name="bg_skoda2">Columbus Sport</string>
     <string name="bg_skodaone">OneApp</string>
     <string name="bg_test">Δοκιμή</string>
     <string name="bg_beetle">Herbie</string>
-    <string name="pref_background">Ιστορικό</string>
-    <string name="bg_dots">Αποσιωπητικά</string>
+    <string name="pref_background">Φόντο</string>
+    <string name="bg_dots">Βούλες</string>
     <string name="bg_aa">Android Auto</string>
     <string name="item_details_go_back">Πήγαινε πίσω</string>
     <string name="pid">PID</string>
     <string name="pidLabel">Επιγραφή</string>
     <string name="pidShowLabel">Εμφάνιση ετικέτας</string>
-    <string name="icon">Εικόνισμα</string>
+    <string name="icon">Εικονίδιο</string>
     <string name="torque_waiting">Αναμονή για να γίνει διαθέσιμο το Torque</string>
 
     <!-- Fuzzy -->
     <string name="min_value">Ελάχιστη τιμή</string>
 
     <!-- Fuzzy -->
-    <string name="max_value">Μέγιστη αξία</string>
+    <string name="max_value">Μέγιστη τιμή</string>
     <string name="num_screens">Αριθμός πινάκων εργαλείων προς εμφάνιση</string>
     <string name="unit">Μονάδα</string>
     <string name="dashboards">Ταμπλό</string>
@@ -128,12 +129,10 @@
     <string name="whole_numbers">Ολόκληροι αριθμοί</string>
     <string name="whole_numbers_desc">Εμφάνιση χωρίς δεκαδικά ψηφία</string>
     <string name="gauge_settings">Ρυθμίσεις μετρητή</string>
-
-    <!-- Fuzzy -->
     <string name="show_label_desc">Στις περισσότερες περιπτώσεις θέλετε να εμφανίσετε ένα εικονίδιο. Μπορείτε να εμφανίσετε μια ετικέτα εάν δεν μπορείτε να βρείτε ένα εικονίδιο που να ταιριάζει με το PID.</string>
     <string name="show_label_desc_clock">Εμφάνιση ετικέτας πάνω από το μετρητή</string>
     <string name="icon_null_desc">Επιλέξτε ένα εικονίδιο για να αναπαραστήσετε τη μέτρηση</string>
-    <string name="pref_shrink_gauge">Μεγάλο κεντρικό μετρητή</string>
+    <string name="pref_shrink_gauge">Μεγάλος κεντρικός μετρητής</string>
     <string name="pref_shrink_gauge_off">Μετρητές ίσου μεγέθους</string>
     <string name="pref_shrink_gauge_on">Δώστε έμφαση στο κεντρικό μετρητή</string>
     <string name="new_version">Μια νέα έκδοση είναι διαθέσιμη</string>
@@ -150,9 +149,9 @@
     <string name="convert_km_to_miles">Χιλιόμετρα σε Μίλια</string>
     <string name="boolean_logic">Boolean Logic</string>
     <string name="convert_newton_ft_lb">Νιούτομέτρα σε πόδι-λίβρες</string>
-    <string name="convert_cc_min_gal_hour">CC ανά λεπτό έως την ώρα του γαλονιού</string>
-    <string name="convert_liter_100_km">Λίτρο 100/χλμ σε Μίλια ανά Λίτρο </string>
-    <string name="convert_kpa_psi">Kilopascals (kPa) έως (PSI)</string>
+    <string name="convert_cc_min_gal_hour">CC ανά λεπτό σε Γαλόνι την ώρα</string>
+    <string name="convert_liter_100_km">Λίτρα/100χλμ σε Μίλια ανά Γαλόνι</string>
+    <string name="convert_kpa_psi">Kilopascals (kPa) σε (PSI)</string>
     <string name="status_setup_gauges">Ρύθμιση μετρητών στις ρυθμίσεις</string>
 
     <!-- Fuzzy -->
