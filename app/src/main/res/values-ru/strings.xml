@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="activity_credits_title">Авторы</string>
 
     <!-- Fuzzy -->
     <string name="activity_main_title">AA Torgue</string>
     <string name="activity_settings_title">Настройки</string>
+    <string name="activity_stopwatch_title">Секундомер</string>
     <string name="app_car_service_name">AA Torgue</string>
     <string name="app_name">AA Torgue</string>
     <string name="credits_author">На базе приложения:</string>
@@ -12,11 +14,13 @@
     <string name="element_batteryVoltage">Напряжение аккумулятора</string>
     <string name="element_coolantTemperature">Температура охлаждающей жидкости</string>
     <string name="element_gearboxOilTemperature">Коробка передач</string>
+    <string name="element_navAltitude">Высота</string>
     <string name="element_navHeading">Направление</string>
     <string name="element_none">Пусто</string>
     <string name="element_odometer">Одометр</string>
     <string name="element_oilTemperature">Температура масла</string>
     <string name="element_outsideTemperature">Температура за бортом</string>
+    <string name="element_soundVolume">Громкость</string>
     <string name="element_distance">Дистанция</string>
     <string name="element_eco">Эко</string>
     <string name="exhaust">Выхлоп</string>
@@ -40,6 +44,7 @@
     <string name="pref_theme">Тема</string>
     <string name="element_torque_fuelpressure">Давление топлива</string>
     <string name="element_torque_engineload">Нагрузка двигателя</string>
+    <string name="element_torque_turboboost">Давление турбины</string>
     <string name="element_torque_phonebatterylevel">Заряд батареи телефона</string>
     <string name="element_torque_phonebarometer">Барометр телефона</string>
     <string name="element_torque_intakemanifoldpressure">Впускной коллектор</string>
@@ -75,6 +80,7 @@
     <!-- Fuzzy -->
     <string name="rotary_input">Управление шайбой</string>
     <string name="rotary_desc">Убрать кнопки и использвать шайбу для управления</string>
+    <string name="custom_script">Конверсия ед.изм.</string>
     <string name="formulas">Формулы</string>
     <string name="status_connecting_torque">Соединение с Torque</string>
     <string name="status_connecting_to_ecu">Соединение с ECU</string>
@@ -93,6 +99,10 @@
     <string name="download">Загрузить</string>
     <string name="expressionDocumentation">Просмотр документации</string>
     <string name="copy_logs">Скопировать лог в буфер обмена</string>
+    <string name="convert_f_to_c">Фаренгейт в Цельсий</string>
+    <string name="convert_c_to_f">Цельсий в Фаренгейт</string>
+    <string name="convert_bar_psi">BAR в PSI</string>
+    <string name="convert_psi_bar">PSI в BAR</string>
     <string name="convert_km_to_miles">Километры в Мили</string>
     <string name="boolean_logic">Булева логика</string>
 
