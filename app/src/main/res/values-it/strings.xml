@@ -1,34 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="activity_credits_title">Crediti</string>
-    <string name="activity_main_title">Monitoraggio delle prestazioni</string>
-    <string name="activity_settings_title">Impostazioni di coppia AA</string>
+    <string name="activity_main_title">Monitor Prestazioni</string>
+    <string name="activity_settings_title">Impostazioni AA Torque</string>
     <string name="activity_stopwatch_title">Cronometro</string>
-    <string name="app_car_service_name">Coppia AA</string>
-    <string name="app_name">Coppia AA</string>
+    <string name="app_car_service_name">AA Torque</string>
+    <string name="app_name">AA Torque</string>
     <string name="credits_author">Basato sull\'app realizzata da:</string>
     <string name="credits_basedon">Basato sull\'SDK e sull\'app demo di:</string>
-    <string name="credits_drivesafely">Guidare in modo sicuro.</string>
+    <string name="credits_drivesafely">Guidate in modo sicuro.</string>
     <string name="credits_thanks">Ringraziamenti speciali a:</string>
     <string name="element_VIN">VIN</string>
     <string name="element_batteryVoltage">Voltaggio batteria</string>
     <string name="element_brakePressure">Pressione dei freni</string>
     <string name="element_coolantTemperature">Temperatura del refrigerante</string>
-    <string name="element_gearboxOilTemperature">Riduttore</string>
+    <string name="element_gearboxOilTemperature">Temperatura olio cambio</string>
     <string name="element_lateralAcceleration">G laterali</string>
     <string name="element_longitudinalAcceleration">G longitudinali</string>
     <string name="element_navAltitude">Altitudine</string>
-    <string name="element_navHeading">Intestazione</string>
+    <string name="element_navHeading">Direzione</string>
     <string name="element_none">Nessuno</string>
     <string name="element_odometer">Odometro</string>
     <string name="element_oilTemperature">Temperatura olio motore</string>
     <string name="element_outsideTemperature">Temperatura esterna</string>
     <string name="element_soundVolume">Volume avviso</string>
     <string name="element_wheelAngle">Angolo volante</string>
-    <string name="element_wheel">Ruota</string>
+    <string name="element_wheel">Volante</string>
     <string name="element_world">Mondo</string>
     <string name="element_yawRate">Imbardata</string>
-    <string name="element_cac">Raffreddamento</string>
+    <string name="element_cac">Raffreddamento turbo</string>
     <string name="element_distance">Distanza</string>
     <string name="element_ecoaverage">Media Eco</string>
     <string name="element_eco">Eco</string>
@@ -43,7 +43,7 @@
     <string name="element_wrench">Chiave inglese</string>
     <string name="element_tire">Pneumatico</string>
     <string name="pref_appearance">Aspetto</string>
-    <string name="pref_centerclock">Indicatore centrale</string>
+    <string name="pref_centerclock">Indicatori centrali</string>
     <string name="pref_font">Carattere</string>
     <string name="pref_highlow">Mostra valori min/max</string>
     <string name="pref_highlowmarks">Mostra i valori più alti nell\'indicatore</string>
@@ -60,11 +60,11 @@
     <string name="element_torque_engineload">Carico motore</string>
     <string name="element_torque_timing_advance">Anticipo</string>
     <string name="element_torque_throttle_position">Posizione acceleratore (Collettore)</string>
-    <string name="element_torque_turboboost">Pressione sovralimentazione turbo</string>
-    <string name="element_torque_phonebatterylevel">Batteria telefono</string>
+    <string name="element_torque_turboboost">Pressione turbo</string>
+    <string name="element_torque_phonebatterylevel">Livello batteria telefono</string>
     <string name="element_torque_phonebarometer">Barometro telefono</string>
-    <string name="element_torque_intakemanifoldpressure">Collettore aspirazione</string>
-    <string name="element_torque_catalysttemperature">Catalizzatore</string>
+    <string name="element_torque_intakemanifoldpressure">Pressione collettore aspirazione</string>
+    <string name="element_torque_catalysttemperature">Temperatura catalizzatore</string>
     <string name="element_torque_fuellevel">Livello carburante</string>
     <string name="element_barometer">Barometro</string>
     <string name="bg_vw">Discover Pro Sport</string>
@@ -95,21 +95,17 @@
     <string name="pidShowLabel">Mostra etichetta</string>
     <string name="icon">Icona</string>
     <string name="torque_waiting">In attesa che Torque torni disponibile</string>
-
-    <!-- Fuzzy -->
     <string name="min_value">Valore minimo</string>
-
-    <!-- Fuzzy -->
     <string name="max_value">Valore massimo</string>
-    <string name="num_screens">Numero quadri strumenti</string>
+    <string name="num_screens">Numero quadri visualizzati</string>
     <string name="unit">Unità</string>
-    <string name="dashboards">Quadri strumenti</string>
+    <string name="dashboards">Quadri</string>
     <string name="rotary_input">Manopola</string>
     <string name="rotary_desc">Disabilita i pulsanti e utilizza la manopola se in dotazione</string>
     <string name="enable_script">Esegui conversione unità</string>
     <string name="enable_script_desc">Esegui formula sull\'output</string>
     <string name="custom_script">Conversione unità</string>
-    <string name="custom_script_desc">Esegui espressione EvalEx. Usa a per il valore corrente</string>
+    <string name="custom_script_desc">Esegui espressione EvalEx. Usa A per il valore corrente</string>
     <string name="formulas">Formule</string>
     <string name="custom_expression">Espressione personalizzata</string>
     <string name="status_connecting_torque">Connessione a Torque…</string>
@@ -125,8 +121,8 @@
     <string name="gauge_settings">Impostazioni indicatore</string>
     <string name="show_label_desc">Normalmente è preferibile usare un\'icona, ma si può usare un\'etichetta se non è disponibile un\'icona corrispondente al PID.</string>
     <string name="show_label_desc_clock">Mostra etichetta sopra indicatore</string>
-    <string name="icon_null_desc">Seleziona icona per rappresentare la metrica</string>
-    <string name="pref_shrink_gauge">Indicatore centrale</string>
+    <string name="icon_null_desc">Seleziona icona per rappresentare la misura</string>
+    <string name="pref_shrink_gauge">Indicatore centrale più grande</string>
     <string name="pref_shrink_gauge_off">Indicatori di uguali dimensioni</string>
     <string name="pref_shrink_gauge_on">Enfatizza indicatore centrale</string>
     <string name="new_version">Nuova versione disponibile</string>
@@ -158,20 +154,16 @@
     <string name="force_update">Forza aggiornamento</string>
     <string name="update_failed">Controllo aggiornamento non riuscito</string>
     <string name="convert_minutes_seconds">Secondi in Minuti:Secondi</string>
-    <string name="donate">Dona!</string>
+    <string name="donate">Per favore dona!</string>
     <string name="translate">Traduci</string>
     <string name="pref_chart_title">Colore linea del grafico</string>
     <string name="pref_chart_summary">Colore da usare per tracciare le linee sul grafico</string>
-    <string name="bg_ev">Electro Vehicle</string>
+    <string name="bg_ev">Veicolo elettrico</string>
     <string name="minmax_below">Min/Max sotto l\'indicatore</string>
-    <string name="minmax_below_desc">Posiziona i valori min/max sotto l\'indicatore senza sovrapporsi all\'indicatore</string>
+    <string name="minmax_below_desc">Posiziona i valori min/max sotto l\'indicatore invece che sovrapposti all\'indicatore</string>
     <string name="media">Media</string>
-
-    <!-- Fuzzy -->
     <string name="media_background_title">Sfondo media</string>
     <string name="media_background_summary">Usa copertina come sfondo (beta)</string>
-
-    <!-- Fuzzy -->
     <string name="opacity_title">Opacità indicatore</string>
     <string name="opacity_summary">Attenua indicatori per enfatizzare lo sfondo</string>
     <string name="media_blur_title">Sfoca la grafica</string>
@@ -179,11 +171,11 @@
     <string name="media_darken_title">Scurisci la grafica</string>
     <string name="media_darken_summary">Scurisci la grafica per migliorare la leggibilità</string>
     <string name="enabled">Abilitato</string>
-    <string name="enabled_desc_on">Mostra questo articolo</string>
+    <string name="enabled_desc_on">Mostra questo elemento</string>
     <string name="enabled_desc_off">Nascondi questo elemento</string>
     <string name="alarms">Allarmi</string>
     <string name="alarms_desc">Cambia colore in base al valore per implementare cose come luci di cambio o avvisi di temperatura. </string>
-    <string name="add_item">Aggiungi articolo</string>
+    <string name="add_item">Aggiungi elemento</string>
     <string name="color_instruct">Verrà utilizzato il primo elemento corrispondente. Gli elementi sono ordinati nel seguente ordine:\n• uguaglianza\n• maggiore di (prima il più alto)\n• inferiore a (prima il più basso)</string>
     <string name="condition">Condizione</string>
     <string name="value">Valore</string>
