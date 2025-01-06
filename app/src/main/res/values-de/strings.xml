@@ -13,7 +13,7 @@
     <string name="credits_drivesafely">Fahren Sie vorsichtig.</string>
     <string name="credits_thanks">Besonderen Dank an:</string>
     <string name="element_VIN">Fahrgestellnummer</string>
-    <string name="element_batteryVoltage">Spannung der 12 V-Batterie</string>
+    <string name="element_batteryVoltage">Batteriespannung</string>
     <string name="element_brakePressure">Bremsdruck</string>
     <string name="element_coolantTemperature">Kühlmitteltemperatur</string>
     <string name="element_gearboxOilTemperature">Getriebetemperatur</string>
