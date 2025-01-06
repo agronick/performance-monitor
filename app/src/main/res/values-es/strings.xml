@@ -205,4 +205,11 @@
     <string name="enabled">Habilitado</string>
     <string name="enabled_desc_on">Mostrar este elemento</string>
     <string name="enabled_desc_off">Ocultar este elemento</string>
+    <string name="alarms">Alarmas</string>
+    <string name="alarms_desc">Cambie el color según el valor para implementar cosas como luces de cambio o advertencias de temperatura. </string>
+    <string name="add_item">Añadir artículo</string>
+    <string name="color_instruct">Se utilizará el primer elemento que coincida. Los artículos se clasifican en el siguiente orden:\n• igualdad\n• mayor que (el más alto primero)\n• menos que (el más bajo primero)</string>
+    <string name="condition">Condición</string>
+    <string name="value">Valor</string>
+    <string name="color">Color</string>
 </resources>
