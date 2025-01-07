@@ -44,14 +44,6 @@
 
         <CheckBoxPreference
             android:defaultValue="false"
-            android:key="rotaryInput"
-            android:summary="@string/rotary_desc"
-            android:persistent="false"
-            android:title="@string/rotary_input"
-             />
-
-        <CheckBoxPreference
-            android:defaultValue="false"
             android:key="minMaxBelow"
             android:summary="@string/minmax_below_desc"
             android:persistent="false"

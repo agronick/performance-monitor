@@ -31,7 +31,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
     lateinit var themePref: ImageListPreference
     lateinit var fontPref: ImageListPreference
     lateinit var centerGaugeLargePref: CheckBoxPreference
-    lateinit var rotaryInputPref: CheckBoxPreference
     lateinit var minMaxBelowPref: CheckBoxPreference
     lateinit var mediaBgPref: CheckBoxPreference
     lateinit var opacityPref: SeekBarPreference
@@ -47,7 +46,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
         themePref = findPreference("selectedTheme")!!
         fontPref = findPreference("selectedFont")!!
         centerGaugeLargePref = findPreference("centerGaugeLarge")!!
-        rotaryInputPref = findPreference("rotaryInput")!!
         minMaxBelowPref = findPreference("minMaxBelow")!!
         mediaBgPref = findPreference("mediaBg")!!
         opacityPref = findPreference("gaugeOpacity")!!
@@ -111,12 +109,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
             }
             return@setOnPreferenceChangeListener true
         }
-        rotaryInputPref.setOnPreferenceChangeListener { preference, newValue ->
-            updateDatastorePref {
-                it.setRotaryInput(newValue as Boolean)
-            }
-            return@setOnPreferenceChangeListener true
-        }
         minMaxBelowPref.setOnPreferenceChangeListener { preference, newValue ->
             updateDatastorePref {
                 it.setMinMaxBelow(newValue as Boolean)
@@ -171,7 +163,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 fontPref.value = it.selectedFont
                 backgroundPref.value = it.selectedBackground
                 centerGaugeLargePref.isChecked = it.centerGaugeLarge
-                rotaryInputPref.isChecked = it.rotaryInput
                 minMaxBelowPref.isChecked = it.minMaxBelow
                 mediaBgPref.isChecked =
                     it.albumArt && NotiService.isNotificationAccessEnabled(requireContext())

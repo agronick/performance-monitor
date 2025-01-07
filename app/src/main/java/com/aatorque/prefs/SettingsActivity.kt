@@ -33,12 +33,14 @@ import com.aatorque.stats.BuildConfig
 import com.aatorque.stats.CreditsFragment
 import com.aatorque.stats.R
 import com.google.android.material.snackbar.Snackbar
+import com.google.protobuf.InvalidProtocolBufferException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import org.json.JSONException
 import org.json.JSONObject
 import timber.log.Timber
+import java.io.IOException
 import java.net.ConnectException
 import java.net.HttpURLConnection
 import java.net.URL
@@ -225,8 +227,16 @@ class SettingsActivity : AppCompatActivity(),
         if (uri != null) {
             val inStream = contentResolver.openInputStream(uri)
             this@SettingsActivity.lifecycleScope.launch {
-                this@SettingsActivity.applicationContext.dataStore.updateData {
-                    return@updateData UserPreference.parseFrom(inStream)
+                try {
+                    this@SettingsActivity.applicationContext.dataStore.updateData {
+                        return@updateData UserPreference.parseFrom(inStream)
+                    }
+                } catch (e: InvalidProtocolBufferException) {
+                    Toast.makeText(
+                        baseContext,
+                        R.string.invalid_settings,
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
         }
@@ -341,6 +351,8 @@ class SettingsActivity : AppCompatActivity(),
         } catch (e: ConnectException) {
             return false
         } catch (e: SSLException) {
+            return false
+        } catch (e: IOException) {
             return false
         }
         try {
