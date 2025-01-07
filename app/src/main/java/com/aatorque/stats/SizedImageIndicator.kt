@@ -13,8 +13,7 @@ class SizedImageIndicator
  * center indicator position will be center of speedometer.
  * @param context you can use `applicationContext`.
  * @param bitmapIndicator the indicator.
- */
-constructor(context: Context, private val bitmapIndicator: Drawable) : Indicator<ImageIndicator>(context) {
+ */(context: Context, private val bitmapIndicator: Drawable) : Indicator<ImageIndicator>(context) {
 
     override fun draw(canvas: Canvas) {
         bitmapIndicator.draw(canvas)
@@ -22,7 +21,7 @@ constructor(context: Context, private val bitmapIndicator: Drawable) : Indicator
 
     override fun updateIndicator() {
         val size = (speedometer?.size ?: 250)
-        bitmapIndicator.setBounds(0, 0, size,  size)
+        bitmapIndicator.setBounds(0, 0, size, size)
     }
 
     override fun setWithEffects(withEffects: Boolean) {}
