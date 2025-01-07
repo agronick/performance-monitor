@@ -194,4 +194,5 @@
     <string name="condition">Condition</string>
     <string name="value">Value</string>
     <string name="color">Color</string>
+    <string name="invalid_settings">Attempted to import invalid settings file.</string>
 </resources>

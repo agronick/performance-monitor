@@ -56,6 +56,7 @@ class TorqueGauge : Fragment() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
+        if (!::binding.isInitialized) return
         outState.putBoolean("ticksOn", binding.ticksOn == true)
         outState.putInt("maxMarksOn", binding.showLimitMarked?.number ?: MaxControl.OFF_VALUE)
         outState.putInt("maxOn", binding.showLimitBelow?.number ?: MaxControl.OFF_VALUE)
