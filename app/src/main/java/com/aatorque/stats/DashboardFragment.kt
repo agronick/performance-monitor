@@ -14,6 +14,7 @@ import android.graphics.Shader
 import android.media.MediaMetadata
 import android.os.Build
 import android.os.Bundle
+import android.view.GestureDetector
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -94,6 +95,7 @@ open class DashboardFragment : AlbumArt() {
         const val DISPLAY_OFFSET = 3
     }
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         settingsViewModel = ViewModelProvider(this)[SettingsViewModel::class.java]
@@ -118,8 +120,9 @@ open class DashboardFragment : AlbumArt() {
                 val screenIndex = abs(it.currentScreen) % it.screensCount
                 val screens = it.screensList[screenIndex]
                 val showChartChanged = binding.showChart != it.showChart
-                binding.title = screens.title
-                settingsViewModel.chartVisible.value = it.showChart
+            binding.title = screens.title
+            binding.showBtns = false
+            settingsViewModel.chartVisible.value = it.showChart
                 settingsViewModel.minMaxBelow.value = it.minMaxBelow
                 shouldDisplayArtwork = it.albumArt
 
@@ -195,13 +198,6 @@ open class DashboardFragment : AlbumArt() {
         }
         registerWithView {
             data -> data.map {
-                it.rotaryInput
-            }.distinctUntilChanged().collect(
-                this@DashboardFragment::configureRotaryInput
-            )
-        }
-        registerWithView {
-            data -> data.map {
                 it.centerGaugeLarge
             }.distinctUntilChanged().collect(
                 this@DashboardFragment::updateScale
@@ -236,7 +232,7 @@ open class DashboardFragment : AlbumArt() {
             binding.minMaxBelow = it
         }
 
-        this.rootView = binding.root
+        rootView = binding.root
 
         mLayoutDashboard = rootView.findViewById(R.id.layoutDashboard)
         mBtnNext = binding.nextBtn
@@ -262,14 +258,52 @@ open class DashboardFragment : AlbumArt() {
         displays[3]!!.isBottomDisplay = true
         torqueChart = childFragmentManager.findFragmentById(R.id.chartFrag)!! as TorqueChart
         val filter = IntentFilter().apply { addAction("KEY_DOWN") }
-        LocalBroadcastManager.getInstance(requireContext()).registerReceiver(object: BroadcastReceiver(){
-            override fun onReceive(p0: Context?, intent: Intent?) {
-                if (intent?.getIntExtra("KEY_CODE", 0) == KeyEvent.KEYCODE_DPAD_CENTER) {
-                    toggleShowChart(binding.showChart != true)
+        LocalBroadcastManager.getInstance(requireContext())
+            .registerReceiver(object : BroadcastReceiver() {
+                override fun onReceive(p0: Context?, intent: Intent?) {
+                    if (intent?.getIntExtra("KEY_CODE", 0) == KeyEvent.KEYCODE_DPAD_CENTER) {
+                        toggleShowChart(binding.showChart != true)
+                    }
                 }
+            }, filter)
+        val gestureDetector =
+            GestureDetector(rootView.context, object : GestureDetector.SimpleOnGestureListener() {
+                override fun onFling(
+                    e1: MotionEvent?,
+                    e2: MotionEvent,
+                    velocityX: Float,
+                    velocityY: Float
+                ): Boolean {
+                    if (e1 != null) {
+                        val diffX = e2.x - e1.x
+                        val diffY = e2.y - e1.y
+
+                        // Set a minimum swipe distance threshold (e.g., 100 pixels)
+                        if (abs(diffX) > abs(diffY) && abs(diffX) > 100) {
+                            if (diffX > 0) {
+                                // Swipe Right
+                                setScreen(-1)
+                            } else {
+                                // Swipe Left
+                                setScreen(1)
+                            }
+                            return true
+                        } else if (abs(diffY) > abs(diffX) && abs(diffY) > 100) {
+                            toggleShowChart(binding.showChart != true)
+                        }
+                    }
+                    return false
+                }
+            })
+        rootView.setOnTouchListener { v, event ->
+            gestureDetector.onTouchEvent(event)
+            if (event.action == MotionEvent.ACTION_UP) {
+                v.performClick() // Handle accessibility
             }
-        }, filter)
-        return this.rootView
+            true
+        }
+        configureRotaryInput()
+        return rootView
     }
 
 
@@ -402,19 +436,16 @@ open class DashboardFragment : AlbumArt() {
         binding.backgroundResource = resource
     }
 
-    fun configureRotaryInput(enabled: Boolean) {
-        binding.showBtns = !enabled
-        if (enabled) {
-            rootView.setOnGenericMotionListener { _, ev ->
-                if (ev.action == MotionEvent.ACTION_SCROLL &&
-                    ev.isFromSource(InputDeviceCompat.SOURCE_MOUSE)
-                ) {
-                    val delta = ev.getAxisValue(MotionEvent.AXIS_VSCROLL)
-                    setScreen(if (delta < 0) 1 else -1)
-                    true
-                } else {
-                    false
-                }
+    fun configureRotaryInput() {
+        rootView.setOnGenericMotionListener { _, ev ->
+            if (ev.action == MotionEvent.ACTION_SCROLL &&
+                ev.isFromSource(InputDeviceCompat.SOURCE_MOUSE)
+            ) {
+                val delta = ev.getAxisValue(MotionEvent.AXIS_VSCROLL)
+                setScreen(if (delta < 0) 1 else -1)
+                true
+            } else {
+                false
             }
         }
     }

@@ -203,13 +203,13 @@
                     android:name="com.aatorque.stats.TorqueChart"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:elevation="1dp"
                     android:layout="@layout/fragment_chart"
                     android:visibility="@{showChart ? View.VISIBLE : View.GONE}"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintRight_toLeftOf="@id/display1"/>
+
 
                 <androidx.fragment.app.FragmentContainerView
                     android:id="@+id/gaugeLeft"
